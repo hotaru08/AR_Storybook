@@ -80,7 +80,7 @@ public class MarkerController : MonoBehaviour
             else if (image.TrackingState == TrackingState.Stopped && visualizer != null)
             {
                 m_Visualizers.Remove(image.DatabaseIndex);
-                GameObject.Destroy(visualizer.gameObject);
+                Destroy(visualizer.gameObject);
             }
             m_debuggingText.text = "Tracking ...\nImage: " + image.Name.ToString() + "\nVisualiser: " + visualizer.name.ToString();
         }

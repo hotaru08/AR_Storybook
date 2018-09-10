@@ -28,6 +28,11 @@ public class ARImageVisualiser : MonoBehaviour
     public Text m_debugText;
 
     /// <summary>
+    /// Store the generated object
+    /// </summary>
+    private GameObject m_generatedObject;
+
+    /// <summary>
     /// Unity Start Method
     /// </summary>
     public void Awake()
@@ -47,18 +52,39 @@ public class ARImageVisualiser : MonoBehaviour
             return;
         }
 
+        /// 1)
         /// Switch Mesh of this Visualiser to be Object that is assigned to the image
         /// Database index => object index in list
-        this.GetComponent<MeshFilter>().mesh = m_objectList[m_image.DatabaseIndex].GetComponent<MeshFilter>().mesh;
-        this.GetComponent<Renderer>().material = m_objectList[m_image.DatabaseIndex].GetComponent<Renderer>().material;
+        //this.GetComponent<MeshFilter>().mesh = m_objectList[m_image.DatabaseIndex].GetComponent<MeshFilter>().mesh;
+        //this.GetComponent<Renderer>().material = m_objectList[m_image.DatabaseIndex].GetComponent<Renderer>().material;
 
         /// Render Debug Text
-        m_debugText.text = "Pos: " + transform.position + "\n"
-                         + "Camera Pos: " + Camera.main.transform.position + "\n"
-                         + "Mesh: " + this.GetComponent<MeshFilter>().mesh + "\n"
-                         + "Image Name: " + m_image.Name + "\n"
-                         + "GameObject: " + gameObject.name.ToString() + "\n"
-                         + "Active: " + gameObject.activeSelf.ToString();
+        //m_debugText.text = "Pos: " + transform.position + "\n"
+        //                 + "Camera Pos: " + Camera.main.transform.position + "\n"
+        //                 + "Mesh: " + this.GetComponent<MeshFilter>().mesh + "\n"
+        //                 + "Image Name: " + m_image.Name + "\n"
+        //                 + "GameObject: " + gameObject.name.ToString() + "\n"
+        //                 + "Active: " + gameObject.activeSelf.ToString();
+
+        /// 2)
+        /// Generate Gameobject on top of this Visualiser
+        /// Instantiate it, and Destroy it ( Database index => object index in list ) 
+        /// ** This method will require data to be saved before destroying
+        if (m_generatedObject == null)
+        {
+            m_generatedObject = Instantiate(m_objectList[m_image.DatabaseIndex], this.transform.position, this.transform.rotation);
+            m_generatedObject.transform.parent = this.transform;
+        }
+
+
+        m_debugText.text = "Name: " + m_generatedObject.name + "\n"
+                         + "Pos: " + m_generatedObject.transform.position + "\n"
+                         + "Rot: " + m_generatedObject.transform.rotation + "\n"
+                         + "Scale: " + m_generatedObject.transform.localScale + "\n"
+                         + "Parent: " + m_generatedObject.transform.parent + "\n"
+                         + "Active: " + m_generatedObject.activeSelf;
+
+
     }
 }
 
