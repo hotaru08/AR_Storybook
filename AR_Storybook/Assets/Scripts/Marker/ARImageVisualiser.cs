@@ -70,12 +70,16 @@ public class ARImageVisualiser : MonoBehaviour
         /// Generate Gameobject on top of this Visualiser
         /// Instantiate it, and Destroy it ( Database index => object index in list ) 
         /// ** This method will require data to be saved before destroying
-        if (m_generatedObject == null)
+        if (m_generatedObject != null)
+        {
+            this.GetComponent<Renderer>().enabled = false; // dont render visualiser mesh
+        }
+        else // render once 
         {
             m_generatedObject = Instantiate(m_objectList[m_image.DatabaseIndex], this.transform.position, this.transform.rotation);
             m_generatedObject.transform.parent = this.transform;
         }
-
+        
 
         m_debugText.text = "Name: " + m_generatedObject.name + "\n"
                          + "Pos: " + m_generatedObject.transform.position + "\n"

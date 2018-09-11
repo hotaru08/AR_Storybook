@@ -8,8 +8,6 @@ using UnityEngine.SceneManagement;
 /// </summary>
 public class ChangeScene : MonoBehaviour
 {
-
-
     /// <summary>
     /// Changing to SceneMarker
     /// </summary>
@@ -24,5 +22,16 @@ public class ChangeScene : MonoBehaviour
     public void ChangeToSceneMarkerless()
     {
         SceneManager.LoadScene("SceneMarkerless");
+    }
+
+    /// <summary>
+    /// Quit the application ( any device, not working in editor )
+    /// </summary>
+    public void QuitGame()
+    {
+#if UNITY_EDITOR
+        Debug.Log("Application Quitting ... ");
+#endif
+        Application.Quit();
     }
 }
