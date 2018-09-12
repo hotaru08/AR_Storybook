@@ -4,43 +4,71 @@ using UnityEngine;
 
 public class OnClickGameObject : MonoBehaviour {
 
-    [Tooltip("Set this GO to be active or inactive.")]
-    public GameObject GameobjectToBeSet;
+    //[Tooltip("Set this GO to be active or inactive.")]
+    //public GameObject GameobjectToBeSet;
 
-    [Tooltip("Set active or inactive.")]
-    public bool b_Active;
+    //[Tooltip("Set active or inactive.")]
+    //public bool b_Active;
 
-    [Tooltip("Name of GO that is to be clicked")]
-    public string ClickableGameobjectName;
+    //[Tooltip("Name of GO that is to be clicked")]
+    //public string ClickableGameobjectName;
+
+    //[Tooltip("List of GO to be set inactive")]
+    //public List<GameObject> inactiveList;
+    [SerializeField]
+    private GameObject m_holder;
+    private int index = 0;
 
     Ray ray;
     RaycastHit hit;
 
-
     // Use this for initialization
-    void Start () {
-		
+    void Start ()
+    {
 	}
-	
-	// Update is called once per frame
-	void Update () {
-        if (GameobjectToBeSet.activeSelf == true)
-            b_Active = true;
-        else
-            b_Active = false;
 
-        ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        if (Physics.Raycast(ray, out hit))
+    // Update is called once per frame
+    void Update()
+    {
+        // When clicked, cast a ray from point
+        if (Input.GetMouseButtonDown(0))
         {
-            if (hit.collider.name == ClickableGameobjectName)
+            ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            if (Physics.Raycast(ray, out hit))
             {
-                if (Input.GetMouseButtonDown(0) && !b_Active) //if click and if not active
+                // Check if object hit is in list
+                foreach (GameObject _objtest in m_holder.GetComponentInChildren<ListHolder>().GOList)
                 {
+                    if (hit.collider.name == _objtest.name)
+                        break;
+                    else // not same name
+                    {
+                        if (index != m_holder.GetComponentInChildren<ListHolder>().GOList.Count - 1)
+                        {
+                            index++;
+                            continue;
+                        }
+                        else
+                        {
+                            index = 0;
+                            return;
+                        }
+                    }
+                }
+
+                // Setting UI activeness
+                foreach (GameObject _obj in m_holder.GetComponentInChildren<ListHolder>().GOList)
+                {
+                    if (hit.collider.name != _obj.name)
+                    {
+                        _obj.transform.GetChild(0).gameObject.SetActive(false);
+                        continue;
+                    }
+
                     print(hit.collider.name); //print in debug name of GO
-                    GameobjectToBeSet.SetActive(true); //Set the GO to be active
+                    _obj.transform.GetChild(0).gameObject.SetActive(true);
                 }
             }
-            
         }
     }
 }
