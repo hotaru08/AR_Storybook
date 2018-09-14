@@ -32,6 +32,9 @@ public class ARImageVisualiser : MonoBehaviour
     /// </summary>
     private GameObject m_generatedObject;
 
+
+    public float m_elapsedTime = 0;
+
     /// <summary>
     /// Unity Start Method
     /// </summary>
@@ -78,15 +81,17 @@ public class ARImageVisualiser : MonoBehaviour
         {
             m_generatedObject = Instantiate(m_objectList[m_image.DatabaseIndex], this.transform.position, this.transform.rotation);
             m_generatedObject.transform.parent = this.transform;
+            m_generatedObject.transform.localScale = new Vector3(m_image.ExtentX, 1.0f, m_image.ExtentZ);
         }
-        
+        m_elapsedTime += Time.deltaTime * 2;
 
         m_debugText.text = "Name: " + m_generatedObject.name + "\n"
                          + "Pos: " + m_generatedObject.transform.position + "\n"
                          + "Rot: " + m_generatedObject.transform.rotation + "\n"
                          + "Scale: " + m_generatedObject.transform.localScale + "\n"
                          + "Parent: " + m_generatedObject.transform.parent + "\n"
-                         + "Active: " + m_generatedObject.activeSelf;
+                         + "Active: " + m_generatedObject.activeSelf + "\n"
+                         + "Tracking State: " + m_image.TrackingState.ToString();
 
 
     }

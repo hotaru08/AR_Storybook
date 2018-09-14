@@ -34,6 +34,10 @@ public class MarkerController : MonoBehaviour
     /// Debug
     /// </summary>
     public Text m_debuggingText;
+    public Text m_trackingStateDebug;
+    public Text m_trackingStateDebug2;
+    public Text m_trackingStateDebug3;
+
 
     /// <summary>
     /// Unity Start Method
@@ -48,19 +52,20 @@ public class MarkerController : MonoBehaviour
     /// </summary>
     public void Update()
     {
+        
         // Check that motion tracking is tracking ( eg. if there is no image being tracked )
         if (Session.Status != SessionStatus.Tracking)
         {
-            m_debuggingText.text = "Not Tracking";
+            //m_debuggingText.text = "Not Tracking";
             return;
         }
-        
-        // If there is any images being updated, it will be added to the list
-        Session.GetTrackables<AugmentedImage>(m_TempAugmentedImagesList, TrackableQueryFilter.Updated);
+
+        // If there is any images, it will be added to the list
+        Session.GetTrackables<AugmentedImage>(m_TempAugmentedImagesList, TrackableQueryFilter.All);
 
         // Set visualisers on top of the images in the list
         SetVisualisersOnImages();
-        
+
         // Show the overlay for tracking 
         ShowOverlay();
     }
@@ -72,8 +77,6 @@ public class MarkerController : MonoBehaviour
     {
         foreach (var _image in m_TempAugmentedImagesList)
         {
-            m_debuggingText.text = "";
-
             // Get visualiser from image in list and store it
             ARImageVisualiser m_visualiser = null;
             m_visualiser = GetVisualiser(_image, m_visualiser);
@@ -81,28 +84,50 @@ public class MarkerController : MonoBehaviour
             // if there is no visualiser for that image and it is tracked, add one
             if (m_visualiser == null && _image.TrackingState == TrackingState.Tracking)
             {
+                m_debuggingText.text = "Visualiser is being added! " + _image.Name;
                 AddVisualiser(_image);
             }
-            // if there is visualiser for that image but image is not being tracked anymore, remove it
-            else if (m_visualiser != null && _image.TrackingState == TrackingState.Stopped)
+            else if (_image.TrackingState != TrackingState.Tracking && m_visualiser != null)
             {
-                m_debuggingText.text = "Visualiser is being removed!";
-                RemoveVisualiser(_image, m_visualiser);
+                //m_debuggingText.text = "Visualiser is being removed! " + _image.Name;
+                RemoveVisualiser(_image, m_visualiser); // -> not removing visualliser
+                if (m_visualiser == null)
+                    m_debuggingText.text = "YES it is null";
+
+                m_debuggingText.text = "its not null: " + m_visualiser;
+
+
             }
 
-            // Debugging
-            //m_debuggingText.text += "Tracking ...\nImage: " + _image.Name.ToString() 
-            //                     + "\nVisualiser: " + m_visualiser.name.ToString()
-            //                     + "\nParent: " + m_visualiser.transform.parent;
+            //if (m_visualiser.m_elapsedTime > 2.0f && m_visualiser != null)
+            //{
+            //    RemoveVisualiser(_image, m_visualiser); // -> not removing visualliser
+            //    if (m_visualiser == null)
+            //        m_debuggingText.text = "YES it is null";
+
+            //    m_debuggingText.text = "its not null: " + m_visualiser;
+            //    m_visualiser.m_elapsedTime = 0.0f;
+            //}
+
+            if (_image.Name == "004")
+            {
+                m_trackingStateDebug.text = "Image: " + _image.Name + "\nImage Tracking State: " 
+                    + _image.TrackingState + "\nVisualiser: " + m_visualiser.gameObject.ToString();
+            }
+            if (_image.Name == "001")
+                m_trackingStateDebug2.text = "Image: " + _image.Name + "\nImage Tracking State: " 
+                    + _image.TrackingState + "\nVisualiser: " + m_visualiser.gameObject.ToString();
+
+            
         }
     }
 
     /// <summary>
     /// Add Visualiser and anchors for updated augmented images that are tracking and do not previously have a visualizer
     /// </summary>
-    private void AddVisualiser(AugmentedImage _imageToAddTo)
+    public void AddVisualiser(AugmentedImage _imageToAddTo)
     {
-        // Create an anchor at centre of image to ensure that ARCore keeps tracking this augmented image.
+        // Create an anchor at centre of image to ensure that transformation is relative to real world
         Anchor anchor = _imageToAddTo.CreateAnchor(_imageToAddTo.CenterPose);
         // Create new visualiser and set as anchor's child ( so to keep the visualiser in that place )
         ARImageVisualiser visualizer = Instantiate(AugmentedImageVisualizerPrefab, anchor.transform) as ARImageVisualiser;
@@ -115,19 +140,12 @@ public class MarkerController : MonoBehaviour
     /// <summary>
     /// Remove a Visualiser from an image if it stops updating
     /// </summary>
-    private void RemoveVisualiser(AugmentedImage _imageToRemoveFrom, ARImageVisualiser _visualiserToRemove)
+    public void RemoveVisualiser(AugmentedImage _imageToRemoveFrom, ARImageVisualiser _visualiserToRemove)
     {
-        // Remove all childs of the visualiser
-        //for (int i = _visualiserToRemove.transform.childCount - 1; i >= 0; --i)
-        //{
-        //    Transform child = transform.GetChild(i);
-        //    Destroy(child.gameObject);
-        //}
-
-        // Remove Visualiser from image and Destroys it 
-        m_debuggingText.text = "Visualiser is removed: " + _visualiserToRemove.name.ToString() + "\nParent: " + _visualiserToRemove.transform.parent;
+        // Remove Visualiser from image and Destroys it
         m_Visualizers.Remove(_imageToRemoveFrom.DatabaseIndex);
         Destroy(_visualiserToRemove.gameObject);
+        //m_debuggingText.text = "Visualiser removed! \nImage: " + _imageToRemoveFrom.Name + " \nGO: " + _visualiserToRemove.gameObject.ToString();
     }
 
     /// <summary>

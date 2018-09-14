@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 33627767262967048}
   - component: {fileID: 23748093789380700}
   - component: {fileID: 135659507147767120}
-  - component: {fileID: 114802685800295778}
+  - component: {fileID: 114727762300633762}
   m_Layer: 0
   m_Name: AR_Visualiser
   m_TagString: Untagged
@@ -58,7 +58,7 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 2100000, guid: fcc841b0f08d54d44a6867871066bc5b, type: 2}
+  - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -85,7 +85,7 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1661965539896788}
   m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
---- !u!114 &114802685800295778
+--- !u!114 &114727762300633762
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -93,15 +93,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 1661965539896788}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f82eddbeac525f744acec0ac1e64edd4, type: 3}
+  m_Script: {fileID: 11500000, guid: cc780505e9ab6ca4fa7f0bf6700dfc72, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_objectList:
-  - {fileID: 1733315762101672, guid: 1149fd1c44f909a42964319814f84441, type: 2}
-  - {fileID: 1915519969977898, guid: a13ce970dbf48fb41aabf3e297ffc3f3, type: 2}
-  - {fileID: 1406182146316570, guid: a5924cafe9766314c9afa28161e074ea, type: 2}
-  - {fileID: 1857299057398184, guid: 85e6232f369bb054aa8f31de408b69de, type: 2}
-  - {fileID: 1068744883260528, guid: eb25830bcd3adf04081b50efe32aa5cc, type: 2}
+  - {fileID: 1733315762101672, guid: d150d0f575ca088419113aed4d887df4, type: 2}
+  - {fileID: 1915519969977898, guid: 21979321d565f2845a040cfc7df83ea6, type: 2}
+  - {fileID: 1406182146316570, guid: c18e807a7176bef439b3ac734c347e8f, type: 2}
+  - {fileID: 1068744883260528, guid: 8392c84cec7739547989a2e81c02182d, type: 2}
+  - {fileID: 1857299057398184, guid: 65242d90821428d4b92d459a5297181a, type: 2}
   m_debugText: {fileID: 0}
 --- !u!135 &135659507147767120
 SphereCollider:
