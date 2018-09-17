@@ -95,5 +95,11 @@ public class ARImageVisualiser : MonoBehaviour
 
 
     }
+
+    public void OnDestroy()
+    {
+        //Destroy the generated GameObject when ARImageVisualiser is destroyed.
+        Destroy(m_generatedObject);
+    }
 }
 
