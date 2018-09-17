@@ -15,12 +15,12 @@ public class VisualizerTest : MonoBehaviour
     /// <summary>
     /// List of all tracked images.
     /// </summary>
-    public List<AugmentedImage> m_newTrackedImages = new List<AugmentedImage>();
+    public List<AugmentedImage> m_newTrackedImages;
 
     /// <summary>
     /// Reference to visualized object.
     /// </summary>
-    public List<ARImageVisualiser> m_listOfVisualizedObjects = new List<ARImageVisualiser>();
+    public List<ARImageVisualiser> m_listOfVisualizedObjects;
 
     /// <summary>
     /// Debug texts.
@@ -28,6 +28,12 @@ public class VisualizerTest : MonoBehaviour
     public Text m_debuggingText;
     public Text m_trackingStateDebug;
     public Text m_trackingStateDebug2;
+
+    private void Start()
+    {
+        m_newTrackedImages = new List<AugmentedImage>();
+        m_listOfVisualizedObjects = new List<ARImageVisualiser>();
+    }
 
     private void Update()
     {
@@ -43,6 +49,10 @@ public class VisualizerTest : MonoBehaviour
             //Add objects to the scene
             AddVisualizerObjects();
         }
+
+        //DEBUGGING
+        m_debuggingText.text = "New Images Count: " + m_newTrackedImages.Count + "\n";
+        m_debuggingText.text += "Visualizers in the scene: " + m_listOfVisualizedObjects.Count;
     }
 
     void AddVisualizerObjects()
