@@ -52,13 +52,12 @@ public class MarkerController : MonoBehaviour
     /// </summary>
     public void Update()
     {
-        
         // Check that motion tracking is tracking ( eg. if there is no image being tracked )
-        if (Session.Status != SessionStatus.Tracking)
-        {
-            //m_debuggingText.text = "Not Tracking";
-            return;
-        }
+        //if (Session.Status != SessionStatus.Tracking)
+        //{
+        //    //m_debuggingText.text = "Not Tracking";
+        //    return;
+        //}
 
         // If there is any images, it will be added to the list
         Session.GetTrackables<AugmentedImage>(m_TempAugmentedImagesList, TrackableQueryFilter.All);
@@ -81,44 +80,50 @@ public class MarkerController : MonoBehaviour
             ARImageVisualiser m_visualiser = null;
             m_visualiser = GetVisualiser(_image, m_visualiser);
 
+            if (m_visualiser == null)
+                m_debuggingText.text = "YES it is null : " + m_visualiser;
+            if (m_visualiser != null)
+                m_debuggingText.text = "NO its not null : " + m_visualiser;
+
+            // SINGLE TRACKING -------- delete and remove old image obj?
+
+
+
+
             // if there is no visualiser for that image and it is tracked, add one
             if (m_visualiser == null && _image.TrackingState == TrackingState.Tracking)
             {
-                m_debuggingText.text = "Visualiser is being added! " + _image.Name;
+                //m_debuggingText.text = "Visualiser is being added! " + _image.Name;
                 AddVisualiser(_image);
             }
             else if (_image.TrackingState != TrackingState.Tracking && m_visualiser != null)
             {
                 //m_debuggingText.text = "Visualiser is being removed! " + _image.Name;
+                m_trackingStateDebug.text = "Count of Dictionary: " + m_Visualizers.Count;
                 RemoveVisualiser(_image, m_visualiser); // -> not removing visualliser
-                if (m_visualiser == null)
-                    m_debuggingText.text = "YES it is null";
-
-                m_debuggingText.text = "its not null: " + m_visualiser;
-
-
+                m_trackingStateDebug2.text = "Count of Dictionary: " + m_Visualizers.Count;
             }
 
-            //if (m_visualiser.m_elapsedTime > 2.0f && m_visualiser != null)
+            // Time based remove
+            //if (m_visualiser.m_elapsedTime > 10.0f && m_visualiser != null)
             //{
+            //    //m_debuggingText.text = "Visualiser is being removed! " + _image.Name;
+            //    m_trackingStateDebug.text = "Count of Dictionary: " + m_Visualizers.Count;
             //    RemoveVisualiser(_image, m_visualiser); // -> not removing visualliser
-            //    if (m_visualiser == null)
-            //        m_debuggingText.text = "YES it is null";
-
-            //    m_debuggingText.text = "its not null: " + m_visualiser;
+            //    m_trackingStateDebug2.text = "Count of Dictionary: " + m_Visualizers.Count;
             //    m_visualiser.m_elapsedTime = 0.0f;
             //}
 
-            if (_image.Name == "004")
-            {
-                m_trackingStateDebug.text = "Image: " + _image.Name + "\nImage Tracking State: " 
-                    + _image.TrackingState + "\nVisualiser: " + m_visualiser.gameObject.ToString();
-            }
-            if (_image.Name == "001")
-                m_trackingStateDebug2.text = "Image: " + _image.Name + "\nImage Tracking State: " 
-                    + _image.TrackingState + "\nVisualiser: " + m_visualiser.gameObject.ToString();
+            //if (_image.Name == "004")
+            //{
+            //    m_trackingStateDebug.text = "Image: " + _image.Name + "\nImage Tracking State: " 
+            //        + _image.TrackingState + "\nVisualiser: " + m_visualiser.gameObject.ToString();
+            //}
+            //if (_image.Name == "001")
+            //    m_trackingStateDebug2.text = "Image: " + _image.Name + "\nImage Tracking State: " 
+            //        + _image.TrackingState + "\nVisualiser: " + m_visualiser.gameObject.ToString();
 
-            
+
         }
     }
 
@@ -143,9 +148,9 @@ public class MarkerController : MonoBehaviour
     public void RemoveVisualiser(AugmentedImage _imageToRemoveFrom, ARImageVisualiser _visualiserToRemove)
     {
         // Remove Visualiser from image and Destroys it
+        //Destroy(_visualiserToRemove);
+        Destroy(m_Visualizers[_imageToRemoveFrom.DatabaseIndex]);
         m_Visualizers.Remove(_imageToRemoveFrom.DatabaseIndex);
-        Destroy(_visualiserToRemove.gameObject);
-        //m_debuggingText.text = "Visualiser removed! \nImage: " + _imageToRemoveFrom.Name + " \nGO: " + _visualiserToRemove.gameObject.ToString();
     }
 
     /// <summary>
