@@ -31,6 +31,11 @@ namespace GoogleARCore
     public abstract class Trackable
     {
         /// <summary>
+        /// Time (in seconds) that the Trackable was created.
+        /// </summary>
+        private float m_timeInstantiated;
+
+        /// <summary>
         /// A native handle for the ARCore trackable.
         /// </summary>
         internal IntPtr m_TrackableNativeHandle = IntPtr.Zero;
@@ -44,12 +49,17 @@ namespace GoogleARCore
 
         internal Trackable()
         {
+            //Set the time that the trackable was created
+            m_timeInstantiated = Time.time;
         }
 
         internal Trackable(IntPtr trackableNativeHandle, NativeSession nativeSession)
         {
             m_TrackableNativeHandle = trackableNativeHandle;
             m_NativeSession = nativeSession;
+
+            //Set the time that the trackable was created
+            m_timeInstantiated = Time.time;
         }
 
         ~Trackable()
@@ -115,6 +125,14 @@ namespace GoogleARCore
             }
 
             m_NativeSession.TrackableApi.GetAnchors(m_TrackableNativeHandle, anchors);
+        }
+
+        /// <summary>
+        /// Gets the time in seconds, that this Trackable was created.
+        /// </summary>
+        public float GetTimeCreated()
+        {
+            return m_timeInstantiated;
         }
 
         /// <summary>
