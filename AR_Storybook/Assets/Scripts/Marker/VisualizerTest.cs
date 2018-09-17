@@ -31,6 +31,7 @@ public class VisualizerTest : MonoBehaviour
     /// Using only 1 Object and keeping reference to it, so that if new image is tracked (ie new page), we just change the object being shown.
     /// </summary>
     public ARImageVisualiser m_imageVisualizer;
+    public List<ARImageVisualiser> m_listOfVisualizers = new List<ARImageVisualiser>();
 
     /// <summary>
     /// Debug texts.
@@ -55,6 +56,7 @@ public class VisualizerTest : MonoBehaviour
         m_trackedImagesList.Sort((x, y) => x.GetTimeCreated().CompareTo(y.GetTimeCreated()));
 
         //DEBUG
+        m_debuggingText.text = "Tracked Count: " + m_trackedImagesList.Count + " ";
         foreach(AugmentedImage image in m_trackedImagesList)
         {
             m_debuggingText.text += image.GetTimeCreated() + ", ";
@@ -74,14 +76,23 @@ public class VisualizerTest : MonoBehaviour
     /// </summary>
     public void AddVisualiser(AugmentedImage _imageToVisualize)
     {
-        //Remove previous object
-        Destroy(m_imageVisualizer);
+        //Destroy all old visualizers
+        foreach(ARImageVisualiser visualiser in m_listOfVisualizers)
+        {
+            //Destroy the generated GameObject (the one shown in the scene)
+            visualiser.DestroyGeneratedObject();
+        }
+        //Clear list of visualizers
+        m_listOfVisualizers.Clear();
 
-        // Create an anchor at centre of image to ensure that transformation is relative to real world
+        //Create an anchor at centre of image to ensure that transformation is relative to real world
         Anchor anchor = _imageToVisualize.CreateAnchor(_imageToVisualize.CenterPose);
-        // Create new visualiser and set as anchor's child ( so to keep the visualiser in that place )
+        //Create new visualiser and set as anchor's child ( so to keep the visualiser in that place )
         m_imageVisualizer = Instantiate(AugmentedImageVisualizerPrefab, anchor.transform);
-        // Set image of visualiser to be image that is tracked
+        //Set image of visualiser to be image that is tracked
         m_imageVisualizer.m_image = _imageToVisualize;
+
+        //Add new visualizer to list
+        m_listOfVisualizers.Add(m_imageVisualizer);
     }
 }
