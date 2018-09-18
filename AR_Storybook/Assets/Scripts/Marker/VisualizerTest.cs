@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using GoogleARCore;
@@ -44,17 +45,17 @@ public class VisualizerTest : MonoBehaviour
 		m_arSession = ARSessionManager.Instance.GetSession();
 
         m_trackedImages = new List<AugmentedImage>();
-        m_listOfVisualizedObjects = new List<ARImageVisualiser>();
+		m_listOfVisualizedObjects = new List<ARImageVisualiser>();
 	}
 
-    private void Update()
-    {
-        //Only get new tracked images
-        Session.GetTrackables(m_trackedImages, TrackableQueryFilter.All);
-        //If list is populated, that means in this frame there are images being tracked
-        //Therefore we should remove all old visualized objects in the scene and render the last one in the list (ie the newest one)
-        if(m_trackedImages.Count > 0)
-        {
+	private void Update()
+	{
+		//Only get new tracked images
+		Session.GetTrackables(m_trackedImages, TrackableQueryFilter.All);
+		//If list is populated, that means in this frame there are images being tracked
+		//Therefore we should remove all old visualized objects in the scene and render the last one in the list (ie the newest one)
+		if (m_trackedImages.Count > 0)
+		{
 			//Currently tracking more than one image, so we should remove all old images and keep the latest one only
 			if (m_trackedImages.Count > 1 && !m_visualizeAllImages)
 			{
@@ -70,9 +71,9 @@ public class VisualizerTest : MonoBehaviour
 			CreateVisualizerObjects(m_trackedImages);
 		}
 
-        //DEBUGGING
-        m_debuggingText.text = "New Images Count: " + m_trackedImages.Count + "\n";
-        m_debuggingText.text += "Visualizers in the scene: " + m_listOfVisualizedObjects.Count + "\n";
+		//DEBUGGING
+		m_debuggingText.text = "New Images Count: " + m_trackedImages.Count + "\n";
+		m_debuggingText.text += "Visualizers in the scene: " + m_listOfVisualizedObjects.Count + "\n";
 	}
 
 	/// <summary>
@@ -84,6 +85,7 @@ public class VisualizerTest : MonoBehaviour
         Anchor anchor = _imageToVisualize.CreateAnchor(_imageToVisualize.CenterPose);
         //Create new visualiser and set as anchor's child ( so to keep the visualiser in that place )
         ARImageVisualiser visualizer = Instantiate(m_arVisualizerPrefab, anchor.transform) as ARImageVisualiser;
+		visualizer.gameObject.SetActive(true);
         //Set image of visualiser to be a copy of the image that is tracked
         visualizer.m_image = _imageToVisualize;
 
