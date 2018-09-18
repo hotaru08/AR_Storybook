@@ -32,9 +32,13 @@ public class ARSessionManager : SingletonMono<ARSessionManager>
 
 	public ARCoreSession GetSession()
 	{
-		if (m_arSession != null && m_sessionObject != null)
+		if (m_arSession != null)
 		{
 			return m_arSession;
+		}
+		else
+		{
+			return null;
 		}
 	}
 
