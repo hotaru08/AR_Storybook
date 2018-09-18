@@ -30,6 +30,14 @@ public class ARSessionManager : SingletonMono<ARSessionManager>
 		StartCoroutine("CreateNewSession");
 	}
 
+	public ARCoreSession GetSession()
+	{
+		if (m_arSession != null && m_sessionObject != null)
+		{
+			return m_arSession;
+		}
+	}
+
 	IEnumerator CreateNewSession()
 	{
 		//Disable session and destroy the holding gameobject

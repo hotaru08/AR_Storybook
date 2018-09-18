@@ -10,12 +10,17 @@ public class VisualizerTest : MonoBehaviour
     /// <summary>
     /// Prefab for visualizing an AugmentedImage.
     /// </summary>
-    public ARImageVisualiser ARVisualizerPrefab;
+    public ARImageVisualiser m_arVisualizerPrefab;
 
-    /// <summary>
-    /// List of all tracked images.
-    /// </summary>
-    public List<AugmentedImage> m_trackedImages;
+	/// <summary>
+	/// Main AR session in the scene
+	/// </summary>
+	public ARCoreSession m_arSession;
+
+	/// <summary>
+	/// List of all tracked images.
+	/// </summary>
+	public List<AugmentedImage> m_trackedImages;
 
     /// <summary>
     /// Reference to visualized object.
@@ -23,9 +28,9 @@ public class VisualizerTest : MonoBehaviour
     public List<ARImageVisualiser> m_listOfVisualizedObjects;
 
 	/// <summary>
-	/// Main AR session in the scene
+	/// Flag if supposed to only visualize one image at a time, or multiple images. (True = All images in the scene, False = Only one image at a time)
 	/// </summary>
-	public ARCoreSession m_arSession;
+	public bool m_visualizeAllImages = false;
 
     /// <summary>
     /// Debug texts.
@@ -36,9 +41,11 @@ public class VisualizerTest : MonoBehaviour
 
     private void Start()
     {
+		m_arSession = ARSessionManager.Instance.GetSession();
+
         m_trackedImages = new List<AugmentedImage>();
         m_listOfVisualizedObjects = new List<ARImageVisualiser>();
-    }
+	}
 
     private void Update()
     {
@@ -49,54 +56,56 @@ public class VisualizerTest : MonoBehaviour
         if(m_trackedImages.Count > 0)
         {
 			//Currently tracking more than one image, so we should remove all old images and keep the latest one only
-			if (m_trackedImages.Count > 1)
+			if (m_trackedImages.Count > 1 && !m_visualizeAllImages)
 			{
 				ARSessionManager.Instance.ResetSession();
 			}
 
 			//Sort the images from oldest to newest (smallest time to largest time)
 			m_trackedImages.Sort((x, y) => x.GetTimeCreated().CompareTo(y.GetTimeCreated()));
-            //Remove objects in the scene
-            RemoveVisualizedObjects();
-			//Add objects to the scene
-			CreateVisualizerObjects();
+
+			//Remove objects in the scene
+			RemoveVisualizedObjects();
+			//Create a visualizer and add it to the scene
+			CreateVisualizerObjects(m_trackedImages);
 		}
 
         //DEBUGGING
         m_debuggingText.text = "New Images Count: " + m_trackedImages.Count + "\n";
-        m_debuggingText.text += "Visualizers in the scene: " + m_listOfVisualizedObjects.Count;
-    }
+        m_debuggingText.text += "Visualizers in the scene: " + m_listOfVisualizedObjects.Count + "\n";
+	}
 
-    void CreateVisualizerObjects()
+	/// <summary>
+	/// Creates a single ARImageVisualiser and adds it to a reference list.
+	/// </summary>
+	void CreateVisualizerObjects(AugmentedImage _imageToVisualize)
     {
-        ////This spawns objects for all tracked images
-        ////Create new visualizer objects and add them to the list
-        //foreach (AugmentedImage image in m_trackedImages)
-        //{
-        //    //Create an anchor at centre of image to ensure that transformation is relative to real world
-        //    Anchor anchor = image.CreateAnchor(image.CenterPose);
-        //    //Create new visualiser and set as anchor's child ( so to keep the visualiser in that place )
-        //    ARImageVisualiser visualizer = Instantiate(ARVisualizerPrefab, anchor.transform) as ARImageVisualiser;
-        //    //Set image of visualiser to be image that is tracked
-        //    visualizer.m_image = image;
-
-        //    //Add visualizer to list
-        //    m_listOfVisualizedObjects.Add(visualizer);
-        //}
-
-        //This spawns one object for the latest tracked image 
-        AugmentedImage image = m_trackedImages[m_trackedImages.Count - 1];
         //Create an anchor at centre of image to ensure that transformation is relative to real world
-        Anchor anchor = image.CreateAnchor(image.CenterPose);
+        Anchor anchor = _imageToVisualize.CreateAnchor(_imageToVisualize.CenterPose);
         //Create new visualiser and set as anchor's child ( so to keep the visualiser in that place )
-        ARImageVisualiser visualizer = Instantiate(ARVisualizerPrefab, anchor.transform) as ARImageVisualiser;
-        //Set image of visualiser to be image that is tracked
-        visualizer.m_image = image;
+        ARImageVisualiser visualizer = Instantiate(m_arVisualizerPrefab, anchor.transform) as ARImageVisualiser;
+        //Set image of visualiser to be a copy of the image that is tracked
+        visualizer.m_image = _imageToVisualize;
 
-        //Add visualizer to list
-        m_listOfVisualizedObjects.Add(visualizer);
+		//Add visualizer to list
+		m_listOfVisualizedObjects.Add(visualizer);
     }
 
+	/// <summary>
+	/// Creates multiple ARImageVisualizers and adds it to a reference list.
+	/// </summary>
+	/// <param name="_imagesToVisualize">List of AugmentedImages to visualize</param>
+	void CreateVisualizerObjects(List<AugmentedImage> _imagesToVisualize)
+	{
+		foreach (AugmentedImage image in _imagesToVisualize)
+		{
+			CreateVisualizerObjects(image);
+		}
+	}
+
+	/// <summary>
+	/// Destroys all the ARImageVisualisers in the scene.
+	/// </summary>
     void RemoveVisualizedObjects()
     {
         //Destroy all the visualizer objects in the scene
