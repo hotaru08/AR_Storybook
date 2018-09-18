@@ -28,6 +28,7 @@ namespace GoogleARCore
     /// A component that manages the ARCore Session in a Unity scene.
     /// </summary>
     [HelpURL("https://developers.google.com/ar/reference/unity/class/GoogleARCore/ARCoreSession")]
+	[System.Serializable]
     public class ARCoreSession : MonoBehaviour
     {
         /// <summary>

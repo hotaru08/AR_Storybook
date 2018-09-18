@@ -15,12 +15,17 @@ public class VisualizerTest : MonoBehaviour
     /// <summary>
     /// List of all tracked images.
     /// </summary>
-    public List<AugmentedImage> m_newTrackedImages;
+    public List<AugmentedImage> m_trackedImages;
 
     /// <summary>
     /// Reference to visualized object.
     /// </summary>
     public List<ARImageVisualiser> m_listOfVisualizedObjects;
+
+	/// <summary>
+	/// Main AR session in the scene
+	/// </summary>
+	public ARCoreSession m_arSession;
 
     /// <summary>
     /// Debug texts.
@@ -31,36 +36,42 @@ public class VisualizerTest : MonoBehaviour
 
     private void Start()
     {
-        m_newTrackedImages = new List<AugmentedImage>();
+        m_trackedImages = new List<AugmentedImage>();
         m_listOfVisualizedObjects = new List<ARImageVisualiser>();
     }
 
     private void Update()
     {
         //Only get new tracked images
-        Session.GetTrackables(m_newTrackedImages, TrackableQueryFilter.All);
+        Session.GetTrackables(m_trackedImages, TrackableQueryFilter.All);
         //If list is populated, that means in this frame there are images being tracked
         //Therefore we should remove all old visualized objects in the scene and render the last one in the list (ie the newest one)
-        if(m_newTrackedImages.Count > 0)
+        if(m_trackedImages.Count > 0)
         {
-            //Sort the images from oldest to newest (smallest time to largest time)
-            m_newTrackedImages.Sort((x, y) => x.GetTimeCreated().CompareTo(y.GetTimeCreated()));
+			//Currently tracking more than one image, so we should remove all old images and keep the latest one only
+			if (m_trackedImages.Count > 1)
+			{
+				ARSessionManager.Instance.ResetSession();
+			}
+
+			//Sort the images from oldest to newest (smallest time to largest time)
+			m_trackedImages.Sort((x, y) => x.GetTimeCreated().CompareTo(y.GetTimeCreated()));
             //Remove objects in the scene
             RemoveVisualizedObjects();
-            //Add objects to the scene
-            AddVisualizerObjects();
-        }
+			//Add objects to the scene
+			CreateVisualizerObjects();
+		}
 
         //DEBUGGING
-        m_debuggingText.text = "New Images Count: " + m_newTrackedImages.Count + "\n";
+        m_debuggingText.text = "New Images Count: " + m_trackedImages.Count + "\n";
         m_debuggingText.text += "Visualizers in the scene: " + m_listOfVisualizedObjects.Count;
     }
 
-    void AddVisualizerObjects()
+    void CreateVisualizerObjects()
     {
         ////This spawns objects for all tracked images
         ////Create new visualizer objects and add them to the list
-        //foreach (AugmentedImage image in m_newTrackedImages)
+        //foreach (AugmentedImage image in m_trackedImages)
         //{
         //    //Create an anchor at centre of image to ensure that transformation is relative to real world
         //    Anchor anchor = image.CreateAnchor(image.CenterPose);
@@ -74,7 +85,7 @@ public class VisualizerTest : MonoBehaviour
         //}
 
         //This spawns one object for the latest tracked image 
-        AugmentedImage image = m_newTrackedImages[m_newTrackedImages.Count - 1];
+        AugmentedImage image = m_trackedImages[m_trackedImages.Count - 1];
         //Create an anchor at centre of image to ensure that transformation is relative to real world
         Anchor anchor = image.CreateAnchor(image.CenterPose);
         //Create new visualiser and set as anchor's child ( so to keep the visualiser in that place )
