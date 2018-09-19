@@ -50,6 +50,8 @@ public class VisualizerTest : MonoBehaviour
 
 	private void Update()
 	{
+        TimeTillSleep();
+
 		//Only get new tracked images
 		Session.GetTrackables(m_trackedImages, TrackableQueryFilter.All);
 		//If list is populated, that means in this frame there are images being tracked
@@ -117,5 +119,17 @@ public class VisualizerTest : MonoBehaviour
         }
         //Clear the list
         m_listOfVisualizedObjects.Clear();
+    }
+
+    /// <summary>
+    /// Setting the sleep timing of the phone ( value is in minutes )
+    /// </summary>
+    private void TimeTillSleep(int _time = 1)
+    {
+        // Only allow the screen to sleep when not tracking.
+        if (m_trackedImages.Count > 0)
+            Screen.sleepTimeout = _time;
+        
+        Screen.sleepTimeout = SleepTimeout.NeverSleep;
     }
 }

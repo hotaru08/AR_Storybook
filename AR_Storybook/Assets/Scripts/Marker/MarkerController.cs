@@ -25,6 +25,7 @@ public class MarkerController : MonoBehaviour
     /// </summary>
     private Dictionary<int, ARImageVisualiser> m_Visualizers = new Dictionary<int, ARImageVisualiser>();
 
+
     /// <summary>
     /// A List of Images we are tracking ( multi-tracking available too )
     /// </summary>
@@ -38,29 +39,23 @@ public class MarkerController : MonoBehaviour
     public Text m_trackingStateDebug2;
     public Text m_trackingStateDebug3;
 
-
-    /// <summary>
-    /// Unity Start Method
-    /// </summary>
-    public void Start()
-    {
-        Screen.orientation = ScreenOrientation.Portrait;
-    }
+    private int m_prevIndex;
 
     /// <summary>
     /// The Unity Update method
     /// </summary>
     public void Update()
     {
-        // Check that motion tracking is tracking ( eg. if there is no image being tracked )
+        // If session is tracked, then run code
         //if (Session.Status != SessionStatus.Tracking)
-        //{
-        //    //m_debuggingText.text = "Not Tracking";
         //    return;
-        //}
 
         // If there is any images, it will be added to the list
+        //m_TempAugmentedImagesList.Clear();
+        m_debuggingText.text = "List of Images before track: " + m_TempAugmentedImagesList.Count + " Prev index " + m_prevIndex + "\n";
         Session.GetTrackables<AugmentedImage>(m_TempAugmentedImagesList, TrackableQueryFilter.All);
+        m_debuggingText.text += "List of Images after track: " + m_TempAugmentedImagesList.Count;
+
 
         // Set visualisers on top of the images in the list
         SetVisualisersOnImages();
@@ -80,50 +75,28 @@ public class MarkerController : MonoBehaviour
             ARImageVisualiser m_visualiser = null;
             m_visualiser = GetVisualiser(_image, m_visualiser);
 
-            if (m_visualiser == null)
-                m_debuggingText.text = "YES it is null : " + m_visualiser;
-            if (m_visualiser != null)
-                m_debuggingText.text = "NO its not null : " + m_visualiser;
-
-            // SINGLE TRACKING -------- delete and remove old image obj?
-
-
-
-
             // if there is no visualiser for that image and it is tracked, add one
             if (m_visualiser == null && _image.TrackingState == TrackingState.Tracking)
             {
-                //m_debuggingText.text = "Visualiser is being added! " + _image.Name;
                 AddVisualiser(_image);
             }
             else if (_image.TrackingState != TrackingState.Tracking && m_visualiser != null)
             {
-                //m_debuggingText.text = "Visualiser is being removed! " + _image.Name;
-                m_trackingStateDebug.text = "Count of Dictionary: " + m_Visualizers.Count;
-                RemoveVisualiser(_image, m_visualiser); // -> not removing visualliser
-                m_trackingStateDebug2.text = "Count of Dictionary: " + m_Visualizers.Count;
+                //m_trackingStateDebug.text = "Count of Dictionary: " + m_Visualizers.Count;
+                RemoveVisualiser(_image, m_visualiser);
+                //m_trackingStateDebug2.text = "Count of Dictionary: " + m_Visualizers.Count;
             }
+            //m_debuggingText.text = "prev index: " + m_prevIndex;
 
-            // Time based remove
-            //if (m_visualiser.m_elapsedTime > 10.0f && m_visualiser != null)
-            //{
-            //    //m_debuggingText.text = "Visualiser is being removed! " + _image.Name;
-            //    m_trackingStateDebug.text = "Count of Dictionary: " + m_Visualizers.Count;
-            //    RemoveVisualiser(_image, m_visualiser); // -> not removing visualliser
-            //    m_trackingStateDebug2.text = "Count of Dictionary: " + m_Visualizers.Count;
-            //    m_visualiser.m_elapsedTime = 0.0f;
-            //}
+            if (_image.DatabaseIndex == m_prevIndex)
+                continue;
 
-            //if (_image.Name == "004")
-            //{
-            //    m_trackingStateDebug.text = "Image: " + _image.Name + "\nImage Tracking State: " 
-            //        + _image.TrackingState + "\nVisualiser: " + m_visualiser.gameObject.ToString();
-            //}
-            //if (_image.Name == "001")
-            //    m_trackingStateDebug2.text = "Image: " + _image.Name + "\nImage Tracking State: " 
-            //        + _image.TrackingState + "\nVisualiser: " + m_visualiser.gameObject.ToString();
-
-
+            // remove the visualiser 
+            //RemoveVisualiser(_image, m_visualiser);
+            // remove images from list -> trackable images are still there
+            m_trackingStateDebug.text = "Before Count of imagelist: " + m_TempAugmentedImagesList.Count;
+            m_TempAugmentedImagesList.RemoveAt(_image.DatabaseIndex);
+            m_trackingStateDebug2.text = "After Count of imagelist: " + m_TempAugmentedImagesList.Count;
         }
     }
 
@@ -138,6 +111,7 @@ public class MarkerController : MonoBehaviour
         ARImageVisualiser visualizer = Instantiate(AugmentedImageVisualizerPrefab, anchor.transform) as ARImageVisualiser;
         // Set image of visualiser to be image that is tracked
         visualizer.m_image = _imageToAddTo;
+        //m_prevIndex = _imageToAddTo.DatabaseIndex;
         // Add to Dictionary
         m_Visualizers.Add(_imageToAddTo.DatabaseIndex, visualizer);
     }
@@ -148,8 +122,7 @@ public class MarkerController : MonoBehaviour
     public void RemoveVisualiser(AugmentedImage _imageToRemoveFrom, ARImageVisualiser _visualiserToRemove)
     {
         // Remove Visualiser from image and Destroys it
-        //Destroy(_visualiserToRemove);
-        Destroy(m_Visualizers[_imageToRemoveFrom.DatabaseIndex]);
+        Destroy(m_Visualizers[_imageToRemoveFrom.DatabaseIndex].gameObject);
         m_Visualizers.Remove(_imageToRemoveFrom.DatabaseIndex);
     }
 

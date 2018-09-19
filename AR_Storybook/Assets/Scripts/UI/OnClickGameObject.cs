@@ -31,19 +31,18 @@ public class OnClickGameObject : MonoBehaviour
                 {
                     if (hit.collider.name == _objtest.name)
                         break;
-                    else // not same name
+
+                    if (index != m_holder.GetComponentInChildren<ListHolder>().GOList.Count - 1)
                     {
-                        if (index != m_holder.GetComponentInChildren<ListHolder>().GOList.Count - 1)
-                        {
-                            index++;
-                            continue;
-                        }
-                        else
-                        {
-                            index = 0;
-                            return;
-                        }
+                        index++;
+                        continue;
                     }
+                    else
+                    {
+                        index = 0;
+                        return;
+                    }
+
                 }
 
                 // Setting UI activeness
