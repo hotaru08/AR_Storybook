@@ -122,14 +122,14 @@ public class VisualizerTest : MonoBehaviour
     }
 
     /// <summary>
-    /// Setting the sleep timing of the phone ( value is in minutes )
+    /// Setting the sleep timing of the phone
     /// </summary>
     private void TimeTillSleep(int _time = 1)
     {
+        Screen.sleepTimeout = _time;
+
         // Only allow the screen to sleep when not tracking.
-        if (m_trackedImages.Count < 0)
-            Screen.sleepTimeout = _time;
-        
-        Screen.sleepTimeout = SleepTimeout.NeverSleep;
+        if (m_trackedImages.Count > 0)
+            Screen.sleepTimeout = SleepTimeout.NeverSleep;
     }
 }
