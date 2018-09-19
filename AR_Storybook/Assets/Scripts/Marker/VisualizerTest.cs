@@ -127,7 +127,7 @@ public class VisualizerTest : MonoBehaviour
     private void TimeTillSleep(int _time = 1)
     {
         // Only allow the screen to sleep when not tracking.
-        if (m_trackedImages.Count > 0)
+        if (m_trackedImages.Count < 0)
             Screen.sleepTimeout = _time;
         
         Screen.sleepTimeout = SleepTimeout.NeverSleep;
