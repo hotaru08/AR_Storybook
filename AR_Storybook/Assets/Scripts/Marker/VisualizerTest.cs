@@ -11,7 +11,7 @@ public class VisualizerTest : MonoBehaviour
     /// <summary>
     /// Prefab for visualizing an AugmentedImage.
     /// </summary>
-    public ARImageVisualiser m_arVisualizerPrefab;
+    public GameObject m_arVisualizerPrefab;
 
 	/// <summary>
 	/// Main AR session in the scene
@@ -33,6 +33,8 @@ public class VisualizerTest : MonoBehaviour
 	/// </summary>
 	public bool m_visualizeAllImages = false;
 
+	public int m_objectPoolStartSize = 10;
+
     /// <summary>
     /// Debug texts.
     /// </summary>
@@ -42,58 +44,83 @@ public class VisualizerTest : MonoBehaviour
 
     private void Start()
     {
+		//Get current session from session manager
 		m_arSession = ARSessionManager.Instance.GetSession();
-
+		//Initialise lists
         m_trackedImages = new List<AugmentedImage>();
 		m_listOfVisualizedObjects = new List<ARImageVisualiser>();
+		//Set screen to never timeout
+		Screen.sleepTimeout = SleepTimeout.NeverSleep;
+
+		//Create Object Pool for ARImageVisualiser
+		for(int i = 0; i < m_objectPoolStartSize; i++)
+		{
+			//Create instance of visualizer
+			GameObject visualizerObject = Instantiate(m_arVisualizerPrefab);
+			visualizerObject.SetActive(false);
+			//Get component
+			ARImageVisualiser visualizer = visualizerObject.GetComponent<ARImageVisualiser>();
+
+			//Add to object pool
+			ObjectPool.Add(visualizer);
+		}
 	}
 
 	private void Update()
 	{
-        TimeTillSleep();
+		CheckForImages();
 
+		//DEBUGGING
+		m_debuggingText.text = "Update: " + Time.time + "\n";
+		m_debuggingText.text += "# TrackedImages: " + m_trackedImages.Count + "\n";
+		m_debuggingText.text += "# Visualizers: " + m_listOfVisualizedObjects.Count + "\n";
+		m_debuggingText.text += "# ARObjects: " + GameObject.FindGameObjectsWithTag("ARObject").Length + "\n";
+		m_debuggingText.text += "# ARAnchor: " + FindObjectsOfType(typeof(Anchor)).Length + "\n";
+	}
+
+	void CheckForImages()
+	{
 		//Only get new tracked images
 		Session.GetTrackables(m_trackedImages, TrackableQueryFilter.All);
 		//If list is populated, that means in this frame there are images being tracked
-		//Therefore we should remove all old visualized objects in the scene and render the last one in the list (ie the newest one)
 		if (m_trackedImages.Count > 0)
 		{
-			//Currently tracking more than one image, so we should remove all old images and keep the latest one only
-			if (m_trackedImages.Count > 1 && !m_visualizeAllImages)
+			//Currently tracking more than one image
+			if (m_trackedImages.Count > 1)
 			{
-				ARSessionManager.Instance.ResetSession();
-			}
+				//Sort the images from oldest to newest (smallest time to largest time)
+				m_trackedImages.Sort((x, y) => x.GetTimeCreated().CompareTo(y.GetTimeCreated()));
 
-			//Sort the images from oldest to newest (smallest time to largest time)
-			m_trackedImages.Sort((x, y) => x.GetTimeCreated().CompareTo(y.GetTimeCreated()));
+				//We should remove all old images and keep the latest one only
+				if (!m_visualizeAllImages)
+				{
+					ARSessionManager.Instance.ResetSession();
+				}
+			}
 
 			//Remove objects in the scene
 			RemoveVisualizedObjects();
 			//Create a visualizer and add it to the scene
 			CreateVisualizerObjects(m_trackedImages);
 		}
-
-		//DEBUGGING
-		m_debuggingText.text = "New Images Count: " + m_trackedImages.Count + "\n";
-		m_debuggingText.text += "Visualizers in the scene: " + m_listOfVisualizedObjects.Count + "\n";
 	}
 
 	/// <summary>
 	/// Creates a single ARImageVisualiser and adds it to a reference list.
 	/// </summary>
-	void CreateVisualizerObjects(AugmentedImage _imageToVisualize)
+	void CreateVisualizerObjects_OLD(AugmentedImage _imageToVisualize)
     {
-        //Create an anchor at centre of image to ensure that transformation is relative to real world
-        Anchor anchor = _imageToVisualize.CreateAnchor(_imageToVisualize.CenterPose);
-        //Create new visualiser and set as anchor's child ( so to keep the visualiser in that place )
-        ARImageVisualiser visualizer = Instantiate(m_arVisualizerPrefab, anchor.transform) as ARImageVisualiser;
-		visualizer.gameObject.SetActive(true);
-        //Set image of visualiser to be a copy of the image that is tracked
-        visualizer.m_image = _imageToVisualize;
+		////Create an anchor at centre of image to ensure that transformation is relative to real world
+		//Anchor anchor = _imageToVisualize.CreateAnchor(_imageToVisualize.CenterPose);
+		////Create new visualiser and set as anchor's child ( so to keep the visualiser in that place )
+		//ARImageVisualiser visualizer = Instantiate(m_arVisualizerPrefab, anchor.transform) as ARImageVisualiser;
+		//visualizer.gameObject.SetActive(true);
+		////Set image of visualiser to be a copy of the image that is tracked
+		//visualizer.m_image = _imageToVisualize;
 
-		//Add visualizer to list
-		m_listOfVisualizedObjects.Add(visualizer);
-    }
+		////Add visualizer to list
+		//m_listOfVisualizedObjects.Add(visualizer);
+	}
 
 	/// <summary>
 	/// Creates multiple ARImageVisualizers and adds it to a reference list.
@@ -103,7 +130,26 @@ public class VisualizerTest : MonoBehaviour
 	{
 		foreach (AugmentedImage image in _imagesToVisualize)
 		{
-			CreateVisualizerObjects(image);
+			//Create an anchor at centre of image to ensure that transformation is relative to real world
+			Anchor anchor = image.CreateAnchor(image.CenterPose);
+			//Only continue if anchor is legit
+			if(anchor != null)
+			{
+				//Get instance of visualizer from object pool
+				ARImageVisualiser visualizer = ObjectPool.GetExisting<ARImageVisualiser>();
+				//Set parent of visualizer to anchor
+				visualizer.transform.SetParent(anchor.transform);
+				//Set image of visualizer
+				visualizer.m_image = image;
+				//Set visualizer to active
+				visualizer.gameObject.SetActive(true);
+
+				//Add visualizer to list
+				m_listOfVisualizedObjects.Add(visualizer);
+
+				//Set anchor to self-destruct
+				Destroy(anchor, 0.2f);
+			}
 		}
 	}
 
@@ -113,12 +159,15 @@ public class VisualizerTest : MonoBehaviour
     void RemoveVisualizedObjects()
     {
         //Destroy all the visualizer objects in the scene
-        foreach(ARImageVisualiser arImageVisualiser in m_listOfVisualizedObjects)
+        foreach(ARImageVisualiser visualizer in m_listOfVisualizedObjects)
         {
-            Destroy(arImageVisualiser);
-        }
-        //Clear the list
-        m_listOfVisualizedObjects.Clear();
+			//Disable visualizer
+			visualizer.gameObject.SetActive(false);
+			//Add object back to pool
+			ObjectPool.Add(visualizer);
+		}
+		//Clear the list
+		m_listOfVisualizedObjects.Clear();
     }
 
     /// <summary>
