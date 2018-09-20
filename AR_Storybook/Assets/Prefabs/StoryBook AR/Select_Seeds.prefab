@@ -56,7 +56,7 @@ GameObject:
   - component: {fileID: 4727574422241676}
   m_Layer: 0
   m_Name: Select_Seeds
-  m_TagString: Untagged
+  m_TagString: ARObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -409,7 +409,7 @@ GameObject:
   - component: {fileID: 4683566629266354}
   m_Layer: 0
   m_Name: Seeds
-  m_TagString: Untagged
+  m_TagString: ARObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -466,7 +466,7 @@ GameObject:
   - component: {fileID: 136855407675179466}
   m_Layer: 0
   m_Name: Placeholder person
-  m_TagString: Untagged
+  m_TagString: ARObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1431,9 +1431,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e290d5c9270112343aeaf2b9b72e2e12, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GameobjectToBeSet: {fileID: 1058927683669898}
-  b_Active: 1
-  ClickableGameobjectName: Test seed (1)
+  m_holder: {fileID: 0}
 --- !u!114 &114315164151549936
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1985,9 +1983,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e290d5c9270112343aeaf2b9b72e2e12, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GameobjectToBeSet: {fileID: 1787980842436794}
-  b_Active: 1
-  ClickableGameobjectName: Test seed
+  m_holder: {fileID: 0}
 --- !u!114 &114658533194407584
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2757,9 +2753,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e290d5c9270112343aeaf2b9b72e2e12, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GameobjectToBeSet: {fileID: 1445823799856920}
-  b_Active: 1
-  ClickableGameobjectName: Test seed (2)
+  m_holder: {fileID: 0}
 --- !u!114 &114971688013596708
 MonoBehaviour:
   m_ObjectHideFlags: 1

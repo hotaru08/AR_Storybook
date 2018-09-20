@@ -18,7 +18,7 @@ public class ARSessionManager : SingletonMono<ARSessionManager>
 	/// </summary>
 	private ARCoreSession m_arSession;
 
-	private void Start()
+	private void Awake()
 	{
 		m_sessionObject = Instantiate(m_arCoreSessionPrefab);
 		m_arSession = m_sessionObject.GetComponent<ARCoreSession>();
