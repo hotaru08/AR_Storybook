@@ -22,28 +22,55 @@ public class Touch_Touchables : MonoBehaviour
     public TOUCH_STATES m_state = 0;
 
     /// <summary>
-    /// Click twice to deselect ( maybe ??? )
+    /// Get Gameobjects animation ( if have )
     /// </summary>
-    private bool m_bIsSelected = false;
-    public bool IsSelected
+    //[SerializeField]
+    public Animator m_animator;
+
+    /******************* Various Interaction Functions *******************/
+    /// <summary>
+    /// Single Selection Mode
+    /// - can only select one Gameobject
+    /// </summary>
+    public GameObject Selection(GameObject _objRayHit)
     {
-        set { m_bIsSelected = value; }
-        get { return m_bIsSelected; }
+        if (_objRayHit == null) // nth hit
+            return null;
+
+        GameObject temp = null;
+        // assign new selected object
+        temp = _objRayHit;
+        // assign new material to object
+        temp.GetComponentInChildren<Renderer>().material.color = Color.red;
+        // play animation if they have 
+        if (m_animator)
+            m_animator.SetTrigger("SelectionAnimation");
+
+        return temp;
     }
 
-    /******************* Various Interaction Modes *******************/
     public void Scaling()
     {
         Debug.Log("This function will do scaling");
     }
 
-    public void Dragging(Transform _selectedOBJTransform, Vector3 _newPos)
+    public void Dragging(GameObject _selectedOBJTransform, Vector3 _objScreenPos, Vector3 _offset)
     {
-        Debug.Log("World Space Pos: " + _newPos);
-        Debug.Log("Selected obj Pos: " + _selectedOBJTransform.position);
         Debug.Log("This function will do Dragging");
+        Debug.Log("Obj in screen space: " + _objScreenPos);
+        Debug.Log("offset: " + _offset);
 
-        _selectedOBJTransform.localPosition = new Vector3(_selectedOBJTransform.position.x, _newPos.y, _selectedOBJTransform.position.z);
+        //keep track of the mouse position
+        Vector3 curScreenSpace = new Vector3(Input.mousePosition.x, Input.mousePosition.y, _objScreenPos.z);
+
+        //convert the screen mouse position to world point and adjust with offset
+        Vector3 curPosition = Camera.main.ScreenToWorldPoint(curScreenSpace) + _offset;
+
+        //update the position of the object in the world
+        _selectedOBJTransform.transform.position = curPosition;
+
+        if (m_animator)
+            m_animator.SetBool("DraggingAnimation", true);
     }
 
     public void Rotating()
@@ -55,5 +82,13 @@ public class Touch_Touchables : MonoBehaviour
     public void Transforming()
     {
         Debug.Log("This function will do all :D");
+    }
+
+    public void Reset()
+    {
+        if (m_animator)
+        {
+            m_animator.SetBool("DraggingAnimation", false);
+        }
     }
 }

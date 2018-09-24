@@ -9,19 +9,12 @@ using UnityEngine.SceneManagement;
 public class ChangeScene : MonoBehaviour
 {
     /// <summary>
-    /// Changing to SceneMarker
+    /// Use this function to change scenes 
     /// </summary>
-    public void ChangeToSceneMarker()
+    /// <param name="_sceneName">Name of the Scene to change</param>
+    public void ChangingScene(string _sceneName)
     {
-        SceneManager.LoadScene("SceneMarker");
-    }
-
-    /// <summary>
-    /// Changing to SceneMarkerless
-    /// </summary>
-    public void ChangeToSceneMarkerless()
-    {
-        SceneManager.LoadScene("SceneMarkerless");
+        SceneManager.LoadScene(_sceneName);
     }
 
     /// <summary>
