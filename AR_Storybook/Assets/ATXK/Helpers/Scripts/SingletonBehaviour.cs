@@ -1,10 +1,13 @@
-﻿namespace ATXK
+﻿namespace ATXK.Helper
 {
 	using UnityEngine;
 
-	public abstract class SingletonMono<T> : MonoBehaviour where T : Component
+	/// <summary>
+	/// Singleton base class for classes that require to be in the Unity Hierarchy.
+	/// </summary>
+	/// <typeparam name="T">The inheriting class.</typeparam>
+	public abstract class SingletonBehaviour<T> : MonoBehaviour where T : Component
 	{
-		private static GameObject _instanceObject;
 		private static T _instance;
 
 		public static T Instance
@@ -25,6 +28,14 @@
 				}
 
 				return _instance;
+			}
+		}
+
+		private void Awake()
+		{
+			if (_instance)
+			{
+				Destroy(this);
 			}
 		}
 	}
