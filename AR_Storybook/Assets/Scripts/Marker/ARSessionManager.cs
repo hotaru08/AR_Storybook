@@ -1,10 +1,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using ATXK;
+using ATXK.Helper;
 using GoogleARCore;
 
-public class ARSessionManager : SingletonMono<ARSessionManager>
+public class ARSessionManager : SingletonBehaviour<ARSessionManager>
 {
 	[SerializeField]
 	private GameObject m_arCoreSessionPrefab;

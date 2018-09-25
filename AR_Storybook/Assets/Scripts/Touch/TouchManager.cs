@@ -2,11 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using ATXK.Helper;
 
 /// <summary>
 /// A manager to handle Touch events ( rip i have nvr made a manager OR have the skill to make a proper manager )
 /// </summary>
-public class TouchManager : ATXK.SingletonMono<TouchManager>
+public class TouchManager : SingletonBehaviour<TouchManager>
 {
     /// <summary>
     /// Stack of gameobjects that is touched by ray
