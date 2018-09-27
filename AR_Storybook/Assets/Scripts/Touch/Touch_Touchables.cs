@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// A class for objects that can be selected
+/// A class for objects that can be selected ( its bad :( )
 /// </summary>
 public class Touch_Touchables : MonoBehaviour
 {
@@ -45,7 +45,7 @@ public class Touch_Touchables : MonoBehaviour
         // play animation if they have 
         if (m_animator)
             m_animator.SetTrigger("SelectionAnimation");
-
+        
         return temp;
     }
 
@@ -54,21 +54,20 @@ public class Touch_Touchables : MonoBehaviour
         Debug.Log("This function will do scaling");
     }
 
-    public void Dragging(GameObject _selectedOBJTransform, Vector3 _objScreenPos, Vector3 _offset)
+    public void Dragging(GameObject _selectedObject)
     {
-        Debug.Log("This function will do Dragging");
-        Debug.Log("Obj in screen space: " + _objScreenPos);
-        Debug.Log("offset: " + _offset);
+        //Debug.Log("This function will do Dragging");
+        // Add Component
+        if (_selectedObject.GetComponent<Touch_Dragging>() == null)
+        {
+            Debug.Log("Adding Component Drag");
+            _selectedObject.AddComponent<Touch_Dragging>();
+        }
+        // Use Function to Drag
+        _selectedObject.GetComponent<Touch_Dragging>().DragObject(_selectedObject);
 
-        //keep track of the mouse position
-        Vector3 curScreenSpace = new Vector3(Input.mousePosition.x, Input.mousePosition.y, _objScreenPos.z);
 
-        //convert the screen mouse position to world point and adjust with offset
-        Vector3 curPosition = Camera.main.ScreenToWorldPoint(curScreenSpace) + _offset;
-
-        //update the position of the object in the world
-        _selectedOBJTransform.transform.position = curPosition;
-
+        // Play Dragging Animation
         if (m_animator)
             m_animator.SetBool("DraggingAnimation", true);
     }
@@ -79,16 +78,13 @@ public class Touch_Touchables : MonoBehaviour
 
     }
 
-    public void Transforming()
-    {
-        Debug.Log("This function will do all :D");
-    }
-
     public void Reset()
     {
+        // Reset all Animation
         if (m_animator)
         {
             m_animator.SetBool("DraggingAnimation", false);
         }
     }
+
 }
