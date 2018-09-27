@@ -7,7 +7,7 @@ using UnityEngine;
 /// <summary>
 /// Script to trigger DialogueManager NextSentence
 /// </summary>
-public class DialogueNextSentence : MonoBehaviour
+public class Event_DialogueNextSentence : MonoBehaviour
 {
     string eventName;
 
