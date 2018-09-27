@@ -21,7 +21,7 @@ public class Event_DialogueNextSentence : MonoBehaviour
     /// </summary>
     public void OnEventReceived()
     {
-        DebugLogger.Log<DialogueNextSentence>("Event Received From: " + eventName);
+        DebugLogger.Log<Event_DialogueNextSentence>("Event Received From: " + eventName);
         DialogueSystem.Instance.NextSentence();
     }
 }
