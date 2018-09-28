@@ -2,8 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using ATXK.Helper;
 
-public class DialogueSystem : MonoBehaviour {
+/// <summary>
+/// System that handles Dialogues, including special effects ( eg. typewriter )
+/// </summary>
+public class DialogueSystem : MonoBehaviour
+{
 
     [Tooltip("Drag drop textmeshpro display here")]
     public TextMeshProUGUI dialogueDisplay;
@@ -23,22 +28,23 @@ public class DialogueSystem : MonoBehaviour {
     private int i; //index
 
 
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Start()
+    {
         StartCoroutine(Type());
-	}
+    }
 
     //Start typing dilogue in game
     IEnumerator Type()
     {
-        foreach(char letter in dialogue[i].ToCharArray())
+        foreach (char letter in dialogue[i].ToCharArray())
         {
             dialogueDisplay.text += letter; //typewriter
             GetComponent<AudioSource>().PlayOneShot(dialogueVoice);
             yield return new WaitForSeconds(typeSpeed); //delay speed
         }
     }
-	
+
     //Continue to next sentence. Call this function in the button
     public void NextSentence()
     {
@@ -57,12 +63,13 @@ public class DialogueSystem : MonoBehaviour {
         }
     }
 
-	// Update is called once per frame
-	void Update () {
-		//checks if this is the latest sentence to be able to go next
-        if(dialogueDisplay.text == dialogue[i])
+    // Update is called once per frame
+    void Update()
+    {
+        //checks if this is the latest sentence to be able to go next
+        if (dialogueDisplay.text == dialogue[i])
         {
             continueButton.SetActive(true);//set next button to be able to be pressed
         }
-	}
+    }
 }

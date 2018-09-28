@@ -15,6 +15,6 @@ public class UI_DisplayFPS : MonoBehaviour
     private void Update()
     {
         m_fps = 1.0f / Time.unscaledDeltaTime;
-        m_fpsDisplayMesh.GetComponent<TextMeshProUGUI>().text = "FPS: " + m_fps.ToString();
+        m_fpsDisplayMesh.GetComponent<TextMeshProUGUI>().text = "FPS: " + m_fps.ToString("F2");
     }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using GoogleARCore;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Playables;
 
 /// <summary>
 /// Script to handle visualisation of Gameobject
@@ -50,7 +51,7 @@ public class ARImageVisualiser : MonoBehaviour
 
 		m_generatedObject = Instantiate(m_objectList[m_image.DatabaseIndex], transform.parent.position, transform.parent.rotation);
 		m_generatedObject.transform.parent = transform;
-		m_generatedObject.transform.localScale = new Vector3(m_image.ExtentX, 1f, m_image.ExtentZ);
+		//m_generatedObject.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
 
 		m_debugText.text = "Name: " + m_generatedObject.name + "\n"
                          + "Pos: " + m_generatedObject.transform.position + "\n"
