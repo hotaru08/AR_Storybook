@@ -94,8 +94,6 @@ public class VisualizerManager : MonoBehaviour
 
 				//Reset the ARCore session
 				ARSessionManager.Instance.ResetSession();
-
-				return;
 			}
 
 			//Check for newly tracked images and create visualizers
@@ -127,6 +125,7 @@ public class VisualizerManager : MonoBehaviour
 		debugText.text += "# Currently Tracked: " + m_CurrFrameImages.Count + "\n";
 		debugText.text += "# Old Tracked: " + m_OldImages.Count + "\n";
 		debugText.text += "# Newly Tracked: " + newImages.Count + "\n";
+		debugText.text += "# Visualizers: " + m_Visualizers.Count + "\n";
 
 		//Create visualizers for new AugmentedImages
 		CreateVisualizerObjects(newImages);
@@ -180,11 +179,15 @@ public class VisualizerManager : MonoBehaviour
 	/// </summary>
 	private void RemoveAllVisualizers()
 	{
-		for (int i = m_Visualizers.Count - 1; i >= 0; i--)
+		//Destroy all the visualizer objects in the scene
+		foreach (ImageVisualizer visualizer in m_Visualizers)
 		{
-			m_Visualizers[i].gameObject.SetActive(false);
-			ObjectPool.Add(m_Visualizers[i]);
+			//Disable visualizer
+			visualizer.gameObject.SetActive(false);
+			//Add object back to pool
+			ObjectPool.Add(visualizer);
 		}
+		//Clear the list
 		m_Visualizers.Clear();
 	}
 }
