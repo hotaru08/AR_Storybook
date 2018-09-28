@@ -6,6 +6,11 @@ using GoogleARCore;
 public class ImageVisualizer : MonoBehaviour
 {
 	/// <summary>
+	/// Scale multiplier for the visualizer.
+	/// </summary>
+	[SerializeField] float scaleMultiplier = 0.2f;
+
+	/// <summary>
 	/// List of GameObjects that will be spawned to represent different images.
 	/// </summary>
 	[SerializeField] List<GameObject> visualizerPrefabs;
@@ -39,6 +44,7 @@ public class ImageVisualizer : MonoBehaviour
 		//Create a gameobject visualizer
 		m_GeneratedObject = Instantiate(visualizerPrefabs[m_Image.DatabaseIndex], m_anchor.transform.position, m_anchor.transform.rotation);
 		m_GeneratedObject.transform.parent = transform;
+		m_GeneratedObject.transform.localScale = new Vector3(m_Image.ExtentX * scaleMultiplier, m_Image.ExtentX * scaleMultiplier, m_Image.ExtentX * scaleMultiplier);
 	}
 
 	private void OnEnable()
