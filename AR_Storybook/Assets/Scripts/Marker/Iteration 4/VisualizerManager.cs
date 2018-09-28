@@ -88,6 +88,10 @@ public class VisualizerManager : MonoBehaviour
 				//Clear the image lists
 				m_CurrFrameImages.Clear();
 				m_OldImages.Clear();
+
+				//Remove all visualizers
+				RemoveAllVisualizers();
+
 				//Reset the ARCore session
 				ARSessionManager.Instance.ResetSession();
 
@@ -169,5 +173,18 @@ public class VisualizerManager : MonoBehaviour
 				m_OldImages.Add(image);
 			}
 		}
+	}
+
+	/// <summary>
+	/// Destroys all visualizer objects in the scene.
+	/// </summary>
+	private void RemoveAllVisualizers()
+	{
+		for (int i = m_Visualizers.Count - 1; i >= 0; i--)
+		{
+			m_Visualizers[i].gameObject.SetActive(false);
+			ObjectPool.Add(m_Visualizers[i]);
+		}
+		m_Visualizers.Clear();
 	}
 }
