@@ -7,7 +7,7 @@ using ATXK.Helper;
 /// <summary>
 /// System that handles Dialogues, including special effects ( eg. typewriter )
 /// </summary>
-public class DialogueSystem : SingletonBehaviour<DialogueSystem>
+public class DialogueSystem : MonoBehaviour
 {
 
     [Tooltip("Drag drop textmeshpro display here")]

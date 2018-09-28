@@ -19,9 +19,9 @@ public class Event_DialogueNextSentence : MonoBehaviour
     /// <summary>
     /// Carry out certain action when function is called
     /// </summary>
-    public void OnEventReceived()
+    public void EventReceived()
     {
         DebugLogger.Log<Event_DialogueNextSentence>("Event Received From: " + eventName);
-        DialogueSystem.Instance.NextSentence();
+        GetComponent<DialogueSystem>().NextSentence();
     }
 }

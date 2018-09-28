@@ -38,7 +38,7 @@ public class TouchManager : SingletonBehaviour<TouchManager>
 #elif UNITY_ANDROID || UNITY_IOS
         if (Input.GetTouch(0).phase.Equals(TouchPhase.Began))
         {
-             m_ray = Camera.main.ScreenPointToRay(Input.GetTouch(_touch.fingerId).position);
+             m_ray = Camera.main.ScreenPointToRay(Input.GetTouch(0).position);
 #endif
 
             if (Physics.Raycast(m_ray, out m_rayHitInfo))
@@ -140,7 +140,9 @@ public class TouchManager : SingletonBehaviour<TouchManager>
                     m_selectedObject.GetComponent<Touch_Touchables>().Rotating();
                 break;
             case Touch_Touchables.TOUCH_STATES.ALL:
-                    m_selectedObject.GetComponent<Touch_Touchables>().Transforming();
+                m_selectedObject.GetComponent<Touch_Touchables>().Dragging(m_selectedObject);
+                m_selectedObject.GetComponent<Touch_Touchables>().Rotating();
+                m_selectedObject.GetComponent<Touch_Touchables>().Scaling();
                 break;
 #endif
         }

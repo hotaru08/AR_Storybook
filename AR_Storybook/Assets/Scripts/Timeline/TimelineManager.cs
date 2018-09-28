@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using ATXK.Helper;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Playables;
@@ -7,7 +8,7 @@ using UnityEngine.Timeline;
 /// <summary>
 /// Handles the Cutscenes
 /// </summary>
-public class TimelineManager : ATXK.Helper.SingletonBehaviour<TimelineManager>
+public class TimelineManager : SingletonBehaviour<TimelineManager>
 {
     [SerializeField]
     private PlayableDirector m_director;
@@ -21,7 +22,7 @@ public class TimelineManager : ATXK.Helper.SingletonBehaviour<TimelineManager>
     /// <param name="_index">Index of timeline in array</param>
     public void PlayTimeline(int _index)
     {
-        if (_index < 0 || _index > m_TimelineArray.Length)
+        if (_index < 0 || _index > m_TimelineArray.Length - 1)
         {
             Debug.Log("Index is too low or too high");
             return;
@@ -38,6 +39,13 @@ public class TimelineManager : ATXK.Helper.SingletonBehaviour<TimelineManager>
         m_director.Play(tempTimeline);
     }
 
+    /// <summary>
+    /// Set Playable Director to be controlled by Manager
+    /// </summary>
+    public void SetPlayableDirector(PlayableDirector _director)
+    {
+        m_director = _director;
+    }
 
     /// <summary>
     /// Get the status of the Director
@@ -69,5 +77,10 @@ public class TimelineManager : ATXK.Helper.SingletonBehaviour<TimelineManager>
                 m_director.Stop();
                 break;
         }
+    }
+
+    private void OnEnable()
+    {
+        DebugLogger.Log<TimelineManager>("Entered here");
     }
 }
