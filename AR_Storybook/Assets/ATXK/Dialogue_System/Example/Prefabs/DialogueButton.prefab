@@ -59,8 +59,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df2cdd7413c93334bb57442c110d6164, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  index: 0
   text: {fileID: 114753557405661944}
+  index: 0
 --- !u!114 &114234007327968622
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -72,7 +72,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 169e4c6d81ea24d49bc254b4c64dc3e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameEvent: {fileID: 11400000, guid: c1f4b6b100b99934abdc888e5a3aebfe, type: 2}
+  gameEvents:
+  - {fileID: 11400000, guid: c1f4b6b100b99934abdc888e5a3aebfe, type: 2}
   response:
     m_PersistentCalls:
       m_Calls:

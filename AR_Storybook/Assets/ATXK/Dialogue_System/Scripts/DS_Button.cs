@@ -12,6 +12,7 @@
 
 		public int index;
 
+		#region Unity Methods
 		private void Start()
 		{
 			dialogueTree = DS_Manager.Instance.DialogueTree;
@@ -20,10 +21,12 @@
 			//GetComponent<Button>().onClick.AddListener(delegate { DS_Manager.Instance.TraverseTree(index); });
 			GetComponent<Button>().onClick.AddListener(CheckNode);
 		}
+		#endregion
 
+		#region Class Methods
 		private void CheckNode()
 		{
-			if(dialogueTree.CurrentNode.IsQuestion && dialogueTree.CurrentNode != dialogueTree.PreviousNode)
+			if (dialogueTree.CurrentNode.IsQuestion && dialogueTree.CurrentNode != dialogueTree.PreviousNode)
 			{
 				DS_Manager.Instance.RedrawButtons();
 
@@ -46,7 +49,7 @@
 			//Update the button's text
 			//text.text = dialogueTree.CurrentNode.Sentence;
 
-			if(dialogueTree != null)
+			if (dialogueTree != null)
 			{
 				if (dialogueTree.CurrentNode.IsQuestion && dialogueTree.CurrentNode == dialogueTree.PreviousNode)
 				{
@@ -61,5 +64,6 @@
 
 			//TODO: link with Wafie's dialogue printer thingy
 		}
+		#endregion
 	}
 }

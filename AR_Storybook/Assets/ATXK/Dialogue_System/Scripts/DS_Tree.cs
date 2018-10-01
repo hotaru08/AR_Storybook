@@ -15,9 +15,10 @@
 		[SerializeField] DS_Node previousNode;
 
 		[Header("Game Events")]
-		[SerializeField] ES_GameEvent changedNode;
-		[SerializeField] ES_GameEvent dialogueEnd;
+		[SerializeField] ES_Event changedNode;
+		[SerializeField] ES_Event dialogueEnd;
 
+		#region Property Getters
 		/// <summary>
 		/// Current dialogue node.
 		/// </summary>
@@ -26,6 +27,7 @@
 		/// Previous dialogue node.
 		/// </summary>
 		public DS_Node PreviousNode { get { return previousNode; } set { previousNode = value; } }
+		#endregion
 
 		private void OnEnable()
 		{
@@ -39,6 +41,9 @@
 			{
 				previousNode = currentNode;
 				currentNode = currentNode.NextNodes[index];
+
+				previousNode.Exit();
+				currentNode.Enter();
 
 				changedNode.Invoke();
 

@@ -3,10 +3,11 @@
 	using System.Collections;
 	using System.Collections.Generic;
 	using UnityEngine;
+	using EventSystem;
 
 	public class StartDialogue : MonoBehaviour
 	{
-		[SerializeField] EventSystem.ES_GameEvent startDialogue;
+		[SerializeField] ES_Event startDialogue;
 
 		// Update is called once per frame
 		void Update()

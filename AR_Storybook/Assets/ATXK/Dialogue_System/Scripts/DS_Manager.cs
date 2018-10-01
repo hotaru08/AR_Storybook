@@ -1,10 +1,9 @@
 ﻿namespace ATXK.DialogueSystem
 {
-	using System.Collections;
 	using System.Collections.Generic;
 	using UnityEngine;
-	using Helper;
 	using UnityEngine.UI;
+	using Helper;
 
 	public class DS_Manager : SingletonBehaviour<DS_Manager>
 	{
@@ -20,11 +19,14 @@
 		[SerializeField] Image npcAvatar;
 		[SerializeField] Text npcName;
 
+		#region Property Getters
 		/// <summary>
 		/// Dialogue Tree that will be used.
 		/// </summary>
 		public DS_Tree DialogueTree { get { return dialogueTree; } }
+		#endregion
 
+		#region Unity Methods
 		/// <summary>
 		/// Unity Start function.
 		/// </summary>
@@ -38,7 +40,7 @@
 
 		private void Update()
 		{
-			if(dialogueTree != null)
+			if (dialogueTree != null)
 			{
 				if (dialogueTree.CurrentNode.IsQuestion && dialogueTree.CurrentNode != dialogueTree.PreviousNode)
 				{
@@ -57,14 +59,16 @@
 				}
 			}
 		}
+		#endregion
 
+		#region Class Methods
 		/// <summary>
 		/// Tells the attached Dialogue Tree to move to to the next node.
 		/// </summary>
 		/// <param name="index"></param>
 		public void TraverseTree(int index = 0)
-		{ 
-			if(dialogueTree != null)
+		{
+			if (dialogueTree != null)
 			{
 				dialogueTree.TraverseTree(index);
 			}
@@ -91,5 +95,6 @@
 				buttonList.Add(button);
 			}
 		}
+		#endregion
 	}
 }

@@ -2,9 +2,10 @@
 {
 	using UnityEngine;
 
-	[CreateAssetMenu(menuName = "CustomVariable/Float")]
+	[CreateAssetMenu(menuName = "CustomVariable/Float", order = 3)]
 	public class CV_Float : CV_Base<float>
 	{
+		#region Operator Overloads
 		public static CV_Float operator *(CV_Float a, CV_Float b)
 		{
 			CV_Float cv = new CV_Float
@@ -81,5 +82,6 @@
 		{
 			return base.ToString();
 		}
+		#endregion
 	}
 }

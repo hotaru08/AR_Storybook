@@ -2,9 +2,10 @@
 {
 	using UnityEngine;
 
-	[CreateAssetMenu(menuName = "CustomVariable/Double")]
+	[CreateAssetMenu(menuName = "CustomVariable/Double", order = 4)]
 	public class CV_Double : CV_Base<double>
 	{
+		#region Operator Overloads
 		public static CV_Double operator *(CV_Double a, CV_Double b)
 		{
 			CV_Double cv = new CV_Double
@@ -81,5 +82,6 @@
 		{
 			return base.ToString();
 		}
+		#endregion
 	}
 }
