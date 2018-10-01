@@ -72,9 +72,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 169e4c6d81ea24d49bc254b4c64dc3e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameEvents:
+  listeningForGameEvents:
   - {fileID: 11400000, guid: c1f4b6b100b99934abdc888e5a3aebfe, type: 2}
-  response:
+  defaultResponse:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 114108615654675026}
@@ -90,6 +90,26 @@ MonoBehaviour:
         m_CallState: 2
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
+  responseToBoolEvent:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: ATXK.EventSystem.BoolEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  responseToIntEvent:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: ATXK.EventSystem.IntEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  responseToFloatEvent:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: ATXK.EventSystem.FloatEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  responseToStringEvent:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: ATXK.EventSystem.StringEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
 --- !u!114 &114750423056242482
 MonoBehaviour:
   m_ObjectHideFlags: 1

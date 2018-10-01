@@ -535,7 +535,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b775c7dedc9f1344ba2c98f9bbce4224, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startDialogue: {fileID: 11400000, guid: 3bc20c2e86a4a7846be18c037bf3eb9a, type: 2}
+  startDialogue: {fileID: 11400000, guid: 942b71c9b99777441820080f7f860b14, type: 2}
 --- !u!4 &989601545
 Transform:
   m_ObjectHideFlags: 0
@@ -691,7 +691,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1831099342}
   - component: {fileID: 1831099343}
-  - component: {fileID: 1831099344}
   m_Layer: 5
   m_Name: Dialogue System
   m_TagString: Untagged
@@ -729,43 +728,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 169e4c6d81ea24d49bc254b4c64dc3e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameEvents:
-  - {fileID: 11400000, guid: 3bc20c2e86a4a7846be18c037bf3eb9a, type: 2}
-  response:
+  listeningForGameEvents:
+  - {fileID: 11400000, guid: 942b71c9b99777441820080f7f860b14, type: 2}
+  - {fileID: 11400000, guid: 72592035be821cc4f863a9e68792457f, type: 2}
+  defaultResponse:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 733431712}
-        m_MethodName: SetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
-        m_CallState: 2
+      m_Calls: []
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
---- !u!114 &1831099344
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1831099341}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 169e4c6d81ea24d49bc254b4c64dc3e3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  gameEvents:
-  - {fileID: 11400000, guid: 72592035be821cc4f863a9e68792457f, type: 2}
-  response:
+  responseToBoolEvent:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 733431712}
         m_MethodName: SetActive
-        m_Mode: 6
+        m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -774,8 +750,23 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
+    m_TypeName: ATXK.EventSystem.BoolEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  responseToIntEvent:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: ATXK.EventSystem.IntEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  responseToFloatEvent:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: ATXK.EventSystem.FloatEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  responseToStringEvent:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: ATXK.EventSystem.StringEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
 --- !u!1 &1876757560
 GameObject:
   m_ObjectHideFlags: 0
@@ -804,15 +795,34 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 169e4c6d81ea24d49bc254b4c64dc3e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameEvents:
-  - {fileID: 11400000, guid: cfe53dcb0d1e84440b731a27b2ca1468, type: 2}
-  - {fileID: 11400000, guid: 3bc20c2e86a4a7846be18c037bf3eb9a, type: 2}
-  response:
+  listeningForGameEvents:
+  - {fileID: 11400000, guid: 822c9e5619c914a4c9b75439038215c9, type: 2}
+  defaultResponse:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  responseToBoolEvent:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: ATXK.EventSystem.BoolEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  responseToIntEvent:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: ATXK.EventSystem.IntEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  responseToFloatEvent:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: ATXK.EventSystem.FloatEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  responseToStringEvent:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1876757562}
         m_MethodName: CallAnimator
-        m_Mode: 1
+        m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -821,8 +831,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
+    m_TypeName: ATXK.EventSystem.StringEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
 --- !u!114 &1876757562
 MonoBehaviour:
   m_ObjectHideFlags: 0

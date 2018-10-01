@@ -17,5 +17,11 @@
 				eventListeners[i].OnEventRaised(value);
 			}
 		}
+
+		public void Invoke(float newValue)
+		{
+			value = newValue;
+			Invoke();
+		}
 	}
 }

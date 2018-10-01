@@ -17,5 +17,11 @@
 				eventListeners[i].OnEventRaised(value);
 			}
 		}
+
+		public void Invoke(string newValue)
+		{
+			value = newValue;
+			Invoke();
+		}
 	}
 }

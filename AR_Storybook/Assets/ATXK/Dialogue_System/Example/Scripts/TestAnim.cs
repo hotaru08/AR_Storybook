@@ -6,12 +6,9 @@
 
 	public class TestAnim : MonoBehaviour
 	{
-		int index = 0;
-
-		public void CallAnimator()
+		public void CallAnimator(string animationName)
 		{
-			Debug.Log("Index=" + index);
-			index++;
+			Debug.Log("TestAnim called at Node: " + animationName);
 		}
 	}
 }
