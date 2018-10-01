@@ -2,44 +2,82 @@
 {
 	using UnityEngine;
 
-	/// <summary>
-	/// In variable using ScriptableObject. Use this for scene-independant data storage or as a reference value for multiple classes.
-	/// </summary>
-	[CreateAssetMenu(menuName = "ATXK/Custom Variable/Int")]
-	public class CV_Int : CV_Base
+	[CreateAssetMenu(menuName = "CustomVariable/Int")]
+	public class CV_Int : CV_Base<int>
 	{
-		/// <summary>
-		/// Value of this object that other classes cannot view/edit.
-		/// </summary>
-		[SerializeField] int initialValue;
-
-		/// <summary>
-		/// Value of this object that other classes can view/edit.
-		/// </summary>
-		public int RuntimeValue;
-
-		/// <summary>
-		/// Resets the runtime value to the initial value.
-		/// </summary>
-		public override void Reset()
+		public static CV_Int operator *(CV_Int a, CV_Int b)
 		{
-			RuntimeValue = initialValue;
+			CV_Int cv = new CV_Int
+			{
+				value = a.value * b.value
+			};
+
+			return cv;
 		}
 
-		/// <summary>
-		/// ISerializationCallbackReceiver function.
-		/// </summary>
-		public override void OnBeforeSerialize()
+		public static CV_Int operator /(CV_Int a, CV_Int b)
 		{
+			CV_Int cv = new CV_Int
+			{
+				value = a.value / b.value
+			};
 
+			return cv;
 		}
 
-		/// <summary>
-		/// ISerializationCallbackReceiver function.
-		/// </summary>
-		public override void OnAfterDeserialize()
+		public static CV_Int operator +(CV_Int a, CV_Int b)
 		{
-			RuntimeValue = initialValue;
+			CV_Int cv = new CV_Int
+			{
+				value = a.value + b.value
+			};
+
+			return cv;
+		}
+
+		public static CV_Int operator -(CV_Int a, CV_Int b)
+		{
+			CV_Int cv = new CV_Int
+			{
+				value = a.value - b.value
+			};
+
+			return cv;
+		}
+
+		public static bool operator >(CV_Int a, CV_Int b)
+		{
+			return a.value > b.value;
+		}
+
+		public static bool operator <(CV_Int a, CV_Int b)
+		{
+			return a.value < b.value;
+		}
+
+		public static bool operator ==(CV_Int a, CV_Int b)
+		{
+			return a.value == b.value;
+		}
+
+		public static bool operator !=(CV_Int a, CV_Int b)
+		{
+			return a.value != b.value;
+		}
+
+		public override int GetHashCode()
+		{
+			return base.GetHashCode();
+		}
+
+		public override bool Equals(object other)
+		{
+			return base.Equals(other);
+		}
+
+		public override string ToString()
+		{
+			return base.ToString();
 		}
 	}
 }

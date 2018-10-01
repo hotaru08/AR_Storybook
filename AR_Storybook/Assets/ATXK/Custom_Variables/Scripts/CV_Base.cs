@@ -1,25 +1,11 @@
 ﻿namespace ATXK.CustomVariables
 {
+	using System.Collections;
+	using System.Collections.Generic;
 	using UnityEngine;
 
-	/// <summary>
-	/// Base class for all custom variables.
-	/// </summary>
-	public abstract class CV_Base : ScriptableObject, ISerializationCallbackReceiver
+	public abstract class CV_Base<T> : ScriptableObject
 	{
-		/// <summary>
-		/// Resets the runtime value to the initial value.
-		/// </summary>
-		public abstract void Reset();
-
-		/// <summary>
-		/// ISerializationCallbackReceiver OnAfterDeserialize function.
-		/// </summary>
-		public abstract void OnAfterDeserialize();
-
-		/// <summary>
-		/// ISerializationCallbackReceiver OnBeforeSerialize function.
-		/// </summary>
-		public abstract void OnBeforeSerialize();
+		public T value { get { return value; } set { this.value = value; } }
 	}
 }

@@ -4,7 +4,7 @@
 	using System.Collections.Generic;
 	using UnityEngine;
 
-	[CreateAssetMenu(menuName = "ATXK/Dialogue System/Node")]
+	[CreateAssetMenu(menuName = "Dialogue System/Node")]
 	public class DS_Node : ScriptableObject
 	{
 		[Header("Character")]

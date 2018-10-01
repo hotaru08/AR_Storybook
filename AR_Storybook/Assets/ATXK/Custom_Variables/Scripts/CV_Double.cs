@@ -2,44 +2,84 @@
 {
 	using UnityEngine;
 
-	/// <summary>
-	/// Double variable using ScriptableObject. Use this for scene-independant data storage or as a reference value for multiple classes.
-	/// </summary>
-	[CreateAssetMenu(menuName = "ATXK/Custom Variable/Double")]
-	public class CV_Double : CV_Base
+	[CreateAssetMenu(menuName = "CustomVariable/Double")]
+	public class CV_Double : CV_Base<double>
 	{
-		/// <summary>
-		/// Value of this object that other classes cannot view/edit.
-		/// </summary>
-		[SerializeField] double initialValue;
-
-		/// <summary>
-		/// Value of this object that other classes can view/edit.
-		/// </summary>
-		public double RuntimeValue;
-
-		/// <summary>
-		/// Resets the runtime value to the initial value.
-		/// </summary>
-		public override void Reset()
+		public static CV_Double operator *(CV_Double a, CV_Double b)
 		{
-			RuntimeValue = initialValue;
+			CV_Double cv = new CV_Double
+			{
+				value = a.value * b.value
+			};
+
+			return cv;
 		}
 
-		/// <summary>
-		/// ISerializationCallbackReceiver function.
-		/// </summary>
-		public override void OnBeforeSerialize()
+		public static CV_Double operator /(CV_Double a, CV_Double b)
 		{
+			CV_Double cv = new CV_Double
+			{
+				value = a.value / b.value
+			};
 
+			return cv;
 		}
 
-		/// <summary>
-		/// ISerializationCallbackReceiver function.
-		/// </summary>
-		public override void OnAfterDeserialize()
+		public static CV_Double operator +(CV_Double a, CV_Double b)
 		{
-			RuntimeValue = initialValue;
+
+			CV_Double cv = new CV_Double
+			{
+				value = a.value + b.value
+			};
+
+			return cv;
+		}
+
+		public static CV_Double operator -(CV_Double a, CV_Double b)
+		{
+
+			CV_Double cv = new CV_Double
+			{
+				value = a.value - b.value
+			};
+
+			return cv;
+		}
+
+		public static bool operator >(CV_Double a, CV_Double b)
+		{
+			return a.value > b.value;
+		}
+
+		public static bool operator <(CV_Double a, CV_Double b)
+		{
+			return a.value < b.value;
+		}
+
+		public static bool operator ==(CV_Double a, CV_Double b)
+		{
+			return a.value == b.value;
+		}
+
+		public static bool operator !=(CV_Double a, CV_Double b)
+		{
+			return a.value != b.value;
+		}
+
+		public override int GetHashCode()
+		{
+			return base.GetHashCode();
+		}
+
+		public override bool Equals(object other)
+		{
+			return base.Equals(other);
+		}
+
+		public override string ToString()
+		{
+			return base.ToString();
 		}
 	}
 }

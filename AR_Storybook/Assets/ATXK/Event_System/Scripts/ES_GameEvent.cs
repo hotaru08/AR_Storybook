@@ -7,7 +7,7 @@
 	/// <summary>
 	/// Custom game event that utilises ScriptableObjects.
 	/// </summary>
-	[CreateAssetMenu(menuName = "ATXK/Events/GameEvent")]
+	[CreateAssetMenu(menuName = "Events/GameEvent")]
 	public class ES_GameEvent : ScriptableObject
 	{
 		/// <summary>
