@@ -2,43 +2,45 @@
 {
 	using UnityEngine;
 
-	/// <summary>
-	/// String variable using ScriptableObject. Use this for scene-independant data storage or as a reference value for multiple classes.
-	/// </summary>
-	[CreateAssetMenu(menuName = "ATXK/Custom Variable/String")]
-	public class CV_String : CV_Base
+	[CreateAssetMenu(menuName = "CustomVariable/String", order = 5)]
+	public class CV_String : CV_Base<string>
 	{
-		/// <summary>
-		/// Value of this object that other classes cannot view/edit.
-		/// </summary>
-		[SerializeField] string initialValue;
-		/// <summary>
-		/// Value of this object that other classes can view/edit.
-		/// </summary>
-		public string RuntimeValue;
+		#region Operator Overloads
 
-		/// <summary>
-		/// Resets the runtime value to the initial value.
-		/// </summary>
-		public override void Reset()
+		public static CV_String operator +(CV_String a, CV_String b)
 		{
-			RuntimeValue = initialValue;
+			CV_String cv = new CV_String
+			{
+				value = a.value + b.value
+			};
+
+			return cv;
 		}
 
-		/// <summary>
-		/// ISerializationCallbackReceiver function.
-		/// </summary>
-		public override void OnBeforeSerialize()
+		public static bool operator ==(CV_String a, CV_String b)
 		{
-
+			return a.value == b.value;
 		}
 
-		/// <summary>
-		/// ISerializationCallbackReceiver function.
-		/// </summary>
-		public override void OnAfterDeserialize()
+		public static bool operator !=(CV_String a, CV_String b)
 		{
-			RuntimeValue = initialValue;
+			return a.value != b.value;
 		}
+
+		public override int GetHashCode()
+		{
+			return base.GetHashCode();
+		}
+
+		public override bool Equals(object other)
+		{
+			return base.Equals(other);
+		}
+
+		public override string ToString()
+		{
+			return base.ToString();
+		}
+		#endregion
 	}
 }
