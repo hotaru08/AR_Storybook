@@ -35,8 +35,8 @@ public class ImageVisualizer : MonoBehaviour
 	/// Anchor that the ImageVisualizer will reference for positioning.
 	/// </summary>
 	public Anchor Anchor { set { DestroyImmediate(m_anchor); m_anchor = value; } }
-
-	private void VisualizeImage()
+    
+    private void VisualizeImage()
 	{
 		//Disable the placeholder render
 		GetComponent<Renderer>().enabled = false;
@@ -44,12 +44,12 @@ public class ImageVisualizer : MonoBehaviour
 		//Create a gameobject visualizer
 		m_GeneratedObject = Instantiate(visualizerPrefabs[m_Image.DatabaseIndex], m_anchor.transform.position, m_anchor.transform.rotation);
 		m_GeneratedObject.transform.parent = transform;
-		m_GeneratedObject.transform.localScale = new Vector3(m_Image.ExtentX * scaleMultiplier, m_Image.ExtentX * scaleMultiplier, m_Image.ExtentX * scaleMultiplier);
-	}
+		m_GeneratedObject.transform.localScale = new Vector3(m_Image.ExtentX, m_Image.ExtentX, m_Image.ExtentX) * scaleMultiplier;
+    }
 
 	private void OnEnable()
 	{
-		if (m_Image != null)
+        if (m_Image != null)
 		{
 			VisualizeImage();
 		}
