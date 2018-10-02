@@ -100,9 +100,9 @@
 		public static void StartListening(string eventName, UnityAction function)
 		{
 			ES_GameEventListener listener = new ES_GameEventListener();
-			listener.response.AddListener(function);
+            listener.defaultResponse.AddListener(function);
 
-			StartListening(eventName, listener);
+            StartListening(eventName, listener);
 		}
 
 		/// <summary>
@@ -132,7 +132,7 @@
 		public static void StopListening(string eventName, UnityAction function)
 		{
 			ES_GameEventListener listener = new ES_GameEventListener();
-			listener.response.AddListener(function);
+		    listener.defaultResponse.AddListener(function);
 
 			StopListening(eventName, listener);
 		}
