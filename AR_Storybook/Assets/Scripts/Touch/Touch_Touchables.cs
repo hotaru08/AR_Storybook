@@ -24,8 +24,20 @@ public class Touch_Touchables : MonoBehaviour
     /// <summary>
     /// Get Gameobjects animation ( if have )
     /// </summary>
-    //[SerializeField]
-    public Animator m_animator;
+    [SerializeField]
+    private Animator m_animator;
+
+    /// <summary>
+    /// Get mesh of Gameobject ( if have )
+    /// </summary>
+    [SerializeField]
+    private Material m_oldmat, m_newmat;
+    private bool m_change = false;
+
+    /// <summary>
+    /// The root of the hierachy this gameObject is in
+    /// </summary>
+    public GameObject rootObject;
 
     /******************* Various Interaction Functions *******************/
     /// <summary>
@@ -40,23 +52,51 @@ public class Touch_Touchables : MonoBehaviour
         GameObject temp = null;
         // assign new selected object
         temp = _objRayHit;
-        // assign new material to object
-        temp.GetComponentInChildren<Renderer>().material.color = Color.red;
+        // set to change mesh
+        m_change = !m_change;
         // play animation if they have 
         if (m_animator)
             m_animator.SetTrigger("SelectionAnimation");
-        
         return temp;
     }
 
-    public void Scaling()
+    /// <summary>
+    /// Changing of Mesh of selected Gameobject
+    /// </summary>
+    public void ChangeMesh()
     {
-        Debug.Log("This function will do scaling");
+        // no mesh to change
+        if (m_oldmat == null || m_newmat == null)
+            return;
+
+        if (m_change)
+            GetComponent<Renderer>().material = m_newmat;
+        else
+            GetComponent<Renderer>().material = m_oldmat;
     }
 
+    /// <summary>
+    /// Scaling Mode
+    /// - Scales up and down selected Gameobject
+    /// </summary>
+    public void Scaling(GameObject _obj, Touch _one, Touch _two)
+    {
+        // Add Component
+        if (_obj.GetComponent<Touch_Scaling>() == null)
+        {
+            Debug.LogWarning("Adding Scaling Component");
+            _obj.AddComponent<Touch_Scaling>();
+        }
+        // Use Function to Scale
+        _obj.GetComponent<Touch_Scaling>().ChangeScaling(_obj, _one, _two);
+    }
+
+    /// <summary>
+    /// Dragging Mode
+    /// - Drag selected Gameobject along x and z axis
+    /// </summary>
     public void Dragging(GameObject _selectedObject)
     {
-        //Debug.Log("This function will do Dragging");
         // Add Component
         if (_selectedObject.GetComponent<Touch_Dragging>() == null)
         {
@@ -66,24 +106,38 @@ public class Touch_Touchables : MonoBehaviour
         // Use Function to Drag
         _selectedObject.GetComponent<Touch_Dragging>().DragObject(_selectedObject);
 
-
         // Play Dragging Animation
         if (m_animator)
             m_animator.SetBool("DraggingAnimation", true);
     }
 
-    public void Rotating()
+    /// <summary>
+    /// Rotating Mode
+    /// - Rotate in both directions, by y axis 
+    /// </summary>
+    public void Rotating(GameObject _obj)
     {
-        Debug.Log("This function will do Rotating");
+        // Add Component
+        if (_obj.GetComponent<Touch_Rotating>() == null)
+        {
+            Debug.LogWarning("Adding Rotating Component");
+            _obj.AddComponent<Touch_Rotating>();
+        }
+        // Use Function to Rotate
 
     }
 
-    public void Reset()
+    /// <summary>
+    /// Reset all animations when not selected
+    /// </summary>
+    public void ResetAnimation(GameObject _obj)
     {
-        // Reset all Animation
-        if (m_animator)
+        if (!m_animator) return;
+
+        if (m_state == TOUCH_STATES.DRAG)
         {
             m_animator.SetBool("DraggingAnimation", false);
+            _obj.GetComponent<Touch_Dragging>().enabled = false;
         }
     }
 

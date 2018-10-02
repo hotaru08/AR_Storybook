@@ -7,13 +7,14 @@ public class Touch_Dragging : MonoBehaviour
     /// <summary>
     /// Flag to trigger dragging
     /// </summary>
-    private bool _mouseState;
+    private bool m_bisDrag = false;
 
     /// <summary>
     /// Getting Screen coords and offset from one object to another
     /// </summary>
     private Vector3 m_screenSpace;
     private Vector3 m_offset;
+    private const float m_yOffset = 0.2f;
 
     /// <summary>
     /// The Object that will be dragged
@@ -26,34 +27,39 @@ public class Touch_Dragging : MonoBehaviour
     /// </summary>
     public float m_dragSpeed;
 
-    private void Awake()
-    {
-        m_dragSpeed = 1.0f;
-    }
-
     /// <summary>
     /// Function to get the Object's screen position and offset from Object's pos to mouse world space pos
     /// </summary>
     public void DragObject(GameObject _selected)
     {
-        _mouseState = true;
+        m_bisDrag = true;
+        Debug.Log("isDrag: " + m_bisDrag);
+
+        // set target obj to be selected ( for dragging )
         m_target = _selected;
+        Debug.Log("Target pos: " + m_target.transform.position);
+
+        // get selected obj screen space pos
         m_screenSpace = Camera.main.WorldToScreenPoint(_selected.transform.position);
-        m_offset = _selected.transform.position - Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, m_screenSpace.z));
+        // when u select the sides, the offset will allow moving from there ( no sudden jump to center )
+        m_offset = _selected.transform.position - 
+            Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, m_screenSpace.z));
     }
 
+    /// <summary>
+    /// Works for most platforms, when pointer moves this function is called
+    /// </summary>
     public void OnMouseDrag()
     {
-        if (!_mouseState) return;
+        if (!m_bisDrag) return;
 
-        //keep track of the mouse position
-        var curScreenSpace = new Vector3(Input.mousePosition.x, Input.mousePosition.y, m_screenSpace.z);
+        // get position of pointer in screen space
+        Vector3 curScreenSpace = new Vector3(Input.mousePosition.x, Input.mousePosition.y, m_screenSpace.z);
 
-        //convert the screen mouse position to world point and adjust with offset
-        var curPosition = Camera.main.ScreenToWorldPoint(curScreenSpace) + m_offset;
+        // get the pos of pointer in world space
+        Vector3 curPosition = Camera.main.ScreenToWorldPoint(curScreenSpace);
 
-        //update the position of the object in the world
-        m_target.transform.position = new Vector3(curPosition.x, curPosition.y, 0.0f);
-        //m_target.transform.position *= m_dragSpeed * Time.deltaTime;
+        // Update the pos of selected obj according to the pos of the pointer in world space
+        m_target.transform.position = new Vector3(curPosition.x, m_yOffset , curPosition.z);
     }
 }

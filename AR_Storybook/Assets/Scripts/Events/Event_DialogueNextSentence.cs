@@ -9,19 +9,11 @@ using UnityEngine;
 /// </summary>
 public class Event_DialogueNextSentence : MonoBehaviour
 {
-    string eventName;
-
-    private void Start()
-    {
-        eventName = GetComponent<ES_GameEventListener>().gameEvent.name;
-    }
-
     /// <summary>
     /// Carry out certain action when function is called
     /// </summary>
     public void EventReceived()
     {
-        DebugLogger.Log<Event_DialogueNextSentence>("Event Received From: " + eventName);
         GetComponent<DialogueSystem>().NextSentence();
     }
 }

@@ -13,7 +13,6 @@ public class TouchManager : SingletonBehaviour<TouchManager>
     /// Stack of gameobjects that is touched by ray
     /// </summary>
     private GameObject m_selectedObject;
-    //private List<GameObject> m_selectedObjectStack;
 
     /// <summary>
     /// Previously selected object settings
@@ -26,8 +25,6 @@ public class TouchManager : SingletonBehaviour<TouchManager>
     private Ray m_ray;
     private RaycastHit m_rayHitInfo;
 
-    public Text m_debug;
-
     // Update is called once per frame
     void Update()
     {
@@ -36,6 +33,9 @@ public class TouchManager : SingletonBehaviour<TouchManager>
         {
             m_ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 #elif UNITY_ANDROID || UNITY_IOS
+        if (Input.touchCount <= 0) return;
+        
+        // When there is touches
         if (Input.GetTouch(0).phase.Equals(TouchPhase.Began))
         {
              m_ray = Camera.main.ScreenPointToRay(Input.GetTouch(0).position);
@@ -57,7 +57,11 @@ public class TouchManager : SingletonBehaviour<TouchManager>
                     m_prevSelectedObject = m_selectedObject;
                     ResetSelected(m_prevSelectedObject);
                 }
-                m_selectedObject = m_rayHitInfo.collider.gameObject.GetComponent<Touch_Touchables>().Selection(m_rayHitInfo.collider.gameObject);
+                m_selectedObject = m_rayHitInfo.collider.gameObject.GetComponent<Touch_Touchables>().
+                                                         Selection(m_rayHitInfo.collider.gameObject);
+                Debug.LogWarning("Selected: " + m_selectedObject);
+                // ---------- Changing Mesh
+                m_selectedObject.GetComponent<Touch_Touchables>().ChangeMesh();
             }
             else
             {
@@ -90,9 +94,7 @@ public class TouchManager : SingletonBehaviour<TouchManager>
     {
         if (_prev == null)
             return;
-
-        _prev.GetComponentInChildren<Renderer>().material.color = Color.white;
-        _prev.GetComponent<Touch_Touchables>().Reset();
+        _prev.GetComponent<Touch_Touchables>().ResetAnimation(_prev);
     }
 
     /// <summary>
@@ -108,7 +110,6 @@ public class TouchManager : SingletonBehaviour<TouchManager>
 
 #if UNITY_EDITOR || UNITY_STANDALONE
             case Touch_Touchables.TOUCH_STATES.SCALE:
-                m_selectedObject.GetComponent<Touch_Touchables>().Scaling();
                 break;
             case Touch_Touchables.TOUCH_STATES.DRAG:
                 if (_hitInfo.collider.name == m_selectedObject.name)
@@ -117,32 +118,34 @@ public class TouchManager : SingletonBehaviour<TouchManager>
                 }
                 break;
             case Touch_Touchables.TOUCH_STATES.ROTATE:
-                m_selectedObject.GetComponent<Touch_Touchables>().Rotating();
                 break;
             case Touch_Touchables.TOUCH_STATES.ALL:
                 m_selectedObject.GetComponent<Touch_Touchables>().Dragging(m_selectedObject);
-                m_selectedObject.GetComponent<Touch_Touchables>().Rotating();
-                m_selectedObject.GetComponent<Touch_Touchables>().Scaling();
                 break;
 
 #elif UNITY_ANDROID || UNITY_IOS
             case Touch_Touchables.TOUCH_STATES.SCALE:
-                    m_selectedObject.GetComponent<Touch_Touchables>().Scaling();
+                // Get first and second touch for scale offset
+                if (Input.touchCount == 2)
+                    m_selectedObject.GetComponent<Touch_Touchables>().Scaling(m_selectedObject, Input.GetTouch(0), Input.GetTouch(1));
                 break;
             case Touch_Touchables.TOUCH_STATES.DRAG:
                 if (_hitInfo.collider.name == m_selectedObject.name)
                 {
                     m_selectedObject.GetComponent<Touch_Touchables>().Dragging(m_selectedObject);
-                    m_debug.text = "HELP";
                 }
                 break;
             case Touch_Touchables.TOUCH_STATES.ROTATE:
-                    m_selectedObject.GetComponent<Touch_Touchables>().Rotating();
+                if (Input.touchCount == 2)
+                    m_selectedObject.GetComponent<Touch_Touchables>().Rotating(m_selectedObject);
                 break;
             case Touch_Touchables.TOUCH_STATES.ALL:
                 m_selectedObject.GetComponent<Touch_Touchables>().Dragging(m_selectedObject);
-                m_selectedObject.GetComponent<Touch_Touchables>().Rotating();
-                m_selectedObject.GetComponent<Touch_Touchables>().Scaling();
+                if (Input.touchCount == 2)
+                {
+                    m_selectedObject.GetComponent<Touch_Touchables>().Rotating(m_selectedObject);
+                    m_selectedObject.GetComponent<Touch_Touchables>().Scaling(m_selectedObject, Input.GetTouch(0), Input.GetTouch(1));
+                }
                 break;
 #endif
         }

@@ -30,7 +30,6 @@ public class TimelineManager : SingletonBehaviour<TimelineManager>
 
         TimelineAsset tempTimeline = null;
         tempTimeline = m_TimelineArray[_index];
-        Debug.Log("Timeline Name: " + tempTimeline.name);
         if (tempTimeline == null)
         {
             Debug.Log("Timeline index returned null");
@@ -77,10 +76,5 @@ public class TimelineManager : SingletonBehaviour<TimelineManager>
                 m_director.Stop();
                 break;
         }
-    }
-
-    private void OnEnable()
-    {
-        DebugLogger.Log<TimelineManager>("Entered here");
     }
 }
