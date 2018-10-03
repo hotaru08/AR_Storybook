@@ -13,11 +13,7 @@
 		{
 			if(Input.GetKeyDown(KeyCode.Backspace))
 			{
-				player.TakeDamage(damage.RuntimeValue);
-			}
-			if(Input.GetKeyDown(KeyCode.R))
-			{
-				player.ResetHP();
+				player.TakeDamage(damage.value);
 			}
 		}
 	}
