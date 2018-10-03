@@ -6,6 +6,6 @@
 
 	public abstract class CV_Base<T> : ScriptableObject
 	{
-		public T value { get { return value; } set { this.value = value; } }
+		public T value;
 	}
 }
