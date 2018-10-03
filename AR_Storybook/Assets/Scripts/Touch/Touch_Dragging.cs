@@ -13,7 +13,7 @@ public class Touch_Dragging : MonoBehaviour
     /// Getting Screen coords and offset from one object to another
     /// </summary>
     private Vector3 m_screenSpace;
-    private Vector3 m_offset;
+    //private Vector3 m_offset;
     private const float m_yOffset = 0.2f;
 
     /// <summary>
@@ -33,17 +33,15 @@ public class Touch_Dragging : MonoBehaviour
     public void DragObject(GameObject _selected)
     {
         m_bisDrag = true;
-        Debug.Log("isDrag: " + m_bisDrag);
 
         // set target obj to be selected ( for dragging )
         m_target = _selected;
-        Debug.Log("Target pos: " + m_target.transform.position);
 
         // get selected obj screen space pos
         m_screenSpace = Camera.main.WorldToScreenPoint(_selected.transform.position);
         // when u select the sides, the offset will allow moving from there ( no sudden jump to center )
-        m_offset = _selected.transform.position - 
-            Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, m_screenSpace.z));
+        //m_offset = _selected.transform.position - 
+        //    Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, m_screenSpace.z));
     }
 
     /// <summary>

@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using ATXK.Helper;
 
 /// <summary>
-/// A manager to handle Touch events ( rip i have nvr made a manager OR have the skill to make a proper manager )
+/// A manager to handle Touch events
 /// </summary>
 public class TouchManager : SingletonBehaviour<TouchManager>
 {
@@ -24,6 +24,9 @@ public class TouchManager : SingletonBehaviour<TouchManager>
     /// </summary>
     private Ray m_ray;
     private RaycastHit m_rayHitInfo;
+
+    [SerializeField]
+    private ListHolder m_holder;
 
     // Update is called once per frame
     void Update()
@@ -66,8 +69,6 @@ public class TouchManager : SingletonBehaviour<TouchManager>
             else
             {
                 ResetSelected(m_selectedObject);
-                m_selectedObject = null;
-                m_prevSelectedObject = null;
                 Debug.Log("m_selectedObjectStack is now empty");
             }
             Debug.DrawLine(m_ray.origin, m_rayHitInfo.point, Color.red);
@@ -77,6 +78,12 @@ public class TouchManager : SingletonBehaviour<TouchManager>
         }
         else if (m_selectedObject && Input.GetMouseButton(0))
             HandleStates(m_selectedObject.GetComponent<Touch_Touchables>().m_state, m_rayHitInfo);
+        else if (m_selectedObject && Input.GetMouseButtonUp(0))
+        {
+            if (m_selectedObject.tag == "Player" && m_holder != null)
+                m_holder.m_eventsHolder[1].Invoke();
+            ResetSelected(m_selectedObject);
+        }
 
 #elif UNITY_ANDROID || UNITY_IOS
         }
@@ -94,7 +101,10 @@ public class TouchManager : SingletonBehaviour<TouchManager>
     {
         if (_prev == null)
             return;
+
         _prev.GetComponent<Touch_Touchables>().ResetAnimation(_prev);
+        m_selectedObject = null;
+        m_prevSelectedObject = null;
     }
 
     /// <summary>
@@ -114,6 +124,9 @@ public class TouchManager : SingletonBehaviour<TouchManager>
             case Touch_Touchables.TOUCH_STATES.DRAG:
                 if (_hitInfo.collider.name == m_selectedObject.name)
                 {
+                    if (m_selectedObject.tag == "Player" && m_holder != null)
+                        m_holder.m_eventsHolder[0].Invoke();
+
                     m_selectedObject.GetComponent<Touch_Touchables>().Dragging(m_selectedObject);
                 }
                 break;
