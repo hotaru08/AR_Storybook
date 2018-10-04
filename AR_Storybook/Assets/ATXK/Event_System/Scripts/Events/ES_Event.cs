@@ -6,10 +6,10 @@
 	/// <summary>
 	/// Event based on ScriptableObjects.
 	/// </summary>
-	[CreateAssetMenu(menuName = "Events/Default Event", order = 1)]
+	[CreateAssetMenu(menuName = "Event System/Event/Default Event", order = 1)]
 	public class ES_Event : ScriptableObject
 	{
-		[SerializeField] protected List<ES_GameEventListener> eventListeners = new List<ES_GameEventListener>();
+		[SerializeField] protected List<ES_EventListener> eventListeners = new List<ES_EventListener>();
 
 		#region Class Methods
 		public virtual void Invoke()
@@ -20,12 +20,12 @@
 			}
 		}
 
-		public virtual void AddListener(ES_GameEventListener listener)
+		public virtual void AddListener(ES_EventListener listener)
 		{
 			eventListeners.Add(listener);
 		}
 
-		public virtual void RemoveListener(ES_GameEventListener listener)
+		public virtual void RemoveListener(ES_EventListener listener)
 		{
 			eventListeners.Remove(listener);
 		}

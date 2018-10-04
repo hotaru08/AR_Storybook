@@ -2,6 +2,8 @@
 {
 	using UnityEngine;
 	using UnityEngine.AI;
+	using EventSystem;
+	using System.Collections.Generic;
 
 	/// <summary>
 	/// Updates the current state of the AI and handles transitioning to other states.
@@ -33,6 +35,14 @@
 		public void ChangeState(AI_State state)
 		{
 			currentState = state;
+		}
+
+		public void ChangeState(Object state)
+		{
+			if (state is AI_State)
+			{
+				ChangeState((AI_State)state);
+			}
 		}
 
 		public Vector3 GetTargetPosition()

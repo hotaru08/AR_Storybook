@@ -5,7 +5,7 @@
 	/// <summary>
 	/// Event based on ScriptableObjects with int value.
 	/// </summary>
-	[CreateAssetMenu(menuName = "Events/Int Event", order = 3)]
+	[CreateAssetMenu(menuName = "Event System/Event/Int Event", order = 3)]
 	public class ES_Event_Int : ES_Event
 	{
 		public int value;

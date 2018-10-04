@@ -15,7 +15,7 @@
 		private bool Look(AI_Controller controller)
 		{
 			RaycastHit hit;
-			if(Physics.SphereCast(controller.transform.position, 1f, controller.transform.forward, out hit))
+			if(Physics.SphereCast(controller.transform.position, 1f, controller.transform.forward, out hit, controller.aiStats.scanRange))
 			{
 				if(hit.collider.CompareTag(tagToLookFor))
 				{

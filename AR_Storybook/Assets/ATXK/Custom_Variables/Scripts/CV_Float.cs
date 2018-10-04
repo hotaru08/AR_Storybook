@@ -2,7 +2,7 @@
 {
 	using UnityEngine;
 
-	[CreateAssetMenu(menuName = "CustomVariable/Float", order = 3)]
+	[CreateAssetMenu(menuName = "Custom Variable/Float", order = 3)]
 	public class CV_Float : CV_Base<float>
 	{
 		#region Operator Overloads
