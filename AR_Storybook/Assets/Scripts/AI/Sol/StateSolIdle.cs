@@ -77,7 +77,7 @@ public class StateSolIdle : IStateBase
         m_object.transform.LookAt(m_originalPosition);
         m_object.transform.position += new Vector3(m_object.transform.forward.x, 0.0f, m_object.transform.forward.z) * m_moveSpeed * Time.deltaTime;
         
-        DebugLogger.Log<StateSolIdle>("Object Pos: " + m_object.transform.position);
+        //DebugLogger.Log<StateSolIdle>("Object Pos: " + m_object.transform.position);
     }
 
     public void ExitState()

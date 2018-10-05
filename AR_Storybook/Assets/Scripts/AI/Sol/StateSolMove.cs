@@ -72,7 +72,7 @@ public class StateSolMove : IStateBase
 
 
         //m_object.transform.position += m_object.transform.forward * m_moveSpeed * Time.deltaTime;
-        DebugLogger.Log<StateSolMove>("Moving to target : " + m_targetObject);
+        //DebugLogger.Log<StateSolMove>("Moving to target : " + m_targetObject);
 
     }
 
