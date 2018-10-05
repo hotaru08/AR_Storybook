@@ -40,7 +40,7 @@ GameObject:
   - component: {fileID: 114930990146437940}
   - component: {fileID: 114750423056242482}
   - component: {fileID: 114108615654675026}
-  - component: {fileID: 114234007327968622}
+  - component: {fileID: 114939829693192606}
   m_Layer: 5
   m_Name: DialogueButton
   m_TagString: Untagged
@@ -61,55 +61,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   text: {fileID: 114753557405661944}
   index: 0
---- !u!114 &114234007327968622
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1911884252550922}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 169e4c6d81ea24d49bc254b4c64dc3e3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  listeningForGameEvents:
-  - {fileID: 11400000, guid: c1f4b6b100b99934abdc888e5a3aebfe, type: 2}
-  defaultResponse:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 114108615654675026}
-        m_MethodName: UpdateText
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
-  responseToBoolEvent:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: ATXK.EventSystem.BoolEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-      PublicKeyToken=null
-  responseToIntEvent:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: ATXK.EventSystem.IntEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-      PublicKeyToken=null
-  responseToFloatEvent:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: ATXK.EventSystem.FloatEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-      PublicKeyToken=null
-  responseToStringEvent:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: ATXK.EventSystem.StringEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-      PublicKeyToken=null
 --- !u!114 &114750423056242482
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -211,6 +162,60 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &114939829693192606
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1911884252550922}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1fe4de59f59985d45ae437dbcb57fdf1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  eventsToListenFor:
+  - {fileID: 11400000, guid: c1f4b6b100b99934abdc888e5a3aebfe, type: 2}
+  responseToDefault:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 114108615654675026}
+        m_MethodName: UpdateText
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  responseToBoolEvent:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: ATXK.EventSystem.BoolEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  responseToIntEvent:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: ATXK.EventSystem.IntEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  responseToFloatEvent:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: ATXK.EventSystem.FloatEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  responseToStringEvent:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: ATXK.EventSystem.StringEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  responseToObjectEvent:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: ATXK.EventSystem.ObjectEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
 --- !u!222 &222544999015590036
 CanvasRenderer:
   m_ObjectHideFlags: 1

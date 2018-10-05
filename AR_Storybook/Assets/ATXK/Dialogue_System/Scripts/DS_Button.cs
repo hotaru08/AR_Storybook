@@ -46,11 +46,12 @@
 
 		public void UpdateText()
 		{
-			//Update the button's text
-			//text.text = dialogueTree.CurrentNode.Sentence;
+            //Update the button's text
+            //text.text = dialogueTree.CurrentNode.Sentence;
 
-			if (dialogueTree != null)
+            if (dialogueTree != null)
 			{
+
 				if (dialogueTree.CurrentNode.IsQuestion && dialogueTree.CurrentNode == dialogueTree.PreviousNode)
 				{
 					if (index < dialogueTree.CurrentNode.NextNodes.Length)
