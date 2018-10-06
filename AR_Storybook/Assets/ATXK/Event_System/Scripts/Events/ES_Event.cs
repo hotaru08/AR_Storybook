@@ -6,7 +6,7 @@
 	/// <summary>
 	/// Event based on ScriptableObjects.
 	/// </summary>
-	[CreateAssetMenu(menuName = "Event System/Event/Default Event", order = 1)]
+	[CreateAssetMenu(menuName = "Event System/Default Event", order = 1)]
 	public class ES_Event : ScriptableObject
 	{
 		[SerializeField] protected List<ES_EventListener> eventListeners = new List<ES_EventListener>();

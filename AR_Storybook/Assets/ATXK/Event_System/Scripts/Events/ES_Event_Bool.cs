@@ -5,7 +5,7 @@
 	/// <summary>
 	/// Event based on ScriptableObjects with bool value.
 	/// </summary>
-	[CreateAssetMenu(menuName = "Event System/Event/Bool Event", order = 2)]
+	[CreateAssetMenu(menuName = "Event System/Bool Event", order = 2)]
 	public class ES_Event_Bool : ES_Event
 	{
 		public bool value;

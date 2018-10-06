@@ -89,9 +89,9 @@
 		}
 
 		/// <summary>
-		/// Calls the UnityEvent reponse when listener receives an event with a ScriptableObject value.
+		/// Calls the UnityEvent reponse when listener receives an event with a Unity Object value.
 		/// </summary>
-		public void OnEventRaised(ScriptableObject value)
+		public void OnEventRaised(Object value)
 		{
 			if (responseToObjectEvent != null)
 				responseToObjectEvent.Invoke(value);

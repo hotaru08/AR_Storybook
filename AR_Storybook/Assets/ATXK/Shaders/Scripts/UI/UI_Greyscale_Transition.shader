@@ -2,11 +2,11 @@
 {
 	Properties
 	{
-		_MainTex ("Texture", 2D) = "white" {}
-		_TransitionTex("Transition Texture", 2D) = "white" {}
-		_Color("Screen Color", Color) = (1,1,1,1)
+		_MainTex("Texture", 2D) = "white" {}
+		_MaskTex("Transition Texture", 2D) = "white" {}
 		_Cutoff("Cutoff", Range(0, 1)) = 0
 		_Fade("Fade", Range(0, 1)) = 0
+		_MaskColor("Mask Color", Color) = (1,1,1,1)
 		[MaterialToggle] _Distort("Distort", Float) = 0
 	}
 	SubShader
@@ -60,17 +60,17 @@
 				return o;
 			}
 
-			sampler2D _TransitionTex;
+			sampler2D _MaskTex;
 			int _Distort;
 			float _Fade;
 
 			sampler2D _MainTex;
 			float _Cutoff;
-			fixed4 _Color;
+			fixed4 _MaskColor;
 
 			fixed4 frag(v2f i) : SV_Target
 			{
-				fixed4 transit = tex2D(_TransitionTex, i.uv1);
+				fixed4 transit = tex2D(_MaskTex, i.uv1);
 
 				fixed2 direction = float2(0,0);
 				//Apply distortion if selected
@@ -80,7 +80,7 @@
 				fixed4 col = tex2D(_MainTex, i.uv + _Cutoff * direction);
 				//Set pixel to a single color if pixel position is below cutoff point
 				if(transit.b < _Cutoff)
-					return col = lerp(col, _Color, _Fade);
+					return col = lerp(col, _MaskColor, _Fade);
 
 				return col;
 			}
