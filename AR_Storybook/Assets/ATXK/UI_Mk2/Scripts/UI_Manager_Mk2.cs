@@ -2,6 +2,7 @@
 {
 	using System.Collections;
 	using UnityEngine;
+	using UnityEngine.UI;
 
 	public class UI_Manager_Mk2 : MonoBehaviour
 	{
@@ -14,6 +15,9 @@
 		{
 			currScreen = startScreen;
 			prevScreen = currScreen;
+
+			if (currScreen.StartOnAwake)
+				StartCoroutine("TransitionIn", currScreen);
 		}
 
 		private void OnEnable()
@@ -26,6 +30,13 @@
 		{
 			transitionMaterial.SetFloat("_Cutoff", 0f);
 			transitionMaterial.SetFloat("_Fade", 1f);
+		}
+
+		public void ChangeScreen(Object screenObject)
+		{
+			UI_Screen_Mk2 screen = screenObject as UI_Screen_Mk2;
+			if (screen != null)
+				ChangeScreen(screen);
 		}
 
 		public void ChangeScreen(UI_Screen_Mk2 screen)
@@ -54,7 +65,7 @@
 				if (prevScreen.ScreenType != UI_Screen_Mk2.Screen.SCREEN_OVERLAY)
 				{
 					// Play shader animation
-					StartCoroutine("TransitionOut");
+					StartCoroutine("TransitionOut", prevScreen);
 				}
 				// Previous screen was an overlay
 				else
@@ -68,68 +79,73 @@
 			}
 		}
 
-		private IEnumerator TransitionIn()
+		private IEnumerator TransitionIn(UI_Screen_Mk2 screen)
 		{
-			if (currScreen == null)
+			if (screen == null)
 				yield break;
 
-			currScreen.ScreenElements.SetActive(false);
-			currScreen.gameObject.SetActive(true);
+			Debug.Log("TransitionIn started.");
 
-			currScreen.ScreenImage.material.SetTexture("_MaskTex", currScreen.ScreenTransitionTexture);
-			currScreen.ScreenImage.material.SetInt("_Distort", System.Convert.ToInt32(currScreen.ScreenTransition.Equals(UI_Screen_Mk2.Transition.TRANSITION_DISTORT)));
-			currScreen.ScreenImage.material.SetFloat("_Cutoff", 1f);
-			currScreen.ScreenImage.material.SetFloat("_Fade", 1f);
+			screen.ScreenElements.SetActive(false);
+			screen.gameObject.SetActive(true);
+
+			screen.ScreenImage.material.SetTexture("_MaskTex", screen.ScreenTransitionTexture);
+			screen.ScreenImage.material.SetInt("_Distort", System.Convert.ToInt32(screen.ScreenTransition.Equals(UI_Screen_Mk2.Transition.TRANSITION_DISTORT)));
+
+			screen.ScreenImage.material.SetFloat("_Cutoff", 1f);
+			screen.ScreenImage.material.SetFloat("_Fade", 1f);
 
 			float i = 1f;
 			while (i >= 0f - Time.deltaTime)
 			{
-				if (currScreen.ScreenTransition == UI_Screen_Mk2.Transition.TRANSITION_FADE)
-					currScreen.ScreenImage.material.SetFloat("_Fade", i);
+				if (screen.ScreenTransition == UI_Screen_Mk2.Transition.TRANSITION_FADE)
+					screen.ScreenImage.material.SetFloat("_Fade", i);
 				else
-					currScreen.ScreenImage.material.SetFloat("_Cutoff", i);
+					screen.ScreenImage.material.SetFloat("_Cutoff", i);
 
 				i -= Time.deltaTime;
 				yield return new WaitForEndOfFrame();
 			}
 
-			currScreen.ScreenImage.material.SetFloat("_Cutoff", 0f);
-			currScreen.ScreenImage.material.SetFloat("_Fade", 1f);
+			screen.ScreenImage.material.SetFloat("_Cutoff", 0f);
+			screen.ScreenImage.material.SetFloat("_Fade", 1f);
 
-			currScreen.ScreenElements.SetActive(true);
+			screen.ScreenElements.SetActive(true);
+			Debug.Log("TransitionIn completed.");
 		}
 
-		private IEnumerator TransitionOut()
+		private IEnumerator TransitionOut(UI_Screen_Mk2 screen)
 		{
-			if (prevScreen == null)
+			if (screen == null)
 				yield break;
 
-			prevScreen.ScreenElements.SetActive(false);
-			prevScreen.gameObject.SetActive(true);
+			screen.ScreenElements.SetActive(false);
+			screen.gameObject.SetActive(true);
 
-			prevScreen.ScreenImage.material.SetTexture("_MaskTex", prevScreen.ScreenTransitionTexture);
-			prevScreen.ScreenImage.material.SetInt("_Distort", System.Convert.ToInt32(prevScreen.ScreenTransition.Equals(UI_Screen_Mk2.Transition.TRANSITION_DISTORT)));
-			prevScreen.ScreenImage.material.SetFloat("_Cutoff", 0f);
-			prevScreen.ScreenImage.material.SetFloat("_Fade", 1f);
+			screen.ScreenImage.material.SetTexture("_MaskTex", screen.ScreenTransitionTexture);
+			screen.ScreenImage.material.SetInt("_Distort", System.Convert.ToInt32(screen.ScreenTransition.Equals(UI_Screen_Mk2.Transition.TRANSITION_DISTORT)));
+
+			screen.ScreenImage.material.SetFloat("_Cutoff", 1f);
+			screen.ScreenImage.material.SetFloat("_Fade", 1f);
 
 			float i = 0f;
 			while(i <= 1f + Time.deltaTime)
 			{
-				if(prevScreen.ScreenTransition == UI_Screen_Mk2.Transition.TRANSITION_FADE)
-					prevScreen.ScreenImage.material.SetFloat("_Fade", i);
+				if(screen.ScreenTransition == UI_Screen_Mk2.Transition.TRANSITION_FADE)
+					screen.ScreenImage.material.SetFloat("_Fade", i);
 				else
-					prevScreen.ScreenImage.material.SetFloat("_Cutoff", i);
+					screen.ScreenImage.material.SetFloat("_Cutoff", i);
 
 				i += Time.deltaTime;
 				yield return new WaitForEndOfFrame();
 			}
 
-			prevScreen.ScreenImage.material.SetFloat("_Cutoff", 1f);
-			prevScreen.ScreenImage.material.SetFloat("_Fade", 1f);
+			screen.ScreenImage.material.SetFloat("_Cutoff", 1f);
+			screen.ScreenImage.material.SetFloat("_Fade", 1f);
 
-			prevScreen.gameObject.SetActive(false);
+			screen.gameObject.SetActive(false);
 
-			StartCoroutine("TransitionIn");
+			StartCoroutine("TransitionIn", currScreen);
 		}
 	}
 }
