@@ -37,7 +37,7 @@ public class TouchManager : SingletonBehaviour<TouchManager>
             m_ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 #elif UNITY_ANDROID || UNITY_IOS
         if (Input.touchCount <= 0) return;
-        
+
         // When there is touches
         if (Input.GetTouch(0).phase.Equals(TouchPhase.Began))
         {
@@ -62,14 +62,14 @@ public class TouchManager : SingletonBehaviour<TouchManager>
                 }
                 m_selectedObject = m_rayHitInfo.collider.gameObject.GetComponent<Touch_Touchables>().
                                                          Selection(m_rayHitInfo.collider.gameObject);
-                Debug.LogWarning("Selected: " + m_selectedObject);
+
                 // ---------- Changing Mesh
                 m_selectedObject.GetComponent<Touch_Touchables>().ChangeMesh();
             }
             else
             {
                 ResetSelected(m_selectedObject);
-                Debug.Log("m_selectedObjectStack is now empty");
+                Debug.Log("m_selectedObject is now empty");
             }
             Debug.DrawLine(m_ray.origin, m_rayHitInfo.point, Color.red);
 
@@ -80,8 +80,10 @@ public class TouchManager : SingletonBehaviour<TouchManager>
             HandleStates(m_selectedObject.GetComponent<Touch_Touchables>().m_state, m_rayHitInfo);
         else if (m_selectedObject && Input.GetMouseButtonUp(0))
         {
+            // End of drag
             if (m_selectedObject.tag == "Player" && m_holder != null)
                 m_holder.m_eventsHolder[1].Invoke();
+
             ResetSelected(m_selectedObject);
         }
 
@@ -89,7 +91,14 @@ public class TouchManager : SingletonBehaviour<TouchManager>
         }
         else if (m_selectedObject && Input.touchCount > 0)
             HandleStates(m_selectedObject.GetComponent<Touch_Touchables>().m_state, m_rayHitInfo);
-            
+        else if (m_selectedObject && Input.touchCount <= 0)
+        {
+            // End of drag
+            if (m_selectedObject.tag == "Player" && m_holder != null)
+                m_holder.m_eventsHolder[1].Invoke();
+
+            ResetSelected(m_selectedObject);
+        }
 #endif
     }
 
@@ -124,6 +133,7 @@ public class TouchManager : SingletonBehaviour<TouchManager>
             case Touch_Touchables.TOUCH_STATES.DRAG:
                 if (_hitInfo.collider.name == m_selectedObject.name)
                 {
+                    // Start of drag
                     if (m_selectedObject.tag == "Player" && m_holder != null)
                         m_holder.m_eventsHolder[0].Invoke();
 
@@ -145,6 +155,10 @@ public class TouchManager : SingletonBehaviour<TouchManager>
             case Touch_Touchables.TOUCH_STATES.DRAG:
                 if (_hitInfo.collider.name == m_selectedObject.name)
                 {
+                    // Start of drag
+                    if (m_selectedObject.tag == "Player" && m_holder != null)
+                        m_holder.m_eventsHolder[0].Invoke();
+
                     m_selectedObject.GetComponent<Touch_Touchables>().Dragging(m_selectedObject);
                 }
                 break;
