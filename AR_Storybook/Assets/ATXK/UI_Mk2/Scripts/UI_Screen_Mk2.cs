@@ -3,6 +3,7 @@
 	using UnityEngine;
 	using UnityEngine.UI;
 
+	[RequireComponent(typeof(CanvasGroup))]
 	public class UI_Screen_Mk2 : MonoBehaviour
 	{
 		public enum Screen

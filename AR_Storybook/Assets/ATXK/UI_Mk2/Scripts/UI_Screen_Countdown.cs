@@ -7,12 +7,11 @@
 	{
 		[Tooltip("Time in seconds before this screen pings for a screen change.")]
 		[SerializeField] float screenLifetime;
+		[SerializeField] float runtimeLifetime;
 		[Tooltip("Screen to change to after time is up.")]
 		[SerializeField] UI_Screen_Mk2 screenToChangeTo;
 		[Tooltip("Object event that the UI manager will be listening for.")]
 		[SerializeField] ES_Event_Object changeScreenEvent;
-
-		float runtimeLifetime;
 
 		private void Start()
 		{
