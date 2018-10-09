@@ -19,6 +19,8 @@
 		}
 
 		[Header("Screen Objects")]
+		[Tooltip("Background Image of the screen.")]
+		[SerializeField] Image screenImage;
 		[Tooltip("Parent object for all UI elements on this screen. All buttons/text/etc should be parented under this gameobject.")]
 		[SerializeField] GameObject screenElements;
 
@@ -33,17 +35,12 @@
 		[SerializeField] bool startOnAwake;
 
 		#region Property Getters
-		public Image ScreenImage { get; private set; }
+		public Image ScreenImage { get { return screenImage; } }
 		public GameObject ScreenElements { get { return screenElements; } }
 		public Screen ScreenType { get { return screenType; } }
 		public Transition ScreenTransition { get { return transitionStyle; } }
 		public Texture ScreenTransitionTexture { get { return transitionTexture; } }
 		public bool StartOnAwake { get { return startOnAwake; } }
 		#endregion
-
-		private void Awake()
-		{
-			ScreenImage = GetComponent<Image>();
-		}
 	}
 }

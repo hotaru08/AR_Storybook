@@ -6,9 +6,11 @@
 
 	public class UI_Manager_Mk2 : MonoBehaviour
 	{
+		[Tooltip("Starting Screen.")]
 		[SerializeField] UI_Screen_Mk2 startScreen;
 		[SerializeField] UI_Screen_Mk2 currScreen;
 		[SerializeField] UI_Screen_Mk2 prevScreen;
+		[Tooltip("Global Material for all screens.")]
 		[SerializeField] Material transitionMaterial;
 
 		private void Start()
@@ -16,6 +18,7 @@
 			currScreen = startScreen;
 			prevScreen = currScreen;
 
+			currScreen.gameObject.SetActive(true);
 			if (currScreen.StartOnAwake)
 				StartCoroutine("TransitionIn", currScreen);
 		}
@@ -50,7 +53,7 @@
 				currScreen.ScreenElements.SetActive(true);
 				currScreen.gameObject.SetActive(true);
 
-				prevScreen.ScreenElements.SetActive(false);
+				//prevScreen.ScreenElements.SetActive(false);
 
 				// Only 1 overlay allowed at a time
 				if(prevScreen.ScreenType == UI_Screen_Mk2.Screen.SCREEN_OVERLAY)
@@ -84,8 +87,6 @@
 			if (screen == null)
 				yield break;
 
-			Debug.Log("TransitionIn started.");
-
 			screen.ScreenElements.SetActive(false);
 			screen.gameObject.SetActive(true);
 
@@ -111,7 +112,6 @@
 			screen.ScreenImage.material.SetFloat("_Fade", 1f);
 
 			screen.ScreenElements.SetActive(true);
-			Debug.Log("TransitionIn completed.");
 		}
 
 		private IEnumerator TransitionOut(UI_Screen_Mk2 screen)
