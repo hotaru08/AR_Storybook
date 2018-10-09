@@ -11,7 +11,7 @@
 
 		private void Update()
 		{
-			healthBar.sizeDelta = new Vector2(playerHealth.RuntimeValue, healthBar.sizeDelta.y);
+			healthBar.sizeDelta = new Vector2(playerHealth.value, healthBar.sizeDelta.y);
 		}
 	}
 }

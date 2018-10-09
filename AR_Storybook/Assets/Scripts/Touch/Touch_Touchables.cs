@@ -31,7 +31,13 @@ public class Touch_Touchables : MonoBehaviour
     /// Get mesh of Gameobject ( if have )
     /// </summary>
     [SerializeField]
-    private Material m_oldmat, m_newmat;
+    private Material m_oldmat;
+    [SerializeField]
+    private Material m_newmat;
+
+    /// <summary>
+    /// Change in mesh ( if applicable )
+    /// </summary>
     private bool m_change = false;
 
     /// <summary>
@@ -137,7 +143,6 @@ public class Touch_Touchables : MonoBehaviour
         if (m_state == TOUCH_STATES.DRAG)
         {
             m_animator.SetBool("DraggingAnimation", false);
-            _obj.GetComponent<Touch_Dragging>().enabled = false;
         }
     }
 

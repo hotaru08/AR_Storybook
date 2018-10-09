@@ -13,7 +13,7 @@
 		[Header("Dialogue Buttons")]
 		[SerializeField] GameObject buttonArea;
 		[SerializeField] GameObject buttonPrefab;
-		List<GameObject> buttonList;
+		List<GameObject> buttonList = new List<GameObject>();
 
 		[Header("Character Attributes")]
 		[SerializeField] Image npcAvatar;
@@ -27,13 +27,9 @@
 		#endregion
 
 		#region Unity Methods
-		/// <summary>
-		/// Unity Start function.
-		/// </summary>
-		private void Start()
+		private void OnEnable()
 		{
-			buttonList = new List<GameObject>();
-
+			dialogueTree.Reset();
 			TraverseTree();
 			RedrawButtons();
 		}

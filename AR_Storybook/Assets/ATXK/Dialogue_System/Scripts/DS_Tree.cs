@@ -19,20 +19,20 @@
 		[SerializeField] ES_Event dialogueEnd;
 
 		#region Property Getters
-		/// <summary>
-		/// Current dialogue node.
-		/// </summary>
+		public DS_Node StartNode { get { return startingNode; } }
 		public DS_Node CurrentNode { get { return currentNode; } }
-		/// <summary>
-		/// Previous dialogue node.
-		/// </summary>
 		public DS_Node PreviousNode { get { return previousNode; } set { previousNode = value; } }
 		#endregion
 
 		private void OnEnable()
 		{
 			if (startingNode != null)
-				currentNode = startingNode;
+				Reset();
+		}
+
+		public void Reset()
+		{
+			currentNode = startingNode;
 		}
 
 		public void TraverseTree(int index = 0)

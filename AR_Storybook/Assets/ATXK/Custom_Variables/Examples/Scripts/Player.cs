@@ -10,12 +10,7 @@
 
 		public void TakeDamage(int damage)
 		{
-			playerHP.RuntimeValue -= damage;
-		}
-
-		public void ResetHP()
-		{
-			playerHP.Reset();
+			playerHP.value -= damage;
 		}
 	}
 }

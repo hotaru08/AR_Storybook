@@ -2,7 +2,7 @@
 {
 	using UnityEngine;
 
-	[CreateAssetMenu(menuName = "CustomVariable/Int", order = 2)]
+	[CreateAssetMenu(menuName = "Custom Variable/Int", order = 2)]
 	public class CV_Int : CV_Base<int>
 	{
 		#region Operator Overloads

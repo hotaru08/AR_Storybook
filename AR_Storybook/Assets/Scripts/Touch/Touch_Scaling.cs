@@ -32,19 +32,19 @@ public class Touch_Scaling : MonoBehaviour
         // Find the position in the previous frame of each touch.
         m_firstPrevPos = _firstTouch.position - _firstTouch.deltaPosition;
         m_secondPrevPos = _secondTouch.position - _secondTouch.deltaPosition;
-        Debug.LogWarning("Position of touches in last frame: " + m_firstPrevPos + "/" + m_secondPrevPos);
+        //Debug.LogWarning("Position of touches in last frame: " + m_firstPrevPos + "/" + m_secondPrevPos);
 
         // Find the distance between the touches in each frame.
         m_prevDifference = (m_firstPrevPos - m_secondPrevPos).magnitude;
         m_currdifference = (_firstTouch.position - _secondTouch.position).magnitude;
-        Debug.LogWarning("Diff prev: " + m_prevDifference + "/ curr: " + m_currdifference);
+        //Debug.LogWarning("Diff prev: " + m_prevDifference + "/ curr: " + m_currdifference);
 
         // Find the difference in the distances between each frame.
         m_magnitudeDifference = m_currdifference - m_prevDifference;
-        Debug.LogWarning("Diff in Mag: " + m_magnitudeDifference + " which will be how much we scale");
+        //Debug.LogWarning("Diff in Mag: " + m_magnitudeDifference + " which will be how much we scale");
 
         // Alter the size of the Gameobject according to distance between touches
         _objToChange.transform.localScale += new Vector3(m_magnitudeDifference, m_magnitudeDifference, m_magnitudeDifference) * Time.deltaTime * m_scaleSpeed;
-        Debug.LogWarning("Scaling: " + _objToChange.transform.localScale);
+        //Debug.LogWarning("Scaling: " + _objToChange.transform.localScale);
     }
 }
