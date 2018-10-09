@@ -12,8 +12,8 @@ public class PlayerManager : SingletonBehaviour<PlayerManager>
     /// <summary>
     /// Custom Variable of Player health
     /// </summary>
-    [SerializeField]
-    private CV_Int m_playerHealth;
+    //[SerializeField]
+    //private CV_Int m_playerHealth;
 
 
 	
