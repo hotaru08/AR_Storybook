@@ -10,7 +10,9 @@
 
 		public void TakeDamage(int damage)
 		{
+			Debug.Log("TakeDamage with int = " + damage + " CurrHP = " + playerHP.value);
 			playerHP.value -= damage;
+			Debug.Log("CurrHP = " + playerHP.value);
 		}
 	}
 }

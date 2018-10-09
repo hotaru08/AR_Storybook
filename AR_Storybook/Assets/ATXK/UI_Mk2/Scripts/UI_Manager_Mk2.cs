@@ -24,7 +24,7 @@
 
 		private void Start()
 		{
-			if(PlayerPrefs.GetInt("FirstLaunch") == 0)
+			if(PlayerPrefs.GetInt("FirstLaunch") == 0 && splashScreen != null)
 			{
 				currScreen = splashScreen;
 				PlayerPrefs.SetInt("FirstLaunch", 1);
@@ -34,9 +34,10 @@
 
 			prevScreen = currScreen;
 
-			currScreen.gameObject.SetActive(true);
 			if (currScreen.StartOnAwake)
+			{
 				StartCoroutine("TransitionIn", currScreen);
+			}
 		}
 
 		private void OnEnable()
@@ -106,7 +107,19 @@
 		private IEnumerator TransitionIn(UI_Screen_Mk2 screen)
 		{
 			if (screen == null)
+			{
 				yield break;
+			}
+			if(screen.ScreenImage.sprite == null)
+			{
+				screen.ScreenImage.material.SetFloat("_Cutoff", 0f);
+				screen.ScreenImage.material.SetFloat("_Fade", 1f);
+
+				screen.gameObject.SetActive(true);
+				screen.ScreenElements.SetActive(true);
+
+				yield break;
+			}
 
 			screen.ScreenElements.SetActive(false);
 			screen.gameObject.SetActive(true);
