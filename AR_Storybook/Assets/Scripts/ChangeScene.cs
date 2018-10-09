@@ -14,7 +14,7 @@ public class ChangeScene : MonoBehaviour
     /// <param name="_sceneName">Name of the Scene to change</param>
     public void ChangingScene(string _sceneName)
     {
-        SceneManager.LoadScene(_sceneName);
+        SceneManager.LoadSceneAsync(_sceneName);
     }
 
     /// <summary>
