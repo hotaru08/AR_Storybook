@@ -6,16 +6,32 @@
 
 	public class UI_Manager_Mk2 : MonoBehaviour
 	{
+		[Header("Splash Screen")]
+		[Tooltip("Splash Screen.")]
+		[SerializeField] UI_Screen_Mk2 splashScreen;
+
+		[Header("Starting Screen")]
 		[Tooltip("Starting Screen.")]
 		[SerializeField] UI_Screen_Mk2 startScreen;
+
+		[Header("Runtime Screens")]
 		[SerializeField] UI_Screen_Mk2 currScreen;
 		[SerializeField] UI_Screen_Mk2 prevScreen;
+
+		[Header("Global Material for all screens.")]
 		[Tooltip("Global Material for all screens.")]
 		[SerializeField] Material transitionMaterial;
 
 		private void Start()
 		{
-			currScreen = startScreen;
+			if(PlayerPrefs.GetInt("FirstLaunch") == 0)
+			{
+				currScreen = splashScreen;
+				PlayerPrefs.SetInt("FirstLaunch", 1);
+			}
+			else
+				currScreen = startScreen;
+
 			prevScreen = currScreen;
 
 			currScreen.gameObject.SetActive(true);
@@ -33,6 +49,11 @@
 		{
 			transitionMaterial.SetFloat("_Cutoff", 0f);
 			transitionMaterial.SetFloat("_Fade", 1f);
+		}
+
+		private void OnApplicationQuit()
+		{
+			PlayerPrefs.SetInt("FirstLaunch", 0);
 		}
 
 		public void ChangeScreen(Object screenObject)
