@@ -6,10 +6,15 @@
 
 	public class Spawner : MonoBehaviour
 	{
+		[Tooltip("Number of GameObjects spawned per batch.")]
 		[SerializeField] float batchSize;
+		[Tooltip("Frequency in hertz for individual objects in each batch.")]
 		[SerializeField] int itemSpawnFrequency;
+		[Tooltip("Frequency in hertz for each batch.")]
 		[SerializeField] int batchSpawnFrequency;
+		[Tooltip("Range for object spawning.")]
 		[SerializeField] float spawnPositionRange;
+		[Tooltip("List of prefabs to spawn.")]
 		[SerializeField] List<GameObject> spawnPrefabs;
 
 		float timeBetweenSpawns, timeBetweenBatches;
