@@ -29,9 +29,7 @@
 		#region Unity Methods
 		private void OnEnable()
 		{
-			dialogueTree.Reset();
-			TraverseTree();
-			RedrawButtons();
+			ResetTree();
 		}
 
 		private void Update()
@@ -58,10 +56,6 @@
 		#endregion
 
 		#region Class Methods
-		/// <summary>
-		/// Tells the attached Dialogue Tree to move to to the next node.
-		/// </summary>
-		/// <param name="index"></param>
 		public void TraverseTree(int index = 0)
 		{
 			if (dialogueTree != null)
@@ -70,9 +64,6 @@
 			}
 		}
 
-		/// <summary>
-		/// Updates the dialogue buttons.
-		/// </summary>
 		public void RedrawButtons()
 		{
 			//Remove old buttons
@@ -90,6 +81,13 @@
 
 				buttonList.Add(button);
 			}
+		}
+
+		public void ResetTree()
+		{
+			dialogueTree.Reset();
+			TraverseTree();
+			RedrawButtons();
 		}
 		#endregion
 	}
