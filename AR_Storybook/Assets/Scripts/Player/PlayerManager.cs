@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using ATXK.Helper;
 using ATXK.EventSystem;
+using ATXK.CustomVariables;
 
 /// <summary>
 /// Player Manager to handle Player eg. Animation, States etc
@@ -27,7 +28,6 @@ public class PlayerManager : SingletonBehaviour<PlayerManager>
     /// </summary>
     private bool m_bTriggerJump;
     private bool m_bAbleToJump;
-    private float m_originalPosY;
 
     /// <summary>
     /// Events that Player sends
@@ -40,9 +40,9 @@ public class PlayerManager : SingletonBehaviour<PlayerManager>
     private void Start()
     {
         m_playerHealth = m_playerMaxHealth;
+
         m_bTriggerJump = false;
         m_bAbleToJump = true;
-        m_originalPosY = transform.position.y;
 
         // Send Player object to UI
         m_eventObjToSend.Invoke(gameObject);
@@ -53,13 +53,6 @@ public class PlayerManager : SingletonBehaviour<PlayerManager>
     /// </summary>
     private void Update()
     {
-        //if (transform.position.y != m_originalPosY && !m_bTriggerJump)
-        //{
-        //    m_originalPosY = transform.position.y;
-        //    DebugLogger.Log<PlayerManager>("Player Pos: " + transform.position.y);
-        //    DebugLogger.Log<PlayerManager>("Player Original Pos: " + m_originalPosY);
-        //}
-
         // Jumping
         if (transform.position.y < m_playerSpeed * 0.15f && m_bTriggerJump)
         {
@@ -73,6 +66,7 @@ public class PlayerManager : SingletonBehaviour<PlayerManager>
             m_bAbleToJump = true;
         }
 
+        // Minus Health
         if (Input.GetKeyDown(KeyCode.A))
         {
             if (m_playerHealth <= 0) return;
