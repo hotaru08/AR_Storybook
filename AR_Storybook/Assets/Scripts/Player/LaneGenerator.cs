@@ -148,9 +148,9 @@ public class LaneGenerator : MonoBehaviour
         GameObject tempEnemy = Instantiate(m_enemyPrefab, transform.GetChild(1), true);
 
         // Set scale to be 1:5 ratio ( lane:enemies )
-        tempEnemy.transform.localScale = new Vector3(_laneScale.x * m_scaleRatio,
-                                                     _laneScale.x * m_scaleRatio,
-                                                     _laneScale.x * m_scaleRatio);
+        tempEnemy.transform.localScale = new Vector3(_laneScale.x * m_scaleRatio * 3,
+                                                     _laneScale.x * m_scaleRatio * 3,
+                                                     _laneScale.x * m_scaleRatio * 3);
 
         // Based on Style, position the enemies accordingly
         switch (_style)
@@ -264,11 +264,29 @@ public class LaneGenerator : MonoBehaviour
         // Update Player Pos if there is any changes ( not prev index )
         if (m_playerIndex != m_playerPrevIndex)
         {
-            m_player.transform.localPosition = new Vector3(m_lanes[m_playerIndex].transform.position.x,
-                                                           m_player.transform.position.y,
-                                                           m_lanes[m_playerIndex].transform.position.z - m_lanes[m_playerIndex].transform.localScale.z * 0.45f);
-            m_playerPrevIndex = m_playerIndex;
-            DebugLogger.Log<LaneGenerator>("Prev Index: " + m_playerPrevIndex + " Index: " + m_playerIndex);
+            // Converting to 2dp
+            float playerPos = (int)(m_player.transform.localPosition.x * 100) * 0.01f;
+            float lanePos = (int)(m_lanes[m_playerIndex].transform.position.x * 100) * 0.01f;
+
+            if (playerPos != lanePos)
+            {
+                if (playerPos > lanePos)
+                    m_player.transform.localPosition += Vector3.left * Time.deltaTime;
+                else if (playerPos < lanePos)
+                    m_player.transform.localPosition += Vector3.right * Time.deltaTime;
+            }
+            else
+            {
+                m_playerPrevIndex = m_playerIndex;
+                m_player.transform.localPosition = new Vector3(m_lanes[m_playerIndex].transform.position.x,
+                                                              m_player.transform.position.y,
+                                                              m_lanes[m_playerIndex].transform.position.z - m_lanes[m_playerIndex].transform.localScale.z * 0.45f);
+
+                DebugLogger.Log<LaneGenerator>("PosX: " + playerPos);
+                DebugLogger.Log<LaneGenerator>("Lane PosX: " + lanePos);
+                DebugLogger.Log<LaneGenerator>("Prev Index: " + m_playerPrevIndex + " Index: " + m_playerIndex);
+            }
+
         }
     }
 }
