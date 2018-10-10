@@ -2,10 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(Animator))]
 public class DelayedAnim : MonoBehaviour
 {
 	[SerializeField] float delayTime;
 	[SerializeField] string animTrigger;
+
+	public float DelayTime { get { return delayTime; } }
 
 	private void Update()
 	{

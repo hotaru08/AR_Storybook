@@ -87,7 +87,6 @@ public class Touch_Swipe : MonoBehaviour
             if (Input.touchCount > 0)
                 m_swipeDelta = Input.touches[0].deltaPosition;
 #endif
-            DebugLogger.Log<Touch_Swipe>("Swipe delta :" + m_swipeDelta);
         }
         #endregion
 

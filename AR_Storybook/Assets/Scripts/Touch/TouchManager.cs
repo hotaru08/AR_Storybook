@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using ATXK.Helper;
+using ATXK.EventSystem;
 
 /// <summary>
 /// A manager to handle Touch events
@@ -25,12 +26,21 @@ public class TouchManager : SingletonBehaviour<TouchManager>
     private Ray m_ray;
     private RaycastHit m_rayHitInfo;
 
+    /// <summary>
+    /// Event Array to store events that maybe raised upon interaction
+    /// </summary>
     [SerializeField]
-    private ListHolder m_holder;
+    private ES_Event[] m_eventsToSend;
 
-    // Update is called once per frame
+    private bool m_bUpdate = true;
+
+    /// <summary>
+    /// Unity Update Function
+    /// </summary>
     void Update()
     {
+        if (!m_bUpdate) return;
+
 #if UNITY_EDITOR || UNITY_STANDALONE
         if (Input.GetMouseButtonDown(0))
         {
@@ -43,7 +53,12 @@ public class TouchManager : SingletonBehaviour<TouchManager>
         {
              m_ray = Camera.main.ScreenPointToRay(Input.GetTouch(0).position);
 #endif
+            // TODO : Set event to set bool to true, only then can invoke this event ( eg. BattleSceneGameManager )
+            // Raise Event_Jump
+            m_eventsToSend[0].Invoke();
+            
 
+            // ---------- If Ray casted hit something
             if (Physics.Raycast(m_ray, out m_rayHitInfo))
             {
                 // ---------- return if not Touchables
@@ -80,10 +95,6 @@ public class TouchManager : SingletonBehaviour<TouchManager>
             HandleStates(m_selectedObject.GetComponent<Touch_Touchables>().m_state, m_rayHitInfo);
         else if (m_selectedObject && Input.GetMouseButtonUp(0))
         {
-            // End of drag
-            if (m_selectedObject.tag == "Player" && m_holder != null)
-                m_holder.m_eventsHolder[1].Invoke();
-
             ResetSelected(m_selectedObject);
         }
 
@@ -93,10 +104,6 @@ public class TouchManager : SingletonBehaviour<TouchManager>
             HandleStates(m_selectedObject.GetComponent<Touch_Touchables>().m_state, m_rayHitInfo);
         else if (m_selectedObject && Input.touchCount <= 0)
         {
-            // End of drag
-            if (m_selectedObject.tag == "Player" && m_holder != null)
-                m_holder.m_eventsHolder[1].Invoke();
-
             ResetSelected(m_selectedObject);
         }
 #endif
@@ -133,10 +140,6 @@ public class TouchManager : SingletonBehaviour<TouchManager>
             case Touch_Touchables.TOUCH_STATES.DRAG:
                 if (_hitInfo.collider.name == m_selectedObject.name)
                 {
-                    // Start of drag
-                    if (m_selectedObject.tag == "Player" && m_holder != null)
-                        m_holder.m_eventsHolder[0].Invoke();
-
                     m_selectedObject.GetComponent<Touch_Touchables>().Dragging(m_selectedObject);
                 }
                 break;
@@ -155,10 +158,6 @@ public class TouchManager : SingletonBehaviour<TouchManager>
             case Touch_Touchables.TOUCH_STATES.DRAG:
                 if (_hitInfo.collider.name == m_selectedObject.name)
                 {
-                    // Start of drag
-                    if (m_selectedObject.tag == "Player" && m_holder != null)
-                        m_holder.m_eventsHolder[0].Invoke();
-
                     m_selectedObject.GetComponent<Touch_Touchables>().Dragging(m_selectedObject);
                 }
                 break;
@@ -176,5 +175,13 @@ public class TouchManager : SingletonBehaviour<TouchManager>
                 break;
 #endif
         }
+    }
+
+    /// <summary>
+    /// Responses to Events received
+    /// </summary>
+    public void EventReceived(bool _value)
+    {
+        m_bUpdate = _value;
     }
 }

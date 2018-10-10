@@ -42,6 +42,7 @@
 		public Transition ScreenTransition { get { return transitionStyle; } }
 		public Texture ScreenTransitionTexture { get { return transitionTexture; } }
 		public bool StartOnAwake { get { return startOnAwake; } }
+		public bool IsAnimated { get { return gameObject.GetComponent<Animator>() != null; } }
 		#endregion
 	}
 }
