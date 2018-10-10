@@ -25,6 +25,7 @@ public class Slideshow : MonoBehaviour
 
 		while(true)
 		{
+			image.preserveAspect = true;
 			image.sprite = slides[index];
 
 			index++;
