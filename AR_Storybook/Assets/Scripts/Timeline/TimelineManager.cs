@@ -1,4 +1,5 @@
-﻿using ATXK.Helper;
+﻿using ATXK.EventSystem;
+using ATXK.Helper;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -15,6 +16,9 @@ public class TimelineManager : SingletonBehaviour<TimelineManager>
 
     [SerializeField]
     private TimelineAsset[] m_TimelineArray;
+
+    [SerializeField]
+    private ES_Event[] m_eventsToSend;
 
     /// <summary>
     /// Play the specific Timeline according to its index in the array
@@ -75,6 +79,20 @@ public class TimelineManager : SingletonBehaviour<TimelineManager>
             case "Stop":
                 m_director.Stop();
                 break;
+        }
+    }
+
+    // For now, just do it here
+    private void Update()
+    {
+        if (m_director == null) return;
+
+        Debug.LogWarning(m_director.duration);
+        Debug.LogWarning(m_director.time);
+
+        if (m_director.time >= m_director.duration - 0.5f)
+        {
+            m_eventsToSend[0].Invoke();
         }
     }
 }

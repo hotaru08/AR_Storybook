@@ -34,7 +34,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4073950492024470}
-  - component: {fileID: 114264052795248528}
+  - component: {fileID: 114663834756626892}
   m_Layer: 0
   m_Name: Item_Spawner
   m_TagString: Untagged
@@ -68,6 +68,7 @@ GameObject:
   - component: {fileID: 95832891807293506}
   - component: {fileID: 195478498482955698}
   - component: {fileID: 114276794735134724}
+  - component: {fileID: 114191266807203096}
   m_Layer: 0
   m_Name: Crouch_Monster
   m_TagString: Untagged
@@ -391,7 +392,7 @@ Transform:
   m_GameObject: {fileID: 1204295109372604}
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 5, y: 5, z: 5}
   m_Children:
   - {fileID: 4268637276561304}
   - {fileID: 4351566677556958}
@@ -556,23 +557,60 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &114264052795248528
+--- !u!114 &114191266807203096
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1125045176604670}
+  m_GameObject: {fileID: 1204295109372604}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f528c04a060d4204cab6c2175864fa5a, type: 3}
+  m_Script: {fileID: 11500000, guid: 169e4c6d81ea24d49bc254b4c64dc3e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  batchSize: 1
-  itemSpawnFrequency: 30
-  batchSpawnFrequency: 1
-  spawnPositionRange: 0
-  spawnPrefabs:
-  - {fileID: 1611905665669438, guid: d781f0b2251da984a9ad866e3fc73ce1, type: 2}
+  eventsToListenFor:
+  - {fileID: 11400000, guid: ad48b0a8663762044a40cc56aa7e69f6, type: 2}
+  responseToDefault:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 95832891807293506}
+        m_MethodName: SetTrigger
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: Attack
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  responseToBoolEvent:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: ATXK.EventSystem.BoolEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  responseToIntEvent:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: ATXK.EventSystem.IntEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  responseToFloatEvent:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: ATXK.EventSystem.FloatEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  responseToStringEvent:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: ATXK.EventSystem.StringEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  responseToObjectEvent:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: ATXK.EventSystem.ObjectEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
 --- !u!114 &114276794735134724
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -584,11 +622,31 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 719fcc36fbb61d24a947a08ee789d63f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startingState: {fileID: 11400000, guid: 2e47a0cbcb925ac4ea7ee3d6179c87d2, type: 2}
+  startingState: {fileID: 11400000, guid: c7a37515f26fa9c46acf6dcddc5cf77d, type: 2}
   currentState: {fileID: 0}
   aiStats: {fileID: 0}
   target: {fileID: 0}
   aiNavMeshAgent: {fileID: 0}
+--- !u!114 &114663834756626892
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1125045176604670}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c8fd11d8d7816774ab9f8f024215e111, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_batchSize: 1
+  m_itemSpawnFrequency: 1
+  m_batchSpawnFrequency: 1
+  m_spawnPositionRange: 0
+  m_spawnPrefabs:
+  - {fileID: 1611905665669438, guid: d781f0b2251da984a9ad866e3fc73ce1, type: 2}
+  - {fileID: 1901441780810498, guid: f9c3e8375f8515e44a9ffd841edef0c4, type: 2}
+  m_eventsToSend:
+  - {fileID: 11400000, guid: ad48b0a8663762044a40cc56aa7e69f6, type: 2}
 --- !u!137 &137208870278772526
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1

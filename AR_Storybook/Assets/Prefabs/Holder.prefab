@@ -26,7 +26,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1149934306537010
 GameObject:
   m_ObjectHideFlags: 0
@@ -132,6 +132,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 3c649513f813b554ca36b93e6ff3db4e, type: 2}
   - {fileID: 11400000, guid: 884d130a07000774b8fa7afb51e925de, type: 2}
   - {fileID: 11400000, guid: 21cc790ff53d139439d691afbeaf77c1, type: 2}
+  m_eventsToSend:
+  - {fileID: 11400000, guid: a00441ed2da04c64c9d106f75ba6848c, type: 2}
 --- !u!114 &114379233685985020
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -187,9 +189,21 @@ MonoBehaviour:
   eventsToListenFor:
   - {fileID: 11400000, guid: 2ded5d6bef6c26f40b7d5327ac532d6a, type: 2}
   - {fileID: 11400000, guid: 11598a06182ff30408597f0486b362e0, type: 2}
+  - {fileID: 11400000, guid: 46bf490b81f44e3438c6a69a27a9d641, type: 2}
   responseToDefault:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 114379233685985020}
+        m_MethodName: ReloadScene
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
   responseToBoolEvent:

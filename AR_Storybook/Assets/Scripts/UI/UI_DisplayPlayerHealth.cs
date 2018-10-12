@@ -1,4 +1,5 @@
-﻿using ATXK.Helper;
+﻿using ATXK.CustomVariables;
+using ATXK.Helper;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12,7 +13,9 @@ public class UI_DisplayPlayerHealth : MonoBehaviour
     /// <summary>
     /// Health of Player
     /// </summary>
-    private GameObject m_player;
+    //private GameObject m_player;
+    [SerializeField]
+    private CV_Int m_playerHealth;
     private int m_prevPlayerHealth;
 
     /// <summary>
@@ -32,22 +35,18 @@ public class UI_DisplayPlayerHealth : MonoBehaviour
 
     private void Start()
     {
+        // Initialise Variables
         m_healthIconStack = new Stack<GameObject>();
-    }
-
-    /// <summary>
-    /// Responses to Events Received
-    /// </summary>
-	public void EventReceived(Object _obj)
-    {
-        m_player = _obj as GameObject;
-        m_prevPlayerHealth = m_player.GetComponent<PlayerManager>().PlayerHealth;
-
-        // Render Player Health on UI ( surely there is a better way )
-        for (int i = 0; i < m_player.GetComponent<PlayerManager>().PlayerHealth; ++i)
+        m_prevPlayerHealth = m_playerHealth.value;
+        
+        // Render Player Health on UI
+        for (int i = 0; i < m_playerHealth.value; ++i)
         {
             // Create Icon
             GameObject temp = Instantiate(m_healthIcon, transform, true);
+
+            // Set Scale 
+            temp.GetComponent<RectTransform>().sizeDelta = new Vector2(10, 10);
 
             // Displace Position 
             temp.GetComponent<RectTransform>().anchoredPosition = new Vector2(m_startingPos.x, m_startingPos.y + m_paddingTop * i);
@@ -62,10 +61,35 @@ public class UI_DisplayPlayerHealth : MonoBehaviour
     /// </summary>
     public void Update()
     {
-        if (m_player.GetComponent<PlayerManager>().PlayerHealth == m_prevPlayerHealth) return;
+        if (m_playerHealth.value == m_prevPlayerHealth) return;
 
-        m_prevPlayerHealth = m_player.GetComponent<PlayerManager>().PlayerHealth;
-        GameObject tempHeart = m_healthIconStack.Pop();
-        Destroy(tempHeart);
+        // If health is lower, pop from Stack
+        if (m_playerHealth.value < m_prevPlayerHealth)
+        {
+            GameObject tempPop = m_healthIconStack.Pop();
+            Destroy(tempPop);
+            m_prevPlayerHealth = m_playerHealth.value;
+            return;
+        }
+
+        // Re-Instantiate Stack if health is higher
+        for (int i = 0; i < m_playerHealth.value; ++i)
+        {
+            // Check if slot in stack is already taken 
+            if (i < m_healthIconStack.Count) continue;
+
+            // Create Icon
+            GameObject temp = Instantiate(m_healthIcon, transform, true);
+
+            // Set Scale 
+            temp.GetComponent<RectTransform>().sizeDelta = new Vector2(10, 10);
+
+            // Displace Position 
+            temp.GetComponent<RectTransform>().anchoredPosition = new Vector2(m_startingPos.x, m_startingPos.y + m_paddingTop * i);
+
+            // Add to Stack
+            m_healthIconStack.Push(temp);
+        }
+        m_prevPlayerHealth = m_playerHealth.value;
     }
 }

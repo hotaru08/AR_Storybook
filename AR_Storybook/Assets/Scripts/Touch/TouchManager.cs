@@ -53,9 +53,8 @@ public class TouchManager : SingletonBehaviour<TouchManager>
         {
              m_ray = Camera.main.ScreenPointToRay(Input.GetTouch(0).position);
 #endif
-            // TODO : Set event to set bool to true, only then can invoke this event ( eg. BattleSceneGameManager )
             // Raise Event_Jump
-            m_eventsToSend[0].Invoke();
+            //m_eventsToSend[0].Invoke();
             
 
             // ---------- If Ray casted hit something

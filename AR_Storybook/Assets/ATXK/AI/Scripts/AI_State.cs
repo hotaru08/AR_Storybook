@@ -34,7 +34,10 @@
 			for (int i = transitions.Count - 1; i >= 0; i--)
 			{
 				if(transitions[i].decision.Decide(controller))
+                {
 					controller.ChangeState(transitions[i].decisionTrueState);
+                    break;
+                }
 				else
 					controller.ChangeState(transitions[i].decisionFalseState);
 			}
