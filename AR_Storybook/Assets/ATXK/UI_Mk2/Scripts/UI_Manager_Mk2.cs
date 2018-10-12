@@ -6,19 +6,40 @@
 
 	public class UI_Manager_Mk2 : MonoBehaviour
 	{
+		[Header("Splash Screen")]
+		[Tooltip("Splash Screen.")]
+		[SerializeField] UI_Screen_Mk2 splashScreen;
+
+		[Header("Starting Screen")]
 		[Tooltip("Starting Screen.")]
 		[SerializeField] UI_Screen_Mk2 startScreen;
+
+		[Header("Runtime Screens")]
 		[SerializeField] UI_Screen_Mk2 currScreen;
 		[SerializeField] UI_Screen_Mk2 prevScreen;
+
+		[Header("Global Material for all screens.")]
 		[Tooltip("Global Material for all screens.")]
 		[SerializeField] Material transitionMaterial;
 
+		[Header("Animation Settings")]
+		[Tooltip("Speed of which the scale animation will play for Overlay screens.")]
+		[Range(0.1f, 2f)] [SerializeField] float popSpeed = 1f;
+		[Tooltip("Speed of which the shader animation will play for Full screens.")]
+		[Range(0.1f, 2f)] [SerializeField] float transitSpeed = 1f;
+
 		private void Start()
 		{
-			currScreen = startScreen;
+			if(PlayerPrefs.GetInt("FirstLaunch") == 0 && splashScreen != null)
+			{
+				currScreen = splashScreen;
+				PlayerPrefs.SetInt("FirstLaunch", 1);
+			}
+			else
+				currScreen = startScreen;
+
 			prevScreen = currScreen;
 
-			currScreen.gameObject.SetActive(true);
 			if (currScreen.StartOnAwake)
 				StartCoroutine("TransitionIn", currScreen);
 		}
@@ -35,6 +56,11 @@
 			transitionMaterial.SetFloat("_Fade", 1f);
 		}
 
+		private void OnApplicationQuit()
+		{
+			PlayerPrefs.SetInt("FirstLaunch", 0);
+		}
+
 		public void ChangeScreen(Object screenObject)
 		{
 			UI_Screen_Mk2 screen = screenObject as UI_Screen_Mk2;
@@ -47,19 +73,16 @@
 			prevScreen = currScreen;
 			currScreen = screen;
 
+			// Scale animate if previous screen was an overlay
+			if(prevScreen.ScreenType == UI_Screen_Mk2.Screen.SCREEN_OVERLAY)
+			{
+				StartCoroutine("PopOut", prevScreen);
+			}
+
 			// Current screen is an overlay
 			if(currScreen.ScreenType == UI_Screen_Mk2.Screen.SCREEN_OVERLAY)
 			{
-				currScreen.ScreenElements.SetActive(true);
-				currScreen.gameObject.SetActive(true);
-
-				//prevScreen.ScreenElements.SetActive(false);
-
-				// Only 1 overlay allowed at a time
-				if(prevScreen.ScreenType == UI_Screen_Mk2.Screen.SCREEN_OVERLAY)
-				{
-					prevScreen.gameObject.SetActive(false);
-				}
+				StartCoroutine("PopIn", currScreen);
 			}
 			// Current screen is fullscreen
 			else 
@@ -73,19 +96,77 @@
 				// Previous screen was an overlay
 				else
 				{
-					prevScreen.ScreenElements.SetActive(false);
-					prevScreen.gameObject.SetActive(false);
-
 					currScreen.ScreenElements.SetActive(true);
 					currScreen.gameObject.SetActive(true);
 				}
 			}
 		}
 
-		private IEnumerator TransitionIn(UI_Screen_Mk2 screen)
+		private IEnumerator PopIn(UI_Screen_Mk2 screen)
 		{
 			if (screen == null)
 				yield break;
+
+			screen.gameObject.SetActive(true);
+			screen.ScreenElements.SetActive(true);
+
+			screen.ScreenImage.rectTransform.localScale = Vector3.zero;
+
+			float index = 0f;
+			while(index < 1f)
+			{
+				screen.ScreenImage.rectTransform.localScale += Vector3.Lerp(Vector3.zero, Vector3.one, Time.deltaTime * popSpeed);
+				index += Time.deltaTime * popSpeed;
+
+				yield return new WaitForEndOfFrame();
+			}
+
+			screen.ScreenImage.rectTransform.localScale = Vector3.one;
+		}
+
+		private IEnumerator PopOut(UI_Screen_Mk2 screen)
+		{
+			if (screen == null)
+				yield break;
+
+			screen.ScreenImage.rectTransform.localScale = Vector3.one;
+
+			float index = 1f;
+			while (index > 0f)
+			{
+				screen.ScreenImage.rectTransform.localScale -= Vector3.Lerp(Vector3.zero, Vector3.one, Time.deltaTime * popSpeed);
+				index -= Time.deltaTime * popSpeed;
+
+				yield return new WaitForEndOfFrame();
+			}
+
+			screen.ScreenImage.rectTransform.localScale = Vector3.zero;
+
+			screen.gameObject.SetActive(false);
+			screen.ScreenElements.SetActive(false);
+		}
+
+		private IEnumerator TransitionIn(UI_Screen_Mk2 screen)
+		{
+			if (screen == null)
+			{
+				yield break;
+			}
+			if(screen.ScreenImage.sprite == null)
+			{
+				screen.ScreenImage.material.SetFloat("_Cutoff", 0f);
+				screen.ScreenImage.material.SetFloat("_Fade", 1f);
+
+				screen.gameObject.SetActive(true);
+				screen.ScreenElements.SetActive(false);
+
+				if (screen.IsAnimated)
+					yield return new WaitForSeconds(screen.gameObject.GetComponent<DelayedAnim>().DelayTime);
+
+				screen.ScreenElements.SetActive(true);
+
+				yield break;
+			}
 
 			screen.ScreenElements.SetActive(false);
 			screen.gameObject.SetActive(true);
@@ -104,7 +185,7 @@
 				else
 					screen.ScreenImage.material.SetFloat("_Cutoff", i);
 
-				i -= Time.deltaTime;
+				i -= Time.deltaTime * transitSpeed;
 				yield return new WaitForEndOfFrame();
 			}
 
@@ -136,7 +217,7 @@
 				else
 					screen.ScreenImage.material.SetFloat("_Cutoff", i);
 
-				i += Time.deltaTime;
+				i += Time.deltaTime * transitSpeed;
 				yield return new WaitForEndOfFrame();
 			}
 

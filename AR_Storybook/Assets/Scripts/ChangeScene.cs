@@ -18,6 +18,14 @@ public class ChangeScene : MonoBehaviour
     }
 
     /// <summary>
+    /// Reloads the Current Active scene
+    /// </summary>
+    public void ReloadScene()
+    {
+        SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().name);
+    }
+
+    /// <summary>
     /// Quit the application ( any device, not working in editor )
     /// </summary>
     public void QuitGame()

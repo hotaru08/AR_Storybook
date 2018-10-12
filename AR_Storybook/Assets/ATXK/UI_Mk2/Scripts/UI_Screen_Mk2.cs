@@ -3,6 +3,7 @@
 	using UnityEngine;
 	using UnityEngine.UI;
 
+	[RequireComponent(typeof(CanvasGroup))]
 	public class UI_Screen_Mk2 : MonoBehaviour
 	{
 		public enum Screen
@@ -41,6 +42,7 @@
 		public Transition ScreenTransition { get { return transitionStyle; } }
 		public Texture ScreenTransitionTexture { get { return transitionTexture; } }
 		public bool StartOnAwake { get { return startOnAwake; } }
+		public bool IsAnimated { get { return gameObject.GetComponent<Animator>() != null; } }
 		#endregion
 	}
 }

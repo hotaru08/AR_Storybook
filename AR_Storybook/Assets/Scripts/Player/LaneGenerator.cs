@@ -1,7 +1,4 @@
 ﻿using ATXK.Helper;
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
@@ -16,8 +13,6 @@ public class LaneGenerator : MonoBehaviour
     [SerializeField]
     private GameObject m_gridPrefab;
     [SerializeField]
-    private GameObject m_bumperPrefab;
-    [SerializeField]
     private GameObject m_playerPrefab;
     [SerializeField]
     private GameObject m_enemyPrefab;
@@ -28,7 +23,6 @@ public class LaneGenerator : MonoBehaviour
     [Header("Style")]
     [SerializeField]
     private int m_NumLanes;
-    public Vector3 m_transformation;
     private float m_offsetZ, m_offsetX;
     private float m_widthBounds,m_heightBounds;
 
@@ -39,9 +33,9 @@ public class LaneGenerator : MonoBehaviour
     [SerializeField]
     private int m_playerIndex;
     private int m_playerPrevIndex;
+    private const float m_scaleRatio = 5;
     private GameObject m_player;
     public bool m_reverseControls;
-    private const float m_scaleRatio = 5;
 
     /// <summary>
     /// Enum for different enemies spawn style
@@ -50,7 +44,7 @@ public class LaneGenerator : MonoBehaviour
     {
         EACH_LANE,
         W_STYLE,
-        RANDOM
+        BOSS
     }
     [Header("Enemies")]
     public ENEMIES_SPAWN_STYLE m_style;
@@ -60,19 +54,26 @@ public class LaneGenerator : MonoBehaviour
     /// </summary>
     private GameObject[] m_lanes;
 
+    private float m_parentScaleRatio;
+    private float m_storeZ;
+
     /// <summary>
     /// Unity Start Function ( change it to init )
     /// </summary>
     private void Start()
     {
-        // Finding width and height of spawning ground
-        m_widthBounds = transform.localScale.x;
-        m_heightBounds = transform.localScale.z;
+        // ----- Finding width and height of spawning ground
+        m_widthBounds = transform.GetChild(2).localScale.x;
+        m_heightBounds = transform.GetChild(2).localScale.z;
+        //Debug.LogWarning("Size: " + m_widthBounds + " / " + m_heightBounds);
 
-        // Initialise
+        // ----- Initialise
         m_lanes = new GameObject[m_NumLanes];
         m_playerPrevIndex = m_playerIndex;
+        m_parentScaleRatio = transform.parent.localScale.x;
+        m_storeZ = 0.0f;
 
+        // ----- Lane Layout
         LaneLayout();
     }
 
@@ -100,72 +101,105 @@ public class LaneGenerator : MonoBehaviour
                                                         temp.transform.localPosition.y,
                                                         temp.transform.localPosition.z + m_offsetZ);
 
-            // Set Materials accordingly ( green, red, blue )
+            // Set Lane Materials accordingly ( green, red, blue )
             temp.GetComponent<Renderer>().material.color = SetLaneColor(i);
-            DebugLogger.Log<LaneGenerator>("Color: " + temp.GetComponent<Renderer>().material.color);
 
-            // Spawn Enemies at the end of each lanes 
-            GenerateEnemies(m_style, temp.transform.localPosition, temp.transform.localScale);
-
-            // Store to Array
+            // Store to Lane Array
             m_lanes[i] = temp;
 
-            //DebugLogger.Log<LaneGenerator>("OffsetZ: " + m_offsetZ);
-            //DebugLogger.Log<LaneGenerator>("OffsetX: " + m_offsetX);
-            //DebugLogger.Log<LaneGenerator>("Pos " + i + " : " + temp.transform.localPosition);
-            //DebugLogger.Log<LaneGenerator>("Scale " + i + " : " + temp.transform.localScale);
-        }
+            // Spawn Enemies at the end of each lanes 
+            GenerateEnemies(m_style, temp.transform.localPosition, temp.transform.localScale, i);
 
-        // Spawn Player according to its index
-        GeneratePlayer();
+            // Spawn Player 
+            if (m_player == null)
+            {
+                m_player = GeneratePlayer(temp.transform.localPosition, temp.transform.localScale, m_playerIndex);
+            }
+        }
     }
 
     /// <summary>
     /// Spawn Player according to which lane user wants
     /// </summary>
-    private void GeneratePlayer()
+    private GameObject GeneratePlayer(Vector3 _pos, Vector3 _scale, int _index)
     {
-        if (m_playerIndex < 0 || m_playerIndex > m_lanes.Length - 1)
+        // Out of Array Index, set to middle lane
+        if (_index < 0 || _index > m_lanes.Length - 1)
             m_playerIndex = m_NumLanes / 2;
 
-        // Create Player
-        m_player = Instantiate(m_playerPrefab, transform, true);
-        m_player.AddComponent<Touch_Swipe>();
+        // Create Enemies
+        GameObject tempPlayer = Instantiate(m_playerPrefab, transform.GetChild(1), true);
+        //m_player = Instantiate(m_playerPrefab, transform.GetChild(1), true);
+        tempPlayer.AddComponent<Touch_Swipe>();
 
-        // Set scale to be 1:3 ratio ( lane:player )
-        m_player.transform.localScale = new Vector3(m_lanes[m_playerIndex].transform.localScale.x * m_scaleRatio,
-                                                    m_lanes[m_playerIndex].transform.localScale.x * m_scaleRatio,
-                                                    m_lanes[m_playerIndex].transform.localScale.x * m_scaleRatio);
+        // Set scale to be 1:5 ratio ( lane:player )
+        tempPlayer.transform.localScale = new Vector3(_scale.x * m_scaleRatio * 2,
+                                                    _scale.x * m_scaleRatio * 2,
+                                                    _scale.x * m_scaleRatio * 2);
 
         // Set Player pos according to lane index
-        m_player.transform.localPosition = new Vector3(m_lanes[m_playerIndex].transform.position.x,
-                                                       m_player.transform.position.y,
-                                                       m_lanes[m_playerIndex].transform.position.z - m_lanes[m_playerIndex].transform.localScale.z * 0.45f);
+        //tempPlayer.transform.position = new Vector3(m_lanes[m_playerIndex].transform.position.x,
+        //                                               m_player.transform.position.y,
+        //                                               (m_lanes[m_playerIndex].transform.position.z - m_lanes[m_playerIndex].transform.localScale.z * 0.45f));
+        
+        tempPlayer.transform.localPosition = new Vector3(_pos.x, _pos.y, _pos.z - _scale.z * 0.45f);
+        m_storeZ = -0.4f;
+        DebugLogger.LogWarning<LaneGenerator>("StoreZ: " + m_storeZ);
+        DebugLogger.LogWarning<LaneGenerator>("Pos At Start: " + tempPlayer.transform.localPosition);
+
+        return tempPlayer;
     }
 
     /// <summary>
     /// Spawn Enemies according to style
     /// </summary>
-    private void GenerateEnemies(ENEMIES_SPAWN_STYLE _style, Vector3 _lanePos, Vector3 _laneScale)
+    private void GenerateEnemies(ENEMIES_SPAWN_STYLE _style, Vector3 _lanePos, Vector3 _laneScale, int _index)
     {
+        if (_style.Equals(ENEMIES_SPAWN_STYLE.BOSS) && _index != m_NumLanes / 2) return;
+
+        // Create Enemies
         GameObject tempEnemy = Instantiate(m_enemyPrefab, transform.GetChild(1), true);
 
         // Set scale to be 1:5 ratio ( lane:enemies )
-        tempEnemy.transform.localScale = new Vector3(_laneScale.x * m_scaleRatio,
-                                                     _laneScale.x * m_scaleRatio,
-                                                     _laneScale.x * m_scaleRatio);
+        tempEnemy.transform.localScale = new Vector3(_laneScale.x * m_scaleRatio * 3,
+                                                     _laneScale.x * m_scaleRatio * 3,
+                                                     _laneScale.x * m_scaleRatio * 3);
 
+        // Based on Style, position the enemies accordingly
         switch (_style)
         {
             case ENEMIES_SPAWN_STYLE.EACH_LANE:
-                tempEnemy.transform.localPosition = _lanePos;
-                tempEnemy.transform.localPosition = new Vector3(_lanePos.x,
-                                                        _lanePos.y,
-                                                        _lanePos.z + _laneScale.z * 0.5f);
+                tempEnemy.transform.localPosition = new Vector3(_lanePos.x, _lanePos.y, _lanePos.z + _laneScale.z * 0.6f);
+                tempEnemy.transform.forward = -Vector3.forward;
                 break;
             case ENEMIES_SPAWN_STYLE.W_STYLE:
+                if (_index.Equals(0))
+                {
+                    tempEnemy.transform.localPosition = new Vector3(_lanePos.x, _lanePos.y, _lanePos.z + _laneScale.z * 0.6f);
+                    break;
+                }
+
+                switch (_index % 2)
+                {
+                    case 0:
+                        tempEnemy.transform.localPosition = new Vector3(_lanePos.x - _laneScale.x, _lanePos.y, _lanePos.z + _laneScale.z * 0.6f);
+                        break;
+                    case 1:
+                        tempEnemy.transform.localPosition = new Vector3(_lanePos.x - _laneScale.x * 0.5f, _lanePos.y, _lanePos.z + _laneScale.z * 0.8f);
+                        break;
+                }
+
                 break;
-            case ENEMIES_SPAWN_STYLE.RANDOM:
+            case ENEMIES_SPAWN_STYLE.BOSS:
+                switch (m_NumLanes % 2)
+                {
+                    case 0:
+                        tempEnemy.transform.localPosition = new Vector3(_lanePos.x - _laneScale.x * 0.5f , _lanePos.y, _lanePos.z + _laneScale.z * 0.6f);
+                        break;
+                    case 1:
+                        tempEnemy.transform.localPosition = new Vector3(_lanePos.x, _lanePos.y, _lanePos.z + _laneScale.z * 0.6f);
+                        break;
+                }
                 break;
         }
     }
@@ -202,15 +236,12 @@ public class LaneGenerator : MonoBehaviour
                 tempColor = new Color(0.21f, 0.220f, 0.9f);
                 break;
         }
-
-        DebugLogger.Log<LaneGenerator>("Color of Lane " + _index + ": " + tempColor);
         return tempColor; // if smth happens wrong
     }
 
     private void Update()
     {
 #if UNITY_EDITOR || UNITY_STANDALONE
-        // TODO : Move to Another Script? To handle player movements
         if (m_player.GetComponent<Touch_Swipe>().SwipeDirection.Equals(Touch_Swipe.SWIPE_DIRECTION.LEFT) ||
             Input.GetKeyDown(KeyCode.LeftArrow))
         {
@@ -228,13 +259,13 @@ public class LaneGenerator : MonoBehaviour
             DebugLogger.Log<LaneGenerator>("Right Arrow Pressed, Player Index is " + m_playerIndex);
         }
 #elif UNITY_ANDROID || UNITY_IOS
-        // TODO : Move to Another Script? To handle player movements
         if (m_player.GetComponent<Touch_Swipe>().SwipeDirection.Equals(Touch_Swipe.SWIPE_DIRECTION.LEFT))
         {
             if (m_playerIndex <= 0) return;
 
             m_playerIndex--;
             DebugLogger.LogWarning<LaneGenerator>("Left Arrow Pressed, Player Index is " + m_playerIndex);
+        
         }
         if (m_player.GetComponent<Touch_Swipe>().SwipeDirection.Equals(Touch_Swipe.SWIPE_DIRECTION.RIGHT))
         {
@@ -246,13 +277,36 @@ public class LaneGenerator : MonoBehaviour
 #endif
 
         // Update Player Pos if there is any changes ( not prev index )
-        if (m_playerIndex != m_playerPrevIndex)
+        if (m_playerIndex != m_playerPrevIndex && 
+           /* m_player.GetComponent<PlayerManager>().m_stateMachine.GetCurrentState().Equals("PlayerIdle")*/ 
+            m_player)
         {
+            if (!m_player.GetComponent<PlayerManager>().m_stateMachine.GetCurrentState().Equals("PlayerIdle")) return;
+
+            // Converting to 2dp
+            //float playerPos = (int)(m_player.transform.localPosition.x * 100) * 0.01f;
+            //float lanePos = (int)(m_lanes[m_playerIndex].transform.position.x * 100) * 0.01f;
+
+            //if (playerPos != lanePos) // make range here how
+            //{
+            //    if (playerPos > lanePos)
+            //        m_player.transform.position += Vector3.left * Time.deltaTime;
+            //    else if (playerPos < lanePos)
+            //        m_player.transform.position += Vector3.right * Time.deltaTime;
+            //}
+            //else
+            //{
             m_playerPrevIndex = m_playerIndex;
-            m_player.transform.localPosition = new Vector3(m_lanes[m_playerIndex].transform.position.x,
-                                                           m_player.transform.position.y,
-                                                           m_lanes[m_playerIndex].transform.position.z - m_lanes[m_playerIndex].transform.localScale.z * 0.45f);
-            DebugLogger.Log<LaneGenerator>("Prev Index: " + m_playerPrevIndex + " Index: " + m_playerIndex);
+            m_player.transform.localPosition = new Vector3(m_lanes[m_playerIndex].transform.localPosition.x,
+                                                          m_player.transform.localPosition.y,
+                                                          m_storeZ);
+            //m_player.transform.position = new Vector3(m_player.transform.position.x,
+            //                                       m_player.transform.position.y - 0.2f,
+            //                                       m_player.transform.position.z);
+            //}
+
+            DebugLogger.LogWarning<LaneGenerator>("Pos: " + m_player.transform.localPosition);
         }
+        //DebugLogger.LogWarning<LaneGenerator>("Pos: " + m_player.transform.position);
     }
 }
