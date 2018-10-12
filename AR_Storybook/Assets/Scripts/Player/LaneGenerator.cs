@@ -108,12 +108,12 @@ public class LaneGenerator : MonoBehaviour
             m_lanes[i] = temp;
 
             // Spawn Enemies at the end of each lanes 
-            GenerateEnemies(m_style, temp.transform.localPosition, temp.transform.localScale, i);
+            GenerateEnemies(m_style, temp.transform.localPosition, temp.transform.localScale, i, temp);
 
             // Spawn Player 
             if (m_player == null)
             {
-                m_player = GeneratePlayer(temp.transform.localPosition, temp.transform.localScale, m_playerIndex);
+                m_player = GeneratePlayer(temp.transform.localPosition, temp.transform.localScale, m_playerIndex, temp);
             }
         }
     }
@@ -121,13 +121,13 @@ public class LaneGenerator : MonoBehaviour
     /// <summary>
     /// Spawn Player according to which lane user wants
     /// </summary>
-    private GameObject GeneratePlayer(Vector3 _pos, Vector3 _scale, int _index)
+    private GameObject GeneratePlayer(Vector3 _pos, Vector3 _scale, int _index, GameObject _obj)
     {
         // Out of Array Index, set to middle lane
         if (_index < 0 || _index > m_lanes.Length - 1)
             m_playerIndex = m_NumLanes / 2;
 
-        // Create Enemies
+        // Create Player
         GameObject tempPlayer = Instantiate(m_playerPrefab, transform.GetChild(1), true);
         //m_player = Instantiate(m_playerPrefab, transform.GetChild(1), true);
         tempPlayer.AddComponent<Touch_Swipe>();
@@ -144,6 +144,10 @@ public class LaneGenerator : MonoBehaviour
         
         tempPlayer.transform.localPosition = new Vector3(_pos.x, _pos.y, _pos.z - _scale.z * 0.45f);
         m_storeZ = -0.4f;
+
+        // Get the lane object that it is spawned with, and get its targetpoint for player
+        tempPlayer.transform.forward = _obj.transform.GetChild(1).forward;
+
         DebugLogger.LogWarning<LaneGenerator>("StoreZ: " + m_storeZ);
         DebugLogger.LogWarning<LaneGenerator>("Pos At Start: " + tempPlayer.transform.localPosition);
 
@@ -153,7 +157,7 @@ public class LaneGenerator : MonoBehaviour
     /// <summary>
     /// Spawn Enemies according to style
     /// </summary>
-    private void GenerateEnemies(ENEMIES_SPAWN_STYLE _style, Vector3 _lanePos, Vector3 _laneScale, int _index)
+    private void GenerateEnemies(ENEMIES_SPAWN_STYLE _style, Vector3 _lanePos, Vector3 _laneScale, int _index, GameObject _laneObj)
     {
         if (_style.Equals(ENEMIES_SPAWN_STYLE.BOSS) && _index != m_NumLanes / 2) return;
 
@@ -161,16 +165,19 @@ public class LaneGenerator : MonoBehaviour
         GameObject tempEnemy = Instantiate(m_enemyPrefab, transform.GetChild(1), true);
 
         // Set scale to be 1:5 ratio ( lane:enemies )
-        tempEnemy.transform.localScale = new Vector3(_laneScale.x * m_scaleRatio * 3,
-                                                     _laneScale.x * m_scaleRatio * 3,
-                                                     _laneScale.x * m_scaleRatio * 3);
+        tempEnemy.transform.localScale = new Vector3(_laneScale.x * m_scaleRatio * 8,
+                                                     _laneScale.x * m_scaleRatio * 8,
+                                                     _laneScale.x * m_scaleRatio * 8);
 
         // Based on Style, position the enemies accordingly
         switch (_style)
         {
             case ENEMIES_SPAWN_STYLE.EACH_LANE:
                 tempEnemy.transform.localPosition = new Vector3(_lanePos.x, _lanePos.y, _lanePos.z + _laneScale.z * 0.6f);
-                tempEnemy.transform.forward = -Vector3.forward;
+
+                // Get the lane object that it is spawned with, and get its targetpoint for enemies
+                tempEnemy.transform.forward = -(_laneObj.transform.GetChild(0).forward);
+
                 break;
             case ENEMIES_SPAWN_STYLE.W_STYLE:
                 if (_index.Equals(0))
