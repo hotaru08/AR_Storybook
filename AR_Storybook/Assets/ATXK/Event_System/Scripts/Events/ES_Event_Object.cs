@@ -2,7 +2,7 @@
 {
 	using UnityEngine;
 
-	[CreateAssetMenu(menuName = "Event System/Object Event", order = 7)]
+	[CreateAssetMenu(menuName = "Event/Object Event", order = 7)]
 	public class ES_Event_Object : ES_Event
 	{
 		public Object value;

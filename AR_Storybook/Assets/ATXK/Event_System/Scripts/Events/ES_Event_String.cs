@@ -5,7 +5,7 @@
 	/// <summary>
 	/// Event based on ScriptableObjects with string value.
 	/// </summary>
-	[CreateAssetMenu(menuName = "Event System/String Event", order = 5)]
+	[CreateAssetMenu(menuName = "Event/String Event", order = 5)]
 	public class ES_Event_String : ES_Event
 	{
 		public string value;

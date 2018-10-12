@@ -6,7 +6,7 @@
 	using UnityEngine;
 	using EventSystem;
 
-	[CreateAssetMenu(menuName = "Dialogue System/Tree")]
+	[CreateAssetMenu(menuName = "Dialogue/Tree")]
 	public class DS_Tree : ScriptableObject
 	{
 		[Header("Dialogue Nodes")]

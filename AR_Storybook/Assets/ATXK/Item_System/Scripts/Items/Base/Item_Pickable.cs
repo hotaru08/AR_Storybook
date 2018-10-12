@@ -2,7 +2,7 @@
 {
 	using UnityEngine;
 
-	[CreateAssetMenu(menuName = "Item System/Item/Pickable")]
+	[CreateAssetMenu(menuName = "Item/Item/Pickable")]
 	public class Item_Pickable : Item_Base, IPickable
 	{
 		public override bool OnCollide(GameObject collidingObject)

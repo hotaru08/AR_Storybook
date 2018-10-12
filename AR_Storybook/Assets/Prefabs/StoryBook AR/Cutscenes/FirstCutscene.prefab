@@ -1702,7 +1702,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1616548885750304
 GameObject:
   m_ObjectHideFlags: 1
@@ -2374,6 +2374,8 @@ GameObject:
   - component: {fileID: 4878409736984582}
   - component: {fileID: 320481199943330402}
   - component: {fileID: 114974282620143938}
+  - component: {fileID: 114585693206163132}
+  - component: {fileID: 114976278454226460}
   m_Layer: 0
   m_Name: FirstCutscene
   m_TagString: Untagged
@@ -9869,6 +9871,60 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &114585693206163132
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1800128560221022}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 169e4c6d81ea24d49bc254b4c64dc3e3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  eventsToListenFor:
+  - {fileID: 11400000, guid: 312dc88f52763b74e873cf36b5581beb, type: 2}
+  responseToDefault:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 114976278454226460}
+        m_MethodName: NextTimeline
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  responseToBoolEvent:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: ATXK.EventSystem.BoolEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  responseToIntEvent:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: ATXK.EventSystem.IntEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  responseToFloatEvent:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: ATXK.EventSystem.FloatEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  responseToStringEvent:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: ATXK.EventSystem.StringEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  responseToObjectEvent:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: ATXK.EventSystem.ObjectEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
 --- !u!114 &114586678802045472
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -10445,11 +10501,24 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1800128560221022}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f87ca258b051ab043a9e0f4b02758bbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &114976278454226460
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1800128560221022}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: da242cdeba9c0e74190c2247d411afa6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  director: {fileID: 0}
+  cutscene: {fileID: 11400000, guid: f22ef78998230a24ba91794de45974a8, type: 2}
 --- !u!114 &114997732741005124
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -11911,5 +11980,15 @@ PlayableDirector:
     value: {fileID: 1780763561887358}
   - key: {fileID: 114511709045008354, guid: 21cc790ff53d139439d691afbeaf77c1, type: 2}
     value: {fileID: 1254861236199520}
+  - key: {fileID: 114035244432357974, guid: 3c649513f813b554ca36b93e6ff3db4e, type: 2}
+    value: {fileID: 0}
+  - key: {fileID: 114401668512820368, guid: 3c649513f813b554ca36b93e6ff3db4e, type: 2}
+    value: {fileID: 0}
+  - key: {fileID: 114661982361842524, guid: 3c649513f813b554ca36b93e6ff3db4e, type: 2}
+    value: {fileID: 0}
+  - key: {fileID: 114454407712908596, guid: 3c649513f813b554ca36b93e6ff3db4e, type: 2}
+    value: {fileID: 0}
+  - key: {fileID: 114217386808590076, guid: 3c649513f813b554ca36b93e6ff3db4e, type: 2}
+    value: {fileID: 0}
   m_ExposedReferences:
     m_References: []

@@ -3,9 +3,16 @@
 	using UnityEngine;
 	using ATXK.EventSystem;
 
-	[CreateAssetMenu(menuName = "Dialogue System/Node")]
+	[CreateAssetMenu(menuName = "Dialogue/Node")]
 	public class DS_Node : ScriptableObject
 	{
+		[System.Serializable]
+		class NodeEvent
+		{
+			public ES_Event nodeEvent;
+			public NodeEventSettings nodeInvoke;
+		}
+
 		enum NodeEventSettings
 		{
 			ON_ENTER,
@@ -21,8 +28,9 @@
 		[SerializeField] DS_Node[] nextNodes;
 
 		[Header("Event Settings")]
-		[SerializeField] ES_Event nodeEvent;
-		[SerializeField] NodeEventSettings nodeInvoke;
+		//[SerializeField] ES_Event nodeEvent;
+		//[SerializeField] NodeEventSettings nodeInvoke;
+		[SerializeField] NodeEvent[] nodeEvents;
 
 		#region Property Getters
 		/// <summary>
@@ -50,14 +58,30 @@
 		#region Class Methods
 		public void Enter()
 		{
-			if (nodeInvoke == NodeEventSettings.ON_ENTER && nodeEvent != null)
-				nodeEvent.Invoke();
+			//if (nodeInvoke == NodeEventSettings.ON_ENTER && nodeEvent != null)
+			//	nodeEvent.Invoke();
+
+			for(int i = 0; i < nodeEvents.Length; i++)
+			{
+				if(nodeEvents[i].nodeInvoke == NodeEventSettings.ON_ENTER)
+				{
+					nodeEvents[i].nodeEvent.Invoke();
+				}
+			}
 		}
 
 		public void Exit()
 		{
-			if (nodeInvoke == NodeEventSettings.ON_EXIT && nodeEvent != null)
-				nodeEvent.Invoke();
+			//if (nodeInvoke == NodeEventSettings.ON_EXIT && nodeEvent != null)
+			//	nodeEvent.Invoke();
+
+			for (int i = 0; i < nodeEvents.Length; i++)
+			{
+				if (nodeEvents[i].nodeInvoke == NodeEventSettings.ON_EXIT)
+				{
+					nodeEvents[i].nodeEvent.Invoke();
+				}
+			}
 		}
 		#endregion
 	}

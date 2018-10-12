@@ -5,7 +5,7 @@
 	/// <summary>
 	/// Event based on ScriptableObjects with float value.
 	/// </summary>
-	[CreateAssetMenu(menuName = "Event System/Float Event", order = 4)]
+	[CreateAssetMenu(menuName = "Event/Float Event", order = 4)]
 	public class ES_Event_Float : ES_Event
 	{
 		public float value;

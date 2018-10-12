@@ -3,7 +3,7 @@
 	using UnityEngine;
 	using System.Collections.Generic;
 
-	[CreateAssetMenu(menuName = "Item System/Inventory")]
+	[CreateAssetMenu(menuName = "Item/Inventory")]
 	public class Inventory : ScriptableObject
 	{
 		[SerializeField] List<Item_Base> items;

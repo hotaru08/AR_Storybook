@@ -3,7 +3,7 @@
 	using UnityEngine;
 	using CustomVariables;
 
-	[CreateAssetMenu(menuName = "Item System/Enum/Fire Mode")]
+	[CreateAssetMenu(menuName = "Item/Enum/Fire Mode")]
 	public class CV_Enum_Firemode : CV_Enum
 	{
 		[SerializeField] int numberOfProjectiles;

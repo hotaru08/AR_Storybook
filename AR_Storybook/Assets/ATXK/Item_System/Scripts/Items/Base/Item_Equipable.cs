@@ -2,7 +2,7 @@
 {
 	using UnityEngine;
 
-	[CreateAssetMenu(menuName = "Item System/Item/Equipable")]
+	[CreateAssetMenu(menuName = "Item/Item/Equipable")]
 	public class Item_Equipable : Item_Base, IPickable, IEquipable
 	{
 		public override bool OnCollide(GameObject collidingObject)

@@ -50,6 +50,11 @@ public class TimelineManager : SingletonBehaviour<TimelineManager>
         m_director = _director;
     }
 
+	public void SetDirectorTime(float time)
+	{
+		m_director.time = time;
+	}
+
     /// <summary>
     /// Get the status of the Director
     /// </summary>

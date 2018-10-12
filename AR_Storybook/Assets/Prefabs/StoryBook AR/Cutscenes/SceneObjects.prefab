@@ -1291,9 +1291,10 @@ GameObject:
   m_Component:
   - component: {fileID: 4482420381020248}
   - component: {fileID: 95389827087281648}
-  - component: {fileID: 114351301291169836}
-  - component: {fileID: 114011949600969024}
   - component: {fileID: 320505485361650546}
+  - component: {fileID: 114011949600969024}
+  - component: {fileID: 114956312863642268}
+  - component: {fileID: 114632543513505648}
   m_Layer: 0
   m_Name: SceneObjects
   m_TagString: Untagged
@@ -3421,7 +3422,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1829853303841538}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f87ca258b051ab043a9e0f4b02758bbb, type: 3}
   m_Name: 
@@ -3439,6 +3440,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_state: 2
   m_animator: {fileID: 95067064557517782}
+  m_oldmat: {fileID: 0}
+  m_newmat: {fileID: 0}
+  rootObject: {fileID: 0}
 --- !u!114 &114303564985447286
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3452,23 +3456,76 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_state: 1
   m_animator: {fileID: 95204405958292984}
---- !u!114 &114351301291169836
+  m_oldmat: {fileID: 0}
+  m_newmat: {fileID: 0}
+  rootObject: {fileID: 0}
+--- !u!114 &114632543513505648
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1829853303841538}
-  m_Enabled: 0
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: da242cdeba9c0e74190c2247d411afa6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  director: {fileID: 0}
+  cutscene: {fileID: 11400000, guid: 8cb0122a13dedb2468060cc3ac5032c7, type: 2}
+--- !u!114 &114956312863642268
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1829853303841538}
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 169e4c6d81ea24d49bc254b4c64dc3e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameEvent: {fileID: 0}
-  response:
+  eventsToListenFor:
+  - {fileID: 11400000, guid: 312dc88f52763b74e873cf36b5581beb, type: 2}
+  responseToDefault:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 114632543513505648}
+        m_MethodName: NextTimeline
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
+  responseToBoolEvent:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: ATXK.EventSystem.BoolEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  responseToIntEvent:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: ATXK.EventSystem.IntEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  responseToFloatEvent:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: ATXK.EventSystem.FloatEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  responseToStringEvent:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: ATXK.EventSystem.StringEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  responseToObjectEvent:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: ATXK.EventSystem.ObjectEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
 --- !u!114 &114981524542233714
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3482,6 +3539,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_state: 2
   m_animator: {fileID: 95067064557517782}
+  m_oldmat: {fileID: 0}
+  m_newmat: {fileID: 0}
+  rootObject: {fileID: 0}
 --- !u!136 &136184391822562000
 CapsuleCollider:
   m_ObjectHideFlags: 1
