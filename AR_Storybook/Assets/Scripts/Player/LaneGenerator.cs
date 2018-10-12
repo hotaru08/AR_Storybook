@@ -170,6 +170,7 @@ public class LaneGenerator : MonoBehaviour
         {
             case ENEMIES_SPAWN_STYLE.EACH_LANE:
                 tempEnemy.transform.localPosition = new Vector3(_lanePos.x, _lanePos.y, _lanePos.z + _laneScale.z * 0.6f);
+                tempEnemy.transform.forward = -Vector3.forward;
                 break;
             case ENEMIES_SPAWN_STYLE.W_STYLE:
                 if (_index.Equals(0))
