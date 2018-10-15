@@ -47,7 +47,10 @@ Shader "Custom/Lit Shader/Textured with Bumpiness"
 			CGPROGRAM // Start of Shader program
 
 			#pragma target 3.0
+			
 			#pragma multi_compile _ VERTEXLIGHT_ON
+			#pragma multi_compile _ SHADOWS_SCREEN
+
 			#pragma vertex VertexProgram		// Defining the Vertex program
 			#pragma fragment FragmentProgram	// Defining the Fragment program
 
@@ -74,11 +77,32 @@ Shader "Custom/Lit Shader/Textured with Bumpiness"
 			#pragma target 3.0
 			#pragma vertex VertexProgram					// Defining the Vertex program
 			#pragma fragment FragmentProgram				// Defining the Fragment program
-			#pragma multi_compile_fwdadd
+			#pragma multi_compile_fwdadd_fullshadows
 
 			#include "Lighting.cginc" // Personal lighting shader
 
 			ENDCG // End of Shader program
+		}
+
+		Pass
+		{
+			Tags
+			{
+				"LightMode" = "ShadowCaster"
+			}
+
+			CGPROGRAM
+
+			#pragma target 3.0
+
+			#pragma multi_compile_shadowcaster
+
+			#pragma vertex ShadowVertexProgram
+			#pragma fragment ShadowFragmentProgram
+
+			#include "Shadow.cginc"
+
+			ENDCG
 		}
 	}
 }

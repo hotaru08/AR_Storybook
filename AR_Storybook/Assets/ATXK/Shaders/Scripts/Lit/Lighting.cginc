@@ -1,8 +1,8 @@
 #if !defined(LIGHTING)
 #define LIGHTING
 
-#include "AutoLight.cginc"
 #include "UnityPBSLighting.cginc"
+#include "AutoLight.cginc"
 
 // Property variables
 float4 _Tint;
@@ -26,7 +26,7 @@ struct Interpolators
 	- Used for texture coordinates that are interpolated and NOT the actual vertex position
 	*/
 
-	float4 position : SV_POSITION;
+	float4 pos : SV_POSITION;
 	float4 uv : TEXCOORD0;
 	float3 normal : TEXCOORD1;
 	
@@ -39,15 +39,17 @@ struct Interpolators
 
 	float3 worldPosition : TEXCOORD4;
 
+	SHADOW_COORDS(5)
+
 	#if defined(VERTEXLIGHT_ON)
-		float3 vertexLightColor : TEXCOORD5;
+		float3 vertexLightColor : TEXCOORD6;
 	#endif
 };
 
 // Struct for containing Vertex program input values
 struct VertexData
 {
-	float4 position : POSITION;
+	float4 vertex : POSITION;
 	float2 uv : TEXCOORD0;
 	float4 tangent : TANGENT;
 	float3 normal : NORMAL;
@@ -65,7 +67,9 @@ UnityLight CreateLight(Interpolators i)
 		light.dir = _WorldSpaceLightPos0.xyz;
 	#endif
 
-	UNITY_LIGHT_ATTENUATION(attenuation, 0, i.worldPosition);
+	// Attenuation if shadows are enabled
+	UNITY_LIGHT_ATTENUATION(attenuation, i, i.worldPosition);
+
 	light.color = _LightColor0.rgb * attenuation;
 	light.ndotl = DotClamped(i.normal, light.dir);
 
@@ -98,7 +102,7 @@ void ComputeVertexLightColor(inout Interpolators i)
 												unity_4LightPosX0, unity_4LightPosY0, unity_4LightPosZ0,
 												unity_LightColor[0].rgb, unity_LightColor[1].rgb,
 												unity_LightColor[2].rgb, unity_LightColor[3].rgb,
-												unity_4LightAtten0, i.worldPos, i.normal
+												unity_4LightAtten0, i.worldPosition, i.normal
 												);
 	#endif
 }
@@ -113,8 +117,8 @@ float3 CreateBinormal(float3 normal, float3 tangent, float binormalSign)
 Interpolators VertexProgram(VertexData v)
 {
 	Interpolators i;
-	i.position = UnityObjectToClipPos(v.position);
-	i.worldPosition = mul(unity_ObjectToWorld, v.position);
+	i.pos = UnityObjectToClipPos(v.vertex);
+	i.worldPosition = mul(unity_ObjectToWorld, v.vertex);
 	i.normal = UnityObjectToWorldNormal(v.normal);
 	
 	#if defined(BINORMAL_PER_FRAGMENT)
@@ -126,6 +130,8 @@ Interpolators VertexProgram(VertexData v)
 
 	i.uv.xy = TRANSFORM_TEX(v.uv, _MainTexture);
 	i.uv.zw = TRANSFORM_TEX(v.uv, _DetailTexture);
+
+	TRANSFER_SHADOW(i);
 
 	ComputeVertexLightColor(i);
 
