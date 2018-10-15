@@ -528,7 +528,7 @@ GameObject:
   - component: {fileID: 114196028509778096}
   - component: {fileID: 114435230434906022}
   - component: {fileID: 136644786182822146}
-  - component: {fileID: 54099813207684960}
+  - component: {fileID: 54655896743684184}
   m_Layer: 0
   m_Name: skip2
   m_TagString: Untagged
@@ -1254,7 +1254,7 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1810288887606060}
   m_Mesh: {fileID: 4300010, guid: eb01298a4d63ea840a161ccedf8cab33, type: 3}
---- !u!54 &54099813207684960
+--- !u!54 &54655896743684184
 Rigidbody:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -1267,7 +1267,7 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 80
+  m_Constraints: 122
   m_CollisionDetection: 0
 --- !u!95 &95781155652169152
 Animator:
@@ -1300,7 +1300,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_playerHealth: {fileID: 11400000, guid: 2a52433757afdda4c8793faaffe8ec2b, type: 2}
   m_AIHealth: {fileID: 11400000, guid: cfc045e01e56180448ba785c864e1e4b, type: 2}
-  m_playerSpeed: 1
+  m_playerSpeed: 1.5
+  m_offsetY: 0.5
   m_eventsToSend:
   - {fileID: 11400000, guid: a00441ed2da04c64c9d106f75ba6848c, type: 2}
 --- !u!114 &114435230434906022

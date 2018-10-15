@@ -25,13 +25,6 @@ public class TouchManager : SingletonBehaviour<TouchManager>
     /// </summary>
     private Ray m_ray;
     private RaycastHit m_rayHitInfo;
-
-    /// <summary>
-    /// Event Array to store events that maybe raised upon interaction
-    /// </summary>
-    [SerializeField]
-    private ES_Event[] m_eventsToSend;
-
     private bool m_bUpdate = true;
 
     /// <summary>
@@ -53,9 +46,6 @@ public class TouchManager : SingletonBehaviour<TouchManager>
         {
              m_ray = Camera.main.ScreenPointToRay(Input.GetTouch(0).position);
 #endif
-            // Raise Event_Jump
-            //m_eventsToSend[0].Invoke();
-            
 
             // ---------- If Ray casted hit something
             if (Physics.Raycast(m_ray, out m_rayHitInfo))

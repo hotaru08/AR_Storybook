@@ -108,7 +108,7 @@ public class Touch_Swipe : MonoBehaviour
                 else
                 {
                     // Swipe up or down ( y has more displacement )
-                    if (m_swipeDelta.y < 0)
+                    if (m_swipeDelta.y > 0)
                         m_direction = SWIPE_DIRECTION.UP;
                     else
                         m_direction = SWIPE_DIRECTION.DOWN;

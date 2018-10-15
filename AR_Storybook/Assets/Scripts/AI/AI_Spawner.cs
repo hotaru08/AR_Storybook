@@ -12,13 +12,13 @@ public class AI_Spawner : MonoBehaviour
     [SerializeField]
     private float m_batchSize;
 
-    [Tooltip("Frequency in hertz for individual objects in each batch.")]
-    [SerializeField]
-    private int m_itemSpawnFrequency;
+    //[Tooltip("Frequency in hertz for individual objects in each batch.")]
+    //[SerializeField]
+    //private int m_itemSpawnFrequency;
 
-    [Tooltip("Frequency in hertz for each batch.")]
-    [SerializeField]
-    private int m_batchSpawnFrequency;
+    //[Tooltip("Frequency in hertz for each batch.")]
+    //[SerializeField]
+    //private int m_batchSpawnFrequency;
 
     [Tooltip("Range for object spawning.")]
     [SerializeField]
@@ -31,8 +31,12 @@ public class AI_Spawner : MonoBehaviour
     /// <summary>
     /// Times in between each item spawn and batch spawn
     /// </summary>
-    private float timeBetweenSpawns, timeBetweenBatches;
+    public float m_timeBetweenSpawns, m_timeBetweenBatches;
 
+    [SerializeField]
+    private float m_maxSpawnRandValue;
+    [SerializeField]
+    private float m_maxBatchRandValue;
 
     [SerializeField]
     private ES_Event[] m_eventsToSend;
@@ -40,8 +44,8 @@ public class AI_Spawner : MonoBehaviour
     private void Start()
     {
         // Initialise ( higher frequency, shorter time between )
-        timeBetweenSpawns = 1f / m_itemSpawnFrequency;
-        timeBetweenBatches = 1f / m_batchSpawnFrequency;
+        //timeBetweenSpawns = 1f / m_itemSpawnFrequency;
+        //timeBetweenBatches = 1f / m_batchSpawnFrequency;
 
         // Start Spawning Loop
         StartCoroutine(SpawnLoop());
@@ -55,6 +59,9 @@ public class AI_Spawner : MonoBehaviour
     {
         while (true)
         {
+            m_timeBetweenSpawns = Random.Range(1f, m_maxSpawnRandValue);
+            m_timeBetweenBatches = Random.Range(1f, m_maxBatchRandValue);
+
             for (int i = 0; i < m_batchSize; i++)
             {
                 GameObject spawned = Instantiate(m_spawnPrefabs[Random.Range(0, m_spawnPrefabs.Count)], transform);
@@ -70,10 +77,10 @@ public class AI_Spawner : MonoBehaviour
                 // Raise Event_ChangeToAttack
                 m_eventsToSend[0].Invoke();
 
-                yield return new WaitForSeconds(timeBetweenSpawns);
+                yield return new WaitForSeconds(m_timeBetweenSpawns);
             }
 
-            yield return new WaitForSeconds(timeBetweenBatches);
+            yield return new WaitForSeconds(m_timeBetweenBatches);
         }
     }
 }

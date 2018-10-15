@@ -23,6 +23,9 @@ public class AI_HealthBar : MonoBehaviour
     [SerializeField]
     private CV_Int m_playerHealth;
 
+    [SerializeField]
+    private float m_multiplier = 20.0f;
+
     // TODO: Erm have different styles of reducing health bar ( eg. thru time, upon impact etc )
 
     private void Start()
@@ -38,7 +41,7 @@ public class AI_HealthBar : MonoBehaviour
         // If Player Health / AI Health is 0, stop healthbar
         if (m_playerHealth.value <= 0 || m_AIHealth.value <= 0.0f) return;
 
-        m_AIHealth.value -= 50.0f * Time.deltaTime;
+        m_AIHealth.value -= m_multiplier * Time.deltaTime;
         m_healthBar.sizeDelta = new Vector2(m_healthBar.sizeDelta.x, m_AIHealth.value);
     }
 }

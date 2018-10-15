@@ -70,7 +70,7 @@ GameObject:
   - component: {fileID: 114276794735134724}
   - component: {fileID: 114191266807203096}
   m_Layer: 0
-  m_Name: Crouch_Monster
+  m_Name: Couch_Monster
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -639,12 +639,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_batchSize: 1
-  m_itemSpawnFrequency: 1
-  m_batchSpawnFrequency: 1
   m_spawnPositionRange: 0
   m_spawnPrefabs:
   - {fileID: 1611905665669438, guid: d781f0b2251da984a9ad866e3fc73ce1, type: 2}
   - {fileID: 1901441780810498, guid: f9c3e8375f8515e44a9ffd841edef0c4, type: 2}
+  m_timeBetweenSpawns: 0
+  m_timeBetweenBatches: 0
+  m_maxSpawnRandValue: 2
+  m_maxBatchRandValue: 2
   m_eventsToSend:
   - {fileID: 11400000, guid: ad48b0a8663762044a40cc56aa7e69f6, type: 2}
 --- !u!137 &137208870278772526
@@ -719,8 +721,8 @@ SkinnedMeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 2100000, guid: cf41e78caf849cc40a79eb1923bd33a5, type: 2}
   - {fileID: 2100000, guid: 4ca0a1dabe5dc924eac2c4f002361314, type: 2}
+  - {fileID: 2100000, guid: cf41e78caf849cc40a79eb1923bd33a5, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

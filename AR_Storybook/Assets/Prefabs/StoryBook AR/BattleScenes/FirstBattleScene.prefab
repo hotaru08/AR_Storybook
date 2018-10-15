@@ -756,6 +756,7 @@ MonoBehaviour:
   m_healthBar: {fileID: 224846681183485418}
   m_AIHealth: {fileID: 11400000, guid: cfc045e01e56180448ba785c864e1e4b, type: 2}
   m_playerHealth: {fileID: 11400000, guid: 2a52433757afdda4c8793faaffe8ec2b, type: 2}
+  m_multiplier: 20
 --- !u!114 &114253696178823408
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -876,9 +877,9 @@ MonoBehaviour:
   m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 1080, y: 720}
+  m_ReferenceResolution: {x: 1080, y: 1920}
   m_ScreenMatchMode: 0
-  m_MatchWidthOrHeight: 0
+  m_MatchWidthOrHeight: 1
   m_PhysicalUnit: 3
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
@@ -976,7 +977,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_playerHealth: {fileID: 11400000, guid: 2a52433757afdda4c8793faaffe8ec2b, type: 2}
-  m_healthIcon: {fileID: 1106067811416044, guid: ec9c6df7e79da9d4f821919972804e15,
+  m_healthIcon: {fileID: 1106067811416044, guid: 5152ddbe309faf54f89faee6f97d923c,
     type: 2}
   m_startingPos: {x: -150, y: 200}
   m_paddingTop: 150
@@ -1017,6 +1018,8 @@ MonoBehaviour:
   m_playerIndex: 0
   m_reverseControls: 0
   m_style: 0
+  m_eventsToSend:
+  - {fileID: 11400000, guid: f87cade977335e94da6397549c77c07c, type: 2}
 --- !u!222 &222126923052345846
 CanvasRenderer:
   m_ObjectHideFlags: 1

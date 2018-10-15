@@ -30,6 +30,10 @@ public class PlayerManager : SingletonBehaviour<PlayerManager>
     /// </summary>
     private bool m_bTriggerJump;
 
+    private float m_originalPosY;
+    [SerializeField]
+    private float m_offsetY = 0.35f;
+
     /// <summary>
     /// State Machine to control 
     /// </summary>
@@ -46,10 +50,15 @@ public class PlayerManager : SingletonBehaviour<PlayerManager>
         m_playerHealth.value = m_playerMaxHealth;
         m_bTriggerJump = false;
         m_Animator = GetComponent<Animator>();
+        m_originalPosY = transform.position.y;
+
+#if UNITY_EDITOR || UNITY_STANDALONE
+#elif UNITY_ANDROID || UNITY_IOS
+        GetComponent<Rigidbody>().drag = 40.0f;
+#endif
 
         // Initialising Player States
         m_stateMachine = new StateMachine();
-        //m_stateMachine.AddState(new StatePlayerDamaged("PlayerDamaged", gameObject));
         m_stateMachine.AddState(new StatePlayerIdle("PlayerIdle", gameObject));
         m_stateMachine.AddState(new StatePlayerLose("PlayerLose", gameObject));
         m_stateMachine.AddState(new StatePlayerVictory("PlayerVictory", gameObject));
@@ -78,21 +87,25 @@ public class PlayerManager : SingletonBehaviour<PlayerManager>
             m_eventsToSend[0].Invoke();
         }
 
-
-        // Jumping : TODO** Use a distance offset instead ( eg. a certain number of steps to jump )
-        if (transform.position.y < m_playerSpeed * 0.001f && m_bTriggerJump 
-            && m_stateMachine.GetCurrentState().Equals("PlayerIdle"))
+        // Jump
+        if (m_bTriggerJump && transform.localPosition.y < m_originalPosY + m_offsetY)
         {
+            GetComponent<Rigidbody>().useGravity = false;
+
+#if UNITY_EDITOR || UNITY_STANDALONE
             transform.position += Vector3.up * Time.deltaTime * m_playerSpeed;
-            //DebugLogger.LogWarning<PlayerManager>("Player Pos: " + transform.position);
+#elif UNITY_ANDROID || UNITY_IOS
+            transform.position += Vector3.up * Time.deltaTime * 0.075f;
+#endif
         }
         else
         {
+            GetComponent<Rigidbody>().useGravity = true;
             m_bTriggerJump = false;
         }
 
         m_stateMachine.Update();
-        Debug.DrawLine(transform.position, transform.position + new Vector3(0.0f, -0.01f, 0.0f), Color.blue);
+        //Debug.DrawLine(transform.position, transform.position + new Vector3(0.0f, -0.01f, 0.0f), Color.blue);
     }
 
     /// <summary>
@@ -129,7 +142,7 @@ public class PlayerManager : SingletonBehaviour<PlayerManager>
 
             m_playerHealth.value++;
         }
-        DebugLogger.Log<PlayerManager>("Health: " + m_playerHealth.value);
+        //DebugLogger.Log<PlayerManager>("Health: " + m_playerHealth.value);
     }
 
 }

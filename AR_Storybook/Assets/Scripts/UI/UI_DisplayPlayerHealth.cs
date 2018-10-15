@@ -43,10 +43,7 @@ public class UI_DisplayPlayerHealth : MonoBehaviour
         for (int i = 0; i < m_playerHealth.value; ++i)
         {
             // Create Icon
-            GameObject temp = Instantiate(m_healthIcon, transform, true);
-
-            // Set Scale 
-            temp.GetComponent<RectTransform>().sizeDelta = new Vector2(10, 10);
+            GameObject temp = Instantiate(m_healthIcon, transform);
 
             // Displace Position 
             temp.GetComponent<RectTransform>().anchoredPosition = new Vector2(m_startingPos.x, m_startingPos.y + m_paddingTop * i);
@@ -79,10 +76,7 @@ public class UI_DisplayPlayerHealth : MonoBehaviour
             if (i < m_healthIconStack.Count) continue;
 
             // Create Icon
-            GameObject temp = Instantiate(m_healthIcon, transform, true);
-
-            // Set Scale 
-            temp.GetComponent<RectTransform>().sizeDelta = new Vector2(10, 10);
+            GameObject temp = Instantiate(m_healthIcon, transform);
 
             // Displace Position 
             temp.GetComponent<RectTransform>().anchoredPosition = new Vector2(m_startingPos.x, m_startingPos.y + m_paddingTop * i);
