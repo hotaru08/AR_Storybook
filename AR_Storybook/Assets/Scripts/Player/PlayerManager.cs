@@ -16,6 +16,9 @@ public class PlayerManager : SingletonBehaviour<PlayerManager>
     public CV_Int m_playerHealth;
     public const int m_playerMaxHealth = 3;
 
+    /// <summary>
+    /// Health of AI
+    /// </summary>
     [SerializeField]
     private CV_Float m_AIHealth;
 
@@ -30,6 +33,9 @@ public class PlayerManager : SingletonBehaviour<PlayerManager>
     /// </summary>
     private bool m_bTriggerJump;
 
+    /// <summary>
+    /// Jump Variables
+    /// </summary>
     private float m_originalPosY;
     [SerializeField]
     private float m_offsetY = 0.35f;
@@ -40,7 +46,16 @@ public class PlayerManager : SingletonBehaviour<PlayerManager>
     public StateMachine m_stateMachine;
     private Animator m_Animator;
 
+    /// <summary>
+    /// Events to send 
+    /// </summary>
     public ES_Event[] m_eventsToSend;
+
+    /// <summary>
+    /// Reversing the controls of Player
+    /// </summary>
+    private bool m_bReverseControls;
+    public bool ReverseControls { get { return m_bReverseControls; } }
 
     /// <summary>
     /// Unity Start Function ( initialise variables )
@@ -56,6 +71,11 @@ public class PlayerManager : SingletonBehaviour<PlayerManager>
 #elif UNITY_ANDROID || UNITY_IOS
         GetComponent<Rigidbody>().drag = 40.0f;
 #endif
+        // Send Player Obj 
+        ES_Event_Object temp = m_eventsToSend[1] as ES_Event_Object;
+        temp.Invoke(this.gameObject);
+        DebugLogger.Log<PlayerManager>("Player : " + temp.value);
+        
 
         // Initialising Player States
         m_stateMachine = new StateMachine();
@@ -111,11 +131,16 @@ public class PlayerManager : SingletonBehaviour<PlayerManager>
     /// <summary>
     /// Function to respond to events listened by Player's listener
     /// </summary>
-    public void EventRaised(bool _value)
+    public void EventRaised()
     {
         DebugLogger.Log<PlayerManager>("IsGrounded(): " + IsGrounded());
         if (IsGrounded())
-            m_bTriggerJump = _value;
+            m_bTriggerJump = true;
+    }
+    public void EventRaised(bool _value)
+    {
+        m_bReverseControls = _value;
+        DebugLogger.Log<PlayerManager>("ReverseControls: " + m_bReverseControls);
     }
 
     private bool IsGrounded()

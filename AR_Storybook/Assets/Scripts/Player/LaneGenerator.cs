@@ -25,7 +25,7 @@ public class LaneGenerator : MonoBehaviour
     [SerializeField]
     private int m_NumLanes;
     private float m_offsetZ, m_offsetX;
-    private float m_widthBounds,m_heightBounds;
+    private float m_widthBounds, m_heightBounds;
 
     /// <summary>
     /// Player's Variables
@@ -36,7 +36,6 @@ public class LaneGenerator : MonoBehaviour
     private int m_playerPrevIndex;
     private const float m_scaleRatio = 5;
     private GameObject m_player;
-    public bool m_reverseControls;
 
     /// <summary>
     /// Enum for different enemies spawn style
@@ -140,7 +139,7 @@ public class LaneGenerator : MonoBehaviour
 
         // Get the lane object that it is spawned with, and get its targetpoint for player
         m_player.transform.forward = m_lanes[m_playerIndex].transform.forward;
-        
+
         //DebugLogger.LogWarning<LaneGenerator>("Pos At Start: " + m_player.transform.localPosition);
         //DebugLogger.LogWarning<LaneGenerator>("Lane Pos y: " + m_lanes[m_playerIndex].transform.localPosition);
     }
@@ -191,7 +190,7 @@ public class LaneGenerator : MonoBehaviour
                 switch (m_NumLanes % 2)
                 {
                     case 0:
-                        tempEnemy.transform.localPosition = new Vector3(_lanePos.x - _laneScale.x * 0.5f , _lanePos.y, _lanePos.z + _laneScale.z * 0.6f);
+                        tempEnemy.transform.localPosition = new Vector3(_lanePos.x - _laneScale.x * 0.5f, _lanePos.y, _lanePos.z + _laneScale.z * 0.6f);
                         break;
                     case 1:
                         tempEnemy.transform.localPosition = new Vector3(_lanePos.x, _lanePos.y, _lanePos.z + _laneScale.z * 0.6f);
@@ -221,7 +220,7 @@ public class LaneGenerator : MonoBehaviour
     private Color SetLaneColor(int _index)
     {
         Color tempColor = Color.red;
-        switch(_index % 3)
+        switch (_index % 3)
         {
             case 0: // green
                 tempColor = new Color(0.16f, 0.68f, 0.198f);
@@ -238,54 +237,46 @@ public class LaneGenerator : MonoBehaviour
 
     private void Update()
     {
-#if UNITY_EDITOR || UNITY_STANDALONE
-        if (m_player.GetComponent<Touch_Swipe>().SwipeDirection.Equals(Touch_Swipe.SWIPE_DIRECTION.LEFT) ||
-            Input.GetKeyDown(KeyCode.LeftArrow))
+        // ---------- Swipe/ Key Input for Movement
+        if (m_player.GetComponent<Touch_Swipe>().SwipeDirection.Equals(Touch_Swipe.SWIPE_DIRECTION.LEFT) 
+            /*|| Input.GetKeyDown(KeyCode.LeftArrow)*/)
         {
-            if (m_playerIndex <= 0) return;
+            if (m_player.GetComponent<PlayerManager>().ReverseControls)
+            {
+                if (m_playerIndex >= m_NumLanes - 1) return;
+                m_playerIndex++;
+            }
+            else
+            {
+                if (m_playerIndex <= 0) return;
+                m_playerIndex--;
+            }
 
-            if (m_reverseControls) m_playerIndex++;
-            else m_playerIndex--;
             DebugLogger.Log<LaneGenerator>("Left Arrow Pressed, Player Index is " + m_playerIndex);
         }
-        if (m_player.GetComponent<Touch_Swipe>().SwipeDirection.Equals(Touch_Swipe.SWIPE_DIRECTION.RIGHT) ||
-            Input.GetKeyDown(KeyCode.RightArrow))
+        if (m_player.GetComponent<Touch_Swipe>().SwipeDirection.Equals(Touch_Swipe.SWIPE_DIRECTION.RIGHT) 
+            /*|| Input.GetKeyDown(KeyCode.RightArrow)*/)
         {
-            if (m_playerIndex >= m_NumLanes - 1) return;
+            if (m_player.GetComponent<PlayerManager>().ReverseControls)
+            {
+                if (m_playerIndex <= 0) return;
+                m_playerIndex--;
+            }
+            else
+            {
+                if (m_playerIndex >= m_NumLanes - 1) return;
+                m_playerIndex++;
+            }
 
-            if (m_reverseControls) m_playerIndex--;
-            else m_playerIndex++;
             DebugLogger.Log<LaneGenerator>("Right Arrow Pressed, Player Index is " + m_playerIndex);
         }
-        if (m_player.GetComponent<Touch_Swipe>().SwipeDirection.Equals(Touch_Swipe.SWIPE_DIRECTION.UP) ||
-            Input.GetKeyDown(KeyCode.UpArrow))
+        if (m_player.GetComponent<Touch_Swipe>().SwipeDirection.Equals(Touch_Swipe.SWIPE_DIRECTION.UP) 
+            /*|| Input.GetKeyDown(KeyCode.UpArrow)*/)
         {
             m_eventsToSend[0].Invoke();
         }
-#elif UNITY_ANDROID || UNITY_IOS
-        if (m_player.GetComponent<Touch_Swipe>().SwipeDirection.Equals(Touch_Swipe.SWIPE_DIRECTION.LEFT))
-        {
-            if (m_playerIndex <= 0) return;
 
-            m_playerIndex--;
-            DebugLogger.LogWarning<LaneGenerator>("Left Swipe, Player Index is " + m_playerIndex);
-        
-        }
-        if (m_player.GetComponent<Touch_Swipe>().SwipeDirection.Equals(Touch_Swipe.SWIPE_DIRECTION.RIGHT))
-        {
-            if (m_playerIndex >= m_NumLanes - 1) return;
-
-            m_playerIndex++;
-            DebugLogger.LogWarning<LaneGenerator>("Right Swipe, Player Index is " + m_playerIndex);
-        }
-        if (m_player.GetComponent<Touch_Swipe>().SwipeDirection.Equals(Touch_Swipe.SWIPE_DIRECTION.UP))
-        {
-            m_eventsToSend[0].Invoke();
-            DebugLogger.LogWarning<LaneGenerator>("Up Swipe");
-        }
-#endif
-
-        // Update Player Pos if there is any changes ( not prev index )
+        // ---------- Update Player Pos if there is any changes ( not prev index )
         if (m_playerIndex != m_playerPrevIndex && m_player)
         {
             if (!m_player.GetComponent<PlayerManager>().m_stateMachine.GetCurrentState().Equals("PlayerIdle")) return;
