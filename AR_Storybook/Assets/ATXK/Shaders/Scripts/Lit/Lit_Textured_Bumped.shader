@@ -18,13 +18,28 @@ Shader "Custom/Lit Shader/Textured with Bumpiness"
 	{
 		_Tint("Tint", Color) = (1, 1, 1, 1)
 		_MainTexture("Albedo", 2D) = "white" {}
+
 		[NoScaleOffset] _NormalMap("Normal Map", 2D) = "bump" {}
 		_BumpScale("Bump Scale", Float) = 1
+
+		[NoScaleOffset] _MetalMap("Metal Map", 2D) = "white" {}
 		[Gamma] _Metallic("Metallic", Range(0, 1)) = 0
+
+		[NoScaleOffset] _SmoothMap("Smooth Map", 2D) = "white" {}
 		_Smoothness("Smoothness", Range(0, 1)) = 0.5
-		_DetailTexture("Detail", 2D) = "gray" {}
+
+		_DetailTexture("Detail Albedo", 2D) = "gray" {}
+
 		[NoScaleOffset] _DetailNormalMap("Detail Normal Map", 2D) = "bump" {}
 		_DetailBumpScale("Detail Bump Scale", Float) = 1
+
+		[NoScaleOffset] _EmissionMap("Emission Map", 2D) = "black" {}
+		_Emission("Emission", Color) = (0, 0, 0)
+
+		[NoScaleOffset] _OcclusionMap("Occlusion Map", 2D) = "white" {}
+		_Occlusion("Occlusion", Range(0, 1)) = 1
+
+		[NoScaleOffset] _DetailMask("Detail Mask", 2D) = "white" {}
 	}
 
 	CGINCLUDE
@@ -50,6 +65,10 @@ Shader "Custom/Lit Shader/Textured with Bumpiness"
 			
 			#pragma multi_compile _ VERTEXLIGHT_ON
 			#pragma multi_compile _ SHADOWS_SCREEN
+
+			#pragma shader_feature _OCCLUSION_MAP
+			#pragma shader_feature _EMISSION_MAP
+			#pragma shader_feature _DETAIL_MASK
 
 			#pragma vertex VertexProgram		// Defining the Vertex program
 			#pragma fragment FragmentProgram	// Defining the Fragment program
@@ -105,4 +124,6 @@ Shader "Custom/Lit Shader/Textured with Bumpiness"
 			ENDCG
 		}
 	}
+
+	CustomEditor "ATXK.Shaders.ShaderEditor"
 }
