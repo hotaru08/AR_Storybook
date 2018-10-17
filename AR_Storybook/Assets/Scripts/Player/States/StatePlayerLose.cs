@@ -49,7 +49,7 @@ public class StatePlayerLose : IStateBase
 
     public void UpdateState()
     {
-        if (m_object.GetComponent<PlayerManager>().m_playerHealth.value > 0)
-            m_animator.SetBool("Lose", false);
+        //if (m_object.GetComponent<PlayerManager>().m_playerHealth.value > 0)
+        //    m_animator.SetBool("Lose", false);
     }
 }

@@ -20,11 +20,15 @@ public class AI_Action_Lose : AI_Action
     /// </summary>
     private void Lose(AI_Controller _controller)
     {
-        DebugLogger.Log<AI_Action_Lose>("This is Action Lose");
+        //DebugLogger.Log<AI_Action_Lose>("This is Action Lose");
         _controller.gameObject.GetComponent<Animator>().SetBool("Lose", true);
 
         // If Player uses this, then skip cuz no spawner
         if (_controller.gameObject.CompareTag("Player")) return;
+        if (_controller.gameObject.transform.Find("Item_Spawner") == null ||
+            !_controller.gameObject.transform.Find("Item_Spawner").gameObject.activeSelf)
+            return;
+
         _controller.gameObject.transform.Find("Item_Spawner").gameObject.SetActive(false);
     }
 }

@@ -64,6 +64,8 @@ public class AI_Spawner : MonoBehaviour
 
             for (int i = 0; i < m_batchSize; i++)
             {
+                yield return new WaitForSeconds(m_timeBetweenSpawns);
+
                 GameObject spawned = Instantiate(m_spawnPrefabs[Random.Range(0, m_spawnPrefabs.Count)], transform);
 
                 Vector3 spawnPos = transform.position;
@@ -77,7 +79,6 @@ public class AI_Spawner : MonoBehaviour
                 // Raise Event_ChangeToAttack
                 m_eventsToSend[0].Invoke();
 
-                yield return new WaitForSeconds(m_timeBetweenSpawns);
             }
 
             yield return new WaitForSeconds(m_timeBetweenBatches);
