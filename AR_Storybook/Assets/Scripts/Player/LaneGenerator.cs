@@ -170,15 +170,11 @@ public class LaneGenerator : MonoBehaviour
 
         // Set Player pos according to lane index, in their local space
         m_player.transform.localPosition = new Vector3(m_lanes[m_playerIndex].transform.localPosition.x,
-                                                       m_player.transform.localPosition.y,
+                                                       m_lanes[m_playerIndex].transform.localPosition.y,
                                                        (m_lanes[m_playerIndex].transform.localPosition.z - m_lanes[m_playerIndex].transform.localScale.z * 0.45f));
-        DebugLogger.Log<LaneGenerator>("Pos: " + m_player.transform.localPosition);
 
         // Get the lane object that it is spawned with, and get its targetpoint for player
         m_player.transform.forward = m_lanes[m_playerIndex].transform.forward;
-
-        //DebugLogger.LogWarning<LaneGenerator>("Pos At Start: " + m_player.transform.localPosition);
-        //DebugLogger.LogWarning<LaneGenerator>("Lane Pos y: " + m_lanes[m_playerIndex].transform.localPosition);
     }
 
     /// <summary>
@@ -374,8 +370,6 @@ public class LaneGenerator : MonoBehaviour
                                                        m_player.transform.localPosition.y,
                                                        m_lanes[m_playerIndex].transform.localPosition.z - m_lanes[m_playerIndex].transform.localScale.z * 0.45f);
             m_playerPrevIndex = m_playerIndex;
-            //DebugLogger.Log<LaneGenerator>("Lane Pos: " + m_lanes[m_playerIndex].transform.localPosition);
-            //DebugLogger.Log<LaneGenerator>("Player Pos: " + m_player.transform.localPosition);
         }
         else
         {
@@ -383,6 +377,7 @@ public class LaneGenerator : MonoBehaviour
                                                                    m_player.transform.localPosition.y,
                                                                    m_lanes[m_playerIndex].transform.localPosition.z - m_lanes[m_playerIndex].transform.localScale.z * 0.45f);
         }
+        //DebugLogger.LogWarning<LaneGenerator>("Pos: " + m_player.transform.localPosition);
 
 
     }
