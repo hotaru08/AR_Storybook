@@ -11,10 +11,10 @@ public class AI_Decision_Lose : AI_Decision
 
     public override bool Decide(AI_Controller _controller)
     {
-        return ChangeToVictory(_controller);
+        return ChangeToLose(_controller);
     }
 
-    private bool ChangeToVictory(AI_Controller _controller)
+    private bool ChangeToLose(AI_Controller _controller)
     {
         if (m_AIHealth.value <= 0.0f)
         {

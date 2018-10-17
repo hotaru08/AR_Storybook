@@ -2174,7 +2174,7 @@ GameObject:
   - component: {fileID: 320481199943330402}
   - component: {fileID: 114974282620143938}
   - component: {fileID: 114585693206163132}
-  - component: {fileID: 114976278454226460}
+  - component: {fileID: 114938637470495224}
   m_Layer: 0
   m_Name: FirstCutscene
   m_TagString: Untagged
@@ -4428,7 +4428,7 @@ Transform:
   m_GameObject: {fileID: 1800128560221022}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 7, y: 7, z: 7}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4534498714856154}
   - {fileID: 4608206144615660}
@@ -8144,7 +8144,7 @@ BoxCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 0.5, y: 0.41199875, z: 0.7060984}
-  m_Center: {x: -1.3913719e-15, y: 0.033486553, z: 0.34790903}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!65 &65902231505169574
 BoxCollider:
   m_ObjectHideFlags: 1
@@ -8946,7 +8946,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1800128560221022}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 169e4c6d81ea24d49bc254b4c64dc3e3, type: 3}
   m_Name: 
@@ -8956,7 +8956,7 @@ MonoBehaviour:
   responseToDefault:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 114976278454226460}
+      - m_Target: {fileID: 114938637470495224}
         m_MethodName: NextTimeline
         m_Mode: 1
         m_Arguments:
@@ -9495,6 +9495,19 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &114938637470495224
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1800128560221022}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: da242cdeba9c0e74190c2247d411afa6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  director: {fileID: 0}
+  cutscene: {fileID: 11400000, guid: f22ef78998230a24ba91794de45974a8, type: 2}
 --- !u!114 &114949502908944846
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -9570,24 +9583,11 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1800128560221022}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f87ca258b051ab043a9e0f4b02758bbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &114976278454226460
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1800128560221022}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: da242cdeba9c0e74190c2247d411afa6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  director: {fileID: 0}
-  cutscene: {fileID: 11400000, guid: f22ef78998230a24ba91794de45974a8, type: 2}
 --- !u!114 &114997732741005124
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -10896,7 +10896,7 @@ PlayableDirector:
   m_Enabled: 1
   serializedVersion: 3
   m_PlayableAsset: {fileID: 11400000, guid: 21cc790ff53d139439d691afbeaf77c1, type: 2}
-  m_InitialState: 0
+  m_InitialState: 1
   m_WrapMode: 2
   m_DirectorUpdateMode: 1
   m_InitialTime: 0

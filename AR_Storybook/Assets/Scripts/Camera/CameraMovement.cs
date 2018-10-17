@@ -13,7 +13,6 @@ public class CameraMovement : MonoBehaviour
     private float m_cameraSpeed;
     [SerializeField]
     private Camera m_camera;
-    private Vector3 m_prevCameraPos;
 
     /// <summary>
     /// Events to trigger something in other scripts
@@ -25,7 +24,6 @@ public class CameraMovement : MonoBehaviour
 
     private void Start()
     {
-        m_prevCameraPos = transform.position;
         m_bIsNegativeZ = true;
     }
 
@@ -71,10 +69,6 @@ public class CameraMovement : MonoBehaviour
         }
 
         // ================================== Update only when there is movement
-        //if (m_prevCameraPos != transform.position)
-        //{
-        //m_prevCameraPos = transform.position;
-
         if (m_player != null)
         {
             // ------------------ Invoke events 
@@ -95,15 +89,11 @@ public class CameraMovement : MonoBehaviour
                 DebugLogger.LogWarning<CameraMovement>("Event Send: " + m_eventsToSend[0].name + " Value: " + m_eventsToSend[0].value);
             }
         }
-        //}
-        //Debug.DrawLine(m_camera.transform.position, m_camera.transform.forward, Color.red);
-        //DebugLogger.LogWarning<CameraMovement>("Camera Forward: " + m_camera.transform.forward);
-        //DebugLogger.LogWarning<CameraMovement>("Angle between Player and Camera: " + Vector3.Angle(m_player.transform.forward, m_camera.transform.forward));
     }
 
     public void EventReceived(Object _value)
     {
-        DebugLogger.Log<CameraMovement>("Event Received with value: " + _value);
+        //DebugLogger.Log<CameraMovement>("Event Received with value: " + _value);
         m_player = _value as GameObject;
     }
 }
