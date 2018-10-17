@@ -49,6 +49,9 @@ public class PlayerManager : MonoBehaviour
     [SerializeField]
     private ES_Event[] m_eventsToSend;
 
+	[SerializeField] ES_Event m_PlayerDamagedEvent;
+	[SerializeField] ES_Event m_PlayerDiedEvent;
+
     /// <summary>
     /// Reversing the controls of Player
     /// </summary>
@@ -101,6 +104,8 @@ public class PlayerManager : MonoBehaviour
             m_stateMachine.SetNextState("PlayerLose");
             // Raise SpawnReload event
             m_eventsToSend[2].Invoke();
+
+			m_PlayerDiedEvent.Invoke();
         }
         else if (m_AIHealth.value <= 0.0f)
         {
@@ -180,6 +185,8 @@ public class PlayerManager : MonoBehaviour
 
             m_playerHealth.value--;
             m_Animator.SetTrigger("Damaged");
+
+			m_PlayerDamagedEvent.Invoke();
         }
         else if (_other.tag.Equals("GoodProjectiles"))
         {

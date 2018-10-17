@@ -5,6 +5,7 @@
 
 	[RequireComponent(typeof(ParticleSystem))]
 	[RequireComponent(typeof(ES_EventListener))]
+	[RequireComponent(typeof(PS_AssetCreator))]
 	public class PS_Controller : MonoBehaviour
 	{
 		ParticleSystem particleSystem;
