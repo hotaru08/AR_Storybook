@@ -32,6 +32,7 @@ public class CameraMovement : MonoBehaviour
     /// </summary>
     private void Update()
     {
+#if UNITY_EDITOR || UNITY_STANDALONE
         // ================================== Movement of Camera
         if (Input.GetKey(KeyCode.W))
         {
@@ -67,6 +68,7 @@ public class CameraMovement : MonoBehaviour
         {
             m_camera.transform.Rotate(0.0f, 0.0f, -50.0f * Time.deltaTime);
         }
+#endif
 
         // ================================== Update only when there is movement
         if (m_player != null)
