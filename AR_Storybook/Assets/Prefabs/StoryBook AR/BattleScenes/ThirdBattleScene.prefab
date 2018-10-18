@@ -120,6 +120,7 @@ GameObject:
   m_Component:
   - component: {fileID: 224684856593996910}
   - component: {fileID: 114109595427466288}
+  - component: {fileID: 114558095554803630}
   m_Layer: 5
   m_Name: Enemy Health
   m_TagString: Untagged
@@ -757,6 +758,7 @@ MonoBehaviour:
   m_AIHealth: {fileID: 11400000, guid: cfc045e01e56180448ba785c864e1e4b, type: 2}
   m_playerHealth: {fileID: 11400000, guid: 2a52433757afdda4c8793faaffe8ec2b, type: 2}
   m_multiplier: 20
+  m_mode: 1
 --- !u!114 &114164521746099716
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1294,6 +1296,72 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &114558095554803630
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1349465512181172}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 169e4c6d81ea24d49bc254b4c64dc3e3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  eventsToListenFor:
+  - {fileID: 11400000, guid: 4b197e59ca090384e83a687832a25acc, type: 2}
+  - {fileID: 11400000, guid: fc24dfb03ada3574c9a5da3161ed37a8, type: 2}
+  responseToDefault:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 114109595427466288}
+        m_MethodName: EventReceived
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  responseToBoolEvent:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: ATXK.EventSystem.BoolEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  responseToIntEvent:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: ATXK.EventSystem.IntEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  responseToFloatEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 114109595427466288}
+        m_MethodName: EventReceived
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_TypeName: ATXK.EventSystem.FloatEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  responseToStringEvent:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: ATXK.EventSystem.StringEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  responseToObjectEvent:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: ATXK.EventSystem.ObjectEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
 --- !u!114 &114568368566406126
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1476,7 +1544,7 @@ MonoBehaviour:
     type: 2}
   m_playerPrefab: {fileID: 1859160157841640, guid: 82e97e670b62b3c43a7d7b1c2cd88ff9,
     type: 2}
-  m_enemyPrefab: {fileID: 1204295109372604, guid: b26d58c02e7360c4ca9295240101d839,
+  m_enemyPrefab: {fileID: 1489740587146426, guid: addd5ca9b73e00a49bd948f1f9b7ef07,
     type: 2}
   m_NumLanes: 4
   m_playerIndex: -1

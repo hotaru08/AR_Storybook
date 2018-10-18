@@ -70,7 +70,7 @@ public class AI_Spawner : MonoBehaviour
 
                 Vector3 spawnPos = transform.position;
                 spawnPos.x += Random.Range(-m_spawnPositionRange, m_spawnPositionRange);
-                spawnPos.y += Random.Range(-m_spawnPositionRange, m_spawnPositionRange);
+                //spawnPos.y += Random.Range(-m_spawnPositionRange, m_spawnPositionRange);
                 spawnPos.z += Random.Range(-m_spawnPositionRange, m_spawnPositionRange);
                 spawned.transform.position = spawnPos;
 

@@ -2,6 +2,7 @@
 using ATXK.Helper;
 using ATXK.EventSystem;
 using ATXK.CustomVariables;
+using ATXK.ItemSystem;
 
 /// <summary>
 /// Player Manager to handle Player eg. Animation, States etc
@@ -48,26 +49,17 @@ public class PlayerManager : MonoBehaviour
     /// </summary>
     [SerializeField]
     private ES_Event[] m_eventsToSend;
+    [SerializeField]
+    private ES_Event_Float m_damageEvent;
 
-	[SerializeField] ES_Event m_PlayerDamagedEvent;
-	[SerializeField] ES_Event m_PlayerDiedEvent;
+	//[SerializeField] ES_Event m_PlayerDamagedEvent;
+	//[SerializeField] ES_Event m_PlayerDiedEvent;
 
     /// <summary>
     /// Reversing the controls of Player
     /// </summary>
     private bool m_bReverseControls;
     public bool ReverseControls { get { return m_bReverseControls; } }
-
-    /// <summary>
-    /// Various interactions when colliding with projectiles
-    /// </summary>
-    public enum GAME_MODE
-    {
-        NONE,
-        GOOD_DEALDAMAGE,
-        TIMEDAMAGE
-    }
-    public GAME_MODE m_mode;
 
     /// <summary>
     /// Unity Start Function ( initialise variables )
@@ -105,7 +97,7 @@ public class PlayerManager : MonoBehaviour
             // Raise SpawnReload event
             m_eventsToSend[2].Invoke();
 
-			m_PlayerDiedEvent.Invoke();
+			//m_PlayerDiedEvent.Invoke();
         }
         else if (m_AIHealth.value <= 0.0f)
         {
@@ -177,6 +169,7 @@ public class PlayerManager : MonoBehaviour
     /// </summary>
     private void OnTriggerEnter(Collider _other)
     {
+        // If Player is not Idle, don't do anything when collide with anything
         if (m_stateMachine.GetCurrentState() != "PlayerIdle") return;
 
         if (_other.tag.Equals("BadProjectiles"))
@@ -185,14 +178,18 @@ public class PlayerManager : MonoBehaviour
 
             m_playerHealth.value--;
             m_Animator.SetTrigger("Damaged");
-
-			m_PlayerDamagedEvent.Invoke();
+			//m_PlayerDamagedEvent.Invoke();
         }
         else if (_other.tag.Equals("GoodProjectiles"))
         {
             if (m_playerHealth.value >= m_playerMaxHealth) return;
 
             m_playerHealth.value++;
+
+            // Send Event ( Set Bool ) and Event_Float ( Damage ) to AI_Health
+            m_eventsToSend[3].Invoke();
+            // TODO : Get Projectile Damage
+            m_damageEvent.Invoke(100.0f);
         }
     }
 }
