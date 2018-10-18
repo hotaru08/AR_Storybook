@@ -41,7 +41,7 @@
 					spawnPos.z += Random.Range(-spawnPositionRange, spawnPositionRange);
 					spawned.transform.position = spawnPos;
 
-					Destroy(spawned, 10f);
+					Destroy(spawned, 20f);
 
 					yield return new WaitForSeconds(timeBetweenSpawns);
 				}

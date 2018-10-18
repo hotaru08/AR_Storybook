@@ -15,7 +15,20 @@
 				return true;
 			}
 
+			if (collisionEvent != null)
+				collisionEvent.Invoke();
+
 			return false;
+		}
+
+		public override void Enabled()
+		{
+			
+		}
+
+		public override void Disabled()
+		{
+
 		}
 
 		public void OnPickup(Inventory inventory)

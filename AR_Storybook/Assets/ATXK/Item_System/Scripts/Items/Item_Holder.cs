@@ -5,12 +5,14 @@
 	public class Item_Holder : MonoBehaviour
 	{
 		[SerializeField] Item_Base item;
+		Item_Base runtimeItem;
 
 		IUpdateable updateable;
 
-		private void Start()
+		private void Awake()
 		{
-			updateable = item as IUpdateable;
+			runtimeItem = Instantiate(item);
+			updateable = runtimeItem as IUpdateable;
 		}
 
 		private void Update()
@@ -21,8 +23,18 @@
 
 		private void OnTriggerEnter(Collider other)
 		{
-			if (item.OnCollide(other.gameObject))
+			if (runtimeItem.OnCollide(other.gameObject))
 				Destroy(gameObject);
+		}
+
+		private void OnEnable()
+		{
+			runtimeItem.Enabled();
+		}
+
+		private void OnDisable()
+		{
+			runtimeItem.Disabled();
 		}
 	}
 }

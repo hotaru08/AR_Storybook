@@ -3,13 +3,13 @@
 	using UnityEngine;
 	using EventSystem;
 
+	[CreateAssetMenu(menuName = "Item/Item/Projectile/Flat Projectile")]
 	public class Item_Projectile : Item_Base, IUpdateable
 	{
-		[SerializeField] float projectileSpeed;
-		[SerializeField] float projectileDuration;
-		[SerializeField] int projectileDamage;
-
-		float elapsedTime;
+		[Header("Projectile Settings")]
+		[SerializeField] protected float projectileSpeed;
+		[SerializeField] protected int projectileDamage;
+		[SerializeField] protected float projectileDuration;
 
 		#region Property Getters
 		public float Speed { get { return projectileSpeed; } }
@@ -19,12 +19,22 @@
 
 		public override bool OnCollide(GameObject collidingObject)
 		{
-			// deal damage to collidingObject IF it has a health component
-			Helper.DebugLogger.Log<Item_Projectile>("OnCollide() with " + collidingObject.name);
+			if(collisionEvent != null)
+				collisionEvent.Invoke();
 			return true;
 		}
 
-		public void UpdateItem(GameObject projectile)
+		public override void Enabled()
+		{
+			
+		}
+
+		public override void Disabled()
+		{ 
+			
+		}
+
+		public virtual void UpdateItem(GameObject projectile)
 		{
 			projectile.transform.position += projectile.transform.forward * projectileSpeed * Time.deltaTime;
 		}
