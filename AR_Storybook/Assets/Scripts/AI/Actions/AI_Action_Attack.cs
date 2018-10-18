@@ -21,11 +21,11 @@ public class AI_Action_Attack : AI_Action
     {
         //DebugLogger.Log<AI_Action_Attack>("This is Action Attack");
 
-        if (_controller.gameObject.CompareTag("Player")) return;
-        if (_controller.gameObject.transform.Find("Item_Spawner") == null ||
-            !_controller.gameObject.transform.Find("Item_Spawner").gameObject.activeSelf)
-            return;
+        //if (_controller.gameObject.CompareTag("Player")) return;
+        //if (_controller.gameObject.transform.Find("Item_Spawner") == null ||
+        //    _controller.gameObject.transform.Find("Item_Spawner").gameObject.activeSelf)
+        //    return;
 
-        _controller.gameObject.transform.Find("Item_Spawner").gameObject.SetActive(true);
+        //_controller.gameObject.transform.Find("Item_Spawner").gameObject.SetActive(true);
     }
 }

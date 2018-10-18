@@ -24,8 +24,18 @@ public class PlayerManager : MonoBehaviour
     /// <summary>
     /// Speed of Player
     /// </summary>
-    [SerializeField]
-    private float m_playerSpeed = 1;
+    [Range(0.0f,1.0f)]
+    public float m_playerSpeed;
+
+    /// <summary>
+    /// Index of Player on lanes
+    /// </summary>
+    private int m_playerLaneIndex;
+    public int PlayerIndex { set { m_playerLaneIndex = value; }
+                             get { return m_playerLaneIndex; } }
+
+    private int m_numLanes; 
+    public int NumberOfLanes { set { m_numLanes = value; } }
 
     /// <summary>
     /// To Trigger Jump of Player
@@ -43,6 +53,7 @@ public class PlayerManager : MonoBehaviour
 
     [HideInInspector]
     public Animator m_Animator;
+    private Touch_Swipe m_swipeComponent;
 
     /// <summary>
     /// Events to send 
@@ -51,9 +62,15 @@ public class PlayerManager : MonoBehaviour
     private ES_Event[] m_eventsToSend;
     [SerializeField]
     private ES_Event_Float m_damageEvent;
+    [SerializeField]
+    private ES_Event_Int m_nextInstruction;
+    [SerializeField]
+    private ES_Event_Bool m_startSpawn;
+    [SerializeField]
+    private ES_Event_Bool m_startTimer;
 
-	//[SerializeField] ES_Event m_PlayerDamagedEvent;
-	//[SerializeField] ES_Event m_PlayerDiedEvent;
+    //[SerializeField] ES_Event m_PlayerDamagedEvent;
+    //[SerializeField] ES_Event m_PlayerDiedEvent;
 
     /// <summary>
     /// Reversing the controls of Player
@@ -69,6 +86,7 @@ public class PlayerManager : MonoBehaviour
         m_playerHealth.value = m_playerMaxHealth;
         m_bTriggerJump = false;
         m_Animator = GetComponent<Animator>();
+        m_swipeComponent = GetComponent<Touch_Swipe>();
         m_gravity = Physics.gravity.y;
 
         // Send Player Obj 
@@ -88,7 +106,14 @@ public class PlayerManager : MonoBehaviour
     /// </summary>
     private void Update()
     {
-        // Player Win / Lose
+        /* If there is no swipe, do not update movement */
+        if (m_swipeComponent == null) return;
+        // Player to remain still when damaged
+        if (m_Animator.GetCurrentAnimatorStateInfo(0).IsName("Damaged")) return;
+        // If player is not idle, dont update any movements
+        if (!m_stateMachine.GetCurrentState().Equals("PlayerIdle")) return;
+
+        // ---------- Player Win / Lose
         if (m_playerHealth.value <= 0)
         {
             if (m_stateMachine.GetCurrentState().Equals("PlayerLose")) return;
@@ -97,7 +122,7 @@ public class PlayerManager : MonoBehaviour
             // Raise SpawnReload event
             m_eventsToSend[2].Invoke();
 
-			//m_PlayerDiedEvent.Invoke();
+            //m_PlayerDiedEvent.Invoke();
         }
         else if (m_AIHealth.value <= 0.0f)
         {
@@ -107,7 +132,63 @@ public class PlayerManager : MonoBehaviour
             // Raise SpawnReload event
             m_eventsToSend[0].Invoke();
         }
+
+        // ---------- Player Movement
+        if (m_swipeComponent.SwipeDirection.Equals(Touch_Swipe.SWIPE_DIRECTION.LEFT))
+        {
+            // Check if instruct index is this instruction, then raise event
+            if (m_nextInstruction.value.Equals(2))
+            {
+                m_nextInstruction.Invoke(m_nextInstruction.value + 1);
+            }
+
+            if (m_bReverseControls)
+            {
+                if (m_playerLaneIndex >= m_numLanes - 1) return;
+                m_playerLaneIndex++;
+            }
+            else
+            {
+                if (m_playerLaneIndex <= 0) return;
+                m_playerLaneIndex--;
+            }
+            DebugLogger.Log<LaneGenerator>("Left Arrow Pressed, Player Index is " + m_playerLaneIndex);
+        }
+        else if (m_swipeComponent.SwipeDirection.Equals(Touch_Swipe.SWIPE_DIRECTION.RIGHT))
+        {
+            // Check if instruct index is this instruction, then raise event
+            if (m_nextInstruction.value.Equals(2))
+            {
+                m_nextInstruction.Invoke(m_nextInstruction.value + 1);
+            }
+
+            if (m_bReverseControls)
+            {
+                if (m_playerLaneIndex <= 0) return;
+                m_playerLaneIndex--;
+            }
+            else
+            {
+                if (m_playerLaneIndex >= m_numLanes - 1) return;
+                m_playerLaneIndex++;
+            }
+            DebugLogger.Log<LaneGenerator>("Right Arrow Pressed, Player Index is " + m_playerLaneIndex);
+        }
+        else if (m_swipeComponent.SwipeDirection.Equals(Touch_Swipe.SWIPE_DIRECTION.UP))
+        {
+            // Check if instruct index is this instruction, then raise event
+            if (m_nextInstruction.value.Equals(3))
+            {
+                // TODO: Move the 2 bool events to GameMode
+                m_startTimer.Invoke(true);
+                m_nextInstruction.Invoke(m_nextInstruction.value + 1);
+                m_startSpawn.Invoke(true);
+            }
+            m_bTriggerJump = true;
+
+        }
         
+        // Update State Machine
         m_stateMachine.Update();
     }
 
@@ -145,11 +226,6 @@ public class PlayerManager : MonoBehaviour
     /// <summary>
     /// Function to respond to events listened by Player's listener
     /// </summary>
-    public void EventRaised()
-    {
-        if (IsGrounded())
-            m_bTriggerJump = true;
-    }
     public void EventRaised(bool _value)
     {
         m_bReverseControls = _value;
@@ -182,14 +258,13 @@ public class PlayerManager : MonoBehaviour
         }
         else if (_other.tag.Equals("GoodProjectiles"))
         {
-            if (m_playerHealth.value >= m_playerMaxHealth) return;
-
-            m_playerHealth.value++;
-
             // Send Event ( Set Bool ) and Event_Float ( Damage ) to AI_Health
             m_eventsToSend[3].Invoke();
             // TODO : Get Projectile Damage
             m_damageEvent.Invoke(100.0f);
+
+            if (m_playerHealth.value >= m_playerMaxHealth) return;
+            m_playerHealth.value++;
         }
     }
 }

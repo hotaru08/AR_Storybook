@@ -33,19 +33,24 @@ public class AI_HealthBar : MonoBehaviour
     /// <summary>
     /// Various damage style to AI_Health
     /// </summary>
-    public enum GAME_MODE
+    public enum DAMAGE_MODE
     {
         NONE,
         DAMAGED_BASED,
         TIME_BASED
     }
-    public GAME_MODE m_mode;
+    public DAMAGE_MODE m_mode;
 
     /// <summary>
     /// Variables for reducing AI_Health
     /// </summary>
     private bool m_bCanDealDamaged;
     private float m_fDamageToDeal;
+
+    /// <summary>
+    /// Variables for reducing via time
+    /// </summary>
+    private bool m_bCanStartReducing;
 
     private void Start()
     {
@@ -65,15 +70,17 @@ public class AI_HealthBar : MonoBehaviour
         // Based on mode, reduce health accordingly
         switch (m_mode)
         {
-            case GAME_MODE.NONE: // For arcade mode
+            case DAMAGE_MODE.NONE: // For arcade mode
                 break;
-            case GAME_MODE.DAMAGED_BASED: // Deals Damage to AI
+            case DAMAGE_MODE.DAMAGED_BASED: // Deals Damage to AI
                 if (!m_bCanDealDamaged) return;
 
                 m_AIHealth.value -= m_fDamageToDeal;
                 m_bCanDealDamaged = false;
                 break;
-            case GAME_MODE.TIME_BASED: // Reduce health over time
+            case DAMAGE_MODE.TIME_BASED: // Reduce health over time
+                if (!m_bCanStartReducing) return;
+
                 m_AIHealth.value -= m_multiplier * Time.deltaTime;
                 break;
         }
@@ -88,6 +95,10 @@ public class AI_HealthBar : MonoBehaviour
     public void EventReceived()
     {
         m_bCanDealDamaged = true;
+    }
+    public void EventReceived(bool _value)
+    {
+        m_bCanStartReducing = _value;
     }
     public void EventReceived(float _value)
     {

@@ -33,9 +33,9 @@ public class LaneGenerator : MonoBehaviour
     [Header("Player")]
     [SerializeField]
     private int m_playerIndex;
-    private int m_playerPrevIndex;
+    //private int m_playerPrevIndex;
     private const float m_scaleRatio = 5;
-    private GameObject m_player;
+    private PlayerManager m_player;
 
     /// <summary>
     /// Enum for different enemies spawn style
@@ -55,12 +55,6 @@ public class LaneGenerator : MonoBehaviour
     private GameObject[] m_lanes;
 
     /// <summary>
-    /// Event Array to store events that maybe raised upon interaction
-    /// </summary>
-    [SerializeField]
-    private ES_Event[] m_eventsToSend;
-
-    /// <summary>
     /// Unity Start Function ( change it to init )
     /// </summary>
     private void Start()
@@ -71,7 +65,7 @@ public class LaneGenerator : MonoBehaviour
 
         // ----- Initialise
         m_lanes = new GameObject[m_NumLanes];
-        m_playerPrevIndex = m_playerIndex;
+        //m_playerPrevIndex = m_playerIndex;
 
         // ----- Lane Layout
         LaneLayout();
@@ -159,22 +153,24 @@ public class LaneGenerator : MonoBehaviour
         if (m_playerIndex < 0 || m_playerIndex > m_lanes.Length - 1)
             m_playerIndex = m_NumLanes / 2;
 
-        // Create Player
-        m_player = Instantiate(m_playerPrefab, transform.GetChild(0), true);
-        m_player.AddComponent<Touch_Swipe>();
+        // Create Player and set accordingly
+        m_player = Instantiate(m_playerPrefab, transform.GetChild(0), true).GetComponent<PlayerManager>();
+        m_player.PlayerIndex = m_playerIndex;
+        m_player.NumberOfLanes = m_NumLanes;
+        m_player.gameObject.AddComponent<Touch_Swipe>();
 
         // Set scale to be 1:5 ratio ( lane:player )
-        m_player.transform.localScale = new Vector3(m_lanes[m_playerIndex].transform.localScale.x * m_scaleRatio * 2,
-                                                    m_lanes[m_playerIndex].transform.localScale.x * m_scaleRatio * 2,
-                                                    m_lanes[m_playerIndex].transform.localScale.x * m_scaleRatio * 2);
+        m_player.transform.localScale = new Vector3(m_lanes[m_player.PlayerIndex].transform.localScale.x * m_scaleRatio * 2,
+                                                    m_lanes[m_player.PlayerIndex].transform.localScale.x * m_scaleRatio * 2,
+                                                    m_lanes[m_player.PlayerIndex].transform.localScale.x * m_scaleRatio * 2);
 
         // Set Player pos according to lane index, in their local space
-        m_player.transform.localPosition = new Vector3(m_lanes[m_playerIndex].transform.localPosition.x,
-                                                       m_lanes[m_playerIndex].transform.localPosition.y,
-                                                       (m_lanes[m_playerIndex].transform.localPosition.z - m_lanes[m_playerIndex].transform.localScale.z * 0.45f));
+        m_player.transform.localPosition = new Vector3(m_lanes[m_player.PlayerIndex].transform.localPosition.x,
+                                                       m_lanes[m_player.PlayerIndex].transform.localPosition.y,
+                                                       (m_lanes[m_player.PlayerIndex].transform.localPosition.z - m_lanes[m_player.PlayerIndex].transform.localScale.z * 0.45f));
 
         // Get the lane object that it is spawned with, and get its targetpoint for player
-        m_player.transform.forward = m_lanes[m_playerIndex].transform.forward;
+        m_player.transform.forward = m_lanes[m_player.PlayerIndex].transform.forward;
     }
 
     /// <summary>
@@ -234,7 +230,6 @@ public class LaneGenerator : MonoBehaviour
 
     /// <summary>
     /// Setting size of the lanes ( within spawning area )
-    /// - May change it to be grid based 
     /// </summary>
     private Vector3 SetSizeOfLanes(Vector3 _scale)
     {
@@ -269,116 +264,28 @@ public class LaneGenerator : MonoBehaviour
 
     private void Update()
     {
-        // Player to remain still when damaged
-        if (m_player.GetComponent<PlayerManager>().m_Animator.GetCurrentAnimatorStateInfo(0).IsName("Damaged"))
+        // ---------- Check so that Update only when changing position
+        if (m_player.transform.localPosition.x.Equals(m_lanes[m_player.PlayerIndex].transform.localPosition.x))
+        {
             return;
-
-        // If player is not idle, dont update any movements
-        if (!m_player.GetComponent<PlayerManager>().m_stateMachine.GetCurrentState().Equals("PlayerIdle")) return;
-
-        // ---------- Swipe/ Key Input for Movement
-        if (m_player.GetComponent<Touch_Swipe>().SwipeDirection.Equals(Touch_Swipe.SWIPE_DIRECTION.LEFT)
-            /*|| Input.GetKeyDown(KeyCode.LeftArrow)*/)
-        {
-            if (m_player.GetComponent<PlayerManager>().ReverseControls)
-            {
-                if (m_playerIndex >= m_NumLanes - 1) return;
-                m_playerIndex++;
-            }
-            else
-            {
-                if (m_playerIndex <= 0) return;
-                m_playerIndex--;
-            }
-
-            DebugLogger.Log<LaneGenerator>("Left Arrow Pressed, Player Index is " + m_playerIndex);
         }
-        else if (m_player.GetComponent<Touch_Swipe>().SwipeDirection.Equals(Touch_Swipe.SWIPE_DIRECTION.RIGHT)
-            /*|| Input.GetKeyDown(KeyCode.RightArrow)*/)
+        else if (m_player.transform.localPosition.x < m_lanes[m_player.PlayerIndex].transform.localPosition.x + 0.001f &&
+                 m_player.transform.localPosition.x > m_lanes[m_player.PlayerIndex].transform.localPosition.x - 0.001f)
         {
-            if (m_player.GetComponent<PlayerManager>().ReverseControls)
-            {
-                if (m_playerIndex <= 0) return;
-                m_playerIndex--;
-            }
-            else
-            {
-                if (m_playerIndex >= m_NumLanes - 1) return;
-                m_playerIndex++;
-            }
-
-            DebugLogger.Log<LaneGenerator>("Right Arrow Pressed, Player Index is " + m_playerIndex);
-        }
-        if (m_player.GetComponent<Touch_Swipe>().SwipeDirection.Equals(Touch_Swipe.SWIPE_DIRECTION.UP)
-            /*|| Input.GetKeyDown(KeyCode.UpArrow)*/)
-        {
-            m_eventsToSend[0].Invoke();
+            // Set position when first time reach new position
+            m_player.transform.localPosition = new Vector3(m_lanes[m_player.PlayerIndex].transform.localPosition.x,
+                                                           m_player.transform.localPosition.y,
+                                                           m_lanes[m_player.PlayerIndex].transform.localPosition.z - m_lanes[m_player.PlayerIndex].transform.localScale.z * 0.45f);
+            // Setting index of Player
+            m_playerIndex = m_player.PlayerIndex;
         }
 
-        #region OLD_CODES
-        // ---------- Update Player Pos if there is any changes ( not prev index )
-        //if (m_playerIndex != m_playerPrevIndex && m_player)
-        //{
+        DebugLogger.Log<LaneGenerator>("Player Index: " + m_player.PlayerIndex);
+        DebugLogger.Log<LaneGenerator>("Player Index LaneHEre: " + m_playerIndex);
 
-
-        //// Converting to 2dp
-        //float playerPos = (int)(m_player.transform.localPosition.x * 100) * 0.1f;
-        //float lanePos = (int)(m_lanes[m_playerIndex].transform.localPosition.x * 100) * 0.1f;
-
-        //if (playerPos != lanePos) // make range here how
-        //{
-        //    if (playerPos > lanePos)
-        //    {
-        //        m_player.transform.localPosition += Vector3.left * Time.deltaTime;
-        //    }
-        //    else if (playerPos < lanePos)
-        //    {
-
-        //        m_player.transform.localPosition += Vector3.right * Time.deltaTime;
-        //    }
-        //}
-        //else
-        //{
-        //    m_playerPrevIndex = m_playerIndex;
-        //    //Set Player pos according to lane index, in their local space
-        //    m_player.transform.localPosition = new Vector3(m_lanes[m_playerIndex].transform.localPosition.x,
-        //                                                   m_lanes[m_playerIndex].transform.localPosition.y,
-        //                                                   (m_lanes[m_playerIndex].transform.localPosition.z - m_lanes[m_playerIndex].transform.localScale.z * 0.45f));
-        //}
-        //DebugLogger.LogWarning<LaneGenerator>("Pos: " + m_player.transform.localPosition);
-
-        //m_player.transform.localPosition = new Vector3(Vector3.MoveTowards(m_player.transform.localPosition, m_lanes[m_playerIndex].transform.localPosition, Time.deltaTime * 3.0f).x,
-        //                                                   m_lanes[m_playerIndex].transform.localPosition.y,
-        //                                                   (m_lanes[m_playerIndex].transform.localPosition.z - m_lanes[m_playerIndex].transform.localScale.z * 0.45f));
-
-        //m_player.GetComponent<Rigidbody>().MovePosition(m_lanes[m_playerIndex].transform.localPosition * Time.deltaTime);
-        //m_player.transform.localPosition = Vector3.MoveTowards(transform.localPosition, m_lanes[m_playerIndex].transform.localPosition, 25.0f * Time.deltaTime);
-
-        //if (m_player.transform.localPosition.x == m_lanes[m_playerIndex].transform.localPosition.x)
-        //{
-        //m_playerPrevIndex = m_playerIndex;
-        //}
-        //}
-        #endregion
-
-        // ---------- Update Player Pos using Lane Pos
-        if (m_player.transform.localPosition.x == m_lanes[m_playerIndex].transform.localPosition.x)
-        {
-            if (m_playerIndex == m_playerPrevIndex) return;
-
-            m_player.transform.localPosition = new Vector3(m_lanes[m_playerIndex].transform.localPosition.x,
+        // Update Player Pos using Lane Pos 
+        m_player.transform.localPosition = new Vector3(Vector3.Lerp(m_player.transform.localPosition, m_lanes[m_player.PlayerIndex].transform.localPosition, 0.1f).x,
                                                        m_player.transform.localPosition.y,
-                                                       m_lanes[m_playerIndex].transform.localPosition.z - m_lanes[m_playerIndex].transform.localScale.z * 0.45f);
-            m_playerPrevIndex = m_playerIndex;
-        }
-        else
-        {
-            m_player.transform.localPosition = new Vector3(Vector3.Lerp(m_player.transform.localPosition, m_lanes[m_playerIndex].transform.localPosition, 0.1f).x,
-                                                                   m_player.transform.localPosition.y,
-                                                                   m_lanes[m_playerIndex].transform.localPosition.z - m_lanes[m_playerIndex].transform.localScale.z * 0.45f);
-        }
-        //DebugLogger.LogWarning<LaneGenerator>("Pos: " + m_player.transform.localPosition);
-
-
+                                                       m_lanes[m_player.PlayerIndex].transform.localPosition.z - m_lanes[m_player.PlayerIndex].transform.localScale.z * 0.45f);
     }
 }
