@@ -24,10 +24,10 @@ public class GameModes : MonoBehaviour
     /// <summary>
     /// Variables for countdown
     /// </summary>
-    //[Header("CountDown Variables")]
-    //[SerializeField]
-    //private float m_countDownTime;
-    //private float m_countDown;
+    [Header("CountDown Variables")]
+    [SerializeField]
+    private float m_countDownTime;
+    private float m_countDown;
 
     /// <summary>
     /// Events to send

@@ -280,9 +280,6 @@ public class LaneGenerator : MonoBehaviour
             m_playerIndex = m_player.PlayerIndex;
         }
 
-        DebugLogger.Log<LaneGenerator>("Player Index: " + m_player.PlayerIndex);
-        DebugLogger.Log<LaneGenerator>("Player Index LaneHEre: " + m_playerIndex);
-
         // Update Player Pos using Lane Pos 
         m_player.transform.localPosition = new Vector3(Vector3.Lerp(m_player.transform.localPosition, m_lanes[m_player.PlayerIndex].transform.localPosition, 0.1f).x,
                                                        m_player.transform.localPosition.y,
