@@ -196,7 +196,7 @@ Transform:
   m_GameObject: {fileID: 118623253}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 2
@@ -212,12 +212,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0168b2e1245cc745b69f0d69f224cf6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lanePrefab: {fileID: 114887038720153282, guid: cb52ca536cd6c284e87889ee54d2dea7,
+  lanePrefab: {fileID: 114209217789733814, guid: cb52ca536cd6c284e87889ee54d2dea7,
     type: 2}
   numLanes: 5
-  areaWidth: 0
-  areaLength: 0
   laneLayout: 1
+  prefabScale: 10
+  playerPrefab: {fileID: 114196028509778096, guid: 82e97e670b62b3c43a7d7b1c2cd88ff9,
+    type: 2}
+  playerStartLane: 1
+  enemyPrefab: {fileID: 114276794735134724, guid: b26d58c02e7360c4ca9295240101d839,
+    type: 2}
 --- !u!1 &1357536337
 GameObject:
   m_ObjectHideFlags: 0
