@@ -107,4 +107,12 @@ public class UI_DisplayPlayerHealth : MonoBehaviour
         if (m_playerHealth.value >= m_playerMaxHealth) return;
         m_playerHealth.value += (int)_value;
     }
+
+    /// <summary>
+    /// Reset Player Health
+    /// </summary>
+    public void ResetPlayerHealth()
+    {
+        m_playerHealth.value = m_playerMaxHealth;
+    }
 }

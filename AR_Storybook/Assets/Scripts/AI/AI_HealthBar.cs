@@ -11,6 +11,7 @@ public class AI_HealthBar : MonoBehaviour
     /// </summary>
     [SerializeField]
     private RectTransform m_healthBar;
+    private float m_originalHealth;
 
     /// <summary>
     /// AI Health Custom Variable
@@ -53,6 +54,7 @@ public class AI_HealthBar : MonoBehaviour
 
     private void Start()
     {
+        m_originalHealth = m_healthBar.sizeDelta.y;
         m_AIHealth.value = m_healthBar.sizeDelta.y;
         m_fDamageToDeal = 0.0f;
     }
@@ -89,9 +91,18 @@ public class AI_HealthBar : MonoBehaviour
     {
         m_bCanStartReducing = _value;
     }
-    public void EventReceived(float _value)
+    public void ReduceEnemyHealth(float _value)
     {
         if (!m_mode.Equals(DAMAGE_MODE.DAMAGED_BASED)) return;
         m_AIHealth.value -= _value;
+    }
+    public void IncreaseEnemyHealth(float _value)
+    {
+        m_AIHealth.value += _value;
+    }
+    public void ResetEnemyHealth()
+    {
+        m_AIHealth.value = m_originalHealth;
+        m_healthBar.sizeDelta = new Vector2(m_healthBar.sizeDelta.x, m_originalHealth);
     }
 }

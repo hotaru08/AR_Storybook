@@ -31,7 +31,7 @@ public class StatePlayerLose : IStateBase
 
     public void EnterState()
     {
-        DebugLogger.Log<StatePlayerLose>("Entered " + m_stateName + " state");
+        //DebugLogger.Log<StatePlayerLose>("Entered " + m_stateName + " state");
 
         // Set inactive skipping rope
         m_object.transform.GetChild(1).gameObject.SetActive(false);
@@ -43,7 +43,7 @@ public class StatePlayerLose : IStateBase
 
     public void ExitState()
     {
-        DebugLogger.Log<StateSolMove>("Exiting State " + m_stateName);
+        //DebugLogger.Log<StateSolMove>("Exiting State " + m_stateName);
         m_animator.SetBool("Lose", false);
     }
 

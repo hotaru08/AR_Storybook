@@ -34,11 +34,13 @@ public class StatePlayerIdle : IStateBase
         DebugLogger.Log<StatePlayerIdle>("Entered " + m_stateName + " state");
         m_animator = m_object.GetComponent<Animator>();
         m_animator.Play("Idle");
+        if (!m_object.transform.GetChild(1).gameObject.activeSelf)
+            m_object.transform.GetChild(1).gameObject.SetActive(true);
     }
 
     public void ExitState()
     {
-        DebugLogger.Log<StateSolMove>("Exiting State " + m_stateName);
+        //DebugLogger.Log<StateSolMove>("Exiting State " + m_stateName);
     }
 
     public void UpdateState()

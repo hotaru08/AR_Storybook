@@ -34,7 +34,7 @@ public class LaneGenerator : MonoBehaviour
     [SerializeField]
     private int m_playerIndex;
     //private int m_playerPrevIndex;
-    private const float m_scaleRatio = 5;
+    private const float m_scaleRatio = 8;
     private PlayerManager m_player;
 
     /// <summary>
@@ -161,9 +161,9 @@ public class LaneGenerator : MonoBehaviour
         m_player.gameObject.AddComponent<Touch_Swipe>();
 
         // Set scale to be 1:5 ratio ( lane:player )
-        m_player.transform.localScale = new Vector3(m_lanes[m_player.PlayerIndex].transform.localScale.x * m_scaleRatio * 2,
-                                                    m_lanes[m_player.PlayerIndex].transform.localScale.x * m_scaleRatio * 2,
-                                                    m_lanes[m_player.PlayerIndex].transform.localScale.x * m_scaleRatio * 2);
+        m_player.transform.localScale = new Vector3(m_lanes[m_player.PlayerIndex].transform.localScale.x * m_scaleRatio,
+                                                    m_lanes[m_player.PlayerIndex].transform.localScale.x * m_scaleRatio,
+                                                    m_lanes[m_player.PlayerIndex].transform.localScale.x * m_scaleRatio);
 
         // Set Player pos according to lane index, in their local space
         m_player.transform.localPosition = new Vector3(m_lanes[m_player.PlayerIndex].transform.localPosition.x,
@@ -183,9 +183,9 @@ public class LaneGenerator : MonoBehaviour
         GameObject tempEnemy = Instantiate(m_enemyPrefab, transform.GetChild(1), true);
 
         // Set scale to be 1:5 ratio ( lane:enemies )
-        tempEnemy.transform.localScale = new Vector3(_laneScale.x * m_scaleRatio * 8,
-                                                     _laneScale.x * m_scaleRatio * 8,
-                                                     _laneScale.x * m_scaleRatio * 8);
+        tempEnemy.transform.localScale = new Vector3(_laneScale.x * m_scaleRatio,
+                                                     _laneScale.x * m_scaleRatio,
+                                                     _laneScale.x * m_scaleRatio);
 
         // Get the lane object that it is spawned with, and get its targetpoint for enemies
         tempEnemy.transform.forward = -(_laneObj.transform.forward);
@@ -282,7 +282,7 @@ public class LaneGenerator : MonoBehaviour
         }
 
         // Update Player Pos using Lane Pos 
-        m_player.transform.localPosition = new Vector3(Vector3.Lerp(m_player.transform.localPosition, m_lanes[m_player.PlayerIndex].transform.localPosition, 0.1f).x,
+        m_player.transform.localPosition = new Vector3(Vector3.Lerp(m_player.transform.localPosition, m_lanes[m_player.PlayerIndex].transform.localPosition, m_player.m_playerSpeed).x,
                                                        m_player.transform.localPosition.y,
                                                        m_lanes[m_player.PlayerIndex].transform.localPosition.z - m_lanes[m_player.PlayerIndex].transform.localScale.z * 0.45f);
     }

@@ -9,8 +9,11 @@ using UnityEngine.UI;
 /// </summary>
 public class Event_SpawnInstructions : MonoBehaviour
 {
-    [SerializeField]
-    private GameObject m_instruction;
+    /// <summary>
+    /// Screens
+    /// </summary>
+    [SerializeField] private GameObject m_instruction;
+    [SerializeField] private GameObject m_firstInteractiveScreen;
 
     /// <summary>
     /// Set the index of which instruction to show
@@ -18,9 +21,18 @@ public class Event_SpawnInstructions : MonoBehaviour
     /// <param name="_index">Index of instruction</param>
     public void SetInstructions(int _index)
     {
+        // Check if screen is interactive screen, then set overlay gone
+        if (m_instruction.transform.GetChild(_index).GetSiblingIndex().Equals(m_firstInteractiveScreen.transform.GetSiblingIndex()))
+        {
+            if (GetComponent<Image>())
+                GetComponent<Image>().enabled = false;
+        }
+
+        // Set next screen active
         if (_index >= m_instruction.transform.childCount) return;
         m_instruction.transform.GetChild(_index).gameObject.SetActive(true);
 
+        // set previous screen inactive
         if (_index <= 0) return;
         m_instruction.transform.GetChild(_index - 1).gameObject.SetActive(false);
     }
@@ -31,11 +43,6 @@ public class Event_SpawnInstructions : MonoBehaviour
     public void SetLastInstruction(bool _value)
     {
         if (!_value) return;
-        
         m_instruction.transform.GetChild(m_instruction.transform.childCount - 1).gameObject.SetActive(false);
-        if (GetComponent<Image>())
-        {
-            GetComponent<Image>().enabled = false;
-        }
     }
 }

@@ -10,28 +10,23 @@ using ATXK.ItemSystem;
 public class PlayerManager : MonoBehaviour
 {
     /// <summary>
-    /// Health of Player
+    /// AI Variables
     /// </summary>
-    public CV_Int m_playerHealth;
+    [Header("Enemies Section")]
+    [SerializeField] private CV_Float m_AIHealth;
 
     /// <summary>
-    /// Health of AI
+    /// Player Variables
     /// </summary>
-    [SerializeField]
-    private CV_Float m_AIHealth;
+    [Header("Player Section")]
+    [SerializeField] private CV_Int m_playerHealth;
+    [Range(0.0f,1.0f)] public float m_playerSpeed;
 
     /// <summary>
-    /// Speed of Player
-    /// </summary>
-    [Range(0.0f,1.0f)]
-    public float m_playerSpeed;
-
-    /// <summary>
-    /// Index of Player on lanes
+    /// Lane Movement of Player
     /// </summary>
     private int m_playerLaneIndex;
-    public int PlayerIndex { set { m_playerLaneIndex = value; }
-                             get { return m_playerLaneIndex; } }
+    public int PlayerIndex { set { m_playerLaneIndex = value; } get { return m_playerLaneIndex; } }
     private int m_numLanes; 
     public int NumberOfLanes { set { m_numLanes = value; } }
 
@@ -45,53 +40,60 @@ public class PlayerManager : MonoBehaviour
     private float m_jumpForce;
 
     /// <summary>
-    /// State Machine to control 
-    /// </summary>
-    public StateMachine m_stateMachine;
-
-    [HideInInspector]
-    public Animator m_Animator;
-    private Touch_Swipe m_swipeComponent;
-
-    /// <summary>
-    /// Events to send 
-    /// </summary>
-    [SerializeField]
-    private ES_Event[] m_eventsToSend;
-    [SerializeField]
-    private ES_Event_Int m_nextInstruction;
-    [SerializeField]
-    private ES_Event_Bool m_startSpawn;
-
-    //[SerializeField] ES_Event m_PlayerDamagedEvent;
-    //[SerializeField] ES_Event m_PlayerDiedEvent;
-
-    /// <summary>
     /// Reversing the controls of Player
     /// </summary>
     private bool m_bReverseControls;
     public bool ReverseControls { get { return m_bReverseControls; } }
 
     /// <summary>
+    /// State Machine to control 
+    /// </summary>
+    public StateMachine m_stateMachine;
+
+    /// <summary>
+    /// Other Variables
+    /// </summary>
+    [Header("Other Variables")]
+    [SerializeField] private GameObject m_swipeHorzInstruct;
+    [SerializeField] private GameObject m_swipeVertInstruct;
+    private Animator m_Animator;
+    private Touch_Swipe m_swipeComponent;
+
+    /// <summary>
+    /// Events to Send
+    /// </summary>
+    [Header("Events to be Send")]
+    [SerializeField] private ES_Event m_spawnWinScreen;
+    [SerializeField] private ES_Event m_spawnLoseScreen;
+    [SerializeField] private ES_Event_Int m_nextInstruction;
+    [SerializeField] private ES_Event_Bool m_startGame;
+    [SerializeField] private ES_Event m_PlayerDamagedEvent;
+    [SerializeField] private ES_Event m_PlayerDiedEvent;
+
+    [Tooltip("Player object to send to Camera for detecting reverse movements")]
+    [SerializeField] private ES_Event_Object m_cameraPlayer;
+
+    /// <summary>
     /// Unity Start Function ( initialise variables )
     /// </summary>
     private void Start()
     {
+        // Initialising Variables
         m_bTriggerJump = false;
         m_Animator = GetComponent<Animator>();
         m_swipeComponent = GetComponent<Touch_Swipe>();
         m_gravity = Physics.gravity.y;
 
         // Send Player Obj 
-        ES_Event_Object temp = m_eventsToSend[1] as ES_Event_Object;
+        ES_Event_Object temp = m_cameraPlayer as ES_Event_Object;
         temp.Invoke(this.gameObject);
 
         // Initialising Player States
         m_stateMachine = new StateMachine();
-        m_stateMachine.AddState(new StatePlayerIdle("PlayerIdle", gameObject));
+        m_stateMachine.AddState(new StatePlayerIdle("Idle", gameObject));
         m_stateMachine.AddState(new StatePlayerLose("PlayerLose", gameObject));
         m_stateMachine.AddState(new StatePlayerVictory("PlayerVictory", gameObject));
-        m_stateMachine.SetNextState("PlayerIdle");
+        m_stateMachine.SetNextState("Idle");
     }
 
     /// <summary>
@@ -99,12 +101,21 @@ public class PlayerManager : MonoBehaviour
     /// </summary>
     private void Update()
     {
-        /* If there is no swipe, do not update movement */
+        /* If there is no swipe component, do not update movement */
         if (m_swipeComponent == null) return;
-        // Player to remain still when damaged
-        if (m_Animator.GetCurrentAnimatorStateInfo(0).IsName("Damaged")) return;
+
+        // Update State Machine
+        m_stateMachine.Update();
+
         // If player is not idle, dont update any movements
-        if (!m_stateMachine.GetCurrentState().Equals("PlayerIdle")) return;
+        if (!m_stateMachine.GetCurrentState().Equals("Idle")) return;
+
+        // ---------- Player Damaged 
+        if (m_Animator.GetCurrentAnimatorStateInfo(0).IsName("Damaged"))
+        {
+            //m_PlayerDamagedEvent.Invoke();
+            return;
+        }
 
         // ---------- Player Win / Lose
         if (m_playerHealth.value <= 0)
@@ -112,9 +123,7 @@ public class PlayerManager : MonoBehaviour
             if (m_stateMachine.GetCurrentState().Equals("PlayerLose")) return;
 
             m_stateMachine.SetNextState("PlayerLose");
-            // Raise SpawnReload event
-            m_eventsToSend[2].Invoke();
-
+            m_spawnLoseScreen.Invoke();
             //m_PlayerDiedEvent.Invoke();
         }
         else if (m_AIHealth.value <= 0.0f)
@@ -122,15 +131,15 @@ public class PlayerManager : MonoBehaviour
             if (m_stateMachine.GetCurrentState().Equals("PlayerVictory")) return;
 
             m_stateMachine.SetNextState("PlayerVictory");
-            // Raise SpawnReload event
-            m_eventsToSend[0].Invoke();
+            m_spawnWinScreen.Invoke();
         }
 
         // ---------- Player Movement
         if (m_swipeComponent.SwipeDirection.Equals(Touch_Swipe.SWIPE_DIRECTION.LEFT))
         {
             // Check if instruct index is this instruction, then raise event
-            if (m_nextInstruction.value.Equals(2))
+            if (m_nextInstruction.value < m_swipeHorzInstruct.transform.GetSiblingIndex()) return;
+            else if (m_nextInstruction.value.Equals(m_swipeHorzInstruct.transform.GetSiblingIndex()))
             {
                 m_nextInstruction.Invoke(m_nextInstruction.value + 1);
             }
@@ -150,7 +159,8 @@ public class PlayerManager : MonoBehaviour
         else if (m_swipeComponent.SwipeDirection.Equals(Touch_Swipe.SWIPE_DIRECTION.RIGHT))
         {
             // Check if instruct index is this instruction, then raise event
-            if (m_nextInstruction.value.Equals(2))
+            if (m_nextInstruction.value < m_swipeHorzInstruct.transform.GetSiblingIndex()) return;
+            else if (m_nextInstruction.value.Equals(m_swipeHorzInstruct.transform.GetSiblingIndex()))
             {
                 m_nextInstruction.Invoke(m_nextInstruction.value + 1);
             }
@@ -170,15 +180,14 @@ public class PlayerManager : MonoBehaviour
         else if (m_swipeComponent.SwipeDirection.Equals(Touch_Swipe.SWIPE_DIRECTION.UP))
         {
             // Check if instruct index is this instruction, then raise event
-            if (m_nextInstruction.value.Equals(3))
+            if (m_nextInstruction.value < m_swipeVertInstruct.transform.GetSiblingIndex()) return;
+            if (m_nextInstruction.value.Equals(m_swipeVertInstruct.transform.GetSiblingIndex()))
             {
-                m_startSpawn.Invoke(true);
+                m_startGame.Invoke(true);
             }
             m_bTriggerJump = true;
         }
         
-        // Update State Machine
-        m_stateMachine.Update();
     }
 
     /// <summary>
@@ -227,5 +236,14 @@ public class PlayerManager : MonoBehaviour
     private bool IsGrounded()
     {
         return Physics.Raycast(transform.position, Vector3.down, 0.01f);
+    }
+
+    /// <summary>
+    /// Set the State of Player
+    /// </summary>
+    /// <param name="_stateName">Name of State</param>
+    public void SetState(string _stateName)
+    {
+        m_stateMachine.SetNextState(_stateName);
     }
 }

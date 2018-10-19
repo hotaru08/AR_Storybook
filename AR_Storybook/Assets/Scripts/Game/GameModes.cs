@@ -33,8 +33,16 @@ public class GameModes : MonoBehaviour
     /// Events to send
     /// </summary>
     [Header("Events")]
-    [SerializeField]
-    private ES_Event_Int m_triggerInstructions;
+    [Tooltip("Event to trigger the respective instruction screens according to their child indexes")]
+    [SerializeField] private ES_Event_Int m_triggerInstructions;
+    [Tooltip("Event to reset Player to its original position in the lanes")]
+    [SerializeField] private ES_Event m_resetPlayerPosition;
+    [Tooltip("Event to reset States of Gameobjects to string input")]
+    [SerializeField] private ES_Event_String m_resetState;
+    [Tooltip("Event to reset activeness of AIs spawner if applicable")]
+    [SerializeField] private ES_Event_Bool m_resetSpawner;
+    [Tooltip("Event to reset Health of both Player and AIs")]
+    [SerializeField] private ES_Event m_resetHealth;
 
     /// <summary>
     /// Unity Start Function
@@ -56,5 +64,16 @@ public class GameModes : MonoBehaviour
     public void EventReceived(int _value)
     {
         m_triggerInstructions.value = _value;
+    }
+
+    /// <summary>
+    /// Call this when resetting game scenes
+    /// </summary>
+    public void ResetGame()
+    {
+        //m_resetPlayerPosition.Invoke();
+        m_resetState.Invoke();
+        //m_resetSpawner.Invoke(true);
+        m_resetHealth.Invoke();
     }
 }
