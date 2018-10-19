@@ -8,7 +8,6 @@
 	/// <summary>
 	/// Updates the current state of the AI and handles transitioning to other states.
 	/// </summary>
-	[RequireComponent(typeof(NavMeshAgent))]
 	public class AI_Controller : MonoBehaviour
 	{
 		[Header("AI States")]
