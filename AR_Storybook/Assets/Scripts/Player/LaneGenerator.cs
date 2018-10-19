@@ -97,8 +97,9 @@ public class LaneGenerator : MonoBehaviour
                                                         temp.transform.localPosition.y,
                                                         temp.transform.localPosition.z + m_offsetZ);
 
-            // Set Lane Materials accordingly ( green, red, blue )
+            // Set Lane Materials accordingly
             temp.GetComponent<Renderer>().material.color = SetLaneColor(i);
+
 
             // Store to Lane Array
             m_lanes[i] = temp;
@@ -249,14 +250,14 @@ public class LaneGenerator : MonoBehaviour
         Color tempColor = Color.red;
         switch (_index % 3)
         {
-            case 0: // green
-                tempColor = new Color(0.16f, 0.68f, 0.198f);
+            case 0: // white
+                tempColor = new Color(1.0f, 1.0f, 1.0f);
                 break;
-            case 1: // red
-                tempColor = new Color(0.7f, 0.16f, 0.16f);
+            case 1: // light grey
+                tempColor = new Color(0.7f, 0.7f, 0.7f);
                 break;
-            case 2: // blue
-                tempColor = new Color(0.21f, 0.220f, 0.9f);
+            case 2: // grey
+                tempColor = new Color(0.35f, 0.35f, 0.35f);
                 break;
         }
         return tempColor; // if smth happens wrong

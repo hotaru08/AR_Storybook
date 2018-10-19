@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 /// <summary>
 /// To Spawn the instructions
@@ -29,7 +30,12 @@ public class Event_SpawnInstructions : MonoBehaviour
     /// </summary>
     public void SetLastInstruction(bool _value)
     {
-        if (_value)
-            m_instruction.transform.GetChild(m_instruction.transform.childCount - 1).gameObject.SetActive(false);
+        if (!_value) return;
+        
+        m_instruction.transform.GetChild(m_instruction.transform.childCount - 1).gameObject.SetActive(false);
+        if (GetComponent<Image>())
+        {
+            GetComponent<Image>().enabled = false;
+        }
     }
 }
