@@ -45,6 +45,7 @@ public class GameModes : MonoBehaviour
         switch (m_gameMode)
         {
             case GAME_MODE.TUTORIAL:
+                m_triggerInstructions.value = 0;
                 m_triggerInstructions.Invoke(0);
                 break;
             case GAME_MODE.GAME:

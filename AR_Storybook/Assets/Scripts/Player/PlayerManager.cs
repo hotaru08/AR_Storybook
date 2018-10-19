@@ -13,7 +13,6 @@ public class PlayerManager : MonoBehaviour
     /// Health of Player
     /// </summary>
     public CV_Int m_playerHealth;
-    public const int m_playerMaxHealth = 3;
 
     /// <summary>
     /// Health of AI
@@ -33,7 +32,6 @@ public class PlayerManager : MonoBehaviour
     private int m_playerLaneIndex;
     public int PlayerIndex { set { m_playerLaneIndex = value; }
                              get { return m_playerLaneIndex; } }
-
     private int m_numLanes; 
     public int NumberOfLanes { set { m_numLanes = value; } }
 
@@ -61,13 +59,9 @@ public class PlayerManager : MonoBehaviour
     [SerializeField]
     private ES_Event[] m_eventsToSend;
     [SerializeField]
-    private ES_Event_Float m_damageEvent;
-    [SerializeField]
     private ES_Event_Int m_nextInstruction;
     [SerializeField]
     private ES_Event_Bool m_startSpawn;
-    [SerializeField]
-    private ES_Event_Bool m_startTimer;
 
     //[SerializeField] ES_Event m_PlayerDamagedEvent;
     //[SerializeField] ES_Event m_PlayerDiedEvent;
@@ -83,7 +77,6 @@ public class PlayerManager : MonoBehaviour
     /// </summary>
     private void Start()
     {
-        m_playerHealth.value = m_playerMaxHealth;
         m_bTriggerJump = false;
         m_Animator = GetComponent<Animator>();
         m_swipeComponent = GetComponent<Touch_Swipe>();
@@ -179,13 +172,9 @@ public class PlayerManager : MonoBehaviour
             // Check if instruct index is this instruction, then raise event
             if (m_nextInstruction.value.Equals(3))
             {
-                // TODO: Move the 2 bool events to GameMode
-                m_startTimer.Invoke(true);
-                m_nextInstruction.Invoke(m_nextInstruction.value + 1);
                 m_startSpawn.Invoke(true);
             }
             m_bTriggerJump = true;
-
         }
         
         // Update State Machine
@@ -238,33 +227,5 @@ public class PlayerManager : MonoBehaviour
     private bool IsGrounded()
     {
         return Physics.Raycast(transform.position, Vector3.down, 0.01f);
-    }
-
-    /// <summary>
-    /// Upon entering collider of this gameObject, do something
-    /// </summary>
-    private void OnTriggerEnter(Collider _other)
-    {
-        // If Player is not Idle, don't do anything when collide with anything
-        if (m_stateMachine.GetCurrentState() != "PlayerIdle") return;
-
-        if (_other.tag.Equals("BadProjectiles"))
-        {
-            if (m_playerHealth.value <= 0) return;
-
-            m_playerHealth.value--;
-            m_Animator.SetTrigger("Damaged");
-			//m_PlayerDamagedEvent.Invoke();
-        }
-        else if (_other.tag.Equals("GoodProjectiles"))
-        {
-            // Send Event ( Set Bool ) and Event_Float ( Damage ) to AI_Health
-            m_eventsToSend[3].Invoke();
-            // TODO : Get Projectile Damage
-            m_damageEvent.Invoke(100.0f);
-
-            if (m_playerHealth.value >= m_playerMaxHealth) return;
-            m_playerHealth.value++;
-        }
     }
 }

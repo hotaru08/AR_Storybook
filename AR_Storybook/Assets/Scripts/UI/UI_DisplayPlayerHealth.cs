@@ -16,6 +16,7 @@ public class UI_DisplayPlayerHealth : MonoBehaviour
     //private GameObject m_player;
     [SerializeField]
     private CV_Int m_playerHealth;
+    public const int m_playerMaxHealth = 3;
     private int m_prevPlayerHealth;
 
     /// <summary>
@@ -37,7 +38,7 @@ public class UI_DisplayPlayerHealth : MonoBehaviour
     {
         // Initialise Variables
         m_healthIconStack = new Stack<GameObject>();
-        m_prevPlayerHealth = m_playerHealth.value;
+        m_prevPlayerHealth = m_playerHealth.value = m_playerMaxHealth;
         
         // Render Player Health on UI
         for (int i = 0; i < m_playerHealth.value; ++i)
@@ -85,5 +86,25 @@ public class UI_DisplayPlayerHealth : MonoBehaviour
             m_healthIconStack.Push(temp);
         }
         m_prevPlayerHealth = m_playerHealth.value;
+    }
+
+    /// <summary>
+    /// Reduce the health of player
+    /// </summary>
+    /// <param name="_value">Value to decrease health</param>
+    public void ReducePlayerHealth(int _value)
+    {
+        if (m_playerHealth.value <= 0) return;
+        m_playerHealth.value -= _value;
+    }
+
+    /// <summary>
+    /// Increase the health of Player
+    /// </summary>
+    /// <param name="_value"></param>
+    public void IncreasePlayerHealth(float _value)
+    {
+        if (m_playerHealth.value >= m_playerMaxHealth) return;
+        m_playerHealth.value += (int)_value;
     }
 }
