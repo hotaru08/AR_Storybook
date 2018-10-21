@@ -14,7 +14,12 @@ public class AI_Decision_PlayerLose : AI_Decision
         return ChangeToPlayerLose(_controller);
     }
 
-    private bool ChangeToPlayerLose(AI_Controller _controller)
+	public override void Reset()
+	{
+
+	}
+
+	private bool ChangeToPlayerLose(AI_Controller _controller)
     {
         return m_playerHealth.value <= 0;
     }

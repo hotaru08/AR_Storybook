@@ -13,10 +13,13 @@
 		[SerializeField] List<AI_Action> actions;
 		[SerializeField] List<AI_Transition> transitions;
 
+		#region Property Getters
 		public List<AI_Transition> Transitions { get { return transitions; } }
-                
+		#endregion
+
 		public void UpdateState(AI_Controller controller)
 		{
+			Debug.Log(name + " UpdateState().");
 			DoActions(controller);
 			CheckTransitions(controller);
 		}
@@ -33,7 +36,7 @@
 		{
 			for (int i = transitions.Count - 1; i >= 0; i--)
 			{
-				if(transitions[i].decision.Decide(controller))
+				if(transitions[i].runtimeDecision.Decide(controller))
                 {
 					controller.ChangeState(transitions[i].decisionTrueState);
                     break;
@@ -41,6 +44,20 @@
 				else
 					controller.ChangeState(transitions[i].decisionFalseState);
 			}
+		}
+
+		public void EnterState()
+		{
+			Debug.Log(name + " EnterState().");
+			foreach (AI_Transition transition in transitions)
+			{
+				transition.Initialise();
+			}
+		}
+
+		public void ExitState()
+		{
+			Debug.Log(name + " ExitState().");
 		}
 	}
 }

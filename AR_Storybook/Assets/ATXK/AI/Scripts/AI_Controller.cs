@@ -33,7 +33,29 @@
 
 		public void ChangeState(AI_State state)
 		{
-			currentState = state;
+			if (currentState != null && currentState == state)
+			{
+				Debug.Log("State is current state.");
+				return;
+			}
+
+			if(currentState == null)
+			{
+				Debug.Log("State is starting state.");
+
+				currentState = state;
+				currentState.EnterState();
+			}
+			else if(currentState != state)
+			{
+				Debug.Log("State is new state.");
+
+				currentState.ExitState();
+
+				currentState = state;
+				currentState.EnterState();
+			}
+
 		}
 
 		public void ChangeState(Object state)

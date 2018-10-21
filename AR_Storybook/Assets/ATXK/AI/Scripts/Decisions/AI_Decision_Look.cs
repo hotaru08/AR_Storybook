@@ -12,6 +12,11 @@
 			return Look(controller);
 		}
 
+		public override void Reset()
+		{
+			
+		}
+
 		private bool Look(AI_Controller controller)
 		{
 			RaycastHit hit;

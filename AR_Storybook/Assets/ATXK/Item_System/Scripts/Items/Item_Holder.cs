@@ -9,6 +9,8 @@
 
 		IUpdateable updateable;
 
+		public Item_Base Item { get { return item; } }
+
 		private void Awake()
 		{
 			runtimeItem = Instantiate(item);
