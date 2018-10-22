@@ -175,12 +175,12 @@
                 player.transform.position = new Vector3(spawnedLanes[player.PlayerIndex].playerPosition.position.x,
                                                         player.transform.position.y,
                                                         spawnedLanes[player.PlayerIndex].playerPosition.position.z);
-
                 // Setting index of Player
                 playerStartLane = player.PlayerIndex;
             }
 
             // Update Player Pos using Lane Pos 
+            player.transform.LookAt(spawnedLanes[player.PlayerIndex].enemyPosition);
             player.transform.position = new Vector3(Vector3.Lerp(player.transform.position, spawnedLanes[player.PlayerIndex].playerPosition.position, player.m_playerSpeed).x,
                                                            player.transform.position.y,
                                                            spawnedLanes[player.PlayerIndex].playerPosition.position.z);

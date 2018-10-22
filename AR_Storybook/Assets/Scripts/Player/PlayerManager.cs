@@ -159,29 +159,29 @@ public class PlayerManager : MonoBehaviour
     private void FixedUpdate()
     {
         // Check if player is on ground
-        if (IsGrounded())
-        {
-            // Set velocity to be a small force so that player remains close to the ground
-            m_verticalVelocity = m_gravity * Time.deltaTime;
+        //if (IsGrounded())
+        //{
+        //    // Set velocity to be a small force so that player remains close to the ground
+        //    m_verticalVelocity = m_gravity * Time.deltaTime;
 
-            if (m_bTriggerJump)
-            {
-                m_bTriggerJump = false;
-                // Set the velocity to be jump force ( force that pushes player off ground )
-                m_verticalVelocity = m_jumpForce;
-            }
-            //DebugLogger.LogWarning<PlayerManager>("Velocity Up: " + m_verticalVelocity); // in mobile, force gets reset to default force
-            //DebugLogger.LogWarning<PlayerManager>("IsGrounded: + " + IsGrounded());
-        }
-        else
-        {
-            m_verticalVelocity += m_gravity * Time.deltaTime;
-            DebugLogger.LogWarning<PlayerManager>("Velocity falling: " + m_verticalVelocity);
-            DebugLogger.LogWarning<PlayerManager>("IsGrounded: + " + IsGrounded());
-        }
+        //    if (m_bTriggerJump)
+        //    {
+        //        m_bTriggerJump = false;
+        //        // Set the velocity to be jump force ( force that pushes player off ground )
+        //        m_verticalVelocity = m_jumpForce;
+        //    }
+        //    //DebugLogger.LogWarning<PlayerManager>("Velocity Up: " + m_verticalVelocity); // in mobile, force gets reset to default force
+        //    //DebugLogger.LogWarning<PlayerManager>("IsGrounded: + " + IsGrounded());
+        //}
+        //else
+        //{
+        //    m_verticalVelocity += m_gravity * Time.deltaTime;
+        //    DebugLogger.LogWarning<PlayerManager>("Velocity falling: " + m_verticalVelocity);
+        //    DebugLogger.LogWarning<PlayerManager>("IsGrounded: + " + IsGrounded());
+        //}
 
-        Debug.DrawLine(transform.position, transform.position + new Vector3(0.0f, -0.01f, 0.0f), Color.blue);
-        transform.localPosition += new Vector3(0.0f, m_verticalVelocity * Time.deltaTime, 0.0f);
+        //Debug.DrawLine(transform.position, transform.position + new Vector3(0.0f, -0.01f, 0.0f), Color.blue);
+        //transform.localPosition += new Vector3(0.0f, m_verticalVelocity * Time.deltaTime, 0.0f);
     }
 
     /// <summary>
