@@ -529,6 +529,7 @@ GameObject:
   - component: {fileID: 114435230434906022}
   - component: {fileID: 136644786182822146}
   - component: {fileID: 54655896743684184}
+  - component: {fileID: 114215400168569548}
   m_Layer: 0
   m_Name: skip2
   m_TagString: Player
@@ -1306,13 +1307,27 @@ MonoBehaviour:
     type: 2}
   m_swipeVertInstruct: {fileID: 1312564691125276, guid: 7b7c97140e7b4084180d4f51718c41f9,
     type: 2}
+  m_swipeDirection: {fileID: 11400000, guid: 91b40f1c718c32d4cbdcc1948fc2581e, type: 2}
+  m_bButtonMode: {fileID: 11400000, guid: 1d7fb3b4aaafaf942b05030612924400, type: 2}
   m_spawnWinScreen: {fileID: 11400000, guid: a00441ed2da04c64c9d106f75ba6848c, type: 2}
   m_spawnLoseScreen: {fileID: 11400000, guid: 2f3cb349d7ff340498b0998a25aacbc7, type: 2}
   m_nextInstruction: {fileID: 11400000, guid: 0be07ce8a68c63f4a9018b1a5af75297, type: 2}
   m_startGame: {fileID: 11400000, guid: 9666872bf9fea6647bedc26419a9c51b, type: 2}
   m_PlayerDamagedEvent: {fileID: 0}
   m_PlayerDiedEvent: {fileID: 0}
+  m_playerIndex: {fileID: 0}
   m_cameraPlayer: {fileID: 11400000, guid: 0b0826032492c39408c47be5519c1378, type: 2}
+--- !u!114 &114215400168569548
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1859160157841640}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: faf83086f7d10c44fb2ab3ef4e2c1968, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114435230434906022
 MonoBehaviour:
   m_ObjectHideFlags: 1

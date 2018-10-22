@@ -93,7 +93,9 @@
 		private void SpawnPlayer()
 		{
 			player = Instantiate(playerPrefab);
-			player.transform.position = new Vector3(spawnedLanes[playerStartLane].playerPosition.position.x, spawnedLanes[playerStartLane].playerPosition.position.y + 0.1f, spawnedLanes[playerStartLane].playerPosition.position.z);
+            player.PlayerIndex = playerStartLane;
+            player.NumberOfLanes = numLanes;
+            player.transform.position = new Vector3(spawnedLanes[playerStartLane].playerPosition.position.x, spawnedLanes[playerStartLane].playerPosition.position.y + 0.1f, spawnedLanes[playerStartLane].playerPosition.position.z);
 			player.transform.LookAt(spawnedLanes[playerStartLane].enemyPosition);
 			player.transform.localScale = new Vector3(prefabScale, prefabScale, prefabScale);
 		}
@@ -158,5 +160,30 @@
 				spawnedLanes.Add(lane);
 			}
 		}
-	}
+
+        private void Update()
+        {
+            //// ---------- Check so that Update only when changing position
+            if (player.transform.position.x.Equals(spawnedLanes[player.PlayerIndex].playerPosition.position.x))
+            {
+                return;
+            }
+            else if (player.transform.position.x < spawnedLanes[player.PlayerIndex].playerPosition.position.x + 0.001f &&
+                     player.transform.position.x > spawnedLanes[player.PlayerIndex].playerPosition.position.x - 0.001f)
+            {
+                // Set position when first time reach new position
+                player.transform.position = new Vector3(spawnedLanes[player.PlayerIndex].playerPosition.position.x,
+                                                        player.transform.position.y,
+                                                        spawnedLanes[player.PlayerIndex].playerPosition.position.z);
+
+                // Setting index of Player
+                playerStartLane = player.PlayerIndex;
+            }
+
+            // Update Player Pos using Lane Pos 
+            player.transform.position = new Vector3(Vector3.Lerp(player.transform.position, spawnedLanes[player.PlayerIndex].playerPosition.position, player.m_playerSpeed).x,
+                                                           player.transform.position.y,
+                                                           spawnedLanes[player.PlayerIndex].playerPosition.position.z);
+        }
+    }
 }

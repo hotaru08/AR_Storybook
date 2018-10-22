@@ -34,10 +34,10 @@ public class PlayerManager : MonoBehaviour
     /// To Trigger Jump of Player
     /// </summary>
     private bool m_bTriggerJump;
+    public bool TriggerJump { set { m_bTriggerJump = value; } }
     private float m_verticalVelocity;
     private float m_gravity;
-    [SerializeField]
-    private float m_jumpForce;
+    [SerializeField] private float m_jumpForce;
 
     /// <summary>
     /// Reversing the controls of Player
@@ -59,6 +59,11 @@ public class PlayerManager : MonoBehaviour
     private Animator m_Animator;
     private Touch_Swipe m_swipeComponent;
 
+    [Tooltip("Event to determine the direction of swipe")]
+    [SerializeField] private ES_Event_Int m_swipeDirection;
+    [Tooltip("Bool to determine if player has chosen Button Mode")]
+    [SerializeField] private CV_Bool m_bButtonMode;
+
     /// <summary>
     /// Events to Send
     /// </summary>
@@ -79,10 +84,10 @@ public class PlayerManager : MonoBehaviour
     private void Start()
     {
         // Initialising Variables
-        m_bTriggerJump = false;
+        m_gravity = Physics.gravity.y;
         m_Animator = GetComponent<Animator>();
         m_swipeComponent = GetComponent<Touch_Swipe>();
-        m_gravity = Physics.gravity.y;
+        m_swipeDirection.value = (int)m_swipeComponent.SwipeDirection;
 
         // Send Player Obj 
         ES_Event_Object temp = m_cameraPlayer as ES_Event_Object;
@@ -135,59 +140,17 @@ public class PlayerManager : MonoBehaviour
         }
 
         // ---------- Player Movement
-        if (m_swipeComponent.SwipeDirection.Equals(Touch_Swipe.SWIPE_DIRECTION.LEFT))
+        if (m_bButtonMode.value)
         {
-            // Check if instruct index is this instruction, then raise event
-            if (m_nextInstruction.value < m_swipeHorzInstruct.transform.GetSiblingIndex()) return;
-            else if (m_nextInstruction.value.Equals(m_swipeHorzInstruct.transform.GetSiblingIndex()))
-            {
-                m_nextInstruction.Invoke(m_nextInstruction.value + 1);
-            }
+            PlayerMovement((int)m_swipeComponent.SwipeDirection);
 
-            if (m_bReverseControls)
-            {
-                if (m_playerLaneIndex >= m_numLanes - 1) return;
-                m_playerLaneIndex++;
-            }
-            else
-            {
-                if (m_playerLaneIndex <= 0) return;
-                m_playerLaneIndex--;
-            }
-            DebugLogger.Log<LaneGenerator>("Left Arrow Pressed, Player Index is " + m_playerLaneIndex);
         }
-        else if (m_swipeComponent.SwipeDirection.Equals(Touch_Swipe.SWIPE_DIRECTION.RIGHT))
+        else
         {
-            // Check if instruct index is this instruction, then raise event
-            if (m_nextInstruction.value < m_swipeHorzInstruct.transform.GetSiblingIndex()) return;
-            else if (m_nextInstruction.value.Equals(m_swipeHorzInstruct.transform.GetSiblingIndex()))
-            {
-                m_nextInstruction.Invoke(m_nextInstruction.value + 1);
-            }
-
-            if (m_bReverseControls)
-            {
-                if (m_playerLaneIndex <= 0) return;
-                m_playerLaneIndex--;
-            }
-            else
-            {
-                if (m_playerLaneIndex >= m_numLanes - 1) return;
-                m_playerLaneIndex++;
-            }
-            DebugLogger.Log<LaneGenerator>("Right Arrow Pressed, Player Index is " + m_playerLaneIndex);
+            PlayerMovement(m_swipeDirection.value);
+            // Reset Swipe Direction to NONE, to prevent continuous updates
+            m_swipeDirection.value = 0;
         }
-        else if (m_swipeComponent.SwipeDirection.Equals(Touch_Swipe.SWIPE_DIRECTION.UP))
-        {
-            // Check if instruct index is this instruction, then raise event
-            if (m_nextInstruction.value < m_swipeVertInstruct.transform.GetSiblingIndex()) return;
-            if (m_nextInstruction.value.Equals(m_swipeVertInstruct.transform.GetSiblingIndex()))
-            {
-                m_startGame.Invoke(true);
-            }
-            m_bTriggerJump = true;
-        }
-        
     }
 
     /// <summary>
@@ -219,6 +182,74 @@ public class PlayerManager : MonoBehaviour
 
         Debug.DrawLine(transform.position, transform.position + new Vector3(0.0f, -0.01f, 0.0f), Color.blue);
         transform.localPosition += new Vector3(0.0f, m_verticalVelocity * Time.deltaTime, 0.0f);
+    }
+
+    /// <summary>
+    /// Player Movements according to swipe direction
+    /// </summary>
+    /// <param name="_swipeDirection">Direction of swipe</param>
+    public void PlayerMovement(int _swipeDirection)
+    {
+        switch (_swipeDirection)
+        {
+            case (int)Touch_Swipe.SWIPE_DIRECTION.UP:
+                {
+                    // Check if instruct index is this instruction, then raise event
+                    //if (m_nextInstruction.value < m_swipeVertInstruct.transform.GetSiblingIndex()) return;
+                    if (m_nextInstruction.value.Equals(m_swipeVertInstruct.transform.GetSiblingIndex()))
+                    {
+                        m_startGame.Invoke(true);
+                    }
+                    m_bTriggerJump = true;
+                }
+                break;
+            case (int)Touch_Swipe.SWIPE_DIRECTION.DOWN:
+                break;
+            case (int)Touch_Swipe.SWIPE_DIRECTION.LEFT:
+                {
+                    // Check if instruct index is this instruction, then raise event
+                    //if (m_nextInstruction.value < m_swipeHorzInstruct.transform.GetSiblingIndex()) return;
+                    if (m_nextInstruction.value.Equals(m_swipeHorzInstruct.transform.GetSiblingIndex()))
+                    {
+                        m_nextInstruction.Invoke(m_nextInstruction.value + 1);
+                    }
+
+                    // Adjust Player index according to camera view
+                    if (m_bReverseControls)
+                    {
+                        if (m_playerLaneIndex >= m_numLanes - 1) return;
+                        m_playerLaneIndex++;
+                    }
+                    else
+                    {
+                        if (m_playerLaneIndex <= 0) return;
+                        m_playerLaneIndex--;
+                    }
+                }
+                break;
+            case (int)Touch_Swipe.SWIPE_DIRECTION.RIGHT:
+                {
+                    // Check if instruct index is this instruction, then raise event
+                    //if (m_nextInstruction.value < m_swipeHorzInstruct.transform.GetSiblingIndex()) return;
+                    if (m_nextInstruction.value.Equals(m_swipeHorzInstruct.transform.GetSiblingIndex()))
+                    {
+                        m_nextInstruction.Invoke(m_nextInstruction.value + 1);
+                    }
+
+                    // Adjust Player index according to camera view
+                    if (m_bReverseControls)
+                    {
+                        if (m_playerLaneIndex <= 0) return;
+                        m_playerLaneIndex--;
+                    }
+                    else
+                    {
+                        if (m_playerLaneIndex >= m_numLanes - 1) return;
+                        m_playerLaneIndex++;
+                    }
+                }
+                break;
+        }
     }
 
     /// <summary>
