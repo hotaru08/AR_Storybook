@@ -26,9 +26,11 @@ public class PlayerManager : MonoBehaviour
     /// Lane Movement of Player
     /// </summary>
     private int m_playerLaneIndex;
+    public int m_originalPlayerIndex;
     public int PlayerIndex { set { m_playerLaneIndex = value; } get { return m_playerLaneIndex; } }
     private int m_numLanes; 
     public int NumberOfLanes { set { m_numLanes = value; } }
+    public int m_laneStyle;
 
     /// <summary>
     /// To Trigger Jump of Player
@@ -89,6 +91,11 @@ public class PlayerManager : MonoBehaviour
         m_swipeComponent = GetComponent<Touch_Swipe>();
         m_swipeDirection.value = (int)m_swipeComponent.SwipeDirection;
 
+        if (m_originalPlayerIndex < 0 || m_originalPlayerIndex > m_numLanes - 1)
+            m_originalPlayerIndex = m_numLanes / 2;
+        else
+            m_originalPlayerIndex = m_playerLaneIndex;
+
         // Send Player Obj 
         ES_Event_Object temp = m_cameraPlayer as ES_Event_Object;
         temp.Invoke(this.gameObject);
@@ -113,7 +120,11 @@ public class PlayerManager : MonoBehaviour
         m_stateMachine.Update();
 
         // If player is not idle, dont update any movements
-        if (!m_stateMachine.GetCurrentState().Equals("Idle")) return;
+        if (!m_stateMachine.GetCurrentState().Equals("Idle"))
+        {
+            m_startGame.Invoke(false);
+            return;
+        }
 
         // ---------- Player Damaged 
         if (m_Animator.GetCurrentAnimatorStateInfo(0).IsName("Damaged"))
@@ -125,16 +136,12 @@ public class PlayerManager : MonoBehaviour
         // ---------- Player Win / Lose
         if (m_playerHealth.value <= 0)
         {
-            if (m_stateMachine.GetCurrentState().Equals("PlayerLose")) return;
-
             m_stateMachine.SetNextState("PlayerLose");
             m_spawnLoseScreen.Invoke();
             //m_PlayerDiedEvent.Invoke();
         }
         else if (m_AIHealth.value <= 0.0f)
         {
-            if (m_stateMachine.GetCurrentState().Equals("PlayerVictory")) return;
-
             m_stateMachine.SetNextState("PlayerVictory");
             m_spawnWinScreen.Invoke();
         }
@@ -143,7 +150,6 @@ public class PlayerManager : MonoBehaviour
         if (m_bButtonMode.value)
         {
             PlayerMovement((int)m_swipeComponent.SwipeDirection);
-
         }
         else
         {
@@ -214,16 +220,27 @@ public class PlayerManager : MonoBehaviour
                         m_nextInstruction.Invoke(m_nextInstruction.value + 1);
                     }
 
-                    // Adjust Player index according to camera view
-                    if (m_bReverseControls)
+                    // Adjust Player index according to camera view and lane layout
+                    if (m_laneStyle.Equals(0))
                     {
-                        if (m_playerLaneIndex >= m_numLanes - 1) return;
-                        m_playerLaneIndex++;
+                        if (m_bReverseControls)
+                        {
+                            if (m_playerLaneIndex >= m_numLanes - 1) return;
+                            m_playerLaneIndex++;
+                        }
+                        else
+                        {
+                            if (m_playerLaneIndex <= 0) return;
+                            m_playerLaneIndex--;
+                        }
                     }
                     else
                     {
-                        if (m_playerLaneIndex <= 0) return;
-                        m_playerLaneIndex--;
+                        if (m_playerLaneIndex <= 0)
+                        {
+                            m_playerLaneIndex = m_numLanes - 1;
+                        }
+                        else m_playerLaneIndex--;
                     }
                 }
                 break;
@@ -236,16 +253,27 @@ public class PlayerManager : MonoBehaviour
                         m_nextInstruction.Invoke(m_nextInstruction.value + 1);
                     }
 
-                    // Adjust Player index according to camera view
-                    if (m_bReverseControls)
+                    // Adjust Player index according to camera view and lane layout
+                    if (m_laneStyle.Equals(0))
                     {
-                        if (m_playerLaneIndex <= 0) return;
-                        m_playerLaneIndex--;
+                        if (m_bReverseControls)
+                        {
+                            if (m_playerLaneIndex <= 0) return;
+                            m_playerLaneIndex--;
+                        }
+                        else
+                        {
+                            if (m_playerLaneIndex >= m_numLanes - 1) return;
+                            m_playerLaneIndex++;
+                        }
                     }
                     else
                     {
-                        if (m_playerLaneIndex >= m_numLanes - 1) return;
-                        m_playerLaneIndex++;
+                        if (m_playerLaneIndex >= m_numLanes - 1)
+                        {
+                            m_playerLaneIndex = 0;
+                        }
+                        else m_playerLaneIndex++;
                     }
                 }
                 break;
@@ -276,5 +304,19 @@ public class PlayerManager : MonoBehaviour
     public void SetState(string _stateName)
     {
         m_stateMachine.SetNextState(_stateName);
+    }
+
+    /// <summary>
+    /// Reset Player to defualt settings
+    /// </summary>
+    public void Reset()
+    {
+        // idle state
+        m_stateMachine.SetNextState("Idle");
+        // original position
+        m_playerLaneIndex = m_originalPlayerIndex;
+        // start game
+        m_startGame.Invoke(true);
+
     }
 }

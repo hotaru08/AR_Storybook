@@ -571,6 +571,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: ad48b0a8663762044a40cc56aa7e69f6, type: 2}
   - {fileID: 11400000, guid: 9666872bf9fea6647bedc26419a9c51b, type: 2}
   - {fileID: 11400000, guid: b9571e44314416c41acf1789bac6c680, type: 2}
+  - {fileID: 11400000, guid: fc24dfb03ada3574c9a5da3161ed37a8, type: 2}
   responseToDefault:
     m_PersistentCalls:
       m_Calls:
@@ -610,7 +611,18 @@ MonoBehaviour:
       PublicKeyToken=null
   responseToFloatEvent:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 95832891807293506}
+        m_MethodName: SetTrigger
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: Damaged
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: ATXK.EventSystem.FloatEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
   responseToStringEvent:
@@ -626,17 +638,6 @@ MonoBehaviour:
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 95832891807293506}
-        m_MethodName: Play
-        m_Mode: 5
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: Idle
           m_BoolArgument: 0
         m_CallState: 2
     m_TypeName: ATXK.EventSystem.StringEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,

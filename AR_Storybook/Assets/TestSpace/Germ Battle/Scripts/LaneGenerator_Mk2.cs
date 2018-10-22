@@ -93,8 +93,9 @@
 		private void SpawnPlayer()
 		{
 			player = Instantiate(playerPrefab);
-            player.PlayerIndex = playerStartLane;
+            player.PlayerIndex =  playerStartLane;
             player.NumberOfLanes = numLanes;
+            player.m_laneStyle = (int)laneLayout;
             player.transform.position = new Vector3(spawnedLanes[playerStartLane].playerPosition.position.x, spawnedLanes[playerStartLane].playerPosition.position.y + 0.1f, spawnedLanes[playerStartLane].playerPosition.position.z);
 			player.transform.LookAt(spawnedLanes[playerStartLane].enemyPosition);
 			player.transform.localScale = new Vector3(prefabScale, prefabScale, prefabScale);
@@ -163,7 +164,7 @@
 
         private void Update()
         {
-            //// ---------- Check so that Update only when changing position
+            // ---------- Check so that Update only when changing position
             if (player.transform.position.x.Equals(spawnedLanes[player.PlayerIndex].playerPosition.position.x))
             {
                 return;
@@ -181,9 +182,7 @@
 
             // Update Player Pos using Lane Pos 
             player.transform.LookAt(spawnedLanes[player.PlayerIndex].enemyPosition);
-            player.transform.position = new Vector3(Vector3.Lerp(player.transform.position, spawnedLanes[player.PlayerIndex].playerPosition.position, player.m_playerSpeed).x,
-                                                           player.transform.position.y,
-                                                           spawnedLanes[player.PlayerIndex].playerPosition.position.z);
+            player.transform.position = Vector3.Lerp(player.transform.position, spawnedLanes[player.PlayerIndex].playerPosition.position, player.m_playerSpeed);
         }
     }
 }

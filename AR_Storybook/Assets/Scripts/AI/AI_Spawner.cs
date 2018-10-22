@@ -4,7 +4,7 @@ using System.Collections;
 using ATXK.EventSystem;
 
 /// <summary>
-/// Spawner of items
+/// Spawner of items ( this is bad im sorry :( )
 /// </summary>
 public class AI_Spawner : MonoBehaviour
 {
@@ -41,7 +41,9 @@ public class AI_Spawner : MonoBehaviour
     [SerializeField]
     private ES_Event[] m_eventsToSend;
 
-    private void Start()
+    private List<GameObject> m_spawnedProjectiles = new List<GameObject>();
+
+    private void OnEnable()
     {
         // Initialise ( higher frequency, shorter time between )
         //timeBetweenSpawns = 1f / m_itemSpawnFrequency;
@@ -49,6 +51,18 @@ public class AI_Spawner : MonoBehaviour
 
         // Start Spawning Loop
         StartCoroutine(SpawnLoop());
+    }
+
+    private void OnDisable()
+    {
+        if (m_spawnedProjectiles.Count.Equals(0))
+            return;
+
+        foreach (GameObject _obj in m_spawnedProjectiles)
+        {
+            Destroy(_obj);
+        }
+        m_spawnedProjectiles.Clear();
     }
 
     /// <summary>
@@ -67,6 +81,7 @@ public class AI_Spawner : MonoBehaviour
                 yield return new WaitForSeconds(m_timeBetweenSpawns);
 
                 GameObject spawned = Instantiate(m_spawnPrefabs[Random.Range(0, m_spawnPrefabs.Count)], transform);
+                m_spawnedProjectiles.Add(spawned);
 
                 Vector3 spawnPos = transform.position;
                 spawnPos.x += Random.Range(-m_spawnPositionRange, m_spawnPositionRange);
@@ -81,7 +96,9 @@ public class AI_Spawner : MonoBehaviour
 
             }
 
+            //Debug.Log("List: " + m_spawnedProjectiles.Count);
             yield return new WaitForSeconds(m_timeBetweenBatches);
         }
+
     }
 }

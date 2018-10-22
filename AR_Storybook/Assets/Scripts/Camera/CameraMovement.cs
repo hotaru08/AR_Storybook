@@ -20,7 +20,7 @@ public class CameraMovement : MonoBehaviour
     [SerializeField]
     private ES_Event_Bool[] m_eventsToSend;
     private bool m_bIsNegativeZ;
-    private GameObject m_player;
+    private PlayerManager m_player;
 
     private void Start()
     {
@@ -36,11 +36,19 @@ public class CameraMovement : MonoBehaviour
         // ================================== Movement of Camera
         if (Input.GetKey(KeyCode.W))
         {
-            m_camera.transform.position += transform.forward * Time.deltaTime * m_cameraSpeed;
+            m_camera.transform.position += m_camera.transform.forward * Time.deltaTime * m_cameraSpeed;
         }
         if (Input.GetKey(KeyCode.S))
         {
-            m_camera.transform.position -= transform.forward * Time.deltaTime * m_cameraSpeed;
+            m_camera.transform.position -= m_camera.transform.forward * Time.deltaTime * m_cameraSpeed;
+        }
+        if (Input.GetKey(KeyCode.A))
+        {
+            m_camera.transform.position -= m_camera.transform.right * Time.deltaTime * m_cameraSpeed;
+        }
+        if (Input.GetKey(KeyCode.D))
+        {
+            m_camera.transform.position += m_camera.transform.right * Time.deltaTime * m_cameraSpeed;
         }
 
         // ================================== Rotation of Camera
@@ -74,7 +82,8 @@ public class CameraMovement : MonoBehaviour
         if (m_player != null)
         {
             // ------------------ Invoke events 
-            if ((/*m_camera.transform.position.z <= 0.0f || */Vector3.Angle(m_player.transform.forward, m_camera.transform.forward) <= 90.0f)
+            if (Vector3.Angle(m_player.transform.forward, m_camera.transform.forward) <= 90.0f
+                && m_player.m_laneStyle.Equals(0)
                 && m_bIsNegativeZ)
             {
                 m_bIsNegativeZ = false;
@@ -82,7 +91,8 @@ public class CameraMovement : MonoBehaviour
                 m_eventsToSend[0].Invoke(m_bIsNegativeZ);
                 DebugLogger.LogWarning<CameraMovement>("Event Send: " + m_eventsToSend[0].name + " Value: " + m_eventsToSend[0].value);
             }
-            else if ((/*m_camera.transform.position.z > 0.0f || */Vector3.Angle(m_player.transform.forward, m_camera.transform.forward) > 90.0f)
+            else if (Vector3.Angle(m_player.transform.forward, m_camera.transform.forward) > 90.0f
+                && m_player.m_laneStyle.Equals(0)
                 && !m_bIsNegativeZ)
             {
                 m_bIsNegativeZ = true;
@@ -96,6 +106,7 @@ public class CameraMovement : MonoBehaviour
     public void EventReceived(Object _value)
     {
         //DebugLogger.Log<CameraMovement>("Event Received with value: " + _value);
-        m_player = _value as GameObject;
+        GameObject temp = _value as GameObject;
+        m_player = temp.GetComponent<PlayerManager>();
     }
 }
