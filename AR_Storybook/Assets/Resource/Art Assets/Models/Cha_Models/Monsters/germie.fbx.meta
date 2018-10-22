@@ -1,92 +1,68 @@
 fileFormatVersion: 2
-guid: 06ec627851660fe409e53c6972b570f2
+guid: f331d551abdbed744bcc69ad60af9095
 ModelImporter:
   serializedVersion: 22
   fileIDToRecycleName:
-    100000: ankle_l
-    100002: ankle_r
-    100004: arm_l
-    100006: arm_r
-    100008: //RootNode
-    100010: aye_mesh
-    100012: beard
-    100014: body
-    100016: chest
-    100018: ear_l
-    100020: ear_r
-    100022: elbow_l
-    100024: elbow_r
-    100026: foot_l
-    100028: foot_r
-    100030: hair_l
-    100032: hair_r
-    100034: hand_l
-    100036: hand_r
-    100038: head
-    100040: head 1
-    100042: hip_l
-    100044: hip_r
-    100046: joint3
-    100048: joint4
-    100050: knee_l
-    100052: knee_r
-    100054: neck
-    100056: pelvis
-    100058: shoulder_l
-    100060: shoulder_r
-    100062: spine_1
-    100064: spine_2
-    400000: ankle_l
-    400002: ankle_r
-    400004: arm_l
-    400006: arm_r
-    400008: //RootNode
-    400010: aye_mesh
-    400012: beard
-    400014: body
-    400016: chest
-    400018: ear_l
-    400020: ear_r
-    400022: elbow_l
-    400024: elbow_r
-    400026: foot_l
-    400028: foot_r
-    400030: hair_l
-    400032: hair_r
-    400034: hand_l
-    400036: hand_r
-    400038: head
-    400040: head 1
-    400042: hip_l
-    400044: hip_r
-    400046: joint3
-    400048: joint4
-    400050: knee_l
-    400052: knee_r
-    400054: neck
-    400056: pelvis
-    400058: shoulder_l
-    400060: shoulder_r
-    400062: spine_1
-    400064: spine_2
-    2100000: aye_colour
-    4300000: body
-    4300002: head
-    4300004: ear_l
-    4300006: ear_r
-    4300008: beard
+    100000: arm_l
+    100002: arm_r
+    100004: arms
+    100006: elbow_l
+    100008: elbow_r
+    100010: face
+    100012: geo
+    100014: //RootNode
+    100016: hand_l
+    100018: hand_r
+    100020: head1
+    100022: main_ctrl
+    100024: mid1
+    100026: mid2
+    100028: mid3
+    100030: mid4
+    100032: root
+    100034: slime
+    100036: spine_crv
+    100038: top
+    400000: arm_l
+    400002: arm_r
+    400004: arms
+    400006: elbow_l
+    400008: elbow_r
+    400010: face
+    400012: geo
+    400014: //RootNode
+    400016: hand_l
+    400018: hand_r
+    400020: head1
+    400022: main_ctrl
+    400024: mid1
+    400026: mid2
+    400028: mid3
+    400030: mid4
+    400032: root
+    400034: slime
+    400036: spine_crv
+    400038: top
+    2100000: head
+    2100002: slime1
+    4300000: face
+    4300002: arms
+    4300004: slime
     9500000: //RootNode
-    13700000: beard
-    13700002: body
-    13700004: ear_l
-    13700006: ear_r
-    13700008: head
+    13700000: arms
+    13700002: face
+    13700004: slime
   externalObjects:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: aye_colour
-    second: {fileID: 2100000, guid: f61d0f6695a0b3c4299cf3f922836da3, type: 2}
+      name: head
+    second: {fileID: 2100000, guid: 8b69cea0354edc146875305159b11a66, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: slime1
+    second: {fileID: 2100000, guid: 907c9b48f0afdb34899c5318ede215f0, type: 2}
   materials:
     importMaterials: 1
     materialName: 0
