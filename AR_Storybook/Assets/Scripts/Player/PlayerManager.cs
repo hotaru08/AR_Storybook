@@ -139,10 +139,13 @@ public class PlayerManager : MonoBehaviour
             // if (m_bSpawn) return;
 
             //m_PlayerDamagedEvent.Invoke();
-            m_bSpawn = true;
             SpawnParticles();
 
             return;
+        }
+        else
+        {
+            m_bSpawn = false;
         }
 
         // ---------- Player Win / Lose
@@ -321,13 +324,17 @@ public class PlayerManager : MonoBehaviour
 
     private void SpawnParticles()
     {
-        if (m_bSpawn)
+        if (!m_bSpawn)
         {
             GameObject temp;
             temp = Instantiate(ParticlePrefab, transform.position, Quaternion.identity);
             temp.transform.SetParent(ParticleParent.transform); //set temp as parent
+            ParticleSystem.MainModule mainModule = temp.GetComponent<ParticleSystem>().main;
+            mainModule.playOnAwake = false;
+            mainModule.loop = false;
+            Debug.Log("o o f");
 
-            m_bSpawn = false;
+            m_bSpawn = true;
         }
     }
 
