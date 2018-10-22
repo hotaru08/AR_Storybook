@@ -66,6 +66,10 @@ public class PlayerManager : MonoBehaviour
     [Tooltip("Bool to determine if player has chosen Button Mode")]
     [SerializeField] private CV_Bool m_bButtonMode;
 
+    private bool m_bSpawn=false; //for particles, to prevent spawning more than once
+    public GameObject ParticlePrefab; //Particles
+    private GameObject ParticleParent; //parent of particles
+
     /// <summary>
     /// Events to Send
     /// </summary>
@@ -106,6 +110,9 @@ public class PlayerManager : MonoBehaviour
         m_stateMachine.AddState(new StatePlayerLose("PlayerLose", gameObject));
         m_stateMachine.AddState(new StatePlayerVictory("PlayerVictory", gameObject));
         m_stateMachine.SetNextState("Idle");
+
+        //find particle parent
+        ParticleParent = GameObject.Find("ParticlesParent");
     }
 
     /// <summary>
@@ -129,7 +136,12 @@ public class PlayerManager : MonoBehaviour
         // ---------- Player Damaged 
         if (m_Animator.GetCurrentAnimatorStateInfo(0).IsName("Damaged"))
         {
+            // if (m_bSpawn) return;
+
             //m_PlayerDamagedEvent.Invoke();
+            m_bSpawn = true;
+            SpawnParticles();
+
             return;
         }
 
@@ -304,6 +316,19 @@ public class PlayerManager : MonoBehaviour
     public void SetState(string _stateName)
     {
         m_stateMachine.SetNextState(_stateName);
+    }
+
+
+    private void SpawnParticles()
+    {
+        if (m_bSpawn)
+        {
+            GameObject temp;
+            temp = Instantiate(ParticlePrefab, transform.position, Quaternion.identity);
+            temp.transform.SetParent(ParticleParent.transform); //set temp as parent
+
+            m_bSpawn = false;
+        }
     }
 
     /// <summary>
