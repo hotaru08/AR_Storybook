@@ -8,6 +8,7 @@ using UnityEngine;
 /// <summary>
 /// IDK what im doing really
 /// </summary>
+[RequireComponent(typeof(ES_EventListener))]
 public class GameModes : MonoBehaviour
 {
     /// <summary>
@@ -21,12 +22,16 @@ public class GameModes : MonoBehaviour
     [Header("Mode")]
     public GAME_MODE m_gameMode;
 
+    [Header("Health Variables")]
+    [SerializeField] private CV_Int m_playerHealth;
+    [SerializeField] private CV_Float m_AIHealth;
+
     /// <summary>
     /// Variables for countdown
     /// </summary>
     [Header("CountDown Variables")]
     [SerializeField]
-    private float m_countDownTime;
+    private float m_countDownTime = 3.0f;
     private float m_countDown;
 
     /// <summary>
@@ -35,8 +40,6 @@ public class GameModes : MonoBehaviour
     [Header("Events")]
     [Tooltip("Event to trigger the respective instruction screens according to their child indexes")]
     [SerializeField] private ES_Event_Int m_triggerInstructions;
-    [Tooltip("Event to reset Player to its original position in the lanes")]
-    [SerializeField] private ES_Event m_resetPlayerPosition;
     [Tooltip("Event to reset States of Gameobjects to string input")]
     [SerializeField] private ES_Event_String m_resetState;
     [Tooltip("Event to reset activeness of AIs spawner if applicable")]
@@ -57,6 +60,7 @@ public class GameModes : MonoBehaviour
                 m_triggerInstructions.Invoke(0);
                 break;
             case GAME_MODE.GAME:
+
                 break;
         }
     }

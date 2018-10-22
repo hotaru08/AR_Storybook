@@ -14,7 +14,7 @@
 			CIRCULAR
 		}
 
-		[Header("Lane Settings")]
+        [Header("Lane Settings")]
 		[Tooltip("Lane prefab that contains the Lane script.")]
 		[SerializeField] Lane lanePrefab;
 		[Tooltip("Number of Lanes that will be generated, limited to a maximum of 5 lanes.")]
@@ -35,10 +35,10 @@
 		[Range(0, 4)][SerializeField] int playerStartLane = 0;
 		PlayerManager player;
 
-		[Header("Enemy Settings")]
-		[SerializeField] AI_Controller enemyPrefab;
+        [Header("Enemy Settings")]
+        [SerializeField] AI_Controller enemyPrefab;
 
-		Renderer renderer;
+        Renderer renderer;
 
 		float areaWidth;
 		float areaLength;

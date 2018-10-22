@@ -216,6 +216,8 @@ public class LaneGenerator : MonoBehaviour
 
                 break;
             case ENEMIES_SPAWN_STYLE.BOSS:
+                tempEnemy.transform.localScale = m_enemyPrefab.transform.localScale;
+
                 switch (m_NumLanes % 2)
                 {
                     case 0: // in between lanes
