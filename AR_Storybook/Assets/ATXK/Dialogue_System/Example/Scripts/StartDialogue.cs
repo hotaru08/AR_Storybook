@@ -7,7 +7,7 @@
 
 	public class StartDialogue : MonoBehaviour
 	{
-		[SerializeField] ES_Event startDialogue;
+		[SerializeField] ES_Event_Base startDialogue;
 
 		// Update is called once per frame
 		void Update()

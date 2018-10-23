@@ -20,6 +20,6 @@ public class AI_Action_Spit : AI_Action
 	private void Spit(AI_Controller controller)
 	{
 		// Call an event that tells a Projectile spawner to Instantiate the projectile
-		fireProjectileEvent.Invoke(projectile.gameObject);
+		fireProjectileEvent.Invoke(projectile.gameObject, controller.gameObject.GetInstanceID());
 	}
 }

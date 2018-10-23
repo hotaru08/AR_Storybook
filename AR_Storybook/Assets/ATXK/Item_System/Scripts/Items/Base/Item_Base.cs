@@ -15,7 +15,7 @@
 		[SerializeField] protected GameObject itemModel;
 
 		[Header("Item Events")]
-		[SerializeField] protected ES_Event collisionEvent;
+		[SerializeField] protected ES_Event_Base collisionEvent;
 
 		#region Property Getters
 		public string Name { get { return itemName; } }
@@ -24,7 +24,7 @@
 		public int Value { get { return itemValue; } }
 		public CV_Enum Type { get { return itemType; } }
 		public GameObject Model { get { return itemModel; } }
-		public ES_Event CollisionEvent { get { return collisionEvent; } }
+		public ES_Event_Base CollisionEvent { get { return collisionEvent; } }
 		#endregion
 
 		public abstract bool OnCollide(GameObject collidingObject);

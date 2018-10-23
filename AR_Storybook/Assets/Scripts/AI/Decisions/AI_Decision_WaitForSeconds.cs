@@ -1,51 +1,52 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using ATXK.AI;
-using ATXK.EventSystem;
-
-[CreateAssetMenu(menuName = "AI/Decision/Wait for Seconds")]
-public class AI_Decision_WaitForSeconds : AI_Decision
+﻿namespace ATXK.AI
 {
-	[Tooltip("Time to wait before changing to next state.")]
-	[SerializeField] float waitTime;
-	[Tooltip("Time variance range.")]
-	[SerializeField] float randomizer;
+	using UnityEngine;
+	using System.Collections;
+	using System.Collections.Generic;
 
-	Dictionary<AI_Controller, bool> registeredControllers = new Dictionary<AI_Controller, bool>();
-
-	public override bool Decide(AI_Controller controller)
+	[CreateAssetMenu(menuName = "AI/Decision/Wait for Seconds")]
+	public class AI_Decision_WaitForSeconds : AI_Decision
 	{
-		return Wait(controller);
-	}
+		[SerializeField] float time;
+		[Range(0, 1)] [SerializeField] float timeRange;
 
-	private bool Wait(AI_Controller controller)
-	{
-		if(!registeredControllers.ContainsKey(controller))
+		Dictionary<AI_Controller, bool> m_check = new Dictionary<AI_Controller, bool>();
+
+		public override bool Decide(AI_Controller controller)
 		{
-			controller.StartCoroutine(WaitForSeconds(controller));
-		}
-		else if(registeredControllers[controller])
-		{
-			registeredControllers.Remove(controller);
-			return true;
-		}
+			if (!m_check.ContainsKey(controller))
+			{
+				controller.StartCoroutine(WaitForTime(controller));
+			}
+			else
+			{
+				if (m_check[controller])
+				{
+					m_check.Remove(controller);
+					return true;
+				}
+			}
 
-		return false;
-	}
-
-	private IEnumerator WaitForSeconds(AI_Controller controller)
-	{
-		registeredControllers.Add(controller, false);
-
-		float runtime = waitTime + Random.Range(-randomizer, randomizer);
-		Debug.Log("Runtime=" + runtime + " for AI=" + controller.gameObject.name + " " + controller.gameObject.GetInstanceID());
-		while(runtime > 0f)
-		{
-			runtime -= Time.deltaTime;
-			yield return new WaitForEndOfFrame();
+			return false;
 		}
 
-		registeredControllers[controller] = true;
+		private bool Wait(AI_Controller controller)
+		{
+			time -= Time.deltaTime;
+			return time <= 0f;
+		}
+
+		IEnumerator WaitForTime(AI_Controller controller)
+		{
+			m_check.Add(controller, false);
+
+			float localtimer = time + Random.Range(-(time * timeRange), time * timeRange);
+			while (localtimer > 0)
+			{
+				localtimer -= Time.deltaTime;
+				yield return new WaitForEndOfFrame();
+			}
+			m_check[controller] = true;
+		}
 	}
 }

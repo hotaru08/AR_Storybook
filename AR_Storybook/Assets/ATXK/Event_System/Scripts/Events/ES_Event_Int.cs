@@ -2,7 +2,7 @@
 {
 	using UnityEngine;
 
-	[CreateAssetMenu(menuName = "TestSpace/Event/Int Event", order = 3)]
+	[CreateAssetMenu(menuName = "Event/Int Event", order = 3)]
 	public class ES_Event_Int : ES_Event_Generic<int>
 	{
 		public override void Invoke()

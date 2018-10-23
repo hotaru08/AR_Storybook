@@ -4,7 +4,7 @@
 
 	public class ES_AwakeInvoker : MonoBehaviour
 	{
-		[SerializeField] ES_Event autoEvent;
+		[SerializeField] ES_Event_Base autoEvent;
 
 		private void Awake()
 		{

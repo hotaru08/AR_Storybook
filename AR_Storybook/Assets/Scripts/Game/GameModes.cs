@@ -59,7 +59,7 @@ public class GameModes : MonoBehaviour
     public ES_Event_Bool GetSpawnerEvent { get { return m_setSpawner; } }
 
     [Tooltip("Event to reset Health of both Player and AIs")]
-    [SerializeField] private ES_Event m_resetHealth;
+    [SerializeField] private ES_Event_Base m_resetHealth;
 
     /// <summary>
     /// Unity Start Function

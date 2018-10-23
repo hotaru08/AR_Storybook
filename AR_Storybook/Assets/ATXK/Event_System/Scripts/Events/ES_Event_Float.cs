@@ -2,7 +2,7 @@
 {
 	using UnityEngine;
 
-	[CreateAssetMenu(menuName = "TestSpace/Event/Float Event", order = 4)]
+	[CreateAssetMenu(menuName = "Event/Float Event", order = 4)]
 	public class ES_Event_Float : ES_Event_Generic<float>
 	{
 		public override void Invoke()

@@ -9,7 +9,7 @@
 		[System.Serializable]
 		class NodeEvent
 		{
-			public ES_Event nodeEvent;
+			public ES_Event_Base nodeEvent;
 			public NodeEventSettings nodeInvoke;
 		}
 

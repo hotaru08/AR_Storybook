@@ -39,7 +39,7 @@ public class AI_Spawner : MonoBehaviour
     private float m_maxBatchRandValue;
 
     [SerializeField]
-    private ES_Event[] m_eventsToSend;
+    private ES_Event_Base[] m_eventsToSend;
 
     private List<GameObject> m_spawnedProjectiles = new List<GameObject>();
 

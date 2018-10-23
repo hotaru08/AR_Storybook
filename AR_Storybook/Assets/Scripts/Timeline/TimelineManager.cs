@@ -18,7 +18,7 @@ public class TimelineManager : SingletonBehaviour<TimelineManager>
     private TimelineAsset[] m_TimelineArray;
 
     [SerializeField]
-    private ES_Event[] m_eventsToSend;
+    private ES_Event_Base[] m_eventsToSend;
 
     /// <summary>
     /// Play the specific Timeline according to its index in the array

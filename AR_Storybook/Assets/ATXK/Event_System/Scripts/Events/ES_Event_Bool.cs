@@ -2,7 +2,7 @@
 {
 	using UnityEngine;
 
-	[CreateAssetMenu(menuName = "TestSpace/Event/Bool Event", order = 2)]
+	[CreateAssetMenu(menuName = "Event/Bool Event", order = 2)]
 	public class ES_Event_Bool : ES_Event_Generic<bool>
 	{
 		public override void Invoke()

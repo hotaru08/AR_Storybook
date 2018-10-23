@@ -76,8 +76,8 @@ public class PlayerManager : MonoBehaviour
     /// Events to Send
     /// </summary>
     [Header("Events to be Send")]
-    [SerializeField] private ES_Event m_spawnWinScreen;
-    [SerializeField] private ES_Event m_spawnLoseScreen;
+    [SerializeField] private ES_Event_Base m_spawnWinScreen;
+    [SerializeField] private ES_Event_Base m_spawnLoseScreen;
     [SerializeField] private ES_Event_Int m_nextInstruction;
     //[SerializeField] private ES_Event m_PlayerDamagedEvent;
     //[SerializeField] private ES_Event m_PlayerDiedEvent;
