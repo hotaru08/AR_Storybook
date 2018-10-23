@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e5200197b6d3ce4b94bbc029612b6a2, type: 3}
+  m_Name: Germ_Fire_Poop
+  m_EditorClassIdentifier: 
+  actions:
+  - {fileID: 11400000, guid: 9835798477239cd4ca2c74a50dfa1fce, type: 2}
+  transitions:
+  - decision: {fileID: 11400000, guid: b8b1d2173d2caff43a0f854af6ade309, type: 2}
+    trueState: {fileID: 11400000, guid: 5fcab6722f7887148bf5b4f1967c97aa, type: 2}
+    falseState: {fileID: 11400000, guid: 9108c92ed9a09a94191d126d59ff54d4, type: 2}

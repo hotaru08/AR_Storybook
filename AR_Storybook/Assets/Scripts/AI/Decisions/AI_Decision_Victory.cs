@@ -14,11 +14,6 @@ public class AI_Decision_Victory : AI_Decision
         return ChangeToVictory(_controller);
     }
 
-	public override void Reset()
-	{
-
-	}
-
 	private bool ChangeToVictory(AI_Controller _controller)
     {
         if (m_playerHealth.value <= 0)

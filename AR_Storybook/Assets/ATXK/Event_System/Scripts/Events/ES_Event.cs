@@ -10,13 +10,14 @@
 	public class ES_Event : ScriptableObject
 	{
 		[SerializeField] protected List<ES_EventListener> eventListeners = new List<ES_EventListener>();
+		[SerializeField] protected GameObject listenerObject;
 
-		#region Class Methods
 		public virtual void Invoke()
 		{
 			for (int i = eventListeners.Count - 1; i >= 0; i--)
 			{
-				eventListeners[i].OnEventRaised();
+				//if(listenerObject == null || listener == listenerObject)
+					eventListeners[i].OnEventRaised();
 			}
 		}
 
@@ -38,6 +39,5 @@
 			}
 			eventListeners.Clear();
 		}
-		#endregion
 	}
 }

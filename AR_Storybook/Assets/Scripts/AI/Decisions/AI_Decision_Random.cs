@@ -13,11 +13,6 @@ public class AI_Decision_Random : AI_Decision
 		return RandomChance(controller);
 	}
 
-	public override void Reset()
-	{
-		
-	}
-
 	private bool RandomChance(AI_Controller controller)
 	{
 		return Random.Range(0f, 1f) >= chance;

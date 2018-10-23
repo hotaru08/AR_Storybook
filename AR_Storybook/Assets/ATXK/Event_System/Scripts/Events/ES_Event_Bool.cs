@@ -14,11 +14,12 @@
 		{
 			for (int i = eventListeners.Count - 1; i >= 0; i--)
 			{
-				eventListeners[i].OnEventRaised(value);
+				//if (listenerObject == null || listener == listenerObject)
+					eventListeners[i].OnEventRaised(value);
 			}
 		}
 
-		public void Invoke(bool newValue)
+		public void Invoke(bool newValue, GameObject listener = null)
 		{
 			value = newValue;
 			Invoke();

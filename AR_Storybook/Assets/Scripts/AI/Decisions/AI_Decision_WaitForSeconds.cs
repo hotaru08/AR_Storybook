@@ -7,13 +7,12 @@ using ATXK.EventSystem;
 [CreateAssetMenu(menuName = "AI/Decision/Wait for Seconds")]
 public class AI_Decision_WaitForSeconds : AI_Decision
 {
+	[Tooltip("Time to wait before changing to next state.")]
 	[SerializeField] float waitTime;
-	[SerializeField] float runTime;
+	[Tooltip("Time variance range.")]
+	[SerializeField] float randomizer;
 
-	public override void Reset()
-	{
-		runTime = waitTime;
-	}
+	Dictionary<AI_Controller, bool> registeredControllers = new Dictionary<AI_Controller, bool>();
 
 	public override bool Decide(AI_Controller controller)
 	{
@@ -22,8 +21,31 @@ public class AI_Decision_WaitForSeconds : AI_Decision
 
 	private bool Wait(AI_Controller controller)
 	{
-		//Debug.Log("AI_Decision_WaitForSeconds runtime=" + runTime);
-		runTime -= Time.deltaTime;
-		return runTime <= 0f;
+		if(!registeredControllers.ContainsKey(controller))
+		{
+			controller.StartCoroutine(WaitForSeconds(controller));
+		}
+		else if(registeredControllers[controller])
+		{
+			registeredControllers.Remove(controller);
+			return true;
+		}
+
+		return false;
+	}
+
+	private IEnumerator WaitForSeconds(AI_Controller controller)
+	{
+		registeredControllers.Add(controller, false);
+
+		float runtime = waitTime + Random.Range(-randomizer, randomizer);
+		Debug.Log("Runtime=" + runtime + " for AI=" + controller.gameObject.name + " " + controller.gameObject.GetInstanceID());
+		while(runtime > 0f)
+		{
+			runtime -= Time.deltaTime;
+			yield return new WaitForEndOfFrame();
+		}
+
+		registeredControllers[controller] = true;
 	}
 }

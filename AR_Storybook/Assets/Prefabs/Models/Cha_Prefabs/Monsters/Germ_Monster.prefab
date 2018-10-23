@@ -36,7 +36,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4866115905215950}
-  - component: {fileID: 114420396886880916}
+  - component: {fileID: 114156623913300000}
   m_Layer: 0
   m_Name: Germ_Monster
   m_TagString: Untagged
@@ -344,7 +344,7 @@ MonoBehaviour:
         m_CallState: 2
     m_TypeName: ATXK.EventSystem.ObjectEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
---- !u!114 &114420396886880916
+--- !u!114 &114156623913300000
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -352,14 +352,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1341405880970690}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 719fcc36fbb61d24a947a08ee789d63f, type: 3}
+  m_Script: {fileID: 11500000, guid: 0dd33f5749cd13a47bbad39d49650c0a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startingState: {fileID: 11400000, guid: 911cb3682f75a3c4ba2d1b26932bf80c, type: 2}
-  currentState: {fileID: 0}
-  aiStats: {fileID: 0}
-  target: {fileID: 0}
-  aiNavMeshAgent: {fileID: 0}
+  startState: {fileID: 11400000, guid: 9108c92ed9a09a94191d126d59ff54d4, type: 2}
+  currState: {fileID: 0}
 --- !u!114 &114729512926449526
 MonoBehaviour:
   m_ObjectHideFlags: 1

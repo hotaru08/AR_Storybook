@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e5200197b6d3ce4b94bbc029612b6a2, type: 3}
+  m_Name: Couch_Attack
+  m_EditorClassIdentifier: 
+  actions: []
+  transitions:
+  - decision: {fileID: 11400000, guid: f23f7cab464cf9c49b9f49f72b787aac, type: 2}
+    trueState: {fileID: 11400000, guid: f3e27ac6a4c04e04ba0d5e53a3916cf1, type: 2}
+    falseState: {fileID: 11400000, guid: cb69e06c6086e064693f9f9f10961c41, type: 2}
