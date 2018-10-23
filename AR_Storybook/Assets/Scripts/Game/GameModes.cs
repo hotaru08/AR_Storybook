@@ -20,8 +20,12 @@ public class GameModes : MonoBehaviour
         GAME
     }
     [Header("Mode")]
-    public GAME_MODE m_gameMode;
+    [SerializeField] private GAME_MODE m_gameMode;
+    public GAME_MODE Mode { get { return m_gameMode; } }
 
+    /// <summary>
+    /// Custom Variables of Healths
+    /// </summary>
     [Header("Health Variables")]
     [SerializeField] private CV_Int m_playerHealth;
     [SerializeField] private CV_Float m_AIHealth;
@@ -30,9 +34,14 @@ public class GameModes : MonoBehaviour
     /// Variables for countdown
     /// </summary>
     [Header("CountDown Variables")]
-    [SerializeField]
-    private float m_countDownTime = 3.0f;
-    private float m_countDown;
+    [SerializeField] private int m_countDownTime = 3;
+
+    /// <summary>
+    /// Screens for the various Modes
+    /// </summary>
+    [Header("Screen Variables")]
+    [SerializeField] private GameObject m_instructionScreen;
+    [SerializeField] private GameObject m_countDownScreen;
 
     /// <summary>
     /// Events to send
@@ -40,10 +49,15 @@ public class GameModes : MonoBehaviour
     [Header("Events")]
     [Tooltip("Event to trigger the respective instruction screens according to their child indexes")]
     [SerializeField] private ES_Event_Int m_triggerInstructions;
+    [Tooltip("Event to trigger CountDown to start")]
+    [SerializeField] private ES_Event_Int m_startCountDown;
+
     [Tooltip("Event to reset States of Gameobjects to string input")]
     [SerializeField] private ES_Event_String m_resetState;
-    [Tooltip("Event to reset activeness of AIs spawner if applicable")]
-    [SerializeField] private ES_Event_Bool m_resetSpawner;
+    [Tooltip("Event to set activeness of AIs spawner")]
+    [SerializeField] private ES_Event_Bool m_setSpawner;
+    public ES_Event_Bool GetSpawnerEvent { get { return m_setSpawner; } }
+
     [Tooltip("Event to reset Health of both Player and AIs")]
     [SerializeField] private ES_Event m_resetHealth;
 
@@ -52,15 +66,23 @@ public class GameModes : MonoBehaviour
     /// </summary>
     private void Start()
     {
-        // ---------- Send the first event according to game mode
+        // ---------- Initialise Variables
         switch (m_gameMode)
         {
             case GAME_MODE.TUTORIAL:
+                if (this.transform.Find("UI/Screen ( Instructions )") == null)
+                {
+                    GameObject temp = Instantiate(m_instructionScreen, this.transform.Find("UI"));
+                }
                 m_triggerInstructions.value = 0;
                 m_triggerInstructions.Invoke(0);
                 break;
             case GAME_MODE.GAME:
-
+                if (this.transform.Find("UI/Screen ( Countdown )") == null)
+                {
+                    GameObject temp = Instantiate(m_countDownScreen, this.transform.Find("UI"));
+                }
+                m_startCountDown.Invoke(m_countDownTime);
                 break;
         }
     }
@@ -75,9 +97,8 @@ public class GameModes : MonoBehaviour
     /// </summary>
     public void ResetGame()
     {
-        //m_resetPlayerPosition.Invoke();
         m_resetState.Invoke();
-        //m_resetSpawner.Invoke(true);
+        m_setSpawner.Invoke(true);
         m_resetHealth.Invoke();
     }
 }

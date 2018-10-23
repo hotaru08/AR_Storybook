@@ -34,11 +34,15 @@ public class StatePlayerLose : IStateBase
         //DebugLogger.Log<StatePlayerLose>("Entered " + m_stateName + " state");
 
         // Set inactive skipping rope
+        if (m_object.transform.GetChild(1) == null) return;
         m_object.transform.GetChild(1).gameObject.SetActive(false);
 
         // Play Lose Animation
         m_animator = m_object.GetComponent<Animator>();
         m_animator.SetBool("Lose", true);
+
+        // Set Event 
+        m_object.GetComponent<PlayerManager>().GetGameMode.GetSpawnerEvent.Invoke(false);
     }
 
     public void ExitState()
