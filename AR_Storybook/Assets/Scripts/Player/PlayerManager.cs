@@ -21,6 +21,8 @@ public class PlayerManager : MonoBehaviour
     [Header("Player Section")]
     [SerializeField] private CV_Int m_playerHealth;
     [Range(0.0f,1.0f)] public float m_playerSpeed;
+    [SerializeField] private GameModes m_gameMode;
+    public GameModes GetGameMode { get { return m_gameMode; } }
 
     /// <summary>
     /// Lane Movement of Player
@@ -66,7 +68,7 @@ public class PlayerManager : MonoBehaviour
     [Tooltip("Bool to determine if player has chosen Button Mode")]
     [SerializeField] private CV_Bool m_bButtonMode;
 
-    private bool m_bSpawn=false; //for particles, to prevent spawning more than once
+    private bool m_bSpawn; //for particles, to prevent spawning more than once
     public GameObject ParticlePrefab; //Particles
     private GameObject ParticleParent; //parent of particles
 
@@ -77,9 +79,8 @@ public class PlayerManager : MonoBehaviour
     [SerializeField] private ES_Event m_spawnWinScreen;
     [SerializeField] private ES_Event m_spawnLoseScreen;
     [SerializeField] private ES_Event_Int m_nextInstruction;
-    [SerializeField] private ES_Event_Bool m_startGame;
-    [SerializeField] private ES_Event m_PlayerDamagedEvent;
-    [SerializeField] private ES_Event m_PlayerDiedEvent;
+    //[SerializeField] private ES_Event m_PlayerDamagedEvent;
+    //[SerializeField] private ES_Event m_PlayerDiedEvent;
 
     [Tooltip("Player object to send to Camera for detecting reverse movements")]
     [SerializeField] private ES_Event_Object m_cameraPlayer;
@@ -89,16 +90,20 @@ public class PlayerManager : MonoBehaviour
     /// </summary>
     private void Start()
     {
-        // Initialising Variables
-        m_gravity = Physics.gravity.y;
+        // Get Components
+        m_gameMode = GameObject.FindGameObjectWithTag("BattleScene").GetComponent<GameModes>();
         m_Animator = GetComponent<Animator>();
         m_swipeComponent = GetComponent<Touch_Swipe>();
+        ParticleParent = GameObject.FindGameObjectWithTag("ParticlesHolder");
+
+        // Initialising Variables
+        m_bSpawn = false;
+        m_gravity = Physics.gravity.y;
         m_swipeDirection.value = (int)m_swipeComponent.SwipeDirection;
 
         if (m_originalPlayerIndex < 0 || m_originalPlayerIndex > m_numLanes - 1)
             m_originalPlayerIndex = m_numLanes / 2;
-        else
-            m_originalPlayerIndex = m_playerLaneIndex;
+        else m_originalPlayerIndex = m_playerLaneIndex;
 
         // Send Player Obj 
         ES_Event_Object temp = m_cameraPlayer as ES_Event_Object;
@@ -110,9 +115,6 @@ public class PlayerManager : MonoBehaviour
         m_stateMachine.AddState(new StatePlayerLose("PlayerLose", gameObject));
         m_stateMachine.AddState(new StatePlayerVictory("PlayerVictory", gameObject));
         m_stateMachine.SetNextState("Idle");
-
-        //find particle parent
-        ParticleParent = GameObject.Find("ParticlesParent");
     }
 
     /// <summary>
@@ -126,23 +128,16 @@ public class PlayerManager : MonoBehaviour
         // Update State Machine
         m_stateMachine.Update();
 
-        // If player is not idle, dont update any movements
-        if (!m_stateMachine.GetCurrentState().Equals("Idle"))
-        {
-            m_startGame.Invoke(false);
-            return;
-        }
-
         // ---------- Player Damaged 
         if (m_Animator.GetCurrentAnimatorStateInfo(0).IsName("Damaged"))
         {
-            // if (m_bSpawn) return;
-
             //m_PlayerDamagedEvent.Invoke();
-            m_bSpawn = true;
             SpawnParticles();
-
             return;
+        }
+        else
+        {
+            m_bSpawn = false;
         }
 
         // ---------- Player Win / Lose
@@ -158,8 +153,8 @@ public class PlayerManager : MonoBehaviour
             m_spawnWinScreen.Invoke();
         }
 
-        // ---------- Player Movement
-        if (m_bButtonMode.value)
+        // ---------- Player Movement ( only during Idle state )
+        if (!m_bButtonMode.value)
         {
             PlayerMovement((int)m_swipeComponent.SwipeDirection);
         }
@@ -213,10 +208,13 @@ public class PlayerManager : MonoBehaviour
             case (int)Touch_Swipe.SWIPE_DIRECTION.UP:
                 {
                     // Check if instruct index is this instruction, then raise event
-                    //if (m_nextInstruction.value < m_swipeVertInstruct.transform.GetSiblingIndex()) return;
-                    if (m_nextInstruction.value.Equals(m_swipeVertInstruct.transform.GetSiblingIndex()))
+                    if (m_gameMode.Mode.Equals(GameModes.GAME_MODE.TUTORIAL))
                     {
-                        m_startGame.Invoke(true);
+                        if (m_nextInstruction.value < m_swipeVertInstruct.transform.GetSiblingIndex()) return;
+                        if (m_nextInstruction.value.Equals(m_swipeVertInstruct.transform.GetSiblingIndex()))
+                        {
+                            m_gameMode.GetSpawnerEvent.Invoke(true);
+                        }
                     }
                     m_bTriggerJump = true;
                 }
@@ -226,10 +224,13 @@ public class PlayerManager : MonoBehaviour
             case (int)Touch_Swipe.SWIPE_DIRECTION.LEFT:
                 {
                     // Check if instruct index is this instruction, then raise event
-                    //if (m_nextInstruction.value < m_swipeHorzInstruct.transform.GetSiblingIndex()) return;
-                    if (m_nextInstruction.value.Equals(m_swipeHorzInstruct.transform.GetSiblingIndex()))
+                    if (m_gameMode.Mode.Equals(GameModes.GAME_MODE.TUTORIAL))
                     {
-                        m_nextInstruction.Invoke(m_nextInstruction.value + 1);
+                        if (m_nextInstruction.value < m_swipeHorzInstruct.transform.GetSiblingIndex()) return;
+                        if (m_nextInstruction.value.Equals(m_swipeHorzInstruct.transform.GetSiblingIndex()))
+                        {
+                            m_nextInstruction.Invoke(m_nextInstruction.value + 1);
+                        }
                     }
 
                     // Adjust Player index according to camera view and lane layout
@@ -259,10 +260,13 @@ public class PlayerManager : MonoBehaviour
             case (int)Touch_Swipe.SWIPE_DIRECTION.RIGHT:
                 {
                     // Check if instruct index is this instruction, then raise event
-                    //if (m_nextInstruction.value < m_swipeHorzInstruct.transform.GetSiblingIndex()) return;
-                    if (m_nextInstruction.value.Equals(m_swipeHorzInstruct.transform.GetSiblingIndex()))
+                    if (m_gameMode.Mode.Equals(GameModes.GAME_MODE.TUTORIAL))
                     {
-                        m_nextInstruction.Invoke(m_nextInstruction.value + 1);
+                        if (m_nextInstruction.value < m_swipeHorzInstruct.transform.GetSiblingIndex()) return;
+                        if (m_nextInstruction.value.Equals(m_swipeHorzInstruct.transform.GetSiblingIndex()))
+                        {
+                            m_nextInstruction.Invoke(m_nextInstruction.value + 1);
+                        }
                     }
 
                     // Adjust Player index according to camera view and lane layout
@@ -318,16 +322,22 @@ public class PlayerManager : MonoBehaviour
         m_stateMachine.SetNextState(_stateName);
     }
 
-
+    /// <summary>
+    /// Function to select which particle to spawn according to events
+    /// </summary>
     private void SpawnParticles()
     {
-        if (m_bSpawn)
+        if (!m_bSpawn)
         {
             GameObject temp;
             temp = Instantiate(ParticlePrefab, transform.position, Quaternion.identity);
             temp.transform.SetParent(ParticleParent.transform); //set temp as parent
+            ParticleSystem.MainModule mainModule = temp.GetComponent<ParticleSystem>().main;
+            mainModule.playOnAwake = false;
+            mainModule.loop = false;
+            Debug.Log("o o f");
 
-            m_bSpawn = false;
+            m_bSpawn = true;
         }
     }
 
@@ -340,8 +350,5 @@ public class PlayerManager : MonoBehaviour
         m_stateMachine.SetNextState("Idle");
         // original position
         m_playerLaneIndex = m_originalPlayerIndex;
-        // start game
-        m_startGame.Invoke(true);
-
     }
 }

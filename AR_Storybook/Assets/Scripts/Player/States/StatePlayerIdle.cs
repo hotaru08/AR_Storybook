@@ -14,6 +14,7 @@ public class StatePlayerIdle : IStateBase
     /// Reference to gameobject using this state
     /// </summary>
     private readonly GameObject m_object;
+    private PlayerManager m_player;
     private Animator m_animator;
 
     /// <summary>
@@ -31,10 +32,15 @@ public class StatePlayerIdle : IStateBase
 
     public void EnterState()
     {
-        DebugLogger.Log<StatePlayerIdle>("Entered " + m_stateName + " state");
+        // Get Components
         m_animator = m_object.GetComponent<Animator>();
+        m_player = m_object.GetComponent<PlayerManager>();
+
+        // Play Animation
         m_animator.Play("Idle");
-        if (!m_object.transform.GetChild(1).gameObject.activeSelf)
+
+        // Set objects
+        if (!m_object.transform.GetChild(1).gameObject.activeSelf && m_object.transform.GetChild(1) != null)
             m_object.transform.GetChild(1).gameObject.SetActive(true);
     }
 

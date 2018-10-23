@@ -89,7 +89,7 @@ public class CameraMovement : MonoBehaviour
                 m_bIsNegativeZ = false;
 
                 m_eventsToSend[0].Invoke(m_bIsNegativeZ);
-                DebugLogger.LogWarning<CameraMovement>("Event Send: " + m_eventsToSend[0].name + " Value: " + m_eventsToSend[0].value);
+                //DebugLogger.LogWarning<CameraMovement>("Event Send: " + m_eventsToSend[0].name + " Value: " + m_eventsToSend[0].value);
             }
             else if (Vector3.Angle(m_player.transform.forward, m_camera.transform.forward) > 90.0f
                 && m_player.m_laneStyle.Equals(0)
@@ -98,7 +98,7 @@ public class CameraMovement : MonoBehaviour
                 m_bIsNegativeZ = true;
 
                 m_eventsToSend[0].Invoke(m_bIsNegativeZ);
-                DebugLogger.LogWarning<CameraMovement>("Event Send: " + m_eventsToSend[0].name + " Value: " + m_eventsToSend[0].value);
+                //DebugLogger.LogWarning<CameraMovement>("Event Send: " + m_eventsToSend[0].name + " Value: " + m_eventsToSend[0].value);
             }
         }
     }

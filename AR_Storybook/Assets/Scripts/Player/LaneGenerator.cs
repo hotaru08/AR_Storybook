@@ -171,7 +171,7 @@ public class LaneGenerator : MonoBehaviour
                                                        (m_lanes[m_player.PlayerIndex].transform.localPosition.z - m_lanes[m_player.PlayerIndex].transform.localScale.z * 0.45f));
 
         // Get the lane object that it is spawned with, and get its targetpoint for player
-        m_player.transform.forward = m_lanes[m_player.PlayerIndex].transform.forward;
+        m_player.transform.forward = -m_lanes[m_player.PlayerIndex].transform.forward;
     }
 
     /// <summary>
@@ -216,6 +216,8 @@ public class LaneGenerator : MonoBehaviour
 
                 break;
             case ENEMIES_SPAWN_STYLE.BOSS:
+                tempEnemy.transform.localScale = m_enemyPrefab.transform.localScale;
+
                 switch (m_NumLanes % 2)
                 {
                     case 0: // in between lanes

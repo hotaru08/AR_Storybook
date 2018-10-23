@@ -7,7 +7,7 @@ using UnityEngine.UI;
 /// <summary>
 /// To Spawn the instructions
 /// </summary>
-public class Event_SpawnInstructions : MonoBehaviour
+public class Game_SpawnInstructions : MonoBehaviour
 {
     /// <summary>
     /// Screens

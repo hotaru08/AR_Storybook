@@ -31,18 +31,22 @@ public class StatePlayerVictory : IStateBase
 
     public void EnterState()
     {
-        DebugLogger.Log<StatePlayerVictory>("Entered " + m_stateName + " state");
+        //DebugLogger.Log<StatePlayerVictory>("Entered " + m_stateName + " state");
 
         // Set inactive skipping rope
         m_object.transform.GetChild(1).gameObject.SetActive(false);
 
+        // Play Victory Animation
         m_animator = m_object.GetComponent<Animator>();
         m_animator.SetBool("Victory", true);
+
+        // Set Event 
+        m_object.GetComponent<PlayerManager>().GetGameMode.GetSpawnerEvent.Invoke(false);
     }
 
     public void ExitState()
     {
-        DebugLogger.Log<StateSolMove>("Exiting State " + m_stateName);
+        //DebugLogger.Log<StateSolMove>("Exiting State " + m_stateName);
         m_animator.SetBool("Victory", false);
     }
 
