@@ -13,7 +13,7 @@ public class Lock : MonoBehaviour
 
 	[Header("Events")]
 	[SerializeField] UI_Screen_Mk2 scrumScreen;
-	[SerializeField] ES_Event_Object changeScreenEvent;
+	[SerializeField] ES_Event_UnityObject changeScreenEvent;
 
 	[Header("Audio Clips")]
 	[SerializeField] AudioClip correctButton;
@@ -75,7 +75,6 @@ public class Lock : MonoBehaviour
 			yield return new WaitForEndOfFrame();
 		}
 
-		changeScreenEvent.value = scrumScreen;
-		changeScreenEvent.Invoke();
+		changeScreenEvent.Invoke(scrumScreen);
 	}
 }

@@ -2,27 +2,29 @@
 {
 	using UnityEngine;
 
-	/// <summary>
-	/// Event based on ScriptableObjects with int value.
-	/// </summary>
-	[CreateAssetMenu(menuName = "Event/Int Event", order = 3)]
-	public class ES_Event_Int : ES_Event
+	[CreateAssetMenu(menuName = "TestSpace/Event/Int Event", order = 3)]
+	public class ES_Event_Int : ES_Event_Generic<int>
 	{
-		public int value;
-
 		public override void Invoke()
 		{
-			for (int i = eventListeners.Count - 1; i >= 0; i--)
-			{
-				//if (listenerObject == null || listener == listenerObject)
-					eventListeners[i].OnEventRaised(value);
-			}
+			for (int i = listeners.Count - 1; i >= 0; i--)
+				listeners[i].OnEventRaised(value);
 		}
 
-		public void Invoke(int newValue, GameObject listener = null)
+		public override void Invoke(int? listenerInstanceID)
 		{
-			value = newValue;
-			Invoke();
+			for (int i = listeners.Count - 1; i >= 0; i--)
+				if (listeners[i].gameObject.GetInstanceID() == listenerInstanceID || listenerInstanceID == null)
+					listeners[i].OnEventRaised(value);
+		}
+
+		public override void Invoke(int value, int? listenerInstanceID = null)
+		{
+			this.value = value;
+
+			for (int i = listeners.Count - 1; i >= 0; i--)
+				if (listeners[i].gameObject.GetInstanceID() == listenerInstanceID || listenerInstanceID == null)
+					listeners[i].OnEventRaised(value);
 		}
 	}
 }

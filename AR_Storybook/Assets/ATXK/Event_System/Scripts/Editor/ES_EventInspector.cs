@@ -1,19 +1,17 @@
-﻿namespace ATXK.EventSystem
+﻿namespace ATXK.EventSystem.Editor
 {
-	using System.Collections;
-	using System.Collections.Generic;
 	using UnityEditor;
 	using UnityEngine;
 
-	[CustomEditor(typeof(ES_Event), true)]
+	[CustomEditor(typeof(ES_Event_Abstract), true)]
 	public class ES_EventInspector : Editor
 	{
 		public override void OnInspectorGUI()
 		{
 			DrawDefaultInspector();
 
-			ES_Event gameEvent = (ES_Event)target;
-			if(GUILayout.Button("Raise Event"))
+			ES_Event_Abstract gameEvent = (ES_Event_Abstract)target;
+			if(GUILayout.Button("Invoke Event"))
 			{
 				gameEvent.Invoke();
 			}

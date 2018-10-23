@@ -83,7 +83,7 @@ public class PlayerManager : MonoBehaviour
     //[SerializeField] private ES_Event m_PlayerDiedEvent;
 
     [Tooltip("Player object to send to Camera for detecting reverse movements")]
-    [SerializeField] private ES_Event_Object m_cameraPlayer;
+    [SerializeField] private ES_Event_UnityObject m_cameraPlayer;
 
     /// <summary>
     /// Unity Start Function ( initialise variables )
@@ -99,14 +99,14 @@ public class PlayerManager : MonoBehaviour
         // Initialising Variables
         m_bSpawn = false;
         m_gravity = Physics.gravity.y;
-        m_swipeDirection.value = (int)m_swipeComponent.SwipeDirection;
+        m_swipeDirection.Value = (int)m_swipeComponent.SwipeDirection;
 
         if (m_originalPlayerIndex < 0 || m_originalPlayerIndex > m_numLanes - 1)
             m_originalPlayerIndex = m_numLanes / 2;
         else m_originalPlayerIndex = m_playerLaneIndex;
 
         // Send Player Obj 
-        ES_Event_Object temp = m_cameraPlayer as ES_Event_Object;
+        ES_Event_UnityObject temp = m_cameraPlayer as ES_Event_UnityObject;
         temp.Invoke(this.gameObject);
 
         // Initialising Player States
@@ -160,9 +160,9 @@ public class PlayerManager : MonoBehaviour
         }
         else
         {
-            PlayerMovement(m_swipeDirection.value);
+            PlayerMovement(m_swipeDirection.Value);
             // Reset Swipe Direction to NONE, to prevent continuous updates
-            m_swipeDirection.value = 0;
+            m_swipeDirection.Value = 0;
         }
     }
 
@@ -210,8 +210,8 @@ public class PlayerManager : MonoBehaviour
                     // Check if instruct index is this instruction, then raise event
                     if (m_gameMode.Mode.Equals(GameModes.GAME_MODE.TUTORIAL))
                     {
-                        if (m_nextInstruction.value < m_swipeVertInstruct.transform.GetSiblingIndex()) return;
-                        if (m_nextInstruction.value.Equals(m_swipeVertInstruct.transform.GetSiblingIndex()))
+                        if (m_nextInstruction.Value < m_swipeVertInstruct.transform.GetSiblingIndex()) return;
+                        if (m_nextInstruction.Value.Equals(m_swipeVertInstruct.transform.GetSiblingIndex()))
                         {
                             m_gameMode.GetSpawnerEvent.Invoke(true);
                         }
@@ -226,10 +226,10 @@ public class PlayerManager : MonoBehaviour
                     // Check if instruct index is this instruction, then raise event
                     if (m_gameMode.Mode.Equals(GameModes.GAME_MODE.TUTORIAL))
                     {
-                        if (m_nextInstruction.value < m_swipeHorzInstruct.transform.GetSiblingIndex()) return;
-                        if (m_nextInstruction.value.Equals(m_swipeHorzInstruct.transform.GetSiblingIndex()))
+                        if (m_nextInstruction.Value < m_swipeHorzInstruct.transform.GetSiblingIndex()) return;
+                        if (m_nextInstruction.Value.Equals(m_swipeHorzInstruct.transform.GetSiblingIndex()))
                         {
-                            m_nextInstruction.Invoke(m_nextInstruction.value + 1);
+                            m_nextInstruction.Invoke(m_nextInstruction.Value + 1);
                         }
                     }
 
@@ -262,10 +262,10 @@ public class PlayerManager : MonoBehaviour
                     // Check if instruct index is this instruction, then raise event
                     if (m_gameMode.Mode.Equals(GameModes.GAME_MODE.TUTORIAL))
                     {
-                        if (m_nextInstruction.value < m_swipeHorzInstruct.transform.GetSiblingIndex()) return;
-                        if (m_nextInstruction.value.Equals(m_swipeHorzInstruct.transform.GetSiblingIndex()))
+                        if (m_nextInstruction.Value < m_swipeHorzInstruct.transform.GetSiblingIndex()) return;
+                        if (m_nextInstruction.Value.Equals(m_swipeHorzInstruct.transform.GetSiblingIndex()))
                         {
-                            m_nextInstruction.Invoke(m_nextInstruction.value + 1);
+                            m_nextInstruction.Invoke(m_nextInstruction.Value + 1);
                         }
                     }
 

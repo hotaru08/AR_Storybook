@@ -11,7 +11,7 @@
 		[Tooltip("Screen to change to after time is up.")]
 		[SerializeField] UI_Screen_Mk2 screenToChangeTo;
 		[Tooltip("Object event that the UI manager will be listening for.")]
-		[SerializeField] ES_Event_Object changeScreenEvent;
+		[SerializeField] ES_Event_UnityObject changeScreenEvent;
 
 		private void Start()
 		{
@@ -26,8 +26,7 @@
 			{
 				runtimeLifetime = 0f;
 
-				changeScreenEvent.value = screenToChangeTo;
-				changeScreenEvent.Invoke();
+				changeScreenEvent.Invoke(screenToChangeTo);
 
 				enabled = false;
 			}

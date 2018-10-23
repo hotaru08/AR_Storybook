@@ -2,8 +2,8 @@
 {
 	using UnityEngine;
 
-	[CreateAssetMenu(menuName = "TestSpace/Event/Float Event", order = 4)]
-	public class ES_Event_Float : ES_Event_Generic<float>
+	[CreateAssetMenu(menuName = "TestSpace/Event/Unity Object Event", order = 6)]
+	public class ES_Event_UnityObject : ES_Event_Generic<Object>
 	{
 		public override void Invoke()
 		{
@@ -18,7 +18,7 @@
 					listeners[i].OnEventRaised(value);
 		}
 
-		public override void Invoke(float value, int? listenerInstanceID = null)
+		public override void Invoke(Object value, int? listenerInstanceID = null)
 		{
 			this.value = value;
 

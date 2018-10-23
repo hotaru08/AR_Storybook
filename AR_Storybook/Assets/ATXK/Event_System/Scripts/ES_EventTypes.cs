@@ -1,7 +1,6 @@
 ﻿namespace ATXK.EventSystem
 {
 	using System;
-	using UnityEngine;
 	using UnityEngine.Events;
 
 	[Serializable] public class BoolEvent : UnityEvent<bool> { }

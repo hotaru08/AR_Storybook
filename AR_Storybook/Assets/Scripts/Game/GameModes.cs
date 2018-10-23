@@ -74,7 +74,6 @@ public class GameModes : MonoBehaviour
                 {
                     GameObject temp = Instantiate(m_instructionScreen, this.transform.Find("UI"));
                 }
-                m_triggerInstructions.value = 0;
                 m_triggerInstructions.Invoke(0);
                 break;
             case GAME_MODE.GAME:
@@ -89,7 +88,7 @@ public class GameModes : MonoBehaviour
 
     public void EventReceived(int _value)
     {
-        m_triggerInstructions.value = _value;
+        m_triggerInstructions.Value = _value;
     }
 
     /// <summary>

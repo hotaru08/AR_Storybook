@@ -20,7 +20,7 @@ public class UI_Options : MonoBehaviour
 	// Use this for initialization
 	void Start ()
     {
-        m_isButtonMode.value = m_buttonMode.value;
+        m_isButtonMode.Value = m_buttonMode.value;
 
         if (m_buttonMode.value)
             m_toggle.isOn = true;

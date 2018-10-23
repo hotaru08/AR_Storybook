@@ -9,7 +9,7 @@ using ATXK.ItemSystem;
 [CreateAssetMenu(menuName = "AI/Action/Fire Projectile")]
 public class AI_Action_Spit : AI_Action
 {
-	[SerializeField] ES_Event_Object fireProjectileEvent;
+	[SerializeField] ES_Event_UnityObject fireProjectileEvent;
 	[SerializeField] Item_Holder projectile;
 
 	public override void Act(AI_Controller controller)
