@@ -66,6 +66,8 @@ public class GameModes : MonoBehaviour
     /// </summary>
     private void Start()
     {
+        m_setSpawner.Value = false;
+
         // ---------- Initialise Variables
         switch (m_gameMode)
         {
@@ -84,6 +86,7 @@ public class GameModes : MonoBehaviour
                 m_startCountDown.Invoke(m_countDownTime);
                 break;
             default:
+                m_setSpawner.Value = true;
                 break;
         }
     }
