@@ -8,8 +8,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cc7b1e71e9ffbea4489473b7d750bd6c, type: 3}
-  m_Name: Burger_Attack
+  m_Script: {fileID: 11500000, guid: 2e5200197b6d3ce4b94bbc029612b6a2, type: 3}
+  m_Name: Burger_Idle
   m_EditorClassIdentifier: 
   actions: []
-  transitions: []
+  transitions:
+  - decision: {fileID: 0}
+    trueState: {fileID: 0}
+    falseState: {fileID: 0}
