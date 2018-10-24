@@ -58,7 +58,7 @@ GameObject:
   - component: {fileID: 222685054828998892}
   - component: {fileID: 114325078634629080}
   - component: {fileID: 114602079642107038}
-  - component: {fileID: 114491302072569606}
+  - component: {fileID: 114804298822336812}
   m_Layer: 5
   m_Name: Screen ( Countdown )
   m_TagString: Untagged
@@ -266,7 +266,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_HorizontalFit: 2
   m_VerticalFit: 2
---- !u!114 &114491302072569606
+--- !u!114 &114602079642107038
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -274,12 +274,26 @@ MonoBehaviour:
   m_GameObject: {fileID: 1847375033464594}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 169e4c6d81ea24d49bc254b4c64dc3e3, type: 3}
+  m_Script: {fileID: 11500000, guid: 5cd3eeae8267e284999b4b7ed7859e7f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_count: {fileID: 114234391313089084}
+  m_MaxCountDownTime: 1
+  m_startGame: {fileID: 11400000, guid: 9666872bf9fea6647bedc26419a9c51b, type: 2}
+--- !u!114 &114804298822336812
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1847375033464594}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7110bfc63842cc549974c6d356e6c468, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   eventsToListenFor:
   - {fileID: 11400000, guid: 13dd100abcb0b5e4cb62d8490ee0e04c, type: 2}
-  responseToDefault:
+  responseToDefaultEvent:
     m_PersistentCalls:
       m_Calls: []
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
@@ -320,20 +334,6 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: ATXK.EventSystem.ObjectEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
---- !u!114 &114602079642107038
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1847375033464594}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5cd3eeae8267e284999b4b7ed7859e7f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_count: {fileID: 114234391313089084}
-  m_MaxCountDownTime: 1.5
-  m_startGame: {fileID: 11400000, guid: 9666872bf9fea6647bedc26419a9c51b, type: 2}
 --- !u!222 &222209052501160430
 CanvasRenderer:
   m_ObjectHideFlags: 1

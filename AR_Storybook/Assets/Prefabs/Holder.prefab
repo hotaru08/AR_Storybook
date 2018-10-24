@@ -189,6 +189,7 @@ MonoBehaviour:
   eventsToListenFor:
   - {fileID: 11400000, guid: 46bf490b81f44e3438c6a69a27a9d641, type: 2}
   - {fileID: 11400000, guid: 2ded5d6bef6c26f40b7d5327ac532d6a, type: 2}
+  - {fileID: 11400000, guid: 11598a06182ff30408597f0486b362e0, type: 2}
   responseToDefaultEvent:
     m_PersistentCalls:
       m_Calls:
@@ -233,7 +234,18 @@ MonoBehaviour:
       PublicKeyToken=null
   responseToStringEvent:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 114379233685985020}
+        m_MethodName: ChangingScene
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: ATXK.EventSystem.StringEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
   responseToObjectEvent:
