@@ -1302,7 +1302,6 @@ MonoBehaviour:
   m_AIHealth: {fileID: 11400000, guid: cfc045e01e56180448ba785c864e1e4b, type: 2}
   m_playerHealth: {fileID: 11400000, guid: 2a52433757afdda4c8793faaffe8ec2b, type: 2}
   m_playerSpeed: 0.1
-  m_gameMode: {fileID: 0}
   m_originalPlayerIndex: 0
   m_laneStyle: 0
   m_jumpForce: 3.5
@@ -1314,10 +1313,10 @@ MonoBehaviour:
   m_bButtonMode: {fileID: 11400000, guid: 1d7fb3b4aaafaf942b05030612924400, type: 2}
   ParticlePrefab: {fileID: 1632216061221198, guid: 5beca4e2b55f77847ab3bc76ab617daf,
     type: 2}
-  m_spawnWinScreen: {fileID: 11400000, guid: a00441ed2da04c64c9d106f75ba6848c, type: 2}
+  m_spawnWinScreen: {fileID: 11400000, guid: e1e33649b39cdf9488fba42adfa00115, type: 2}
   m_spawnLoseScreen: {fileID: 11400000, guid: 2f3cb349d7ff340498b0998a25aacbc7, type: 2}
   m_nextInstruction: {fileID: 11400000, guid: 0be07ce8a68c63f4a9018b1a5af75297, type: 2}
-  m_cameraPlayer: {fileID: 11400000, guid: 0b0826032492c39408c47be5519c1378, type: 2}
+  m_cameraPlayer: {fileID: 11400000, guid: 41f1027d3a1ca2a4aba8848bc42f2d37, type: 2}
 --- !u!114 &114215400168569548
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1366,17 +1365,50 @@ MonoBehaviour:
       PublicKeyToken=null
   responseToIntEvent:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 95781155652169152}
+        m_MethodName: SetTrigger
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: Damaged
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: ATXK.EventSystem.IntEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
   responseToFloatEvent:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 95781155652169152}
+        m_MethodName: SetTrigger
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: Damaged
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: ATXK.EventSystem.FloatEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
   responseToStringEvent:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 114196028509778096}
+        m_MethodName: SetState
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: ATXK.EventSystem.StringEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
   responseToObjectEvent:

@@ -1,6 +1,7 @@
 ﻿using ATXK.EventSystem;
 using ATXK.Helper;
 using UnityEngine;
+using ARStorybook.Helpers;
 
 /// <summary>
 /// Generates the Gameplay Lanes accordingly
@@ -33,7 +34,6 @@ public class LaneGenerator : MonoBehaviour
     [Header("Player")]
     [SerializeField]
     private int m_playerIndex;
-    //private int m_playerPrevIndex;
     private const float m_scaleRatio = 8;
     private PlayerManager m_player;
 
@@ -53,6 +53,10 @@ public class LaneGenerator : MonoBehaviour
     /// Store lanes generated into array
     /// </summary>
     private GameObject[] m_lanes;
+
+    [Header("Events to Send")]
+    [Tooltip("Event to send Enemy Pos in each lane")]
+    [SerializeField] private ES_Event_String m_SendEnemyPos;
 
     /// <summary>
     /// Unity Start Function ( change it to init )
@@ -138,7 +142,15 @@ public class LaneGenerator : MonoBehaviour
             else
             {
                 // Spawn only once for BOSS
-                if (m_style.Equals(ENEMIES_SPAWN_STYLE.BOSS) && i != m_NumLanes / 2) continue;
+                if (m_style.Equals(ENEMIES_SPAWN_STYLE.BOSS))
+                {
+                    if (!i.Equals(m_NumLanes / 2))
+                    {
+                        m_SendEnemyPos.Invoke(Serialization.SerialiseVector3(m_lanes[i].transform.GetChild(1).position));
+                        continue;
+                    }
+                    m_SendEnemyPos.Invoke(Serialization.SerialiseVector3(m_lanes[i].transform.GetChild(1).position));
+                }
 
                 GenerateEnemies(m_style, m_lanes[i].transform.localPosition, m_lanes[i].transform.localScale, i, m_lanes[i]);
             }

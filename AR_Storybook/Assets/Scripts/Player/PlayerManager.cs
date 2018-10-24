@@ -21,7 +21,7 @@ public class PlayerManager : MonoBehaviour
     [Header("Player Section")]
     [SerializeField] private CV_Int m_playerHealth;
     [Range(0.0f,1.0f)] public float m_playerSpeed;
-    [SerializeField] private GameModes m_gameMode;
+    private GameModes m_gameMode;
     public GameModes GetGameMode { get { return m_gameMode; } }
 
     /// <summary>
@@ -131,8 +131,9 @@ public class PlayerManager : MonoBehaviour
         if(m_stateMachine != null)
 			m_stateMachine.Update();
 
-		// ---------- Player Damaged 
-		if (m_Animator.GetCurrentAnimatorStateInfo(0).IsName("Damaged"))
+
+        // ---------- Player Damaged 
+        if (m_Animator.GetCurrentAnimatorStateInfo(0).IsName("Damaged"))
         {
             //m_PlayerDamagedEvent.Invoke();
             SpawnParticles();
