@@ -17,10 +17,28 @@
 		public int Damage { get { return projectileDamage; } }
 		#endregion
 
-		public override bool OnCollide(GameObject collidingObject)
+		public override bool OnTriggerEnter(Collider collidingObject)
 		{
-			if(collisionEvent != null)
-				collisionEvent.Invoke();
+			if(collisionEnterEvent != null)
+				collisionEnterEvent.Invoke();
+			if (collisionExitEvent != null || collisionInsideEvent != null)
+				return false;
+			return true;
+		}
+
+		public override bool OnTriggerExit(Collider collidingObject)
+		{
+			if (collisionExitEvent != null)
+				collisionExitEvent.Invoke();
+			return true;
+		}
+
+		public override bool OnTriggerStay(Collider collidingObject)
+		{
+			if (collisionInsideEvent != null)
+				collisionInsideEvent.Invoke();
+			if (collisionExitEvent != null)
+				return false;
 			return true;
 		}
 

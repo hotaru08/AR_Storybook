@@ -25,7 +25,19 @@
 
 		private void OnTriggerEnter(Collider other)
 		{
-			if (runtimeItem.OnCollide(other.gameObject))
+			if (runtimeItem.OnTriggerEnter(other))
+				Destroy(gameObject);
+		}
+
+		private void OnTriggerExit(Collider other)
+		{
+			if (runtimeItem.OnTriggerExit(other))
+				Destroy(gameObject);
+		}
+
+		private void OnTriggerStay(Collider other)
+		{
+			if (runtimeItem.OnTriggerStay(other))
 				Destroy(gameObject);
 		}
 

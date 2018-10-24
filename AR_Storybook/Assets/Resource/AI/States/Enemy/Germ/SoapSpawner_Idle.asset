@@ -9,11 +9,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2e5200197b6d3ce4b94bbc029612b6a2, type: 3}
-  m_Name: Germ_Fire_Soap
+  m_Name: SoapSpawner_Idle
   m_EditorClassIdentifier: 
-  actions:
-  - {fileID: 11400000, guid: f0152097fb6acc142a0b37993997f193, type: 2}
+  actions: []
   transitions:
-  - decision: {fileID: 11400000, guid: b8b1d2173d2caff43a0f854af6ade309, type: 2}
-    trueState: {fileID: 11400000, guid: 5fcab6722f7887148bf5b4f1967c97aa, type: 2}
-    falseState: {fileID: 11400000, guid: 9108c92ed9a09a94191d126d59ff54d4, type: 2}
+  - decision: {fileID: 11400000, guid: 9c574068ce4c4c44488da281083e24ea, type: 2}
+    trueState: {fileID: 11400000, guid: 735eb5077038852489bd25edbc85d095, type: 2}
+    falseState: {fileID: 11400000}

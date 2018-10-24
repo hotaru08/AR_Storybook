@@ -5,9 +5,9 @@
 	[CreateAssetMenu(menuName = "Item/Item/Pickable")]
 	public class Item_Pickable : Item_Base, IPickable
 	{
-		public override bool OnCollide(GameObject collidingObject)
+		public override bool OnTriggerEnter(Collider collidingObject)
 		{
-			Inventory_Holder inventoryHolder = collidingObject.GetComponent<Inventory_Holder>();
+			Inventory_Holder inventoryHolder = collidingObject.gameObject.GetComponent<Inventory_Holder>();
 			if(inventoryHolder != null)
 			{
 				OnPickup(inventoryHolder.Inventory);
@@ -15,10 +15,24 @@
 				return true;
 			}
 
-			if (collisionEvent != null)
-				collisionEvent.Invoke();
+			if (collisionEnterEvent != null)
+				collisionEnterEvent.Invoke();
 
 			return false;
+		}
+
+		public override bool OnTriggerExit(Collider collidingObject)
+		{
+			if (collisionExitEvent != null)
+				collisionExitEvent.Invoke();
+			return true;
+		}
+
+		public override bool OnTriggerStay(Collider collidingObject)
+		{
+			if (collisionInsideEvent != null)
+				collisionInsideEvent.Invoke();
+			return true;
 		}
 
 		public override void Enabled()

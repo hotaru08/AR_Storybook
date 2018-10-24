@@ -11,7 +11,7 @@
 				listeners[i].OnEventRaised(value);
 		}
 
-		public override void Invoke(int? listenerInstanceID)
+		public override void Invoke(int? listenerInstanceID = null)
 		{
 			for (int i = listeners.Count - 1; i >= 0; i--)
 				if (listeners[i].gameObject.GetInstanceID() == listenerInstanceID || listenerInstanceID == null)

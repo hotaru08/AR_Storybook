@@ -268,6 +268,23 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &1853892126651766
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4542646471632866}
+  - component: {fileID: 114493310983645998}
+  - component: {fileID: 114303574429202182}
+  m_Layer: 0
+  m_Name: SoapSpawner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1864036101955998
 GameObject:
   m_ObjectHideFlags: 0
@@ -277,8 +294,26 @@ GameObject:
   m_Component:
   - component: {fileID: 4871239768902286}
   - component: {fileID: 95238267349570362}
+  - component: {fileID: 114291992103556320}
+  - component: {fileID: 114679300703976986}
   m_Layer: 0
   m_Name: germie
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &1864771497996196
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4995360916799772}
+  - component: {fileID: 114008606162044952}
+  m_Layer: 0
+  m_Name: ProjectileSpawner
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -416,7 +451,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1346543644388782}
   m_LocalRotation: {x: 2.3509565e-31, y: 0.7071068, z: -2.3509565e-31, w: 0.7071068}
-  m_LocalPosition: {x: -0, y: 0, z: 0}
+  m_LocalPosition: {x: 0.133, y: 0, z: -1.169}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4687188109840664}
@@ -424,6 +459,19 @@ Transform:
   - {fileID: 4898079495483254}
   m_Father: {fileID: 4871239768902286}
   m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4542646471632866
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1853892126651766}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 10, y: 10, z: 10}
+  m_Children: []
+  m_Father: {fileID: 4871239768902286}
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4545235216101014
 Transform:
@@ -503,7 +551,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1584926735070244}
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0, y: 0, z: 0}
+  m_LocalPosition: {x: 0.133, y: 0, z: -1.169}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4871239768902286}
@@ -543,7 +591,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1243611101632524}
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0, y: 0, z: 0}
+  m_LocalPosition: {x: 0.133, y: 0.413, z: -1.169}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4131542994242236}
@@ -573,11 +621,13 @@ Transform:
   m_GameObject: {fileID: 1864036101955998}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
   m_Children:
   - {fileID: 4816435050577626}
   - {fileID: 4731384428481106}
   - {fileID: 4494687570262508}
+  - {fileID: 4542646471632866}
+  - {fileID: 4995360916799772}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -593,6 +643,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 4494687570262508}
   m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4995360916799772
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1864771497996196}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 10, y: 10, z: 10}
+  m_Children: []
+  m_Father: {fileID: 4871239768902286}
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &95238267349570362
 Animator:
@@ -612,6 +675,151 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &114008606162044952
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1864771497996196}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 94897ad87fe75804586de071b6934ac8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &114291992103556320
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1864036101955998}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0dd33f5749cd13a47bbad39d49650c0a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startState: {fileID: 11400000, guid: 9108c92ed9a09a94191d126d59ff54d4, type: 2}
+  currState: {fileID: 0}
+--- !u!114 &114303574429202182
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1853892126651766}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0dd33f5749cd13a47bbad39d49650c0a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startState: {fileID: 11400000, guid: 91ed6f58c4660b5498de4e86c4683739, type: 2}
+  currState: {fileID: 0}
+--- !u!114 &114493310983645998
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1853892126651766}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7110bfc63842cc549974c6d356e6c468, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  eventsToListenFor:
+  - {fileID: 11400000, guid: 844fd3bedfe009b4d96b1bb51bbb6130, type: 2}
+  responseToDefaultEvent:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  responseToBoolEvent:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: ATXK.EventSystem.BoolEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  responseToIntEvent:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: ATXK.EventSystem.IntEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  responseToFloatEvent:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: ATXK.EventSystem.FloatEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  responseToStringEvent:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: ATXK.EventSystem.StringEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  responseToObjectEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 114008606162044952}
+        m_MethodName: Fire
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_TypeName: ATXK.EventSystem.ObjectEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+--- !u!114 &114679300703976986
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1864036101955998}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7110bfc63842cc549974c6d356e6c468, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  eventsToListenFor:
+  - {fileID: 11400000, guid: 844fd3bedfe009b4d96b1bb51bbb6130, type: 2}
+  responseToDefaultEvent:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  responseToBoolEvent:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: ATXK.EventSystem.BoolEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  responseToIntEvent:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: ATXK.EventSystem.IntEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  responseToFloatEvent:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: ATXK.EventSystem.FloatEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  responseToStringEvent:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: ATXK.EventSystem.StringEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  responseToObjectEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_MethodName: Fire
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_TypeName: ATXK.EventSystem.ObjectEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
 --- !u!137 &137271319949422916
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1

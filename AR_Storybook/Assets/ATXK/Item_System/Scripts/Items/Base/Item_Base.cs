@@ -14,8 +14,10 @@
 		[SerializeField] protected CV_Enum itemType;
 		[SerializeField] protected GameObject itemModel;
 
-		[Header("Item Events")]
-		[SerializeField] protected ES_Event_Base collisionEvent;
+		[Header("Item Collision Events")]
+		[SerializeField] protected ES_Event_Base collisionEnterEvent;
+		[SerializeField] protected ES_Event_Base collisionExitEvent;
+		[SerializeField] protected ES_Event_Base collisionInsideEvent;
 
 		#region Property Getters
 		public string Name { get { return itemName; } }
@@ -24,10 +26,16 @@
 		public int Value { get { return itemValue; } }
 		public CV_Enum Type { get { return itemType; } }
 		public GameObject Model { get { return itemModel; } }
-		public ES_Event_Base CollisionEvent { get { return collisionEvent; } }
+		public ES_Event_Base CollisionEnterEvent { get { return collisionEnterEvent; } }
+		public ES_Event_Base CollisionExitEvent { get { return collisionExitEvent; } }
+		public ES_Event_Base CollisionInsideEvent { get { return collisionInsideEvent; } }
 		#endregion
 
-		public abstract bool OnCollide(GameObject collidingObject);
+		public abstract bool OnTriggerEnter(Collider collidingObject);
+
+		public abstract bool OnTriggerExit(Collider collidingObject);
+
+		public abstract bool OnTriggerStay(Collider collidingObject);
 
 		public abstract void Enabled();
 

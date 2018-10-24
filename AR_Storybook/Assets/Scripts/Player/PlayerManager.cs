@@ -71,6 +71,7 @@ public class PlayerManager : MonoBehaviour
     private bool m_bSpawn; //for particles, to prevent spawning more than once
     public GameObject ParticlePrefab; //Particles
     private GameObject ParticleParent; //parent of particles
+	private bool m_bStunned;
 
     /// <summary>
     /// Events to Send
@@ -98,7 +99,8 @@ public class PlayerManager : MonoBehaviour
 
         // Initialising Variables
         m_bSpawn = false;
-        m_gravity = Physics.gravity.y;
+		m_bStunned = false;
+		m_gravity = Physics.gravity.y;
         m_swipeDirection.Value = (int)m_swipeComponent.SwipeDirection;
 
         if (m_originalPlayerIndex < 0 || m_originalPlayerIndex > m_numLanes - 1)
@@ -126,10 +128,11 @@ public class PlayerManager : MonoBehaviour
         if (m_swipeComponent == null) return;
 
         // Update State Machine
-        m_stateMachine.Update();
+        if(m_stateMachine != null)
+			m_stateMachine.Update();
 
-        // ---------- Player Damaged 
-        if (m_Animator.GetCurrentAnimatorStateInfo(0).IsName("Damaged"))
+		// ---------- Player Damaged 
+		if (m_Animator.GetCurrentAnimatorStateInfo(0).IsName("Damaged"))
         {
             //m_PlayerDamagedEvent.Invoke();
             SpawnParticles();
@@ -154,16 +157,19 @@ public class PlayerManager : MonoBehaviour
         }
 
         // ---------- Player Movement ( only during Idle state )
-        if (!m_bButtonMode.value)
-        {
-            PlayerMovement((int)m_swipeComponent.SwipeDirection);
-        }
-        else
-        {
-            PlayerMovement(m_swipeDirection.Value);
-            // Reset Swipe Direction to NONE, to prevent continuous updates
-            m_swipeDirection.Value = 0;
-        }
+        if(!m_bStunned)
+		{
+			if (!m_bButtonMode.value)
+			{
+				PlayerMovement((int)m_swipeComponent.SwipeDirection);
+			}
+			else
+			{
+				PlayerMovement(m_swipeDirection.Value);
+				// Reset Swipe Direction to NONE, to prevent continuous updates
+				m_swipeDirection.Value = 0;
+			}
+		}
     }
 
     /// <summary>
@@ -196,6 +202,14 @@ public class PlayerManager : MonoBehaviour
         //Debug.DrawLine(transform.position, transform.position + new Vector3(0.0f, -0.01f, 0.0f), Color.blue);
         //transform.localPosition += new Vector3(0.0f, m_verticalVelocity * Time.deltaTime, 0.0f);
     }
+
+	/// <summary>
+	/// Sets whether the player is stunned or not.
+	/// </summary>
+	public void PlayerStunned(bool stunValue)
+	{
+		m_bStunned = stunValue;
+	}
 
     /// <summary>
     /// Player Movements according to swipe direction
