@@ -43,11 +43,6 @@ public class AI_HealthBar : MonoBehaviour
     public DAMAGE_MODE m_mode;
 
     /// <summary>
-    /// Variables for reducing AI_Health
-    /// </summary>
-    private float m_fDamageToDeal;
-
-    /// <summary>
     /// Variables for reducing via time
     /// </summary>
     private bool m_bCanStartReducing;
@@ -56,7 +51,6 @@ public class AI_HealthBar : MonoBehaviour
     {
         m_originalHealth = m_healthBar.sizeDelta.y;
         m_AIHealth.value = m_healthBar.sizeDelta.y;
-        m_fDamageToDeal = 0.0f;
     }
 
     /// <summary>
@@ -66,7 +60,6 @@ public class AI_HealthBar : MonoBehaviour
     {
         // If Player Health / AI Health is 0, stop healthbar
         if (m_playerHealth.value <= 0 || m_AIHealth.value <= 0.0f) return;
-        if (!m_bCanStartReducing) return;
 
         // Based on mode, reduce health accordingly
         switch (m_mode)
@@ -83,14 +76,7 @@ public class AI_HealthBar : MonoBehaviour
         // Adjusts the Healthbar scale according to AI_Health
         m_healthBar.sizeDelta = new Vector2(m_healthBar.sizeDelta.x, m_AIHealth.value);
     }
-
-    /// <summary>
-    /// Responses to Events 
-    /// </summary>
-    public void EventReceived(bool _value)
-    {
-        m_bCanStartReducing = _value;
-    }
+    
     public void ReduceEnemyHealth(float _value)
     {
         if (!m_mode.Equals(DAMAGE_MODE.DAMAGED_BASED)) return;

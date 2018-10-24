@@ -1,4 +1,5 @@
 ﻿using ATXK.CustomVariables;
+using ATXK.EventSystem;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -14,6 +15,20 @@ public class Game_SpawnInstructions : MonoBehaviour
     /// </summary>
     [SerializeField] private GameObject m_instruction;
     [SerializeField] private GameObject m_firstInteractiveScreen;
+    [SerializeField] private ES_Event_Int m_instructionIndex;
+    private int prevInstructIndex;
+
+    private void Start()
+    {
+        prevInstructIndex = m_instructionIndex.Value = 0;
+    }
+
+    private void Update()
+    {
+        if (prevInstructIndex == m_instructionIndex.Value) return;
+        SetInstructions(m_instructionIndex.Value);
+        prevInstructIndex = m_instructionIndex.Value;
+    }
 
     /// <summary>
     /// Set the index of which instruction to show

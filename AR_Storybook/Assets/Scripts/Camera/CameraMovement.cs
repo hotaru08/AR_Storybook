@@ -17,8 +17,8 @@ public class CameraMovement : MonoBehaviour
     /// <summary>
     /// Events to trigger something in other scripts
     /// </summary>
-    [SerializeField]
-    private ES_Event_Bool[] m_eventsToSend;
+    [Tooltip("Event sent when camera is facing towards the player")]
+    [SerializeField] private ES_Event_Bool m_reverseControls;
     private bool m_bIsNegativeZ;
     private PlayerManager m_player;
 
@@ -88,7 +88,7 @@ public class CameraMovement : MonoBehaviour
             {
                 m_bIsNegativeZ = false;
 
-                m_eventsToSend[0].Invoke(m_bIsNegativeZ);
+                m_reverseControls.Invoke(m_bIsNegativeZ);
                 //DebugLogger.LogWarning<CameraMovement>("Event Send: " + m_eventsToSend[0].name + " Value: " + m_eventsToSend[0].value);
             }
             else if (Vector3.Angle(m_player.transform.forward, m_camera.transform.forward) > 90.0f
@@ -97,7 +97,7 @@ public class CameraMovement : MonoBehaviour
             {
                 m_bIsNegativeZ = true;
 
-                m_eventsToSend[0].Invoke(m_bIsNegativeZ);
+               m_reverseControls.Invoke(m_bIsNegativeZ);
                 //DebugLogger.LogWarning<CameraMovement>("Event Send: " + m_eventsToSend[0].name + " Value: " + m_eventsToSend[0].value);
             }
         }

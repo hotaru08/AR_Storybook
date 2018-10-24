@@ -16,6 +16,7 @@ public class GameModes : MonoBehaviour
     /// </summary>
     public enum GAME_MODE
     {
+        NONE,
         TUTORIAL,
         GAME
     }
@@ -57,7 +58,6 @@ public class GameModes : MonoBehaviour
     [Tooltip("Event to set activeness of AIs spawner")]
     [SerializeField] private ES_Event_Bool m_setSpawner;
     public ES_Event_Bool GetSpawnerEvent { get { return m_setSpawner; } }
-
     [Tooltip("Event to reset Health of both Player and AIs")]
     [SerializeField] private ES_Event_Base m_resetHealth;
 
@@ -70,18 +70,20 @@ public class GameModes : MonoBehaviour
         switch (m_gameMode)
         {
             case GAME_MODE.TUTORIAL:
-                if (this.transform.Find("UI/Screen ( Instructions )") == null)
+                if (transform.Find("UI ( Battle )/Screen ( Instructions )") == null)
                 {
-                    GameObject temp = Instantiate(m_instructionScreen, this.transform.Find("UI"));
+                    GameObject temp = Instantiate(m_instructionScreen, transform.Find("UI ( Battle )"));
                 }
                 m_triggerInstructions.Invoke(0);
                 break;
             case GAME_MODE.GAME:
-                if (this.transform.Find("UI/Screen ( Countdown )") == null)
+                if (transform.Find("UI ( Battle )/Screen ( Countdown )") == null)
                 {
-                    GameObject temp = Instantiate(m_countDownScreen, this.transform.Find("UI"));
+                    GameObject temp = Instantiate(m_countDownScreen, transform.Find("UI ( Battle )"));
                 }
                 m_startCountDown.Invoke(m_countDownTime);
+                break;
+            default:
                 break;
         }
     }
