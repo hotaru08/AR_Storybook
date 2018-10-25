@@ -9,12 +9,14 @@
 
 		private void Start()
 		{
-			currState = startState;
+			if(startState != null)
+				currState = startState;
 		}
 
 		private void Update()
 		{
-			currState.UpdateState(this);
+			if(currState != null)
+				currState.UpdateState(this);
 		}
 
 		public void ChangeState(AI_State nextState)

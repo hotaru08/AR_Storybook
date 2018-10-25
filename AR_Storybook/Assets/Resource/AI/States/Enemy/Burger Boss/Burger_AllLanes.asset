@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e5200197b6d3ce4b94bbc029612b6a2, type: 3}
+  m_Name: Burger_AllLanes
+  m_EditorClassIdentifier: 
+  actions:
+  - {fileID: 11400000, guid: 08c6ca6d265e5dc49963d3baaaa4b4ed, type: 2}
+  transitions:
+  - decision: {fileID: 11400000, guid: bae1c3f7a226ab6499d42ffd1bd57ed6, type: 2}
+    trueState: {fileID: 11400000, guid: af3fad585f78a4046ac63134fc326918, type: 2}
+    falseState: {fileID: 11400000, guid: af3fad585f78a4046ac63134fc326918, type: 2}
