@@ -7,7 +7,6 @@
 	public class ConveyorBelt : MonoBehaviour
 	{
 		[SerializeField] float conveyorSpeed;
-
 		BoxCollider collider;
 
 		private void Awake()
