@@ -21,6 +21,10 @@
 		public override void Invoke(Object value, int? listenerInstanceID = null)
 		{
 			this.value = value;
+			if (listenerInstanceID == null)
+				Debug.Log("INVOKE ON ALL LISTENERS");
+			else if(listenerInstanceID != null)
+				Debug.Log("INVOKE ON TARGET LISTENERS");
 
 			for (int i = listeners.Count - 1; i >= 0; i--)
 				if (listeners[i].gameObject.GetInstanceID() == listenerInstanceID || listenerInstanceID == null)

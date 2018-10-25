@@ -9,10 +9,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2e5200197b6d3ce4b94bbc029612b6a2, type: 3}
-  m_Name: Burger_Idle
+  m_Name: Burger_ChooseAttack
   m_EditorClassIdentifier: 
   actions: []
   transitions:
-  - decision: {fileID: 11400000, guid: 11e3341068346734791951ee0931c586, type: 2}
-    trueState: {fileID: 11400000, guid: 299164fdd66e7b64fa11915432d0b591, type: 2}
-    falseState: {fileID: 11400000}
+  - decision: {fileID: 11400000, guid: 553c7e7367af3c748be7bfd2919d5b5c, type: 2}
+    trueState: {fileID: 11400000, guid: 4b7867b9c1b608a469d2aef2e42aeeea, type: 2}
+    falseState: {fileID: 11400000, guid: 2ee4d4353b609fb4c8457c559767ef53, type: 2}

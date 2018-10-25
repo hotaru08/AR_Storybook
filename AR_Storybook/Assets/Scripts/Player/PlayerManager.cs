@@ -28,11 +28,11 @@ public class PlayerManager : MonoBehaviour
     /// Lane Movement of Player
     /// </summary>
     private int m_playerLaneIndex;
-    public int m_originalPlayerIndex;
+    [HideInInspector] public int m_originalPlayerIndex;
     public int PlayerIndex { set { m_playerLaneIndex = value; } get { return m_playerLaneIndex; } }
     private int m_numLanes; 
     public int NumberOfLanes { set { m_numLanes = value; } }
-    public int m_laneStyle;
+    [HideInInspector] public int m_laneStyle;
 
     /// <summary>
     /// To Trigger Jump of Player
@@ -350,7 +350,6 @@ public class PlayerManager : MonoBehaviour
             ParticleSystem.MainModule mainModule = temp.GetComponent<ParticleSystem>().main;
             mainModule.playOnAwake = false;
             mainModule.loop = false;
-            Debug.Log("o o f");
 
             m_bSpawn = true;
         }
