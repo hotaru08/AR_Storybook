@@ -21,9 +21,9 @@
 		{
 			if(collisionEnterEvent != null)
 				collisionEnterEvent.Invoke();
-			if (collisionExitEvent != null || collisionInsideEvent != null)
-				return false;
-			return true;
+			if (collisionExitEvent == null && collisionInsideEvent == null)
+				return true;
+			return false;
 		}
 
 		public override bool OnTriggerExit(Collider collidingObject)
@@ -37,9 +37,9 @@
 		{
 			if (collisionInsideEvent != null)
 				collisionInsideEvent.Invoke();
-			if (collisionExitEvent != null)
-				return false;
-			return true;
+			if (collisionEnterEvent == null && collisionExitEvent == null)
+				return true;
+			return false;
 		}
 
 		public override void Enabled()

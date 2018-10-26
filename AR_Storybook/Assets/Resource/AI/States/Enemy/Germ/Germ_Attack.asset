@@ -11,8 +11,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e5200197b6d3ce4b94bbc029612b6a2, type: 3}
   m_Name: Germ_Attack
   m_EditorClassIdentifier: 
-  actions: []
+  actions:
+  - {fileID: 11400000, guid: b5c9ea3154f263e48863b4d62f1756b8, type: 2}
   transitions:
-  - decision: {fileID: 11400000, guid: c3f11ff75a99af44a9d6661b4611f997, type: 2}
-    trueState: {fileID: 11400000, guid: 1d8e7cf6da85ae04e83550d1a70ff619, type: 2}
-    falseState: {fileID: 11400000, guid: 18ee206cc2ce64d4b9b0c9cb2433517d, type: 2}
+  - decision: {fileID: 11400000, guid: 88e832f1e9476014a94e51cf0b8377c4, type: 2}
+    trueState: {fileID: 11400000, guid: 9108c92ed9a09a94191d126d59ff54d4, type: 2}
+    falseState: {fileID: 11400000, guid: 9108c92ed9a09a94191d126d59ff54d4, type: 2}

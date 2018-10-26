@@ -8,10 +8,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6d2ddf91d2cfdbf4f87d25429d04261c, type: 3}
-  m_Name: Germ_Fire_Spit
+  m_Script: {fileID: 11500000, guid: 34d63d9cfca88114ebae81e0a83da079, type: 3}
+  m_Name: Couch_SpawnProjectiles
   m_EditorClassIdentifier: 
+  fireOnAll: 0
   fireProjectileEvent: {fileID: 11400000, guid: 844fd3bedfe009b4d96b1bb51bbb6130,
     type: 2}
-  projectile: {fileID: 114769187775953842, guid: d781f0b2251da984a9ad866e3fc73ce1,
-    type: 2}
+  itemList:
+  - item: {fileID: 114769187775953842, guid: d781f0b2251da984a9ad866e3fc73ce1, type: 2}
+    chance: 0.526
+  - item: {fileID: 114323029722900414, guid: f9c3e8375f8515e44a9ffd841edef0c4, type: 2}
+    chance: 0.189

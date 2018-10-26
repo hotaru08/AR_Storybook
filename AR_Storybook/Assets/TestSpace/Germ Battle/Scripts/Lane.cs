@@ -9,7 +9,6 @@
 	{
 		public Transform enemyPosition;
 		public Transform playerPosition;
-		public ConveyorBelt conveyorBelt;
 		public AI_Controller enemyPrefab;
 		public GameObject enemy;
 		public int laneID;
@@ -17,8 +16,6 @@
 
 		private void Start()
 		{
-			conveyorBelt = GetComponent<ConveyorBelt>();
-
 			SpawnEnemy();
 		}
 
