@@ -44,6 +44,7 @@ public class AI_Action_SpawnItem : AI_Action
 					laneID = controller.gameObject.GetInstanceID();
 
 				fireProjectileEvent.Invoke(itemList[i].item.gameObject, laneID);
+				return;
 			}
 			else
 			{
