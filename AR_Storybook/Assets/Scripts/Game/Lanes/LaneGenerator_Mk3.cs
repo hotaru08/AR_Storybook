@@ -4,8 +4,7 @@
     using ATXK.EventSystem;
     using System.Collections.Generic;
     using UnityEngine;
-
-    [RequireComponent(typeof(ES_EventListener))]
+    
     public class LaneGenerator_Mk3 : MonoBehaviour
     {
         /// <summary>
@@ -35,7 +34,8 @@
         {
             EACH_LANE,
             W_STYLE,
-            BOSS
+            BOSS,
+            NONE
         }
         [Header("Enemies Settings")]
         [Tooltip("Spawn Style of Enemies")]
@@ -78,6 +78,10 @@
         private Vector3 m_startingSpawnPos;
         private int m_numEnemies;
 
+        /// HACK # 0
+        [SerializeField]
+        private Transform m_spawnPoint;
+
         /// <summary>
         /// List to store the lanes
         /// </summary>
@@ -93,8 +97,8 @@
             GetComponent<MeshRenderer>().enabled = false;
 
             // ----- Get bounds of spawn area
-            m_widthBounds = m_renderer.bounds.size.x;
-            m_heightBounds = m_renderer.bounds.size.z;
+            m_widthBounds = transform.localScale.x;
+            m_heightBounds = transform.localScale.z;
 
             // ----- Initialise 
             m_laneList = new List<Lane_Mk2>();
@@ -113,6 +117,7 @@
             GenerateLayout();
             GeneratePlayer();
             GenerateEnemyLayout();
+            DebugPrint();
         }
 
         /// <summary>
@@ -137,22 +142,30 @@
         private void GenerateHorizontalLayout()
         {
             // Set Starting Position for generating
-            m_startingSpawnPos = new Vector3((m_renderer.bounds.min.x / m_widthBounds) + m_widthLane * 0.5f,
-                                             transform.position.y,
-                                             transform.position.z);
-            Debug.Log(m_renderer.bounds.min.x);
-            Debug.Log(m_widthBounds + " ? " + m_widthLane);
-            Debug.Log(m_startingSpawnPos);
+            // HACK # 1
+            m_startingSpawnPos = new Vector3(((m_spawnPoint.localPosition.x - transform.localScale.x * 0.5f) / m_widthBounds) + m_widthLane * 0.5f,
+                                             0.0f,    
+                                             0.0f);
 
             for (int i = 0; i < m_numLanes; ++i)
             {
                 // Create a new Lane
-                Lane_Mk2 tempLane = Instantiate(m_lanePrefab, this.transform);
+                Lane_Mk2 tempLane = Instantiate(m_lanePrefab, transform);
                 // Set Scale of Lane
-                tempLane.transform.localScale = new Vector3(m_widthLane, 1f, 1f);
+                tempLane.transform.localScale = new Vector3(m_widthLane, tempLane.transform.localScale.y, 1f);
+
+                if (m_style.Equals(ENEMIES_SPAWN_STYLE.NONE))
+                {
+                    tempLane.enemyPrefab = m_enemyPrefab;
+                    tempLane.enemyScale = m_scaleMultiplier;
+                    tempLane.laneID = i;
+                }
+
                 // Set Position of Lane
-                tempLane.transform.localPosition = m_startingSpawnPos;
+                tempLane.transform.localPosition = m_startingSpawnPos + m_spawnPoint.localPosition; // HACK # 2
                 m_startingSpawnPos.x += m_widthLane;
+                // Set Forward
+                tempLane.transform.forward = -tempLane.transform.forward;
                 // Add to list 
                 m_laneList.Add(tempLane);
             }
@@ -161,10 +174,8 @@
         /// <summary>
         /// Generation of Lanes in a Circular Layout
         /// </summary>
-        private void GenerateCircularLayout()
+        private void GenerateCircularLayout() //// 00000000000000
         {
-            // Set Starting Position for generating
-            m_startingSpawnPos = transform.position;
             // Angle in degrees between each lane
             float m_angleBetweenLanes = 360f / m_numLanes;
             // Radius of the circular area in the middle of lanes
@@ -172,17 +183,24 @@
 
             for (int i = 0; i < m_numLanes; ++i)
             {
-                Lane_Mk2 tempLane = Instantiate(m_lanePrefab, this.transform);
-                float m_offsetPos = tempLane.GetComponent<Renderer>().bounds.extents.z;
-
+                Lane_Mk2 tempLane = Instantiate(m_lanePrefab);
+                float m_offsetPos = tempLane.transform.localScale.z * 0.5f ;
+                //float m_offsetPos = tempLane.GetComponent<Renderer>().bounds.extents.z;
+                //Debug.Log("Offset Z: " + tempLane.GetComponent<Renderer>().bounds.extents.z);
+                
                 // Scale Lane - S
-                tempLane.transform.localScale = new Vector3(m_widthLane, 1f, 1f);
+                //tempLane.transform.localScale = new Vector3(m_widthLane, 1f, 1f);
                 // Rotate Lane according to forward of transform - R
-                tempLane.transform.localRotation = transform.rotation;
+                //tempLane.transform.localRotation = transform.rotation;
+                tempLane.transform.rotation = transform.rotation;
                 // Set position of lane - T
-                tempLane.transform.position = transform.position;
+                tempLane.transform.position = m_spawnPoint.position;
                 tempLane.transform.position += tempLane.transform.forward * (m_radius + m_offsetPos);
-
+                // Set Forward
+                tempLane.transform.forward = -tempLane.transform.forward;
+                tempLane.enemyPrefab = m_enemyPrefab;
+                tempLane.enemyScale = m_scaleMultiplier;
+                tempLane.laneID = i;
                 // Rotate transform to face next spawn direction
                 transform.Rotate(Vector3.up, m_angleBetweenLanes);
                 m_laneList.Add(tempLane);
@@ -195,22 +213,19 @@
         private void GeneratePlayer()
         {
             // Create Player object
-            m_player = Instantiate(m_playerPrefab, this.transform, true);
+            m_player = Instantiate(m_playerPrefab, transform.parent, true);
 
             // Setting Player Variables
             m_player.PlayerIndex = m_playerIndex;
             m_player.NumberOfLanes = m_numLanes;
             m_player.m_laneStyle = (int)m_laneLayout;
 
+            // Set Scale 
+            m_player.transform.localScale = new Vector3(m_scaleMultiplier, m_scaleMultiplier, m_scaleMultiplier);
             // Set Position
             m_player.transform.position = m_laneList[m_playerIndex].m_playerSpawnPoint.position;
-            // Set Scale 
-            m_player.transform.localScale = new Vector3(m_scaleMultiplier,
-                                                        m_player.transform.localScale.y * m_scaleMultiplier,
-                                                        m_scaleMultiplier);
-
             // Make Player Look at forward of Lane
-            m_player.transform.forward = m_laneList[m_playerIndex].transform.forward;
+            m_player.transform.LookAt(m_laneList[m_playerIndex].m_enemySpawnPoint);
             // Set bool true
             m_laneList[m_playerIndex].PlayerOnLane = true;
         }
@@ -251,16 +266,21 @@
         /// </summary>
         private void GenerateEnemy(ENEMIES_SPAWN_STYLE _style, Lane_Mk2 _lane, int _index)
         {
+            if (_style.Equals(ENEMIES_SPAWN_STYLE.NONE)) return; 
+
             // Create Enemies
-            AI_Controller tempEnemy = Instantiate(m_enemyPrefab, transform, true);
+            AI_Controller tempEnemy = Instantiate(m_enemyPrefab, transform.parent, true);
 
             // Set Scale of Enemy
-            tempEnemy.transform.localScale = new Vector3(m_scaleMultiplier,
-                                                         tempEnemy.transform.localScale.y * m_scaleMultiplier,
-                                                         m_scaleMultiplier);
+            if (!m_style.Equals(ENEMIES_SPAWN_STYLE.NONE))
+                tempEnemy.transform.localScale = new Vector3(m_scaleMultiplier, m_scaleMultiplier, m_scaleMultiplier);
+            // Offset Variables ---- HACK #3 KMS yes
+            float m_offsetZ = 0.25f * transform.localScale.z;
 
             // Based on Style, position the enemies accordingly
             tempEnemy.transform.position = _lane.m_enemySpawnPoint.position;
+            //tempEnemy.transform.localPosition = _lane.transform.localPosition;
+            Debug.LogWarning("Enemy Position : " + tempEnemy.transform.position + " / Local: " + tempEnemy.transform.localPosition);
             switch (_style)
             {
                 case ENEMIES_SPAWN_STYLE.W_STYLE:
@@ -273,9 +293,9 @@
                                     break;
                                 case 1:
                                     // Add a z offset
-                                    tempEnemy.transform.position += _lane.m_enemySpawnPoint.forward * 0.5f;
+                                    tempEnemy.transform.localPosition -= _lane.m_enemySpawnPoint.forward * (m_offsetZ);
                                     // Add a x offset
-                                    tempEnemy.transform.position -= _lane.m_enemySpawnPoint.right * m_widthLane * 0.5f;
+                                    //tempEnemy.transform.localPosition += _lane.m_enemySpawnPoint.right * m_widthLane * 0.5f;
                                     Destroy(tempEnemy.transform.Find("ProjectileSpawner").gameObject);
                                     return;
                             }
@@ -286,6 +306,7 @@
                     }
                     break;
                 case ENEMIES_SPAWN_STYLE.BOSS:
+                    tempEnemy.transform.localScale = m_enemyPrefab.transform.localScale;
                     switch (m_laneLayout)
                     {
                         case LANE_LAYOUT.HORIZONTAL:
@@ -293,7 +314,7 @@
                             {
                                 case 0:
                                     // Add a x offset
-                                    tempEnemy.transform.position -= _lane.m_enemySpawnPoint.right * m_widthLane * 0.5f;
+                                    tempEnemy.transform.localPosition += _lane.m_enemySpawnPoint.right * m_widthLane * 0.5f;
                                     break;
                                 case 1:
                                     break;
@@ -301,6 +322,7 @@
                             break;
                         case LANE_LAYOUT.CIRCULAR:
                             // set to first lane
+
                             break;
                     }
                     break;
@@ -308,13 +330,13 @@
                     break;
             }
             // Add a z offset
-            tempEnemy.transform.position += _lane.m_enemySpawnPoint.forward * 0.25f;
+            //tempEnemy.transform.localPosition -= _lane.m_enemySpawnPoint.forward * m_offsetZ;
 
             // Make Enemy look accordingly to lane layout
             switch (m_laneLayout)
             {
                 case LANE_LAYOUT.HORIZONTAL:
-                    tempEnemy.transform.forward = -m_laneList[0].transform.forward;
+                    tempEnemy.transform.forward = m_laneList[0].transform.forward;
                     break;
                 case LANE_LAYOUT.CIRCULAR:
                     tempEnemy.transform.LookAt(transform);
@@ -341,5 +363,13 @@
             m_player.transform.LookAt(m_laneList[m_player.PlayerIndex].m_enemySpawnPoint);
             m_player.transform.position = Vector3.Lerp(m_player.transform.position, m_laneList[m_player.PlayerIndex].m_playerSpawnPoint.position, m_player.m_playerSpeed);
         }
+
+        private void DebugPrint()
+        {
+            Debug.LogWarning("Player Pos: " + m_player.transform.position + " / Local Pos: " + m_player.transform.localPosition + "\n");
     }
+    }
+
+
+
 }

@@ -35,7 +35,8 @@ public class Touch_Swipe : MonoBehaviour
     /// <summary>
     /// The area where user have to cross to consider as a swipe ( in pixels )
     /// </summary>
-    private const float m_deadzoneDistance = 10;
+    [SerializeField]
+    private float m_deadzoneDistance = 10;
 
     private void Update()
     {

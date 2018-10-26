@@ -179,29 +179,34 @@ public class PlayerManager : MonoBehaviour
     private void FixedUpdate()
     {
         // Check if player is on ground
-        //if (IsGrounded())
-        //{
-        //    // Set velocity to be a small force so that player remains close to the ground
-        //    m_verticalVelocity = m_gravity * Time.deltaTime;
+        if (IsGrounded())
+        {
+            // Set velocity to be a small force so that player remains close to the ground
+            //m_verticalVelocity = m_gravity * Time.deltaTime;
 
-        //    if (m_bTriggerJump)
-        //    {
-        //        m_bTriggerJump = false;
-        //        // Set the velocity to be jump force ( force that pushes player off ground )
-        //        m_verticalVelocity = m_jumpForce;
-        //    }
-        //    //DebugLogger.LogWarning<PlayerManager>("Velocity Up: " + m_verticalVelocity); // in mobile, force gets reset to default force
-        //    //DebugLogger.LogWarning<PlayerManager>("IsGrounded: + " + IsGrounded());
-        //}
-        //else
-        //{
-        //    m_verticalVelocity += m_gravity * Time.deltaTime;
-        //    DebugLogger.LogWarning<PlayerManager>("Velocity falling: " + m_verticalVelocity);
-        //    DebugLogger.LogWarning<PlayerManager>("IsGrounded: + " + IsGrounded());
-        //}
+            if (m_bTriggerJump)
+            {
+                m_bTriggerJump = false;
+                // Set the velocity to be jump force ( force that pushes player off ground )
+                //m_verticalVelocity = m_jumpForce;
+            }
+            //DebugLogger.LogWarning<PlayerManager>("Velocity Up: " + m_verticalVelocity); // in mobile, force gets reset to default force
+            //DebugLogger.LogWarning<PlayerManager>("IsGrounded: + " + IsGrounded());
+        }
+        else
+        {
+            m_verticalVelocity += m_gravity * Time.deltaTime;
+            if (transform.position.y <= -0.5f)
+            {
+                Debug.LogWarning("Testing : " + transform.position.y);
+            }
+            //DebugLogger.LogWarning<PlayerManager>("Velocity falling: " + m_verticalVelocity);
+            //DebugLogger.LogWarning<PlayerManager>("Transform: " + transform.position);
+            //DebugLogger.LogWarning<PlayerManager>("IsGrounded: + " + IsGrounded());
+        }
 
-        //Debug.DrawLine(transform.position, transform.position + new Vector3(0.0f, -0.01f, 0.0f), Color.blue);
-        //transform.localPosition += new Vector3(0.0f, m_verticalVelocity * Time.deltaTime, 0.0f);
+        Debug.DrawLine(transform.position, transform.position + new Vector3(0.0f, -0.03f, 0.0f), Color.blue);
+        transform.position += new Vector3(0.0f, m_verticalVelocity * Time.deltaTime, 0.0f);
     }
 
 	/// <summary>
@@ -325,7 +330,7 @@ public class PlayerManager : MonoBehaviour
     /// <returns>True when player is on ground</returns>
     private bool IsGrounded()
     {
-        return Physics.Raycast(transform.position, Vector3.down, 0.01f);
+        return Physics.Raycast(transform.position, Vector3.down, 0.03f);
     }
 
     /// <summary>
@@ -345,13 +350,14 @@ public class PlayerManager : MonoBehaviour
         if (!m_bSpawn)
         {
             GameObject temp;
-            temp = Instantiate(ParticlePrefab, transform.position, Quaternion.identity);
-            temp.transform.SetParent(ParticleParent.transform); //set temp as parent
+            temp = Instantiate(ParticlePrefab, ParticleParent.transform);
+            temp.transform.position = transform.position;
             ParticleSystem.MainModule mainModule = temp.GetComponent<ParticleSystem>().main;
             mainModule.playOnAwake = false;
             mainModule.loop = false;
-
             m_bSpawn = true;
+            Debug.LogWarning("PlayerManager: particle pos : " + temp.transform.position);
+            Debug.LogWarning("PlayerManager: " + transform.position);
         }
     }
 

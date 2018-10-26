@@ -37,6 +37,7 @@ public class UI_Options : MonoBehaviour
         {
             m_buttonMode.value = value;
             m_isButtonMode.Invoke(m_buttonMode.value);
+            Debug.LogWarning("Mode: " + m_buttonMode.value);
         }
         get
         {
