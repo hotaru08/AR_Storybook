@@ -23,5 +23,12 @@
 		{
 			currState = nextState;
 		}
+
+		public void ChangeState(Object nextState)
+		{
+			AI_State state = nextState as AI_State;
+			if (state != null)
+				ChangeState(state);
+		}
 	}
 }

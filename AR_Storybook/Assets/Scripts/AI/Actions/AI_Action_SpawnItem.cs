@@ -40,7 +40,7 @@ public class AI_Action_SpawnItem : AI_Action
 			if (randomPoint <= itemList[i].chance)
 			{
 				int? laneID = null;
-				if (fireOnAll)
+				if (!fireOnAll)
 					laneID = controller.gameObject.GetInstanceID();
 
 				fireProjectileEvent.Invoke(itemList[i].item.gameObject, laneID);

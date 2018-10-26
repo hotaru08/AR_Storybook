@@ -1,7 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using ATXK.EventSystem;
+﻿using UnityEngine;
 using ATXK.ItemSystem;
 
 public class AI_Projectile_Spawner : MonoBehaviour

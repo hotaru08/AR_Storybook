@@ -9,11 +9,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2e5200197b6d3ce4b94bbc029612b6a2, type: 3}
-  m_Name: Burger_PerLane
+  m_Name: Minion_AttackWait
   m_EditorClassIdentifier: 
-  actions:
-  - {fileID: 11400000, guid: 3b729b1c17adf8b4fb57d10dcd4187fb, type: 2}
+  actions: []
   transitions:
-  - decision: {fileID: 11400000, guid: bae1c3f7a226ab6499d42ffd1bd57ed6, type: 2}
-    trueState: {fileID: 11400000, guid: af3fad585f78a4046ac63134fc326918, type: 2}
-    falseState: {fileID: 11400000, guid: af3fad585f78a4046ac63134fc326918, type: 2}
+  - decision: {fileID: 11400000, guid: 85da14fbd389fb3459df218bbce5163c, type: 2}
+    trueState: {fileID: 11400000, guid: 81d04bf477b86394996edac14377cac6, type: 2}
+    falseState: {fileID: 11400000}

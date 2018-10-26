@@ -66,6 +66,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   eventsToListenFor:
   - {fileID: 11400000, guid: 844fd3bedfe009b4d96b1bb51bbb6130, type: 2}
+  - {fileID: 11400000, guid: e03664d12b2ddd94dad7342906d32996, type: 2}
   responseToDefaultEvent:
     m_PersistentCalls:
       m_Calls: []
@@ -105,6 +106,17 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 114835315440371268}
+        m_MethodName: ChangeState
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: ATXK.EventSystem.ObjectEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
 --- !u!114 &114835315440371268
@@ -118,5 +130,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0dd33f5749cd13a47bbad39d49650c0a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startState: {fileID: 0}
+  startState: {fileID: 11400000, guid: 8d7fc5de367d2a04b88d7a24d67a6adc, type: 2}
   currState: {fileID: 0}
