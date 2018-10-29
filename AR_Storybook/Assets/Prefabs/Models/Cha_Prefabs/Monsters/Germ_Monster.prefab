@@ -171,7 +171,6 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4843707557446116}
-  - component: {fileID: 95936255558931392}
   m_Layer: 0
   m_Name: germie
   m_TagString: Untagged
@@ -220,6 +219,8 @@ GameObject:
   - component: {fileID: 4104441750189908}
   - component: {fileID: 114028629864054228}
   - component: {fileID: 114898961757212398}
+  - component: {fileID: 95227826775754364}
+  - component: {fileID: 114809372447596422}
   m_Layer: 0
   m_Name: Germ_Monster
   m_TagString: Untagged
@@ -655,16 +656,16 @@ Transform:
   m_Father: {fileID: 4442367088721474}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!95 &95936255558931392
+--- !u!95 &95227826775754364
 Animator:
   serializedVersion: 3
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1301953163800320}
+  m_GameObject: {fileID: 1402463809620366}
   m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: f331d551abdbed744bcc69ad60af9095, type: 3}
-  m_Controller: {fileID: 0}
+  m_Avatar: {fileID: 9000000, guid: 7223ffcb93085ac438e6e38a0feca15e, type: 3}
+  m_Controller: {fileID: 9100000, guid: 3cf43f5107bd9cf448c4f8f674f5363e, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -695,6 +696,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 94897ad87fe75804586de071b6934ac8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &114809372447596422
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1402463809620366}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4eb8e5e7c37b34746a65e9b6565d641d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &114898961757212398
@@ -738,6 +750,17 @@ MonoBehaviour:
   responseToObjectEvent:
     m_PersistentCalls:
       m_Calls:
+      - m_Target: {fileID: 114809372447596422}
+        m_MethodName: ChangeAttackAnimation
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
       - m_Target: {fileID: 114767031153839058}
         m_MethodName: Fire
         m_Mode: 0
