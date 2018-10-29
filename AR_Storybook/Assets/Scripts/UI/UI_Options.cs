@@ -18,7 +18,7 @@ public class UI_Options : MonoBehaviour
     [SerializeField] private Toggle m_toggle;
 
 	// Use this for initialization
-	void Start ()
+	void OnEnable()
     {
         m_isButtonMode.Value = m_buttonMode.value;
 

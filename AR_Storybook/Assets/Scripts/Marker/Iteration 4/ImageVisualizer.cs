@@ -46,14 +46,13 @@ public class ImageVisualizer : MonoBehaviour
 		m_GeneratedObject.transform.parent = transform;
         //m_GeneratedObject.transform.localScale = new Vector3(m_Image.ExtentX, m_Image.ExtentX, m_Image.ExtentX) * scaleMultiplier;
 
-        Debug.LogWarning("Pos: " + m_GeneratedObject.transform.position);
-        Debug.LogWarning("Local Pos: " + m_GeneratedObject.transform.localPosition);
-        Debug.LogWarning("Visualiser Pos: " + transform.position);
-
-        Debug.LogWarning("Scale of Created GameObject: " + m_GeneratedObject.transform.lossyScale);
-        Debug.LogWarning("Scale of Created GameObject local: " + m_GeneratedObject.transform.localScale);
-        Debug.LogWarning("Parent: " + m_GeneratedObject.transform.parent.name);
-        Debug.LogWarning("Current Generated: " + m_GeneratedObject.name);
+        //Debug.LogWarning("Pos: " + m_GeneratedObject.transform.position);
+        //Debug.LogWarning("Local Pos: " + m_GeneratedObject.transform.localPosition);
+        //Debug.LogWarning("Visualiser Pos: " + transform.position);
+        //Debug.LogWarning("Scale of Created GameObject: " + m_GeneratedObject.transform.lossyScale);
+        //Debug.LogWarning("Scale of Created GameObject local: " + m_GeneratedObject.transform.localScale);
+        //Debug.LogWarning("Parent: " + m_GeneratedObject.transform.parent.name);
+        //Debug.LogWarning("Current Generated: " + m_GeneratedObject.name);
     }
 
 	private void OnEnable()

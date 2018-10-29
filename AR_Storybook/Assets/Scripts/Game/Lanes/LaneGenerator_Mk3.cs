@@ -62,9 +62,6 @@
         [Tooltip("Multipler Scale for GameObjects in LaneGenerator")]
         [SerializeField]
         private float m_scaleMultiplier;
-        [Tooltip("Event to sent all lanes position to Enemies")]
-        [SerializeField]
-        private ES_Event_String m_lanePositions;
 
         /// <summary>
         /// Private Variables
@@ -270,8 +267,8 @@
 
             // Based on Style, position the enemies accordingly
             tempEnemy.transform.position = _lane.m_enemySpawnPoint.position;
-            Debug.LogWarning("Enemy Position : " + tempEnemy.transform.position + 
-                             " / Local: " + tempEnemy.transform.localPosition);
+            //Debug.LogWarning("Enemy Position : " + tempEnemy.transform.position + 
+            //                 " / Local: " + tempEnemy.transform.localPosition);
             switch (_style)
             {
                 case ENEMIES_SPAWN_STYLE.W_STYLE:

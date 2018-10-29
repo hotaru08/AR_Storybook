@@ -51,7 +51,7 @@ public class StateMachine
 
         // Add new states to Dictionary
         m_statesDictionary.Add(_state.GetStateName, _state);
-        DebugLogger.Log<StateMachine>("New state added : " + _state.GetStateName);
+        //DebugLogger.Log<StateMachine>("New state added : " + _state.GetStateName);
     }
 
     /// <summary>
@@ -75,7 +75,7 @@ public class StateMachine
 
         // Set next state
         m_nextState = m_statesDictionary[_nextStateName];
-        DebugLogger.Log<StateMachine>("Next state is set to be " + m_nextState.GetStateName);
+        //DebugLogger.Log<StateMachine>("Next state is set to be " + m_nextState.GetStateName);
     }
 
     /// <summary>
