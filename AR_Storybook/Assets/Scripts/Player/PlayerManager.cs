@@ -128,9 +128,8 @@ public class PlayerManager : MonoBehaviour
         if (m_swipeComponent == null) return;
 
         // Update State Machine
-        if(m_stateMachine != null)
-			m_stateMachine.Update();
-
+        if (m_stateMachine != null)
+            m_stateMachine.Update();
 
         // ---------- Player Damaged 
         if (m_Animator.GetCurrentAnimatorStateInfo(0).IsName("Damaged"))
@@ -158,19 +157,17 @@ public class PlayerManager : MonoBehaviour
         }
 
         // ---------- Player Movement ( only during Idle state )
-        if(!m_bStunned)
-		{
-			if (!m_bButtonMode.value)
-			{
-				PlayerMovement((int)m_swipeComponent.SwipeDirection);
-			}
-			else
-			{
-				PlayerMovement(m_swipeDirection.Value);
-				// Reset Swipe Direction to NONE, to prevent continuous updates
-				m_swipeDirection.Value = 0;
-			}
-		}
+        if (m_bStunned) return;
+        if (!m_bButtonMode.value)
+        {
+            PlayerMovement((int)m_swipeComponent.SwipeDirection);
+        }
+        else
+        {
+            PlayerMovement(m_swipeDirection.Value);
+            // Reset Swipe Direction to NONE, to prevent continuous updates
+            m_swipeDirection.Value = 0;
+        }
     }
 
     /// <summary>
@@ -190,21 +187,11 @@ public class PlayerManager : MonoBehaviour
                 // Set the velocity to be jump force ( force that pushes player off ground )
                 m_verticalVelocity = m_jumpForce;
             }
-            //DebugLogger.LogWarning<PlayerManager>("Velocity Up: " + m_verticalVelocity); // in mobile, force gets reset to default force
-            //DebugLogger.LogWarning<PlayerManager>("IsGrounded: + " + IsGrounded());
         }
         else
         {
             m_verticalVelocity += m_gravity * Time.deltaTime;
-            if (transform.position.y <= -0.5f)
-            {
-                Debug.LogWarning("Testing : " + transform.position.y);
-            }
-            //DebugLogger.LogWarning<PlayerManager>("Velocity falling: " + m_verticalVelocity);
-            //DebugLogger.LogWarning<PlayerManager>("Transform: " + transform.position);
-            //DebugLogger.LogWarning<PlayerManager>("IsGrounded: + " + IsGrounded());
         }
-
         Debug.DrawLine(transform.position, transform.position + new Vector3(0.0f, -0.03f, 0.0f), Color.blue);
         transform.position += new Vector3(0.0f, m_verticalVelocity * Time.deltaTime, 0.0f);
     }
@@ -212,9 +199,9 @@ public class PlayerManager : MonoBehaviour
 	/// <summary>
 	/// Sets whether the player is stunned or not.
 	/// </summary>
-	public void PlayerStunned(bool stunValue)
+	public void PlayerStunned(bool _stunValue)
 	{
-		m_bStunned = stunValue;
+		m_bStunned = _stunValue;
 	}
 
     /// <summary>
