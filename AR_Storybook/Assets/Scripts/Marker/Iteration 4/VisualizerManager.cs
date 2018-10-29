@@ -21,7 +21,12 @@ public class VisualizerManager : MonoBehaviour
 	[SerializeField] VisualizerMode m_VisualizerMode = VisualizerMode.VM_ALL;
 	[SerializeField] int m_UpdateFrequency = 4;
 
-	float bounceTime = 0f;
+    [Header("Misc. Settings")]
+    [Tooltip("Scale to apply to AR_Device (session) to have camera offset")]
+    [Range(1f, 15f)]
+    [SerializeField] private float m_scaleFactor = 1f;
+
+    float bounceTime = 0f;
 	float timeBetweenUpdates = 0f;
 
 	List<AugmentedImage> m_OldImages;
@@ -38,6 +43,8 @@ public class VisualizerManager : MonoBehaviour
 	{
 		//Get the current ARCore session
 		m_Session = ARSessionManager.Instance.GetSession();
+        // Multiply it by scaleFactor
+        m_Session.transform.localScale *= m_scaleFactor;
 
 		//Initialize lists
 		m_OldImages = new List<AugmentedImage>();
@@ -68,8 +75,7 @@ public class VisualizerManager : MonoBehaviour
 		if(bounceTime <= Time.time)
 		{
 			UpdateTrackables();
-
-			bounceTime = Time.time + timeBetweenUpdates;
+            bounceTime = Time.time + timeBetweenUpdates;
 		}
 	}
 
@@ -151,9 +157,12 @@ public class VisualizerManager : MonoBehaviour
 	{
 		foreach(AugmentedImage image in _imagesToVisualize)
 		{
-			//Create an anchor at the centre of the image
+            //Create an anchor at the centre of the image
 			Anchor anchor = image.CreateAnchor(image.CenterPose);
-			if (anchor != null)
+            anchor.transform.position *= m_scaleFactor;
+            Debug.LogWarning("Scaled Anchor Pos: " + anchor.transform.position);
+
+            if (anchor != null)
 			{
 				//Get a visualizer from the object pool
 				ImageVisualizer visualizer = ObjectPool.GetExistingOrNew<ImageVisualizer>();

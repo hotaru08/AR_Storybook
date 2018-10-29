@@ -182,13 +182,13 @@ public class PlayerManager : MonoBehaviour
         if (IsGrounded())
         {
             // Set velocity to be a small force so that player remains close to the ground
-            //m_verticalVelocity = m_gravity * Time.deltaTime;
+            m_verticalVelocity = m_gravity * Time.deltaTime;
 
             if (m_bTriggerJump)
             {
                 m_bTriggerJump = false;
                 // Set the velocity to be jump force ( force that pushes player off ground )
-                //m_verticalVelocity = m_jumpForce;
+                m_verticalVelocity = m_jumpForce;
             }
             //DebugLogger.LogWarning<PlayerManager>("Velocity Up: " + m_verticalVelocity); // in mobile, force gets reset to default force
             //DebugLogger.LogWarning<PlayerManager>("IsGrounded: + " + IsGrounded());
