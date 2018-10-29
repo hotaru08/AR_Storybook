@@ -11,8 +11,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e5200197b6d3ce4b94bbc029612b6a2, type: 3}
   m_Name: Germ_Idle
   m_EditorClassIdentifier: 
-  actions: []
+  actions:
+  - {fileID: 11400000, guid: 113b1ad093b9c4142b4e200dae2012a0, type: 2}
   transitions:
   - decision: {fileID: 11400000, guid: 30fc0957fe471b64fbe395927e2007a9, type: 2}
     trueState: {fileID: 11400000, guid: 79a2831af0bcb6246b179dbcbbfae334, type: 2}
+    falseState: {fileID: 11400000}
+  - decision: {fileID: 11400000, guid: b8b1d2173d2caff43a0f854af6ade309, type: 2}
+    trueState: {fileID: 11400000, guid: 5fcab6722f7887148bf5b4f1967c97aa, type: 2}
+    falseState: {fileID: 11400000}
+  - decision: {fileID: 11400000, guid: 6f26ed95c6765674f853778cbb786f0d, type: 2}
+    trueState: {fileID: 11400000, guid: b830660646314584bafe357e9f8f2674, type: 2}
     falseState: {fileID: 11400000}

@@ -35,7 +35,7 @@ public class AI_Action_SpawnItem : AI_Action
 
 		float randomPoint = Random.value * total;
 
-		for(int i = 0; i < itemList.Count; i++)
+		for (int i = 0; i < itemList.Count; i++)
 		{
 			if (randomPoint <= itemList[i].chance)
 			{
@@ -44,7 +44,7 @@ public class AI_Action_SpawnItem : AI_Action
 					laneID = controller.gameObject.GetInstanceID();
 
 				fireProjectileEvent.Invoke(itemList[i].item.gameObject, laneID);
-				return;
+				break;
 			}
 			else
 			{
