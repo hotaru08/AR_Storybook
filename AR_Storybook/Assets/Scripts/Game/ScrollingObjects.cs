@@ -75,7 +75,7 @@ public class ScrollingObjects : MonoBehaviour
             _go.transform.position += transform.forward * Time.deltaTime * m_movementSpeed;
         }
 
-        if (m_movingObjects[0])
+        
     }
 
 }
