@@ -766,6 +766,22 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &1563019261119706
+GameObject:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4540472114603570}
+  - component: {fileID: 114678644757749232}
+  m_Layer: 0
+  m_Name: ScrollSpawner_Right
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1565520549161962
 GameObject:
   m_ObjectHideFlags: 1
@@ -1110,7 +1126,7 @@ GameObject:
   - component: {fileID: 4362952986154388}
   - component: {fileID: 114459692545857196}
   m_Layer: 0
-  m_Name: ScrollSpawner
+  m_Name: ScrollSpawner_Left
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1349,6 +1365,7 @@ Transform:
   m_Children:
   - {fileID: 4831662257108528}
   - {fileID: 4362952986154388}
+  - {fileID: 4540472114603570}
   m_Father: {fileID: 4284180329366146}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1511,13 +1528,13 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1845232163623488}
-  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: -1.5, y: 0, z: 2.5}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -1.5, y: 0, z: -2.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4147259793061776}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4421110062430612
 Transform:
   m_ObjectHideFlags: 1
@@ -1647,6 +1664,19 @@ Transform:
   - {fileID: 4446736984792510}
   m_Father: {fileID: 4511873935905620}
   m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4540472114603570
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1563019261119706}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1.5, y: 0, z: -2.5}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4147259793061776}
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4543151700478690
 Transform:
@@ -2837,10 +2867,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_spawnList:
-  - {fileID: 1960944623653412, guid: 6e698dd38840b914ab7906c234840f34, type: 2}
-  - {fileID: 1047218957826484, guid: eff8a1e64419eb14b95f9a2792842156, type: 2}
-  - {fileID: 1392836022372594, guid: 0871c4ee543a23b418eca7f0c8f55527, type: 2}
-  - {fileID: 1884836440737854, guid: 76cfedae413eddc43a44fe340f569aae, type: 2}
+  - {fileID: 1274510561389050, guid: 86993aee61c48f24ca89b80b0f28e5e9, type: 2}
+  - {fileID: 1564521666753296, guid: f46b9d61ace73d74a975b0e692fd4f2f, type: 2}
+  - {fileID: 1462393282501342, guid: ae23c70499df1e540a67d522b082bee2, type: 2}
+  - {fileID: 1465308317899758, guid: a6131eecf11970d468d527287e061acb, type: 2}
   m_PoolSize: 10
   m_TravelAlongObject: {fileID: 4831662257108528}
   m_movementSpeed: 1
@@ -3101,6 +3131,25 @@ MonoBehaviour:
   m_playerHealth: {fileID: 11400000, guid: 2a52433757afdda4c8793faaffe8ec2b, type: 2}
   m_multiplier: 20
   m_mode: 1
+--- !u!114 &114678644757749232
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1563019261119706}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 60130f35276e5774db8daa1235a251bb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_spawnList:
+  - {fileID: 1960944623653412, guid: 6e698dd38840b914ab7906c234840f34, type: 2}
+  - {fileID: 1047218957826484, guid: eff8a1e64419eb14b95f9a2792842156, type: 2}
+  - {fileID: 1392836022372594, guid: 0871c4ee543a23b418eca7f0c8f55527, type: 2}
+  - {fileID: 1884836440737854, guid: 76cfedae413eddc43a44fe340f569aae, type: 2}
+  m_PoolSize: 10
+  m_TravelAlongObject: {fileID: 4831662257108528}
+  m_movementSpeed: 1
 --- !u!114 &114701596968218816
 MonoBehaviour:
   m_ObjectHideFlags: 1

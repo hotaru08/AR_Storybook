@@ -267,8 +267,6 @@
 
             // Based on Style, position the enemies accordingly
             tempEnemy.transform.position = _lane.m_enemySpawnPoint.position;
-            //Debug.LogWarning("Enemy Position : " + tempEnemy.transform.position + 
-            //                 " / Local: " + tempEnemy.transform.localPosition);
             switch (_style)
             {
                 case ENEMIES_SPAWN_STYLE.W_STYLE:

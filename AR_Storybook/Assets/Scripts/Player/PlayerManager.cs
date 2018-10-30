@@ -102,10 +102,7 @@ public class PlayerManager : MonoBehaviour
 		m_bStunned = false;
 		m_gravity = Physics.gravity.y;
         m_swipeDirection.Value = (int)m_swipeComponent.SwipeDirection;
-
-        if (m_originalPlayerIndex < 0 || m_originalPlayerIndex > m_numLanes - 1)
-            m_originalPlayerIndex = m_numLanes / 2;
-        else m_originalPlayerIndex = m_playerLaneIndex;
+        m_originalPlayerIndex = m_playerLaneIndex;
 
         // Send Player Obj 
         ES_Event_UnityObject temp = m_cameraPlayer as ES_Event_UnityObject;
@@ -157,7 +154,12 @@ public class PlayerManager : MonoBehaviour
         }
 
         // ---------- Player Movement ( only during Idle state )
-        if (m_bStunned) return;
+        if (m_bStunned)
+        {
+            m_swipeDirection.Value = 0;
+            m_bTriggerJump = false;
+            return;
+        }
         if (!m_bButtonMode.value)
         {
             PlayerMovement((int)m_swipeComponent.SwipeDirection);
@@ -343,8 +345,6 @@ public class PlayerManager : MonoBehaviour
             mainModule.playOnAwake = false;
             mainModule.loop = false;
             m_bSpawn = true;
-            Debug.LogWarning("PlayerManager: particle pos : " + temp.transform.position);
-            Debug.LogWarning("PlayerManager: " + transform.position);
         }
     }
 

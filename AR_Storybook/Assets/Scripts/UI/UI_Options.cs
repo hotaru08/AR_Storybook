@@ -22,11 +22,12 @@ public class UI_Options : MonoBehaviour
     {
         m_isButtonMode.Value = m_buttonMode.value;
 
+        // Set the toggle to display according to Custom Variable settings
         if (m_buttonMode.value)
             m_toggle.isOn = true;
         else
             m_toggle.isOn = false;
-	}
+    }
 
     /// <summary>
     /// Setting custon variable to set button mode
