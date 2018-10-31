@@ -6,6 +6,7 @@
 	[CustomEditor(typeof(ES_Event_Base), true)]
 	public class ES_Inspector_Event : Editor
 	{
+		//xd I suck dick
 		public override void OnInspectorGUI()
 		{
 			DrawDefaultInspector();

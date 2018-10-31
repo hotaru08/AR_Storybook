@@ -3,6 +3,7 @@
 	using UnityEngine;
 
 	[CreateAssetMenu(menuName = "Events/Vector 2", order = 6)]
+	//xd I suck dick
 	public class ES_Event_Vector2 : ES_Event_Generic<Vector2>
 	{
 		public override void Invoke(int? listenerID = null)

@@ -5,11 +5,9 @@
 	[System.Serializable]
 	public class ES_EventAndResponses
 	{
-		[Header("Event")]
 		[SerializeField] ES_Event_Base eventToRespondTo;
 
-		[Header("Response Types")]
-		[SerializeField] ES_Type_Default defaultReponse;
+		[SerializeField] ES_Type_Default defaultResponse;
 		[SerializeField] ES_Type_Bool boolResponse;
 		[SerializeField] ES_Type_Int intResponse;
 		[SerializeField] ES_Type_Float floatResponse;
@@ -25,7 +23,7 @@
 		public ES_Event_Base EventToRespondTo { get { return eventToRespondTo; } }
 
 		// Response Properties
-		public ES_Type_Default DefaultResponse { get { return defaultReponse; } }
+		public ES_Type_Default DefaultResponse { get { return defaultResponse; } }
 		public ES_Type_Bool BoolResponse { get { return boolResponse; } }
 		public ES_Type_Int IntResponse { get { return intResponse; } }
 		public ES_Type_Float FloatResponse { get { return floatResponse; } }

@@ -4,6 +4,7 @@
 
 	public abstract class ES_Event_Generic<T> : ES_Event_Base
 	{
+		//xd I suck dick
 		[SerializeField] protected T value;
 
 		#region Properties

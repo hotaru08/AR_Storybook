@@ -223,20 +223,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   eventAndReponses:
   - eventToRespondTo: {fileID: 11400000, guid: 64ca5704d26dff04ca3a6bcb65101674, type: 2}
-    defaultReponse:
+    defaultResponse:
       m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 221065498}
-          m_MethodName: set_name
-          m_Mode: 5
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: BING BONG
-            m_BoolArgument: 0
-          m_CallState: 2
+        m_Calls: []
       m_TypeName: TestSpace.EventSystem.ES_Type_Default, Assembly-CSharp, Version=0.0.0.0,
         Culture=neutral, PublicKeyToken=null
     boolResponse:
@@ -285,193 +274,7 @@ MonoBehaviour:
       m_TypeName: TestSpace.EventSystem.ES_Type_UnityObject, Assembly-CSharp, Version=0.0.0.0,
         Culture=neutral, PublicKeyToken=null
   - eventToRespondTo: {fileID: 11400000, guid: bed3ad4b12c88f94397e2bc3e2ac5bce, type: 2}
-    defaultReponse:
-      m_PersistentCalls:
-        m_Calls: []
-      m_TypeName: TestSpace.EventSystem.ES_Type_Default, Assembly-CSharp, Version=0.0.0.0,
-        Culture=neutral, PublicKeyToken=null
-    boolResponse:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 221065499}
-          m_MethodName: set_enabled
-          m_Mode: 0
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
-      m_TypeName: TestSpace.EventSystem.ES_Type_Bool, Assembly-CSharp, Version=0.0.0.0,
-        Culture=neutral, PublicKeyToken=null
-    intResponse:
-      m_PersistentCalls:
-        m_Calls: []
-      m_TypeName: TestSpace.EventSystem.ES_Type_Int, Assembly-CSharp, Version=0.0.0.0,
-        Culture=neutral, PublicKeyToken=null
-    floatResponse:
-      m_PersistentCalls:
-        m_Calls: []
-      m_TypeName: TestSpace.EventSystem.ES_Type_Float, Assembly-CSharp, Version=0.0.0.0,
-        Culture=neutral, PublicKeyToken=null
-    stringResponse:
-      m_PersistentCalls:
-        m_Calls: []
-      m_TypeName: TestSpace.EventSystem.ES_Type_String, Assembly-CSharp, Version=0.0.0.0,
-        Culture=neutral, PublicKeyToken=null
-    vector2Response:
-      m_PersistentCalls:
-        m_Calls: []
-      m_TypeName: TestSpace.EventSystem.ES_Type_Vector2, Assembly-CSharp, Version=0.0.0.0,
-        Culture=neutral, PublicKeyToken=null
-    vector3Response:
-      m_PersistentCalls:
-        m_Calls: []
-      m_TypeName: TestSpace.EventSystem.ES_Type_Vector3, Assembly-CSharp, Version=0.0.0.0,
-        Culture=neutral, PublicKeyToken=null
-    vector4Response:
-      m_PersistentCalls:
-        m_Calls: []
-      m_TypeName: TestSpace.EventSystem.ES_Type_Vector4, Assembly-CSharp, Version=0.0.0.0,
-        Culture=neutral, PublicKeyToken=null
-    quaternionResponse:
-      m_PersistentCalls:
-        m_Calls: []
-      m_TypeName: TestSpace.EventSystem.ES_Type_Quaternion, Assembly-CSharp, Version=0.0.0.0,
-        Culture=neutral, PublicKeyToken=null
-    objectResponse:
-      m_PersistentCalls:
-        m_Calls: []
-      m_TypeName: TestSpace.EventSystem.ES_Type_UnityObject, Assembly-CSharp, Version=0.0.0.0,
-        Culture=neutral, PublicKeyToken=null
-  - eventToRespondTo: {fileID: 11400000, guid: 6a096abc4abfe9c42af1c2de20c317a3, type: 2}
-    defaultReponse:
-      m_PersistentCalls:
-        m_Calls: []
-      m_TypeName: TestSpace.EventSystem.ES_Type_Default, Assembly-CSharp, Version=0.0.0.0,
-        Culture=neutral, PublicKeyToken=null
-    boolResponse:
-      m_PersistentCalls:
-        m_Calls: []
-      m_TypeName: TestSpace.EventSystem.ES_Type_Bool, Assembly-CSharp, Version=0.0.0.0,
-        Culture=neutral, PublicKeyToken=null
-    intResponse:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 221065498}
-          m_MethodName: set_layer
-          m_Mode: 0
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
-      m_TypeName: TestSpace.EventSystem.ES_Type_Int, Assembly-CSharp, Version=0.0.0.0,
-        Culture=neutral, PublicKeyToken=null
-    floatResponse:
-      m_PersistentCalls:
-        m_Calls: []
-      m_TypeName: TestSpace.EventSystem.ES_Type_Float, Assembly-CSharp, Version=0.0.0.0,
-        Culture=neutral, PublicKeyToken=null
-    stringResponse:
-      m_PersistentCalls:
-        m_Calls: []
-      m_TypeName: TestSpace.EventSystem.ES_Type_String, Assembly-CSharp, Version=0.0.0.0,
-        Culture=neutral, PublicKeyToken=null
-    vector2Response:
-      m_PersistentCalls:
-        m_Calls: []
-      m_TypeName: TestSpace.EventSystem.ES_Type_Vector2, Assembly-CSharp, Version=0.0.0.0,
-        Culture=neutral, PublicKeyToken=null
-    vector3Response:
-      m_PersistentCalls:
-        m_Calls: []
-      m_TypeName: TestSpace.EventSystem.ES_Type_Vector3, Assembly-CSharp, Version=0.0.0.0,
-        Culture=neutral, PublicKeyToken=null
-    vector4Response:
-      m_PersistentCalls:
-        m_Calls: []
-      m_TypeName: TestSpace.EventSystem.ES_Type_Vector4, Assembly-CSharp, Version=0.0.0.0,
-        Culture=neutral, PublicKeyToken=null
-    quaternionResponse:
-      m_PersistentCalls:
-        m_Calls: []
-      m_TypeName: TestSpace.EventSystem.ES_Type_Quaternion, Assembly-CSharp, Version=0.0.0.0,
-        Culture=neutral, PublicKeyToken=null
-    objectResponse:
-      m_PersistentCalls:
-        m_Calls: []
-      m_TypeName: TestSpace.EventSystem.ES_Type_UnityObject, Assembly-CSharp, Version=0.0.0.0,
-        Culture=neutral, PublicKeyToken=null
-  - eventToRespondTo: {fileID: 11400000, guid: b0f8e1e193ff1674286bb558b8c2a5d2, type: 2}
-    defaultReponse:
-      m_PersistentCalls:
-        m_Calls: []
-      m_TypeName: TestSpace.EventSystem.ES_Type_Default, Assembly-CSharp, Version=0.0.0.0,
-        Culture=neutral, PublicKeyToken=null
-    boolResponse:
-      m_PersistentCalls:
-        m_Calls: []
-      m_TypeName: TestSpace.EventSystem.ES_Type_Bool, Assembly-CSharp, Version=0.0.0.0,
-        Culture=neutral, PublicKeyToken=null
-    intResponse:
-      m_PersistentCalls:
-        m_Calls: []
-      m_TypeName: TestSpace.EventSystem.ES_Type_Int, Assembly-CSharp, Version=0.0.0.0,
-        Culture=neutral, PublicKeyToken=null
-    floatResponse:
-      m_PersistentCalls:
-        m_Calls: []
-      m_TypeName: TestSpace.EventSystem.ES_Type_Float, Assembly-CSharp, Version=0.0.0.0,
-        Culture=neutral, PublicKeyToken=null
-    stringResponse:
-      m_PersistentCalls:
-        m_Calls: []
-      m_TypeName: TestSpace.EventSystem.ES_Type_String, Assembly-CSharp, Version=0.0.0.0,
-        Culture=neutral, PublicKeyToken=null
-    vector2Response:
-      m_PersistentCalls:
-        m_Calls: []
-      m_TypeName: TestSpace.EventSystem.ES_Type_Vector2, Assembly-CSharp, Version=0.0.0.0,
-        Culture=neutral, PublicKeyToken=null
-    vector3Response:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 221065500}
-          m_MethodName: set_position
-          m_Mode: 0
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
-      m_TypeName: TestSpace.EventSystem.ES_Type_Vector3, Assembly-CSharp, Version=0.0.0.0,
-        Culture=neutral, PublicKeyToken=null
-    vector4Response:
-      m_PersistentCalls:
-        m_Calls: []
-      m_TypeName: TestSpace.EventSystem.ES_Type_Vector4, Assembly-CSharp, Version=0.0.0.0,
-        Culture=neutral, PublicKeyToken=null
-    quaternionResponse:
-      m_PersistentCalls:
-        m_Calls: []
-      m_TypeName: TestSpace.EventSystem.ES_Type_Quaternion, Assembly-CSharp, Version=0.0.0.0,
-        Culture=neutral, PublicKeyToken=null
-    objectResponse:
-      m_PersistentCalls:
-        m_Calls: []
-      m_TypeName: TestSpace.EventSystem.ES_Type_UnityObject, Assembly-CSharp, Version=0.0.0.0,
-        Culture=neutral, PublicKeyToken=null
-  - eventToRespondTo: {fileID: 11400000, guid: bfd40ed90dd1edd4ba9390c8e2e161c7, type: 2}
-    defaultReponse:
+    defaultResponse:
       m_PersistentCalls:
         m_Calls: []
       m_TypeName: TestSpace.EventSystem.ES_Type_Default, Assembly-CSharp, Version=0.0.0.0,
@@ -513,18 +316,7 @@ MonoBehaviour:
         Culture=neutral, PublicKeyToken=null
     quaternionResponse:
       m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 221065500}
-          m_MethodName: set_localRotation
-          m_Mode: 0
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
+        m_Calls: []
       m_TypeName: TestSpace.EventSystem.ES_Type_Quaternion, Assembly-CSharp, Version=0.0.0.0,
         Culture=neutral, PublicKeyToken=null
     objectResponse:
