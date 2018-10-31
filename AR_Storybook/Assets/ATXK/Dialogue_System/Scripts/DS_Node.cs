@@ -27,12 +27,18 @@
 		[SerializeField] string sentence;
 		[SerializeField] DS_Node[] nextNodes;
 
+		[Header("Cutscene")]
+		[SerializeField] float animStartTime;
+		[SerializeField] bool startTimeNull;
+		[SerializeField] float animEndTime;
+		[SerializeField] bool endTimeNull;
+		float? animStartTimeNullable, animEndTimeNullable;
+
 		[Header("Event Settings")]
-		//[SerializeField] ES_Event nodeEvent;
-		//[SerializeField] NodeEventSettings nodeInvoke;
+		[SerializeField] ES_Event_String setAnimTime;
 		[SerializeField] NodeEvent[] nodeEvents;
 
-		#region Property Getters
+		#region Properties
 		/// <summary>
 		/// Image of the speaker.
 		/// </summary>
@@ -56,11 +62,27 @@
 		#endregion
 
 		#region Class Methods
+		private void OnEnable()
+		{
+			if(!startTimeNull)
+				animStartTimeNullable = animStartTime;
+			if(!endTimeNull)
+				animEndTimeNullable = animEndTime;
+
+			Debug.Log("StartTime=" + animStartTimeNullable);
+			Debug.Log("EndTime=" + animEndTimeNullable);
+		}
+
 		public void Enter()
 		{
-			//if (nodeInvoke == NodeEventSettings.ON_ENTER && nodeEvent != null)
-			//	nodeEvent.Invoke();
+			// Send off event containing any relevant cutscene timing data
+			if(setAnimTime != null && animStartTime != null && animEndTime != null)
+			{
+				setAnimTime.Value = animStartTime.ToString() + "," + animEndTime.ToString();
+				setAnimTime.Invoke();
+			}
 
+			// Send off any node "enter" events
 			for(int i = 0; i < nodeEvents.Length; i++)
 			{
 				if(nodeEvents[i].nodeInvoke == NodeEventSettings.ON_ENTER)
@@ -72,9 +94,7 @@
 
 		public void Exit()
 		{
-			//if (nodeInvoke == NodeEventSettings.ON_EXIT && nodeEvent != null)
-			//	nodeEvent.Invoke();
-
+			// Send off any node "exit" events
 			for (int i = 0; i < nodeEvents.Length; i++)
 			{
 				if (nodeEvents[i].nodeInvoke == NodeEventSettings.ON_EXIT)
