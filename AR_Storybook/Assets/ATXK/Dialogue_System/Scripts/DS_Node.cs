@@ -69,9 +69,9 @@
 			if(!endTimeNull)
 				animEndTimeNullable = animEndTime;
 
-			Debug.Log("StartTime=" + animStartTimeNullable);
-			Debug.Log("EndTime=" + animEndTimeNullable);
-		}
+            Debug.Log("Start Time: " + animStartTimeNullable);
+            Debug.Log("End Time: " + animEndTimeNullable);
+        }
 
 		public void Enter()
 		{

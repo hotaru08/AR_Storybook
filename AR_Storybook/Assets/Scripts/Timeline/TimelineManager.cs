@@ -1,103 +1,143 @@
 ﻿using ATXK.EventSystem;
-using ATXK.Helper;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Playables;
 using UnityEngine.Timeline;
 
 /// <summary>
-/// Handles the Cutscenes
+/// Handles Timelines ( will need listener to listen for events )
 /// </summary>
-public class TimelineManager : SingletonBehaviour<TimelineManager>
+[RequireComponent(typeof(ES_EventListener))]
+public class TimelineManager : MonoBehaviour
 {
-    [SerializeField]
-    private PlayableDirector m_director;
+    [Header("Current Playable Director")]
+    [SerializeField] private PlayableDirector m_currDirector;
 
-    [SerializeField]
-    private TimelineAsset[] m_TimelineArray;
+    [Header("Settings")]
+    [Tooltip("Do you want to play director upon change?")]
+    [SerializeField] private bool m_playOnChange = false;
 
-    [SerializeField]
-    private ES_Event_Base[] m_eventsToSend;
+    [Header("Events")]
+    [Tooltip("Bool Event to trigger the dialogue to spawn")]
+    [SerializeField] private ES_Event_Bool m_SpawnDialogueEvent;
 
     /// <summary>
-    /// Play the specific Timeline according to its index in the array
+    /// Start and End Times for Timeline clips
     /// </summary>
-    /// <param name="_index">Index of timeline in array</param>
-    public void PlayTimeline(int _index)
+    private double m_clipStartTime, m_clipEndTime;
+
+    /// <summary>
+    /// For testing ( simulating AR situation )
+    /// </summary>
+    [SerializeField] private PlayableDirector m_testingScene;
+    private void Start()
     {
-        if (_index < 0 || _index > m_TimelineArray.Length - 1)
+        m_clipStartTime = m_clipEndTime = 0.0;
+
+        Instantiate(m_testingScene);
+    }
+
+    #region Functions
+    /// <summary>
+    /// Changes Director according to current active Cutscene
+    /// </summary>
+    public void ChangeDirector(Object _director)
+    {
+        if (_director == null)
         {
-            Debug.Log("Index is too low or too high");
+            Debug.Log("Director received is null");
             return;
         }
 
-        TimelineAsset tempTimeline = null;
-        tempTimeline = m_TimelineArray[_index];
-        if (tempTimeline == null)
+        // Set current director to be received director
+        m_currDirector = _director as PlayableDirector;
+
+        // if bool is true, play new director 
+        if (m_playOnChange)
+            m_currDirector.Play();
+    }
+
+    /// <summary>
+    /// Sets what to do with current director
+    /// </summary>
+    public void PlayDirector()
+    {
+        // Plays the director
+        m_currDirector.Play();
+        // If dialogue has spawned ( true ), break out of function
+        if (m_SpawnDialogueEvent.Value) return;
+
+        // Else, Get timeline asset of current director
+        TimelineAsset temp = m_currDirector.playableAsset as TimelineAsset;
+        
+        // Get the end time of first clip
+        foreach (TimelineClip _it in temp.GetOutputTrack(0).GetClips())
         {
-            Debug.Log("Timeline index returned null");
-            return;
-        }
-        m_director.Play(tempTimeline);
-    }
+            // Once 2nd clip, the loop will be broken
+            if (_it.start > 0.0) break;
 
-    /// <summary>
-    /// Set Playable Director to be controlled by Manager
-    /// </summary>
-    public void SetPlayableDirector(PlayableDirector _director)
-    {
-        m_director = _director;
-    }
-
-	public void SetDirectorTime(float time)
-	{
-		m_director.time = time;
-	}
-
-    /// <summary>
-    /// Get the status of the Director
-    /// </summary>
-    /// <returns>Status of the director handling the Timelines</returns>
-    public string GetStatus()
-    {
-        return m_director.state.ToString();
-    }
-
-    /// <summary>
-    /// Based on string param, use the various functionality of Director
-    /// </summary>
-    /// <param name="_trigger">Trigger for various functions</param>
-    public void UseDirectorFunctions(string _trigger)
-    {
-        switch(_trigger)
-        {
-            case "Pause":
-                m_director.Pause();
-                break;
-            case "Resume":
-                m_director.Resume();
-                break;
-            case "Play":
-                m_director.Play();
-                break;
-            case "Stop":
-                m_director.Stop();
-                break;
+            // store the end timing of 1st clip
+            m_clipEndTime = _it.end;
         }
     }
 
-    // For now, just do it here
+    /// <summary>
+    /// Receives string and split them into doubles
+    /// </summary>
+    /// <param name="_timings">String containing timings</param>
+    public void SetTimings(string _timings)
+    {
+        // Split string and store in array
+        string[] temp = _timings.Split(',');
+
+        // Assign values
+        m_clipStartTime = double.Parse(temp[0]);
+        m_clipEndTime = double.Parse(temp[1]);
+
+        // Set current director's time to be start of that dialogue node's
+        m_currDirector.time = m_clipStartTime;
+
+        //Debug.Log("ClipStartTime: " + m_clipStartTime + " / ClipEndTime: " + m_clipEndTime);
+    }
+
+    /// <summary>
+    /// Reset Timelines
+    /// </summary>
+    public void Reset()
+    {
+        m_currDirector.time = 0.0;
+    }
+
+    /// <summary>
+    /// Pause / Resume Director
+    /// </summary>
+    public void PauseDirector(bool _pause)
+    {
+        if (m_currDirector == null) return;
+
+        if (_pause)
+            m_currDirector.Pause();
+        else
+            m_currDirector.Resume();
+    }
+    #endregion
+
     private void Update()
     {
-        if (m_director == null) return;
-
-        Debug.LogWarning(m_director.duration);
-        Debug.LogWarning(m_director.time);
-
-        if (m_director.time >= m_director.duration - 0.5f)
+        // If dialogue has not spawned yet, spawn when reached end of first clip
+        if (!m_SpawnDialogueEvent.Value)
         {
-            m_eventsToSend[0].Invoke();
+            if (m_currDirector.time > m_clipEndTime)
+            {
+                m_SpawnDialogueEvent.Invoke(true);
+            }
+        }
+
+        // If dialogue is spawned, get that node's start and end timings
+        if (m_currDirector.time > m_clipEndTime)
+        {
+            //Debug.Log("Its time to stop!" + m_currDirector.time + " Stop Time: " + m_clipEndTime);
+            m_currDirector.Pause();
         }
     }
 }
