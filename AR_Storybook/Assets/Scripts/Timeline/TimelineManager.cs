@@ -26,15 +26,9 @@ public class TimelineManager : MonoBehaviour
     /// </summary>
     private double m_clipStartTime, m_clipEndTime;
 
-    /// <summary>
-    /// For testing ( simulating AR situation )
-    /// </summary>
-    [SerializeField] private PlayableDirector m_testingScene;
     private void Start()
     {
         m_clipStartTime = m_clipEndTime = 0.0;
-
-        Instantiate(m_testingScene);
     }
 
     #region Functions
@@ -91,7 +85,6 @@ public class TimelineManager : MonoBehaviour
             // store the end timing of 1st clip
             m_clipEndTime = _it.end;
         }
-
     }
 
     /// <summary>
@@ -138,6 +131,9 @@ public class TimelineManager : MonoBehaviour
 
     private void Update()
     {
+        // If there is no director, dont update anything
+        if (m_currDirector == null) return;
+
         // If dialogue has not spawned yet, spawn when reached end of first clip
         if (!m_SpawnDialogueEvent.Value)
         {

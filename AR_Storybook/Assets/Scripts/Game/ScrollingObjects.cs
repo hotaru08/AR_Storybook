@@ -18,7 +18,7 @@ public class ScrollingObjects : MonoBehaviour
     [SerializeField] private float m_movementSpeed;
     private Queue<GameObject> m_movingObjects;
     private GameObject m_currObject;
-    int index = 0;
+    private int index, m_activeIndex;
 
     /// <summary>
     /// Collections to store spawned objects 
@@ -31,23 +31,12 @@ public class ScrollingObjects : MonoBehaviour
     private void Start()
     {
         // Intialise
+        index = 0;
+        m_activeIndex = 0;
         m_movingObjects = new Queue<GameObject>();
         m_spawnedObjectList = new List<GameObject>();
         //m_spawnedObjects = new Queue<GameObject>();
-
-        // Initialise a pool of Gameobjects ( reusability )
-        for (int i = 0; i < m_PoolSize; ++i)
-        {
-            index = Random.Range(0, m_spawnList.Count);
-
-            // Create new GameObject
-            GameObject temp = Instantiate(m_spawnList[index], transform);
-            temp.SetActive(false);
-
-            // Store to List / Queue
-            m_spawnedObjectList.Add(temp);
-            //m_spawnedObjects.Enqueue(temp);
-        }
+        SpawnObjectPool();
 
         // Set current object to be first in List / Queue
         m_currObject = m_spawnedObjectList[0];
@@ -60,6 +49,13 @@ public class ScrollingObjects : MonoBehaviour
 
     private void Update()
     {
+        // If the current pool of objects is used ( all active ), spawn another pool of objects
+        if (m_movingObjects.Count >= m_PoolSize)
+        {
+            m_PoolSize += m_PoolSize;
+            SpawnObjectPool();
+        }
+
         // If current object's position is over bounds, spawn new object and set current to be that
         if (m_currObject.transform.localPosition.z > m_currObject.transform.localScale.z * 1.5f)
         {
@@ -96,5 +92,28 @@ public class ScrollingObjects : MonoBehaviour
         {
             _go.transform.position += transform.forward * Time.deltaTime * m_movementSpeed;
         }
+    }
+
+    /// <summary>
+    /// Creates a pool of Gameobjects
+    /// </summary>
+    private void SpawnObjectPool()
+    {
+        do
+        {
+            index = Random.Range(0, m_spawnList.Count);
+
+            // Create new GameObject
+            GameObject temp = Instantiate(m_spawnList[index], transform);
+            temp.SetActive(false);
+
+            // Store to List / Queue
+            m_spawnedObjectList.Add(temp);
+            //m_spawnedObjects.Enqueue(temp);
+
+            // Increase active index
+            ++m_activeIndex;
+        }
+        while (m_activeIndex < m_PoolSize);
     }
 }
