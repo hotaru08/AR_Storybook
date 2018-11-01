@@ -7,10 +7,14 @@
 
 	public class DS_Button : MonoBehaviour
 	{
-		[SerializeField] Text text;
 		DS_Tree dialogueTree;
-
 		public int index;
+
+        /// <summary>
+        /// Typewriter Variables
+        /// </summary>
+		[SerializeField] Text text;
+        [SerializeField] private float m_typeSpeed;
 
 		#region Unity Methods
 		private void Start()
@@ -46,24 +50,41 @@
 
 		public void UpdateText()
 		{
-			//Update the button's text
-			//text.text = dialogueTree.CurrentNode.Sentence;
+            //Update the button's text
+            //text.text = dialogueTree.CurrentNode.Sentence;
+
+            // Reset text to be empty
+            text.text = string.Empty;
 
 			if (dialogueTree != null)
 			{
-				if (dialogueTree.CurrentNode.IsQuestion && dialogueTree.CurrentNode == dialogueTree.PreviousNode)
+                if (dialogueTree.CurrentNode.IsQuestion && dialogueTree.CurrentNode == dialogueTree.PreviousNode)
 				{
 					if (index < dialogueTree.CurrentNode.NextNodes.Length)
-						text.text = dialogueTree.CurrentNode.NextNodes[index].Sentence;
+                    {
+                        //text.text = dialogueTree.CurrentNode.NextNodes[index].Sentence;
+                        StartCoroutine(TypeText(dialogueTree.CurrentNode.NextNodes[index].Sentence));
+                    }
 				}
 				else
 				{
-					text.text = dialogueTree.CurrentNode.Sentence;
+                    //text.text = dialogueTree.CurrentNode.Sentence;
+                    StartCoroutine(TypeText(dialogueTree.CurrentNode.Sentence));
 				}
 			}
-
-			//TODO: link with Wafie's dialogue printer thingy
 		}
+
+        /// <summary>
+        /// Coroutine to produce typewriter effect
+        /// </summary>
+        private IEnumerator TypeText(string _textToType)
+        {
+            for (int i = 0; i < _textToType.Length; ++i)
+            {
+                text.text += _textToType[i];
+                yield return new WaitForSeconds(m_typeSpeed);
+            }
+        }
 		#endregion
 	}
 }
