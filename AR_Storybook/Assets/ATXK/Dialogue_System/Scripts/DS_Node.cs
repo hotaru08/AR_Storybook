@@ -24,7 +24,7 @@
 		[SerializeField] string charName;
 
 		[Header("Dialogue")]
-		[SerializeField] string sentence;
+        [SerializeField] [TextArea(1, 10)] string sentence;
 		[SerializeField] DS_Node[] nextNodes;
 
 		[Header("Cutscene")]
@@ -69,8 +69,8 @@
 			if(!endTimeNull)
 				animEndTimeNullable = animEndTime;
 
-            Debug.Log("Start Time: " + animStartTimeNullable);
-            Debug.Log("End Time: " + animEndTimeNullable);
+            //Debug.Log("Start Time: " + animStartTimeNullable);
+            //Debug.Log("End Time: " + animEndTimeNullable);
         }
 
 		public void Enter()
