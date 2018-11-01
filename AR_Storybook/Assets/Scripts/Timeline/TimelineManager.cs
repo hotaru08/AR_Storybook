@@ -106,6 +106,7 @@ public class TimelineManager : MonoBehaviour
     public void Reset()
     {
         m_currDirector.time = 0.0;
+        PlayDirector();
     }
 
     /// <summary>
