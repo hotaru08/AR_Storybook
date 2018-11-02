@@ -26,9 +26,12 @@ public class TimelineManager : MonoBehaviour
     /// </summary>
     private double m_clipStartTime, m_clipEndTime;
 
+    [SerializeField] private PlayableDirector m_playable;
     private void Start()
     {
         m_clipStartTime = m_clipEndTime = 0.0;
+
+        Instantiate(m_playable);
     }
 
     #region Functions
