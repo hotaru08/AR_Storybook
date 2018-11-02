@@ -5,115 +5,124 @@ using UnityEngine;
 /// <summary>
 /// Script to make continuous scrolling in 3D world
 /// </summary>
+[RequireComponent(typeof(BoxCollider))]
 public class ScrollingObjects : MonoBehaviour
 {
-    [Header("Objects to be spawned")]
-    [SerializeField] private List<GameObject> m_spawnList;
-    [SerializeField] private int m_PoolSize = 10;
+	[Header("Objects to be spawned")]
+	[SerializeField] private List<GameObject> m_spawnList;
+	[SerializeField] private int m_PoolSize = 10;
 
-    [Header("Ground to travel along")]
-    [SerializeField] private Transform m_TravelAlongObject;
+	[Header("Ground to travel along")]
+	[SerializeField] private Transform m_TravelAlongObject;
 
-    [Header("Variables")]
-    [SerializeField] private float m_movementSpeed;
-    private Queue<GameObject> m_movingObjects;
-    private GameObject m_currObject;
-    private int index, m_activeIndex;
+	[Header("Variables")]
+	[SerializeField] private float m_movementSpeed;
+	[SerializeField] private float m_spawnerOffsetMultiplier;
+	private Queue<GameObject> m_movingObjects;
+	private GameObject m_currObject;
+	private int index, m_activeIndex;
+	private BoxCollider m_spawnerCollider;
 
-    /// <summary>
-    /// Collections to store spawned objects 
-    /// Queue - For linear selection 
-    /// List - For random selection
-    /// </summary>
-    private List<GameObject> m_spawnedObjectList;
-    //private Queue<GameObject> m_spawnedObjects;
+	/// <summary>
+	/// Collections to store spawned objects 
+	/// Queue - For linear selection 
+	/// List - For random selection
+	/// </summary>
+	private List<GameObject> m_spawnedObjectList;
 
-    private void Start()
-    {
-        // Intialise
-        index = 0;
-        m_activeIndex = 0;
-        m_movingObjects = new Queue<GameObject>();
-        m_spawnedObjectList = new List<GameObject>();
-        //m_spawnedObjects = new Queue<GameObject>();
-        SpawnObjectPool();
+	private void Start()
+	{
+		// Intialise
+		index = 0;
+		m_activeIndex = 0;
+		m_movingObjects = new Queue<GameObject>();
+		m_spawnedObjectList = new List<GameObject>();
+		//m_spawnedObjects = new Queue<GameObject>();
+		SpawnObjectPool();
 
-        // Set current object to be first in List / Queue
-        m_currObject = m_spawnedObjectList[0];
-        m_spawnedObjectList.RemoveAt(0);
-        //m_currObject = m_spawnedObjects.Dequeue();
+		// Set current object to be first in List / Queue
+		m_currObject = m_spawnedObjectList[0];
+		m_spawnedObjectList.RemoveAt(0);
+		//m_currObject = m_spawnedObjects.Dequeue();
 
-        m_currObject.SetActive(true);
-        m_movingObjects.Enqueue(m_currObject);
-    }
+		m_currObject.SetActive(true);
+		m_movingObjects.Enqueue(m_currObject);
 
-    private void Update()
-    {
-        // If the current pool of objects is used ( all active ), spawn another pool of objects
-        if (m_movingObjects.Count >= m_PoolSize)
-        {
-            m_PoolSize += m_PoolSize;
-            SpawnObjectPool();
-        }
+		m_spawnerCollider = GetComponent<BoxCollider>();
+	}
 
-        // If current object's position is over bounds, spawn new object and set current to be that
-        if (m_currObject.transform.localPosition.z > m_currObject.transform.localScale.z * 1.5f)
-        {
-            // Random Selection of one object in spawned list
-            index = Random.Range(0, m_spawnedObjectList.Count);
-            m_currObject = m_spawnedObjectList[index];
-            m_spawnedObjectList.RemoveAt(index);
+	private void Update()
+	{
+		// If the current pool of objects is used ( all active ), spawn another pool of objects
+		if (m_movingObjects.Count >= m_PoolSize)
+		{
+			m_PoolSize += m_PoolSize;
+			SpawnObjectPool();
+		}
 
-            // Get the first in spawned queue
-            //m_currObject = m_spawnedObjects.Dequeue();
+		// If current object's position is over bounds, spawn new object and set current to be that
+		if (m_currObject.transform.localPosition.z > (m_spawnerCollider.size.z * m_spawnerOffsetMultiplier))
+		{
+			// Random Selection of one object in spawned list
+			index = Random.Range(0, m_spawnedObjectList.Count);
+			m_currObject = m_spawnedObjectList[index];
+			m_spawnedObjectList.RemoveAt(index);
 
-            // Set Active
-            m_currObject.SetActive(true);
-            // Add to moving queue to update 
-            m_movingObjects.Enqueue(m_currObject);
-        }
+			// Get the first in spawned queue
+			//m_currObject = m_spawnedObjects.Dequeue();
 
-        // If first in queue has reached the end, move back to start point
-        if (m_movingObjects.Peek().transform.localPosition.z > m_TravelAlongObject.transform.localScale.z)
-        {
-            // Move _go back to starting position
-            m_movingObjects.Peek().transform.position = transform.position;
-            // Set inactive
-            m_movingObjects.Peek().SetActive(false);
-            // Add back to spawning List / Queue
-            m_spawnedObjectList.Add(m_movingObjects.Peek());
-            //m_spawnedObjects.Enqueue(m_movingObjects.Peek());
-            // Remove from queue
-            m_movingObjects.Dequeue();
-        }
+			// Set Active
+			m_currObject.SetActive(true);
+			// Add to moving queue to update 
+			m_movingObjects.Enqueue(m_currObject);
+		}
 
-        // Update all objects in MovingObject Queue
-        foreach (GameObject _go in m_movingObjects)
-        {
-            _go.transform.position += transform.forward * Time.deltaTime * m_movementSpeed;
-        }
-    }
+		// If first in queue has reached the end, move back to start point
+		if (m_movingObjects.Peek().transform.position.z >= m_TravelAlongObject.gameObject.GetComponent<Renderer>().bounds.size.z)
+		{
+			// Move _go back to starting position
+			m_movingObjects.Peek().transform.position = transform.position;
+			// Set inactive
+			m_movingObjects.Peek().SetActive(false);
+			// Add back to spawning List / Queue
+			m_spawnedObjectList.Add(m_movingObjects.Peek());
+			//m_spawnedObjects.Enqueue(m_movingObjects.Peek());
+			// Remove from queue
+			m_movingObjects.Dequeue();
+		}
 
-    /// <summary>
-    /// Creates a pool of Gameobjects
-    /// </summary>
-    private void SpawnObjectPool()
-    {
-        do
-        {
-            index = Random.Range(0, m_spawnList.Count);
+		// Update all objects in MovingObject Queue
+		foreach (GameObject _go in m_movingObjects)
+		{
+			_go.transform.position += transform.forward * Time.deltaTime * m_movementSpeed;
+		}
+	}
 
-            // Create new GameObject
-            GameObject temp = Instantiate(m_spawnList[index], transform);
-            temp.SetActive(false);
+	/// <summary>
+	/// Creates a pool of Gameobjects
+	/// </summary>
+	private void SpawnObjectPool()
+	{
+		do
+		{
+			index = Random.Range(0, m_spawnList.Count);
 
-            // Store to List / Queue
-            m_spawnedObjectList.Add(temp);
-            //m_spawnedObjects.Enqueue(temp);
+			// Create new GameObject
+			GameObject temp = Instantiate(m_spawnList[index], transform);
+			temp.SetActive(false);
 
-            // Increase active index
-            ++m_activeIndex;
-        }
-        while (m_activeIndex < m_PoolSize);
-    }
+			// Store to List / Queue
+			m_spawnedObjectList.Add(temp);
+			//m_spawnedObjects.Enqueue(temp);
+
+			// Increase active index
+			++m_activeIndex;
+		}
+		while (m_activeIndex < m_PoolSize);
+	}
+
+	private void OnValidate()
+	{
+		m_spawnerOffsetMultiplier = Mathf.Max(1f, m_spawnerOffsetMultiplier);
+	}
 }

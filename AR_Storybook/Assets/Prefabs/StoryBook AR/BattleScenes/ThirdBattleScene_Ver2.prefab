@@ -521,7 +521,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1363835731275788
 GameObject:
   m_ObjectHideFlags: 1
@@ -775,6 +775,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4540472114603570}
   - component: {fileID: 114678644757749232}
+  - component: {fileID: 65629730331403604}
   m_Layer: 0
   m_Name: ScrollSpawner_Right
   m_TagString: Untagged
@@ -1125,6 +1126,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4362952986154388}
   - component: {fileID: 114459692545857196}
+  - component: {fileID: 65408375186808588}
   m_Layer: 0
   m_Name: ScrollSpawner_Left
   m_TagString: Untagged
@@ -2084,6 +2086,30 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!65 &65408375186808588
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1845232163623488}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!65 &65629730331403604
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1563019261119706}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!65 &65957493903449908
 BoxCollider:
   m_ObjectHideFlags: 1
@@ -2874,6 +2900,7 @@ MonoBehaviour:
   m_PoolSize: 10
   m_TravelAlongObject: {fileID: 4831662257108528}
   m_movementSpeed: 1
+  m_spawnerOffsetMultiplier: 1.5
 --- !u!114 &114476298780232596
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3150,6 +3177,7 @@ MonoBehaviour:
   m_PoolSize: 10
   m_TravelAlongObject: {fileID: 4831662257108528}
   m_movementSpeed: 1
+  m_spawnerOffsetMultiplier: 1.5
 --- !u!114 &114701596968218816
 MonoBehaviour:
   m_ObjectHideFlags: 1
