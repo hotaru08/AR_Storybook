@@ -2,29 +2,45 @@
 {
 	using UnityEngine;
 
-	[CreateAssetMenu(menuName = "Event/String Event", order = 5)]
+	[CreateAssetMenu(menuName = "Event/String", order = 5)]
 	public class ES_Event_String : ES_Event_Generic<string>
 	{
-		public override void Invoke()
+		public override void RaiseEvent()
 		{
 			for (int i = listeners.Count - 1; i >= 0; i--)
+			{
+				listeners[i].OnEventRaised();
+			}
+		}
+
+		public override void RaiseEvent(int? listenerInstanceID)
+		{
+			for (int i = listeners.Count - 1; i >= 0; i--)
+			{
+				if (listeners[i].ObjectInstanceID == listenerInstanceID)
+				{
+					listeners[i].OnEventRaised();
+				}
+			}
+		}
+
+		public override void RaiseEvent(string value)
+		{
+			for (int i = listeners.Count - 1; i >= 0; i--)
+			{
 				listeners[i].OnEventRaised(value);
+			}
 		}
 
-		public override void Invoke(int? listenerInstanceID)
+		public override void RaiseEvent(string value, int? listenerInstanceID)
 		{
 			for (int i = listeners.Count - 1; i >= 0; i--)
-				if (listeners[i].gameObject.GetInstanceID() == listenerInstanceID || listenerInstanceID == null)
+			{
+				if (listeners[i].ObjectInstanceID == listenerInstanceID)
+				{
 					listeners[i].OnEventRaised(value);
-		}
-
-		public override void Invoke(string value, int? listenerInstanceID = null)
-		{
-			this.value = value;
-
-			for (int i = listeners.Count - 1; i >= 0; i--)
-				if (listeners[i].gameObject.GetInstanceID() == listenerInstanceID || listenerInstanceID == null)
-					listeners[i].OnEventRaised(value);
+				}
+			}
 		}
 	}
 }

@@ -9,5 +9,5 @@ public class ListHolder : MonoBehaviour
     public List<GameObject> GOList;
 
     [Tooltip("An array holding events to be called")]
-    public ES_Event_Base[] m_eventsHolder;
+    public ES_Event_Abstract[] m_eventsHolder;
 }

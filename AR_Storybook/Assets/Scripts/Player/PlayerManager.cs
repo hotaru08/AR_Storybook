@@ -77,14 +77,14 @@ public class PlayerManager : MonoBehaviour
     /// Events to Send
     /// </summary>
     [Header("Events to be Send")]
-    [SerializeField] private ES_Event_Base m_spawnWinScreen;
-    [SerializeField] private ES_Event_Base m_spawnLoseScreen;
+    [SerializeField] private ES_Event_Abstract m_spawnWinScreen;
+    [SerializeField] private ES_Event_Abstract m_spawnLoseScreen;
     [SerializeField] private ES_Event_Int m_nextInstruction;
     //[SerializeField] private ES_Event m_PlayerDamagedEvent;
     //[SerializeField] private ES_Event m_PlayerDiedEvent;
 
     [Tooltip("Player object to send to Camera for detecting reverse movements")]
-    [SerializeField] private ES_Event_UnityObject m_cameraPlayer;
+    [SerializeField] private ES_Event_Object m_cameraPlayer;
 
     /// <summary>
     /// Unity Start Function ( initialise variables )
@@ -105,8 +105,8 @@ public class PlayerManager : MonoBehaviour
         m_originalPlayerIndex = m_playerLaneIndex;
 
         // Send Player Obj 
-        ES_Event_UnityObject temp = m_cameraPlayer as ES_Event_UnityObject;
-        temp.Invoke(this.gameObject);
+        ES_Event_Object temp = m_cameraPlayer as ES_Event_Object;
+        temp.RaiseEvent(this.gameObject);
 
         // Initialising Player States
         m_stateMachine = new StateMachine();
@@ -144,13 +144,13 @@ public class PlayerManager : MonoBehaviour
         if (m_playerHealth.value <= 0)
         {
             m_stateMachine.SetNextState("PlayerLose");
-            m_spawnLoseScreen.Invoke();
+            m_spawnLoseScreen.RaiseEvent();
             //m_PlayerDiedEvent.Invoke();
         }
         else if (m_AIHealth.value <= 0.0f)
         {
             m_stateMachine.SetNextState("PlayerVictory");
-            m_spawnWinScreen.Invoke();
+            m_spawnWinScreen.RaiseEvent();
         }
 
         // ---------- Player Movement ( only during Idle state )
@@ -222,7 +222,7 @@ public class PlayerManager : MonoBehaviour
                         if (m_nextInstruction.Value < m_swipeVertInstruct.transform.GetSiblingIndex()) return;
                         if (m_nextInstruction.Value.Equals(m_swipeVertInstruct.transform.GetSiblingIndex()))
                         {
-                            m_gameMode.GetSpawnerEvent.Invoke(true);
+                            m_gameMode.GetSpawnerEvent.RaiseEvent(true);
                         }
                     }
                     m_bTriggerJump = true;
@@ -238,7 +238,7 @@ public class PlayerManager : MonoBehaviour
                         if (m_nextInstruction.Value < m_swipeHorzInstruct.transform.GetSiblingIndex()) return;
                         if (m_nextInstruction.Value.Equals(m_swipeHorzInstruct.transform.GetSiblingIndex()))
                         {
-                            m_nextInstruction.Invoke(m_nextInstruction.Value + 1);
+                            m_nextInstruction.RaiseEvent(m_nextInstruction.Value + 1);
                         }
                     }
 
@@ -274,7 +274,7 @@ public class PlayerManager : MonoBehaviour
                         if (m_nextInstruction.Value < m_swipeHorzInstruct.transform.GetSiblingIndex()) return;
                         if (m_nextInstruction.Value.Equals(m_swipeHorzInstruct.transform.GetSiblingIndex()))
                         {
-                            m_nextInstruction.Invoke(m_nextInstruction.Value + 1);
+                            m_nextInstruction.RaiseEvent(m_nextInstruction.Value + 1);
                         }
                     }
 

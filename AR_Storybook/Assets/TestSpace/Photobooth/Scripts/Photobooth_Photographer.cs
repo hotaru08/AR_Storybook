@@ -6,8 +6,8 @@
 
 	public class Photobooth_Photographer : MonoBehaviour
 	{
-		[SerializeField] ES_Event_Base takePhotoStartEvent;
-		[SerializeField] ES_Event_Base takePhotoEndEvent;
+		[SerializeField] ES_Event_Abstract takePhotoStartEvent;
+		[SerializeField] ES_Event_Abstract takePhotoEndEvent;
 
 		public void TakeScreenshot()
 		{
@@ -16,7 +16,7 @@
 
 		private IEnumerator Screenshot()
 		{
-			takePhotoStartEvent.Invoke();
+			takePhotoStartEvent.RaiseEvent();
 
 			yield return new WaitForSeconds(0.2f);
 
@@ -30,7 +30,7 @@
 
 			yield return new WaitForSeconds(0.2f);
 
-			takePhotoEndEvent.Invoke();
+			takePhotoEndEvent.RaiseEvent();
 		}
 	}
 }

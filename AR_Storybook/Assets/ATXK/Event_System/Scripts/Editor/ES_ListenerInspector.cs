@@ -17,74 +17,67 @@
 			// Event Array
 			EditorGUILayout.LabelField("Events", EditorStyles.boldLabel);
 
-			SerializedProperty events = serializedObject.FindProperty("eventsToListenFor");
+			SerializedProperty listeningToEvent = serializedObject.FindProperty("listeningToEvent");
 			EditorGUI.BeginChangeCheck();
-			EditorGUILayout.PropertyField(events, true);
+			EditorGUILayout.PropertyField(listeningToEvent, true);
 			if (EditorGUI.EndChangeCheck())
 				serializedObject.ApplyModifiedProperties();
 
-			// Get List of Events
-			List<ES_Event_Abstract> eventList = new List<ES_Event_Abstract>();
-			SerializedProperty eventsCopy = events.Copy();
-			if (eventsCopy.isArray)
-			{
-				int listLength = 0;
-				eventsCopy.Next(true);		// skip generic field
-				eventsCopy.Next(true);      // advance to array size field
-
-				listLength = eventsCopy.intValue;    // Get the array size
-
-				eventsCopy.Next(true);      // advance to first array index
-
-				int lastIndex = listLength - 1;
-				for(int i = 0; i < listLength; i++)
-				{
-					ES_Event_Abstract temp = eventsCopy.objectReferenceValue as ES_Event_Abstract;
-					if (temp != null)
-						eventList.Add(temp);
-
-					if (i < lastIndex)
-						eventsCopy.Next(false);
-				}
-			}
+			// Get Event
+			ES_Event_Abstract abstractEvent = listeningToEvent.objectReferenceValue as ES_Event_Abstract;
 
 			// Event Responses
 			EditorGUILayout.LabelField("Responses", EditorStyles.boldLabel);
 
-			if (eventList.Find(x => x is ES_Event_Default))
+			if (abstractEvent is ES_Event_Default)
 			{
-				SerializedProperty defaultResponse = serializedObject.FindProperty("responseToDefaultEvent");
-				EditorGUILayout.PropertyField(defaultResponse);
+				SerializedProperty response = serializedObject.FindProperty("defaultResponse");
+				EditorGUILayout.PropertyField(response);
 			}
-
-			if (eventList.Find(x => x is ES_Event_Bool))
+			else if (abstractEvent is ES_Event_Bool)
 			{
-				SerializedProperty boolResponse = serializedObject.FindProperty("responseToBoolEvent");
-				EditorGUILayout.PropertyField(boolResponse);
+				SerializedProperty response = serializedObject.FindProperty("boolResponse");
+				EditorGUILayout.PropertyField(response);
 			}
-
-			if(eventList.Find(x => x is ES_Event_Int))
+			else if (abstractEvent is ES_Event_Int)
 			{
-				SerializedProperty intResponse = serializedObject.FindProperty("responseToIntEvent");
-				EditorGUILayout.PropertyField(intResponse);
+				SerializedProperty response = serializedObject.FindProperty("intResponse");
+				EditorGUILayout.PropertyField(response);
 			}
-
-			if(eventList.Find(x => x is ES_Event_Float))
+			else if (abstractEvent is ES_Event_Float)
 			{
-				SerializedProperty floatResponse = serializedObject.FindProperty("responseToFloatEvent");
-				EditorGUILayout.PropertyField(floatResponse);
+				SerializedProperty response = serializedObject.FindProperty("floatResponse");
+				EditorGUILayout.PropertyField(response);
 			}
-
-			if(eventList.Find(x => x is ES_Event_String))
+			else if (abstractEvent is ES_Event_String)
 			{
-				SerializedProperty stringResponse = serializedObject.FindProperty("responseToStringEvent");
-				EditorGUILayout.PropertyField(stringResponse);
+				SerializedProperty response = serializedObject.FindProperty("stringResponse");
+				EditorGUILayout.PropertyField(response);
 			}
-
-			if(eventList.Find(x => x is ES_Event_UnityObject))
+			else if (abstractEvent is ES_Event_Object)
 			{
-				SerializedProperty objectResponse = serializedObject.FindProperty("responseToObjectEvent");
-				EditorGUILayout.PropertyField(objectResponse);
+				SerializedProperty response = serializedObject.FindProperty("objectResponse");
+				EditorGUILayout.PropertyField(response);
+			}
+			else if(abstractEvent is ES_Event_Vector2)
+			{
+				SerializedProperty response = serializedObject.FindProperty("vector2Response");
+				EditorGUILayout.PropertyField(response);
+			}
+			else if (abstractEvent is ES_Event_Vector3)
+			{
+				SerializedProperty response = serializedObject.FindProperty("vector3Response");
+				EditorGUILayout.PropertyField(response);
+			}
+			else if (abstractEvent is ES_Event_Vector4)
+			{
+				SerializedProperty response = serializedObject.FindProperty("vector4Response");
+				EditorGUILayout.PropertyField(response);
+			}
+			else if (abstractEvent is ES_Event_Quaternion)
+			{
+				SerializedProperty response = serializedObject.FindProperty("quaternionResponse");
+				EditorGUILayout.PropertyField(response);
 			}
 
 			serializedObject.ApplyModifiedProperties();

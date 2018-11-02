@@ -59,7 +59,7 @@ public class GameModes : MonoBehaviour
     [SerializeField] private ES_Event_Bool m_setSpawner;
     public ES_Event_Bool GetSpawnerEvent { get { return m_setSpawner; } }
     [Tooltip("Event to reset Health of both Player and AIs")]
-    [SerializeField] private ES_Event_Base m_resetHealth;
+    [SerializeField] private ES_Event_Abstract m_resetHealth;
 
     /// <summary>
     /// Unity Start Function
@@ -76,14 +76,14 @@ public class GameModes : MonoBehaviour
                 {
                     GameObject temp = Instantiate(m_instructionScreen, transform.Find("UI ( Battle )"));
                 }
-                m_triggerInstructions.Invoke(0);
+                m_triggerInstructions.RaiseEvent(0);
                 break;
             case GAME_MODE.GAME:
                 if (transform.Find("UI ( Battle )/Screen ( Countdown )") == null)
                 {
                     GameObject temp = Instantiate(m_countDownScreen, transform.Find("UI ( Battle )"));
                 }
-                m_startCountDown.Invoke(m_countDownTime);
+                m_startCountDown.RaiseEvent(m_countDownTime);
                 break;
             default:
                 m_setSpawner.Value = true;
@@ -101,8 +101,8 @@ public class GameModes : MonoBehaviour
     /// </summary>
     public void ResetGame()
     {
-        m_resetState.Invoke();
-        m_setSpawner.Invoke(true);
-        m_resetHealth.Invoke();
+        m_resetState.RaiseEvent();
+        m_setSpawner.RaiseEvent(true);
+        m_resetHealth.RaiseEvent();
     }
 }

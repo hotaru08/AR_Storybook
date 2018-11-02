@@ -15,8 +15,8 @@
 		[SerializeField] DS_Node previousNode;
 
 		[Header("Game Events")]
-		[SerializeField] ES_Event_Base changedNode;
-		[SerializeField] ES_Event_Base dialogueEnd;
+		[SerializeField] ES_Event_Abstract changedNode;
+		[SerializeField] ES_Event_Abstract dialogueEnd;
 
 		#region Property Getters
 		public DS_Node StartNode { get { return startingNode; } }
@@ -45,10 +45,10 @@
 				previousNode.Exit();
 				currentNode.Enter();
 
-				changedNode.Invoke();
+				changedNode.RaiseEvent();
 
 				if (currentNode.NextNodes.Length == 0)
-					dialogueEnd.Invoke();
+					dialogueEnd.RaiseEvent();
 			}
 		}
 	}

@@ -10,6 +10,6 @@
 		[SerializeField] GameObject m_detectedPlanePrefab;
 
 		[Header("Events")]
-		[SerializeField] ES_Event_Base m_spawnedVisualizerEvent;
+		[SerializeField] ES_Event_Abstract m_spawnedVisualizerEvent;
 	}
 }

@@ -16,7 +16,7 @@ public class AI_Action_SpawnItem : AI_Action
 	}
 
 	[SerializeField] bool fireOnAll = false;
-	[SerializeField] ES_Event_UnityObject fireProjectileEvent;
+	[SerializeField] ES_Event_Object fireProjectileEvent;
 	[SerializeField] List<ProjectileAndChance> itemList = new List<ProjectileAndChance>();
 
 	public override void Act(AI_Controller controller)
@@ -43,7 +43,7 @@ public class AI_Action_SpawnItem : AI_Action
 				if (!fireOnAll)
 					laneID = controller.gameObject.GetInstanceID();
 
-				fireProjectileEvent.Invoke(itemList[i].item.gameObject, laneID);
+				fireProjectileEvent.RaiseEvent(itemList[i].item.gameObject, laneID);
 				break;
 			}
 			else

@@ -10,7 +10,7 @@ using UnityEngine.Playables;
 public class TimelineHolder : MonoBehaviour
 {
     [Tooltip("Event containing PlayableDirector that is to be sent to TimelineManager")]
-    [SerializeField] private ES_Event_UnityObject m_directorObject;
+    [SerializeField] private ES_Event_Object m_directorObject;
     [Tooltip("Event to trigger spawning of dialogue")]
     [SerializeField] private ES_Event_Bool m_spawnDialogue;
 
@@ -19,7 +19,7 @@ public class TimelineHolder : MonoBehaviour
         // Set the current time of director to be at start
         GetComponent<PlayableDirector>().time = 0.0;
 
-        m_directorObject.Invoke(GetComponent<PlayableDirector>());
+        m_directorObject.RaiseEvent(GetComponent<PlayableDirector>());
         m_spawnDialogue.Value = false;
     }
 }

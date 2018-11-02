@@ -9,7 +9,7 @@ using ATXK.ItemSystem;
 [CreateAssetMenu(menuName = "AI/Action/Fire Projectile")]
 public class AI_Action_Spit : AI_Action
 {
-	[SerializeField] ES_Event_UnityObject fireProjectileEvent;
+	[SerializeField] ES_Event_Object fireProjectileEvent;
 	[SerializeField] Item_Holder projectile;
 
 	public override void Act(AI_Controller controller)
@@ -20,6 +20,6 @@ public class AI_Action_Spit : AI_Action
 	private void Spit(AI_Controller controller)
 	{
 		// Call an event that tells a Projectile spawner to Instantiate the projectile
-		fireProjectileEvent.Invoke(projectile.gameObject, controller.gameObject.GetInstanceID());
+		fireProjectileEvent.RaiseEvent(projectile.gameObject, controller.gameObject.GetInstanceID());
 	}
 }

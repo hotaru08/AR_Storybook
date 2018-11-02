@@ -39,7 +39,7 @@ public class AI_Spawner : MonoBehaviour
     private float m_maxBatchRandValue;
 
     [SerializeField]
-    private ES_Event_Base[] m_eventsToSend;
+    private ES_Event_Abstract[] m_eventsToSend;
 
     private List<GameObject> m_spawnedProjectiles = new List<GameObject>();
 
@@ -92,7 +92,7 @@ public class AI_Spawner : MonoBehaviour
                 Destroy(spawned, 10f);
 
                 // Raise Event_ChangeToAttack
-                m_eventsToSend[0].Invoke();
+                m_eventsToSend[0].RaiseEvent();
 
             }
 

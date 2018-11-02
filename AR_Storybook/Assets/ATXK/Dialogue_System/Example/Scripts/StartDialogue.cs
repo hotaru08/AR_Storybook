@@ -7,13 +7,13 @@
 
 	public class StartDialogue : MonoBehaviour
 	{
-		[SerializeField] ES_Event_Base startDialogue;
+		[SerializeField] ES_Event_Abstract startDialogue;
 
 		// Update is called once per frame
 		void Update()
 		{
 			if (Input.GetKeyDown(KeyCode.Return))
-				startDialogue.Invoke();
+				startDialogue.RaiseEvent();
 		}
 	}
 }

@@ -146,10 +146,10 @@ public class LaneGenerator : MonoBehaviour
                 {
                     if (!i.Equals(m_NumLanes / 2))
                     {
-                        m_SendEnemyPos.Invoke(Serialization.SerialiseVector3(m_lanes[i].transform.GetChild(1).position));
+                        m_SendEnemyPos.RaiseEvent(Serialization.SerialiseVector3(m_lanes[i].transform.GetChild(1).position));
                         continue;
                     }
-                    m_SendEnemyPos.Invoke(Serialization.SerialiseVector3(m_lanes[i].transform.GetChild(1).position));
+                    m_SendEnemyPos.RaiseEvent(Serialization.SerialiseVector3(m_lanes[i].transform.GetChild(1).position));
                 }
 
                 GenerateEnemies(m_style, m_lanes[i].transform.localPosition, m_lanes[i].transform.localScale, i, m_lanes[i]);

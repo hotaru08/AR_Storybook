@@ -142,7 +142,7 @@ public class TimelineManager : MonoBehaviour
         {
             if (m_currDirector.time > m_clipEndTime)
             {
-                m_SpawnDialogueEvent.Invoke(true);
+                m_SpawnDialogueEvent.RaiseEvent(true);
             }
         }
 

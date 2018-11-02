@@ -20,7 +20,7 @@
 		public override bool OnTriggerEnter(Collider collidingObject)
 		{
 			if(collisionEnterEvent != null)
-				collisionEnterEvent.Invoke();
+				collisionEnterEvent.RaiseEvent();
 			if (collisionExitEvent == null && collisionInsideEvent == null)
 				return true;
 			return false;
@@ -29,14 +29,14 @@
 		public override bool OnTriggerExit(Collider collidingObject)
 		{
 			if (collisionExitEvent != null)
-				collisionExitEvent.Invoke();
+				collisionExitEvent.RaiseEvent();
 			return true;
 		}
 
 		public override bool OnTriggerStay(Collider collidingObject)
 		{
 			if (collisionInsideEvent != null)
-				collisionInsideEvent.Invoke();
+				collisionInsideEvent.RaiseEvent();
 			if (collisionEnterEvent == null && collisionExitEvent == null)
 				return true;
 			return false;

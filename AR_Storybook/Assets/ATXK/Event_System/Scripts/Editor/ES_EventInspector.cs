@@ -13,7 +13,7 @@
 			ES_Event_Abstract gameEvent = (ES_Event_Abstract)target;
 			if(GUILayout.Button("Invoke Event"))
 			{
-				gameEvent.Invoke();
+				gameEvent.RaiseEvent();
 			}
 		}
 	}

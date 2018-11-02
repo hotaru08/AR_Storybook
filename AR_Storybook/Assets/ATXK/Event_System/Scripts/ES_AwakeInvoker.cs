@@ -4,11 +4,11 @@
 
 	public class ES_AwakeInvoker : MonoBehaviour
 	{
-		[SerializeField] ES_Event_Base autoEvent;
+		[SerializeField] ES_Event_Abstract autoEvent;
 
 		private void Awake()
 		{
-			autoEvent.Invoke();
+			autoEvent.RaiseEvent();
 		}
 	}
 }

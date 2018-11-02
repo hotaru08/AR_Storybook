@@ -16,7 +16,7 @@
 			}
 
 			if (collisionEnterEvent != null)
-				collisionEnterEvent.Invoke();
+				collisionEnterEvent.RaiseEvent();
 
 			return false;
 		}
@@ -24,14 +24,14 @@
 		public override bool OnTriggerExit(Collider collidingObject)
 		{
 			if (collisionExitEvent != null)
-				collisionExitEvent.Invoke();
+				collisionExitEvent.RaiseEvent();
 			return true;
 		}
 
 		public override bool OnTriggerStay(Collider collidingObject)
 		{
 			if (collisionInsideEvent != null)
-				collisionInsideEvent.Invoke();
+				collisionInsideEvent.RaiseEvent();
 			return true;
 		}
 

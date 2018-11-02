@@ -9,7 +9,7 @@
 		[System.Serializable]
 		class NodeEvent
 		{
-			public ES_Event_Base nodeEvent;
+			public ES_Event_Abstract nodeEvent;
 			public NodeEventSettings nodeInvoke;
 		}
 
@@ -75,8 +75,7 @@
 			// Send off event containing any relevant cutscene timing data
 			if(setAnimTime != null && animStartTime != null && animEndTime != null)
 			{
-				setAnimTime.Value = animStartTime.ToString() + "," + animEndTime.ToString();
-				setAnimTime.Invoke();
+				setAnimTime.RaiseEvent(animStartTime.ToString() + "," + animEndTime.ToString());
 			}
 
 			// Send off any node "enter" events
@@ -84,7 +83,7 @@
 			{
 				if(nodeEvents[i].nodeInvoke == NodeEventSettings.ON_ENTER)
 				{
-					nodeEvents[i].nodeEvent.Invoke();
+					nodeEvents[i].nodeEvent.RaiseEvent();
 				}
 			}
 		}
@@ -96,7 +95,7 @@
 			{
 				if (nodeEvents[i].nodeInvoke == NodeEventSettings.ON_EXIT)
 				{
-					nodeEvents[i].nodeEvent.Invoke();
+					nodeEvents[i].nodeEvent.RaiseEvent();
 				}
 			}
 		}

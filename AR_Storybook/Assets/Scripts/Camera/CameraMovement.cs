@@ -88,7 +88,7 @@ public class CameraMovement : MonoBehaviour
             {
                 m_bIsNegativeZ = false;
 
-                m_reverseControls.Invoke(m_bIsNegativeZ);
+                m_reverseControls.RaiseEvent(m_bIsNegativeZ);
                 //DebugLogger.LogWarning<CameraMovement>("Event Send: " + m_eventsToSend[0].name + " Value: " + m_eventsToSend[0].value);
             }
             else if (Vector3.Angle(m_player.transform.forward, m_camera.transform.forward) > 90.0f
@@ -97,7 +97,7 @@ public class CameraMovement : MonoBehaviour
             {
                 m_bIsNegativeZ = true;
 
-               m_reverseControls.Invoke(m_bIsNegativeZ);
+               m_reverseControls.RaiseEvent(m_bIsNegativeZ);
                 //DebugLogger.LogWarning<CameraMovement>("Event Send: " + m_eventsToSend[0].name + " Value: " + m_eventsToSend[0].value);
             }
         }

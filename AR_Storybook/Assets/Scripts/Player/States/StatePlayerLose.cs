@@ -42,7 +42,7 @@ public class StatePlayerLose : IStateBase
         m_animator.SetBool("Lose", true);
 
         // Set Event 
-        m_object.GetComponent<PlayerManager>().GetGameMode.GetSpawnerEvent.Invoke(false);
+        m_object.GetComponent<PlayerManager>().GetGameMode.GetSpawnerEvent.RaiseEvent(false);
     }
 
     public void ExitState()

@@ -41,7 +41,7 @@ public class StatePlayerVictory : IStateBase
         m_animator.SetBool("Victory", true);
 
         // Set Event 
-        m_object.GetComponent<PlayerManager>().GetGameMode.GetSpawnerEvent.Invoke(false);
+        m_object.GetComponent<PlayerManager>().GetGameMode.GetSpawnerEvent.RaiseEvent(false);
     }
 
     public void ExitState()

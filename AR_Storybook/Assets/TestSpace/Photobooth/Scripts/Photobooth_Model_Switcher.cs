@@ -5,7 +5,7 @@
 
 	public class Photobooth_Model_Switcher : Photobooth_Generic_Switcher<GameObject>
 	{
-		[SerializeField] ES_Event_UnityObject changeObjectEvent;
+		[SerializeField] ES_Event_Object changeObjectEvent;
 
 		private void Start()
 		{
@@ -16,21 +16,21 @@
 		{
 			base.NextObject();
 
-			changeObjectEvent.Invoke(CurrentObject, null);
+			changeObjectEvent.RaiseEvent(CurrentObject);
 		}
 
 		public override void PrevObject()
 		{
 			base.PrevObject();
 
-			changeObjectEvent.Invoke(CurrentObject, null);
+			changeObjectEvent.RaiseEvent(CurrentObject);
 		}
 
 		public override void Switch(int index)
 		{
 			base.Switch(index);
 
-			changeObjectEvent.Invoke(CurrentObject, null);
+			changeObjectEvent.RaiseEvent(CurrentObject);
 		}
 	}
 }

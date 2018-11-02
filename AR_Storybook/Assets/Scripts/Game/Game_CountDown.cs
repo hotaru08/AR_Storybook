@@ -37,7 +37,7 @@ public class Game_CountDown : MonoBehaviour
         // If Countdown is done, start game
         if (m_countDownValue <= 0)
         {
-            m_startGame.Invoke(true);
+            m_startGame.RaiseEvent(true);
             this.gameObject.SetActive(false);
         }
 
