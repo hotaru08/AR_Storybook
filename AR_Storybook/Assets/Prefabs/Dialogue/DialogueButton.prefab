@@ -40,7 +40,7 @@ GameObject:
   - component: {fileID: 114748232863342116}
   - component: {fileID: 114629075523770904}
   - component: {fileID: 114683983208356362}
-  - component: {fileID: 114515026444861816}
+  - component: {fileID: 114079114572621700}
   m_Layer: 5
   m_Name: DialogueButton
   m_TagString: Untagged
@@ -48,7 +48,7 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &114515026444861816
+--- !u!114 &114079114572621700
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -56,12 +56,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1389505386964238}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7110bfc63842cc549974c6d356e6c468, type: 3}
+  m_Script: {fileID: 11500000, guid: 54524ec982c618241a699f3049012464, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  eventsToListenFor:
-  - {fileID: 11400000, guid: 7aa11647316d67448814306787f3755a, type: 2}
-  responseToDefaultEvent:
+  listeningToEvent: {fileID: 11400000, guid: 7aa11647316d67448814306787f3755a, type: 2}
+  defaultResponse:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 114683983208356362}
@@ -77,31 +76,51 @@ MonoBehaviour:
         m_CallState: 2
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
-  responseToBoolEvent:
+  boolResponse:
     m_PersistentCalls:
       m_Calls: []
     m_TypeName: ATXK.EventSystem.BoolEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
-  responseToIntEvent:
+  intResponse:
     m_PersistentCalls:
       m_Calls: []
     m_TypeName: ATXK.EventSystem.IntEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
-  responseToFloatEvent:
+  floatResponse:
     m_PersistentCalls:
       m_Calls: []
     m_TypeName: ATXK.EventSystem.FloatEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
-  responseToStringEvent:
+  stringResponse:
     m_PersistentCalls:
       m_Calls: []
     m_TypeName: ATXK.EventSystem.StringEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
-  responseToObjectEvent:
+  objectResponse:
     m_PersistentCalls:
       m_Calls: []
     m_TypeName: ATXK.EventSystem.ObjectEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
+  vector2Response:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: ATXK.EventSystem.Vector2Event, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  vector3Response:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: ATXK.EventSystem.Vector3Event, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  vector4Response:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: ATXK.EventSystem.Vector4Event, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  quaternionResponse:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: ATXK.EventSystem.QuaternionEvent, Assembly-CSharp, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
 --- !u!114 &114616159367662304
 MonoBehaviour:
   m_ObjectHideFlags: 1

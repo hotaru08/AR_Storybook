@@ -81,7 +81,7 @@
 		}
 
 		/// <summary>
-		/// Calls the UnityEvent reponse when listener receives an event with a float value.
+		/// Calls the UnityEvent reponse when listener receives an event with a string value.
 		/// </summary>
 		public void OnEventRaised(string value)
 		{

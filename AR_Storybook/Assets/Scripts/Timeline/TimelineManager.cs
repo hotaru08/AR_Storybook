@@ -73,12 +73,6 @@ public class TimelineManager : MonoBehaviour
         // Else, Get timeline asset of current director
         TimelineAsset temp = m_currDirector.playableAsset as TimelineAsset;
 
-        // Get the end timings of first track's timeline clips
-        foreach (TimelineClip _it in temp.GetOutputTrack(0).GetClips())
-        {
-            Debug.Log("Time: " + _it.end);
-        }
-
         // Get the end time of first clip
         foreach (TimelineClip _it in temp.GetOutputTrack(0).GetClips())
         {
@@ -106,7 +100,7 @@ public class TimelineManager : MonoBehaviour
         // Set current director's time to be start of that dialogue node's
         m_currDirector.time = m_clipStartTime;
 
-        //Debug.Log("ClipStartTime: " + m_clipStartTime + " / ClipEndTime: " + m_clipEndTime);
+        Debug.Log("ClipStartTime: " + m_clipStartTime + " / ClipEndTime: " + m_clipEndTime);
     }
 
     /// <summary>
@@ -142,6 +136,7 @@ public class TimelineManager : MonoBehaviour
         {
             if (m_currDirector.time > m_clipEndTime)
             {
+                m_SpawnDialogueEvent.Value = true;
                 m_SpawnDialogueEvent.RaiseEvent(true);
             }
         }
