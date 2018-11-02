@@ -24,7 +24,7 @@
 		[SerializeField] string charName;
 
 		[Header("Dialogue")]
-		[SerializeField] string sentence;
+        [SerializeField] [TextArea(1, 10)] string sentence;
 		[SerializeField] DS_Node[] nextNodes;
 
 		[Header("Cutscene")]

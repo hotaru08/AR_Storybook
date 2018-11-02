@@ -26,15 +26,9 @@ public class TimelineManager : MonoBehaviour
     /// </summary>
     private double m_clipStartTime, m_clipEndTime;
 
-    /// <summary>
-    /// For testing ( simulating AR situation )
-    /// </summary>
-    [SerializeField] private PlayableDirector m_testingScene;
     private void Start()
     {
         m_clipStartTime = m_clipEndTime = 0.0;
-
-        Instantiate(m_testingScene);
     }
 
     #region Functions
@@ -62,14 +56,26 @@ public class TimelineManager : MonoBehaviour
     /// </summary>
     public void PlayDirector()
     {
-        // Plays the director
+        // Plays the director if there is tracks in that timeline
+        if (m_currDirector.playableAsset.duration <= 0.0)
+        {
+            Debug.Log("There is no tracks / nothing in timeline!");
+            return;
+        }
         m_currDirector.Play();
+
         // If dialogue has spawned ( true ), break out of function
         if (m_SpawnDialogueEvent.Value) return;
 
         // Else, Get timeline asset of current director
         TimelineAsset temp = m_currDirector.playableAsset as TimelineAsset;
-        
+
+        // Get the end timings of first track's timeline clips
+        foreach (TimelineClip _it in temp.GetOutputTrack(0).GetClips())
+        {
+            Debug.Log("Time: " + _it.end);
+        }
+
         // Get the end time of first clip
         foreach (TimelineClip _it in temp.GetOutputTrack(0).GetClips())
         {
@@ -125,6 +131,9 @@ public class TimelineManager : MonoBehaviour
 
     private void Update()
     {
+        // If there is no director, dont update anything
+        if (m_currDirector == null) return;
+
         // If dialogue has not spawned yet, spawn when reached end of first clip
         if (!m_SpawnDialogueEvent.Value)
         {
