@@ -16,6 +16,7 @@ public class ScrollingObjects : MonoBehaviour
 
     [Header("Variables")]
     [SerializeField] private float m_movementSpeed;
+	[SerializeField] private float m_spawnOffsetMultiplier;
     private Queue<GameObject> m_movingObjects;
     private GameObject m_currObject;
     int index = 0;
@@ -60,26 +61,28 @@ public class ScrollingObjects : MonoBehaviour
 
     private void Update()
     {
-        // If current object's position is over bounds, spawn new object and set current to be that
-        if (m_currObject.transform.localPosition.z > m_currObject.transform.localScale.z * 1.5f)
-        {
-            // Random Selection of one object in spawned list
-            index = Random.Range(0, m_spawnedObjectList.Count);
-            m_currObject = m_spawnedObjectList[index];
-            m_spawnedObjectList.RemoveAt(index);
+		// If current object's position is over bounds, spawn new object and set current to be that
+		//if (m_currObject.transform.localPosition.z > m_currObject.transform.localScale.z * 1.5f)
+		if(m_currObject.transform.localPosition.z > (gameObject.GetComponent<BoxCollider>().size.z * m_spawnOffsetMultiplier))
+		{
+			// Random Selection of one object in spawned list
+			index = Random.Range(0, m_spawnedObjectList.Count);
+			m_currObject = m_spawnedObjectList[index];
+			m_spawnedObjectList.RemoveAt(index);
 
-            // Get the first in spawned queue
-            //m_currObject = m_spawnedObjects.Dequeue();
+			// Get the first in spawned queue
+			//m_currObject = m_spawnedObjects.Dequeue();
 
-            // Set Active
-            m_currObject.SetActive(true);
-            // Add to moving queue to update 
-            m_movingObjects.Enqueue(m_currObject);
-        }
+			// Set Active
+			m_currObject.SetActive(true);
+			// Add to moving queue to update 
+			m_movingObjects.Enqueue(m_currObject);
+		}
 
-        // If first in queue has reached the end, move back to start point
-        if (m_movingObjects.Peek().transform.localPosition.z > m_TravelAlongObject.transform.localScale.z)
-        {
+		// If first in queue has reached the end, move back to start point
+		//if (m_movingObjects.Peek().transform.localPosition.z > m_TravelAlongObject.transform.localScale.z)
+		if (m_movingObjects.Peek().transform.position.z > m_TravelAlongObject.gameObject.GetComponent<Renderer>().bounds.extents.z)
+		{
             // Move _go back to starting position
             m_movingObjects.Peek().transform.position = transform.position;
             // Set inactive
@@ -97,4 +100,9 @@ public class ScrollingObjects : MonoBehaviour
             _go.transform.position += transform.forward * Time.deltaTime * m_movementSpeed;
         }
     }
+
+	private void OnValidate()
+	{
+		m_spawnOffsetMultiplier = Mathf.Max(1f, m_spawnOffsetMultiplier);
+	}
 }
