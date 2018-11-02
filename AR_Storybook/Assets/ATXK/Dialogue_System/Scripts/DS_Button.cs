@@ -15,14 +15,18 @@
         /// </summary>
 		[SerializeField] Text text;
         [SerializeField] private float m_typeSpeed;
+		[SerializeField] private bool m_typeComplete;
+
+		private string m_currText;
 
 		#region Unity Methods
 		private void Start()
 		{
+			m_typeComplete = true;
+
 			dialogueTree = DS_Manager.Instance.DialogueTree;
 			UpdateText();
 
-			//GetComponent<Button>().onClick.AddListener(delegate { DS_Manager.Instance.TraverseTree(index); });
 			GetComponent<Button>().onClick.AddListener(CheckNode);
 		}
 		#endregion
@@ -30,46 +34,49 @@
 		#region Class Methods
 		private void CheckNode()
 		{
-			if (dialogueTree.CurrentNode.IsQuestion && dialogueTree.CurrentNode != dialogueTree.PreviousNode)
+			if(m_typeComplete)
 			{
-				DS_Manager.Instance.RedrawButtons();
+				if (dialogueTree.CurrentNode.IsQuestion && dialogueTree.CurrentNode != dialogueTree.PreviousNode)
+				{
+					DS_Manager.Instance.RedrawButtons();
 
-				dialogueTree.PreviousNode = dialogueTree.CurrentNode;
-			}
-			else if (dialogueTree.CurrentNode.IsQuestion && dialogueTree.CurrentNode == dialogueTree.PreviousNode)
-			{
-				DS_Manager.Instance.TraverseTree(index);
-				DS_Manager.Instance.RedrawButtons();
-				DS_Manager.Instance.TraverseTree(0);
+					dialogueTree.PreviousNode = dialogueTree.CurrentNode;
+				}
+				else if (dialogueTree.CurrentNode.IsQuestion && dialogueTree.CurrentNode == dialogueTree.PreviousNode)
+				{
+					DS_Manager.Instance.TraverseTree(index);
+					DS_Manager.Instance.RedrawButtons();
+					DS_Manager.Instance.TraverseTree(0);
+				}
+				else
+				{
+					DS_Manager.Instance.TraverseTree(index);
+				}
 			}
 			else
 			{
-				DS_Manager.Instance.TraverseTree(index);
+				StopCoroutine("TypeText");
+				text.text = m_currText;
+				m_typeComplete = true;
 			}
 		}
 
 		public void UpdateText()
 		{
-            //Update the button's text
-            //text.text = dialogueTree.CurrentNode.Sentence;
-
-            // Reset text to be empty
-            text.text = string.Empty;
-
 			if (dialogueTree != null)
 			{
                 if (dialogueTree.CurrentNode.IsQuestion && dialogueTree.CurrentNode == dialogueTree.PreviousNode)
 				{
 					if (index < dialogueTree.CurrentNode.NextNodes.Length)
                     {
-                        //text.text = dialogueTree.CurrentNode.NextNodes[index].Sentence;
-                        StartCoroutine(TypeText(dialogueTree.CurrentNode.NextNodes[index].Sentence));
-                    }
+						if (m_typeComplete)
+							StartCoroutine("TypeText", dialogueTree.CurrentNode.NextNodes[index].Sentence);
+					}
 				}
 				else
 				{
-                    //text.text = dialogueTree.CurrentNode.Sentence;
-                    StartCoroutine(TypeText(dialogueTree.CurrentNode.Sentence));
+					if (m_typeComplete)
+						StartCoroutine("TypeText", dialogueTree.CurrentNode.Sentence);
 				}
 			}
 		}
@@ -79,12 +86,17 @@
         /// </summary>
         private IEnumerator TypeText(string _textToType)
         {
-            for (int i = 0; i < _textToType.Length; ++i)
+			m_typeComplete = false;
+			m_currText = _textToType;
+			text.text = "";
+
+			for (int i = 0; i < _textToType.Length; ++i)
             {
                 text.text += _textToType[i];
                 yield return new WaitForSeconds(m_typeSpeed);
             }
-        }
+			m_typeComplete = true;
+		}
 		#endregion
 	}
 }
