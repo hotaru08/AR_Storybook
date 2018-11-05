@@ -9,8 +9,7 @@
 		{
 			for (int i = listeners.Count - 1; i >= 0; i--)
 			{
-                Debug.Log("listeners: " + listeners[i].name);
-                listeners[i].OnEventRaised();
+                listeners[i].OnEventRaised(value);
 			}
 		}
 
@@ -20,7 +19,7 @@
 			{
 				if (listeners[i].ObjectInstanceID == listenerInstanceID)
 				{
-					listeners[i].OnEventRaised();
+					listeners[i].OnEventRaised(value);
 				}
 			}
 		}
