@@ -132,6 +132,7 @@ public class PlayerManager : MonoBehaviour
         if (m_Animator.GetCurrentAnimatorStateInfo(0).IsName("Damaged"))
         {
             //m_PlayerDamagedEvent.Invoke();
+            Debug.Log("Entered here player");
             SpawnParticles();
             return;
         }
@@ -241,7 +242,6 @@ public class PlayerManager : MonoBehaviour
                             m_nextInstruction.RaiseEvent(m_nextInstruction.Value + 1);
                         }
                     }
-
                     // Adjust Player index according to camera view and lane layout
                     if (m_laneStyle.Equals(0))
                     {

@@ -9,7 +9,8 @@
 		{
 			for (int i = listeners.Count - 1; i >= 0; i--)
 			{
-				listeners[i].OnEventRaised();
+                Debug.Log("listeners: " + listeners[i].name);
+                listeners[i].OnEventRaised();
 			}
 		}
 
@@ -26,7 +27,8 @@
 
 		public override void RaiseEvent(int value)
 		{
-			for (int i = listeners.Count - 1; i >= 0; i--)
+            Value = value;
+            for (int i = listeners.Count - 1; i >= 0; i--)
 			{
 				listeners[i].OnEventRaised(value);
 			}
@@ -34,7 +36,8 @@
 
 		public override void RaiseEvent(int value, int? listenerInstanceID)
 		{
-			for (int i = listeners.Count - 1; i >= 0; i--)
+            Value = value;
+            for (int i = listeners.Count - 1; i >= 0; i--)
 			{
 				if (listeners[i].ObjectInstanceID == listenerInstanceID)
 				{

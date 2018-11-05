@@ -26,7 +26,8 @@
 
 		public override void RaiseEvent(Vector4 value)
 		{
-			for (int i = listeners.Count - 1; i >= 0; i--)
+            Value = value;
+            for (int i = listeners.Count - 1; i >= 0; i--)
 			{
 				listeners[i].OnEventRaised(value);
 			}
@@ -34,7 +35,8 @@
 
 		public override void RaiseEvent(Vector4 value, int? listenerInstanceID)
 		{
-			for (int i = listeners.Count - 1; i >= 0; i--)
+            Value = value;
+            for (int i = listeners.Count - 1; i >= 0; i--)
 			{
 				if (listeners[i].ObjectInstanceID == listenerInstanceID)
 				{
