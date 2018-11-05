@@ -94,7 +94,6 @@ public class UI_DisplayPlayerHealth : MonoBehaviour
     /// <param name="_value">Value to decrease health</param>
     public void ReducePlayerHealth(int _value)
     {
-        Debug.Log("Value: " + _value);
         if (m_playerHealth.value <= 0) return;
         m_playerHealth.value -= _value;
     }
@@ -105,7 +104,6 @@ public class UI_DisplayPlayerHealth : MonoBehaviour
     /// <param name="_value"></param>
     public void IncreasePlayerHealth(float _value)
     {
-        Debug.Log("Value: " + _value);
         if (m_playerHealth.value >= m_playerMaxHealth) return;
         m_playerHealth.value += (int)_value;
     }
