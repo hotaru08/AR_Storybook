@@ -9,7 +9,7 @@
 		{
 			for(int i = listeners.Count - 1; i >= 0; i--)
 			{
-				listeners[i].OnEventRaised();
+				listeners[i].OnEventRaised(value);
 			}
 		}
 
@@ -19,13 +19,14 @@
 			{
 				if(listeners[i].ObjectInstanceID == listenerInstanceID)
 				{
-					listeners[i].OnEventRaised();
+					listeners[i].OnEventRaised(value);
 				}
 			}
 		}
 
 		public override void RaiseEvent(bool value)
 		{
+            Value = value;
 			for (int i = listeners.Count - 1; i >= 0; i--)
 			{
 				listeners[i].OnEventRaised(value);
@@ -34,11 +35,12 @@
 
 		public override void RaiseEvent(bool value, int? listenerInstanceID)
 		{
-			for (int i = listeners.Count - 1; i >= 0; i--)
+            Value = value;
+            for (int i = listeners.Count - 1; i >= 0; i--)
 			{
 				if (listeners[i].ObjectInstanceID == listenerInstanceID)
 				{
-					listeners[i].OnEventRaised(value);
+                    listeners[i].OnEventRaised(value);
 				}
 			}
 		}

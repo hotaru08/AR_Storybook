@@ -53,7 +53,9 @@
 		/// </summary>
 		public void OnEventRaised()
 		{
-			defaultResponse.Invoke();
+            // Debug.Log("Value: " + value);
+            Debug.Log("Responses: " + defaultResponse.GetPersistentEventCount());
+            defaultResponse.Invoke();
 		}
 
 		/// <summary>
@@ -69,6 +71,8 @@
 		/// </summary>
 		public void OnEventRaised(int value)
 		{
+            Debug.Log("Value: " + value);
+            Debug.Log("Responses: " + intResponse.GetPersistentEventCount());
 			intResponse.Invoke(value);
 		}
 
@@ -81,7 +85,7 @@
 		}
 
 		/// <summary>
-		/// Calls the UnityEvent reponse when listener receives an event with a float value.
+		/// Calls the UnityEvent reponse when listener receives an event with a string value.
 		/// </summary>
 		public void OnEventRaised(string value)
 		{

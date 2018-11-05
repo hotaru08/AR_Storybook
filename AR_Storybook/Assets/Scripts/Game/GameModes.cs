@@ -8,7 +8,6 @@ using UnityEngine;
 /// <summary>
 /// IDK what im doing really
 /// </summary>
-[RequireComponent(typeof(ES_EventListener))]
 public class GameModes : MonoBehaviour
 {
     /// <summary>

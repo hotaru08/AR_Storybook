@@ -23,12 +23,12 @@ public class Game_SpawnInstructions : MonoBehaviour
         prevInstructIndex = m_instructionIndex.Value = 0;
     }
 
-    private void Update()
-    {
-        if (prevInstructIndex == m_instructionIndex.Value) return;
-        SetInstructions(m_instructionIndex.Value);
-        prevInstructIndex = m_instructionIndex.Value;
-    }
+    //private void Update()
+    //{
+    //    if (prevInstructIndex == m_instructionIndex.Value) return;
+    //    SetInstructions(m_instructionIndex.Value);
+    //    prevInstructIndex = m_instructionIndex.Value;
+    //}
 
     /// <summary>
     /// Set the index of which instruction to show
@@ -50,6 +50,9 @@ public class Game_SpawnInstructions : MonoBehaviour
         // set previous screen inactive
         if (_index <= 0) return;
         m_instruction.transform.GetChild(_index - 1).gameObject.SetActive(false);
+
+        // set value of screen
+        m_instructionIndex.Value = _index;
     }
 
     /// <summary>

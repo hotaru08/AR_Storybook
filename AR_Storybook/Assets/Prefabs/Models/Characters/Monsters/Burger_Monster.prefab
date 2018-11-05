@@ -186,9 +186,9 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4182485258963528}
-  - component: {fileID: 114422914277405836}
-  - component: {fileID: 114868207112591240}
   - component: {fileID: 95023046340765964}
+  - component: {fileID: 114422914277405836}
+  - component: {fileID: 114633345433548174}
   m_Layer: 0
   m_Name: Burger_Monster
   m_TagString: Untagged
@@ -1358,18 +1358,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   startState: {fileID: 11400000, guid: af3fad585f78a4046ac63134fc326918, type: 2}
   currState: {fileID: 0}
---- !u!114 &114663427550576636
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1724321573044652}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 94897ad87fe75804586de071b6934ac8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &114868207112591240
+--- !u!114 &114633345433548174
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -1377,43 +1366,31 @@ MonoBehaviour:
   m_GameObject: {fileID: 1363193583482118}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7110bfc63842cc549974c6d356e6c468, type: 3}
+  m_Script: {fileID: 11500000, guid: 54524ec982c618241a699f3049012464, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  eventsToListenFor:
-  - {fileID: 11400000, guid: b9571e44314416c41acf1789bac6c680, type: 2}
-  responseToDefaultEvent:
+  listeningToEvent: {fileID: 11400000, guid: b9571e44314416c41acf1789bac6c680, type: 2}
+  defaultResponse:
     m_PersistentCalls:
       m_Calls: []
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
-  responseToBoolEvent:
+  boolResponse:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 114663427550576636}
-        m_MethodName: set_enabled
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
     m_TypeName: ATXK.EventSystem.BoolEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
-  responseToIntEvent:
+  intResponse:
     m_PersistentCalls:
       m_Calls: []
     m_TypeName: ATXK.EventSystem.IntEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
-  responseToFloatEvent:
+  floatResponse:
     m_PersistentCalls:
       m_Calls: []
     m_TypeName: ATXK.EventSystem.FloatEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
-  responseToStringEvent:
+  stringResponse:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 114422914277405836}
@@ -1430,22 +1407,42 @@ MonoBehaviour:
         m_CallState: 2
     m_TypeName: ATXK.EventSystem.StringEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
-  responseToObjectEvent:
+  objectResponse:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 114663427550576636}
-        m_MethodName: Fire
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
     m_TypeName: ATXK.EventSystem.ObjectEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
+  vector2Response:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: ATXK.EventSystem.Vector2Event, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  vector3Response:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: ATXK.EventSystem.Vector3Event, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  vector4Response:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: ATXK.EventSystem.Vector4Event, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  quaternionResponse:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: ATXK.EventSystem.QuaternionEvent, Assembly-CSharp, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+--- !u!114 &114663427550576636
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1724321573044652}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 94897ad87fe75804586de071b6934ac8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!137 &137103366553464666
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1
