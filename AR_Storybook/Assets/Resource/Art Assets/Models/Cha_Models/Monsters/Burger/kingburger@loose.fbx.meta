@@ -1,76 +1,140 @@
 fileFormatVersion: 2
-guid: 8fed0b1fd7976f74598f6e48597544dd
+guid: 420971aa290029a498c6e9761bcbd1ac
 ModelImporter:
   serializedVersion: 22
   fileIDToRecycleName:
     100000: ankle_l
     100002: ankle_r
     100004: arm_l
-    100006: arm_r
-    100008: bottom_bun
-    100010: elbow_l
-    100012: elbow_r
-    100014: foot_l
-    100016: foot_r
-    100018: hand_l
-    100020: hand_r
-    100022: //RootNode
-    100024: knee_l
-    100026: knee_r
-    100028: leg_l
-    100030: leg_r
-    100032: lettuce
-    100034: lettuce_1
-    100036: lettuce_1b
-    100038: lettuce_2
-    100040: lettuce_2b
-    100042: lettuce_3
-    100044: lettuce_3b
-    100046: lettuce_4
-    100048: lettuce_4b
-    100050: lettuce_5
-    100052: lettuce_5b
-    100054: lettuce_6
-    100056: lettuce_6b
-    100058: meat
-    100060: toes_l
-    100062: toes_r
-    100064: top_bun
+    100006: arm_l_ctrl
+    100008: arm_r
+    100010: arm_r 1
+    100012: arm_r1
+    100014: arm_r_ctrl
+    100016: bottom_bun
+    100018: bottom_bun 1
+    100020: bottom_ctrl
+    100022: elbow_l
+    100024: elbow_l_ctrl
+    100026: elbow_r
+    100028: elbow_r_ctrl
+    100030: foot_l
+    100032: foot_r
+    100034: hand_l
+    100036: hand_l 1
+    100038: hand_r
+    100040: hand_r_ctrl
+    100042: ikHandle1
+    100044: ikHandle2
+    100046: //RootNode
+    100048: knee_l
+    100050: knee_l_ctrl
+    100052: knee_r
+    100054: knee_r_ctrl
+    100056: leg_l
+    100058: leg_r
+    100060: leg_r 1
+    100062: leg_r1
+    100064: lettuce
+    100066: lettuce_1
+    100068: lettuce_1b
+    100070: lettuce_2
+    100072: lettuce_2b
+    100074: lettuce_3
+    100076: lettuce_3b
+    100078: lettuce_4
+    100080: lettuce_4b
+    100082: lettuce_5
+    100084: lettuce_5b
+    100086: lettuce_6
+    100088: lettuce_6b
+    100090: meat
+    100092: meat 1
+    100094: meat_ctrl
+    100096: mesh
+    100098: toes_l
+    100100: toes_r
+    100102: top_bun
+    100104: top_bun 1
+    100106: top_bun_ctrl
+    100108: veg
+    100110: veg_ctrl
     400000: ankle_l
     400002: ankle_r
     400004: arm_l
-    400006: arm_r
-    400008: bottom_bun
-    400010: elbow_l
-    400012: elbow_r
-    400014: foot_l
-    400016: foot_r
-    400018: hand_l
-    400020: hand_r
-    400022: //RootNode
-    400024: knee_l
-    400026: knee_r
-    400028: leg_l
-    400030: leg_r
-    400032: lettuce
-    400034: lettuce_1
-    400036: lettuce_1b
-    400038: lettuce_2
-    400040: lettuce_2b
-    400042: lettuce_3
-    400044: lettuce_3b
-    400046: lettuce_4
-    400048: lettuce_4b
-    400050: lettuce_5
-    400052: lettuce_5b
-    400054: lettuce_6
-    400056: lettuce_6b
-    400058: meat
-    400060: toes_l
-    400062: toes_r
-    400064: top_bun
-    7400000: loose
+    400006: arm_l_ctrl
+    400008: arm_r
+    400010: arm_r 1
+    400012: arm_r1
+    400014: arm_r_ctrl
+    400016: bottom_bun
+    400018: bottom_bun 1
+    400020: bottom_ctrl
+    400022: elbow_l
+    400024: elbow_l_ctrl
+    400026: elbow_r
+    400028: elbow_r_ctrl
+    400030: foot_l
+    400032: foot_r
+    400034: hand_l
+    400036: hand_l 1
+    400038: hand_r
+    400040: hand_r_ctrl
+    400042: ikHandle1
+    400044: ikHandle2
+    400046: //RootNode
+    400048: knee_l
+    400050: knee_l_ctrl
+    400052: knee_r
+    400054: knee_r_ctrl
+    400056: leg_l
+    400058: leg_r
+    400060: leg_r 1
+    400062: leg_r1
+    400064: lettuce
+    400066: lettuce_1
+    400068: lettuce_1b
+    400070: lettuce_2
+    400072: lettuce_2b
+    400074: lettuce_3
+    400076: lettuce_3b
+    400078: lettuce_4
+    400080: lettuce_4b
+    400082: lettuce_5
+    400084: lettuce_5b
+    400086: lettuce_6
+    400088: lettuce_6b
+    400090: meat
+    400092: meat 1
+    400094: meat_ctrl
+    400096: mesh
+    400098: toes_l
+    400100: toes_r
+    400102: top_bun
+    400104: top_bun 1
+    400106: top_bun_ctrl
+    400108: veg
+    400110: veg_ctrl
+    2100000: burger_colour
+    2100002: burger_alpha
+    4300000: top_bun
+    4300002: veg
+    4300004: meat
+    4300006: arm_r
+    4300008: leg_r
+    4300010: bottom_bun
+    4300012: arm_r1
+    4300014: leg_r1
+    7400000: Take 001
     9500000: //RootNode
+    13700000: arm_r
+    13700002: arm_r1
+    13700004: bottom_bun 1
+    13700006: leg_r 1
+    13700008: leg_r1
+    13700010: meat 1
+    13700012: top_bun
+    13700014: veg
   externalObjects: {}
   materials:
     importMaterials: 1
@@ -98,35 +162,7 @@ ModelImporter:
     animationWrapMode: 0
     extraExposedTransformPaths: []
     extraUserProperties: []
-    clipAnimations:
-    - serializedVersion: 16
-      name: loose
-      takeName: Take 001
-      firstFrame: 102
-      lastFrame: 145
-      wrapMode: 0
-      orientationOffsetY: 0
-      level: 0
-      cycleOffset: 0
-      loop: 0
-      hasAdditiveReferencePose: 0
-      loopTime: 0
-      loopBlend: 0
-      loopBlendOrientation: 0
-      loopBlendPositionY: 0
-      loopBlendPositionXZ: 0
-      keepOriginalOrientation: 0
-      keepOriginalPositionY: 1
-      keepOriginalPositionXZ: 0
-      heightFromFeet: 0
-      mirror: 0
-      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
-      curves: []
-      events: []
-      transformMask: []
-      maskType: 3
-      maskSource: {instanceID: 0}
-      additiveReferencePoseFrame: 0
+    clipAnimations: []
     isReadable: 1
   meshes:
     lODScreenPercentages: []
