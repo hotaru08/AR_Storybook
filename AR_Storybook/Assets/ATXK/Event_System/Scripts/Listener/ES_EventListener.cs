@@ -53,7 +53,9 @@
 		/// </summary>
 		public void OnEventRaised()
 		{
-;			defaultResponse.Invoke();
+            // Debug.Log("Value: " + value);
+            Debug.Log("Responses: " + defaultResponse.GetPersistentEventCount());
+            defaultResponse.Invoke();
 		}
 
 		/// <summary>
