@@ -179,10 +179,18 @@ public class MarkerlessController_Mk2 : MonoBehaviour
 		GameObject arObj = _arObject as GameObject;
 		if(arObj != null)
 		{
-			Vector3 oldPos = arObject.transform.position;
-			Quaternion oldRot = arObject.transform.rotation;
+			Vector3 oldPos = Vector3.zero;
+			Quaternion oldRot = Quaternion.identity;
 
-			DestroyImmediate(arObject);
+			if (arObject != null)
+			{
+				oldPos = arObject.transform.position;
+				oldRot = arObject.transform.rotation;
+
+				DestroyImmediate(arObject);
+			}
+
+
 			arObject = Instantiate(arObj, oldPos, oldRot);
 		}
 	}
