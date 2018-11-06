@@ -13,13 +13,18 @@ public class TimelineHolder : MonoBehaviour
     [SerializeField] private ES_Event_Object m_directorObject;
     [Tooltip("Event to trigger spawning of dialogue")]
     [SerializeField] private ES_Event_Bool m_spawnDialogue;
+    [Tooltip("Event containing first clip time for respective Timelines")]
+    [SerializeField] private ES_Event_String m_firstClipTiming;
+    [SerializeField] private string m_timing;
 
     private void Awake()
     {
         // Set the current time of director to be at start
         GetComponent<PlayableDirector>().time = 0.0;
 
+        // Raise events
         m_directorObject.RaiseEvent(GetComponent<PlayableDirector>());
-        m_spawnDialogue.Value = false;
+        m_spawnDialogue.RaiseEvent(false);
+        m_firstClipTiming.RaiseEvent(m_timing);
     }
 }

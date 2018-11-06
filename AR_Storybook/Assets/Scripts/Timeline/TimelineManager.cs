@@ -69,19 +69,6 @@ public class TimelineManager : MonoBehaviour
 
         // If dialogue has spawned ( true ), break out of function
         if (m_SpawnDialogueEvent.Value) return;
-
-        // Else, Get timeline asset of current director
-        TimelineAsset temp = m_currDirector.playableAsset as TimelineAsset;
-
-        // Get the end time of first clip
-        foreach (TimelineClip _it in temp.GetOutputTrack(0).GetClips())
-        {
-            // Once 2nd clip, the loop will be broken
-            if (_it.start > 0.0) break;
-
-            // store the end timing of 1st clip
-            m_clipEndTime = _it.end;
-        }
     }
 
     /// <summary>
