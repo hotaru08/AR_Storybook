@@ -11,15 +11,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 345e88b0eaabfe94b951cf9e532aa618, type: 3}
   m_Name: CS03_Line05
   m_EditorClassIdentifier: 
-  charAvatar: {fileID: 21300000, guid: 6fc43ba345e316e479f67df36a5546e5, type: 3}
-  charName: Sol
-  sentence: "Thank you Aye! \nI will continue to protect you as long as you have a
-    healthy lifestyle!"
+  charAvatar: {fileID: 21300000, guid: 5c0e9a1652231954ab713e79c898b7a8, type: 3}
+  charName: Guardian
+  sentence: Congratulations.
   nextNodes:
-  - {fileID: 11400000, guid: 50d800d29947e01448607e87d5495748, type: 2}
-  animStartTime: 0
+  - {fileID: 11400000, guid: 3d4ce9b2cee68b247bf23f9efb8e9221, type: 2}
+  animStartTime: 15.233
   startTimeNull: 0
-  animEndTime: 0
+  animEndTime: 18.166
   endTimeNull: 0
-  setAnimTime: {fileID: 0}
-  nodeEvents: []
+  setAnimTime: {fileID: 11400000, guid: 047e2a88c536f3146a502665c638e46c, type: 2}
+  nodeEvents:
+  - nodeEvent: {fileID: 11400000, guid: 58265e2f2d6c0e043b4ba45dcf355a6e, type: 2}
+    nodeInvoke: 0

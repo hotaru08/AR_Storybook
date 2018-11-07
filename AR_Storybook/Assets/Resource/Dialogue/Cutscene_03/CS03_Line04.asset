@@ -11,16 +11,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 345e88b0eaabfe94b951cf9e532aa618, type: 3}
   m_Name: CS03_Line04
   m_EditorClassIdentifier: 
-  charAvatar: {fileID: 21300000, guid: 5c0e9a1652231954ab713e79c898b7a8, type: 3}
-  charName: Guardian
-  sentence: 'Congratulations, You have brought Sol''s glow back.
-
-    I will not punish you.'
+  charAvatar: {fileID: 21300000, guid: 07f6b10dbaec18f4cb601bd479b98159, type: 3}
+  charName: Sol
+  sentence: My glow is full again!
   nextNodes:
-  - {fileID: 11400000, guid: db1cb77b6bf2e68468d42f52d163e379, type: 2}
-  animStartTime: 0
+  - {fileID: 11400000, guid: 0ff45924a56483d4baaecfa58f4243da, type: 2}
+  animStartTime: 13.5
   startTimeNull: 0
-  animEndTime: 0
+  animEndTime: 15.233
   endTimeNull: 0
-  setAnimTime: {fileID: 0}
-  nodeEvents: []
+  setAnimTime: {fileID: 11400000, guid: 047e2a88c536f3146a502665c638e46c, type: 2}
+  nodeEvents:
+  - nodeEvent: {fileID: 11400000, guid: 58265e2f2d6c0e043b4ba45dcf355a6e, type: 2}
+    nodeInvoke: 0
