@@ -217,7 +217,7 @@
             // Make Player Look at forward of Lane
             m_player.transform.LookAt(m_laneList[m_playerIndex].m_enemySpawnPoint);
             // Set bool true
-            m_laneList[m_playerIndex].PlayerOnLane = true;
+            m_laneList[m_playerIndex].ChangeLaneColor(true);
         }
 
         /// <summary>
@@ -317,9 +317,16 @@
             {
                 // Set position when first time reach new position
                 m_player.transform.position = m_laneList[m_player.PlayerIndex].m_playerSpawnPoint.position;
+
+                // Set player to be on that lane
+                m_laneList[m_player.PlayerIndex].ChangeLaneColor(true);
+                m_laneList[m_playerIndex].ChangeLaneColor(false);
+
                 // Setting index of Player
                 m_playerIndex = m_player.PlayerIndex;
+                return;
             }
+
             // Update Player Pos using Lane Pos 
             m_player.transform.LookAt(m_laneList[m_player.PlayerIndex].m_enemySpawnPoint);
             m_player.transform.position = Vector3.Lerp(m_player.transform.position, m_laneList[m_player.PlayerIndex].m_playerSpawnPoint.position, m_player.m_playerSpeed);
