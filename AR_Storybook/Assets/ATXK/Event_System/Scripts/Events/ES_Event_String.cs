@@ -17,7 +17,7 @@
 		{
 			for (int i = listeners.Count - 1; i >= 0; i--)
 			{
-				if (listeners[i].ObjectInstanceID == listenerInstanceID)
+				if (listeners[i].ObjectInstanceID == listenerInstanceID || listenerInstanceID == null)
 				{
 					listeners[i].OnEventRaised(value);
 				}
@@ -38,7 +38,7 @@
             Value = value;
             for (int i = listeners.Count - 1; i >= 0; i--)
 			{
-				if (listeners[i].ObjectInstanceID == listenerInstanceID)
+				if (listeners[i].ObjectInstanceID == listenerInstanceID || listenerInstanceID == null)
 				{
 					listeners[i].OnEventRaised(value);
 				}
