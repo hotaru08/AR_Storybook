@@ -100,7 +100,8 @@
             m_laneList.Clear();
 
             // ----- Find width of lanes
-            m_widthLane = m_widthBounds / m_numLanes;
+            //m_widthLane = m_widthBounds / m_numLanes;
+            m_widthLane = 1f / m_numLanes;
 
             // ----- Calculate the number of enemies
             if (m_style.Equals(ENEMIES_SPAWN_STYLE.W_STYLE))
@@ -137,11 +138,11 @@
         {
             // Set Starting Position for generating
             // HACK # 1
-            m_startingSpawnPos = new Vector3(/*((m_spawnPoint.localPosition.x - m_renderer.bounds.extents.x) / m_widthBounds) + m_widthLane * 0.5f*/
-                m_spawnPoint.localPosition.x - m_renderer.bounds.extents.x * 0.5f,
+            m_startingSpawnPos = new Vector3(((m_spawnPoint.localPosition.x - m_renderer.bounds.extents.x) / m_widthBounds) + m_widthLane * 0.5f,
+                //m_spawnPoint.localPosition.x - m_renderer.bounds.extents.x * 0.5f,
                                              0.0f,
                                              0.0f);
-            Debug.Log("Extents: " + m_renderer.bounds.extents.x);
+            //Debug.Log("Extents: " + m_renderer.bounds.extents.x);
 
             for (int i = 0; i < m_numLanes; ++i)
             {

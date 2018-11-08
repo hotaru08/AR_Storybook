@@ -51,7 +51,6 @@ public class GameModes : MonoBehaviour
     [SerializeField] private ES_Event_Int m_triggerInstructions;
     [Tooltip("Event to trigger CountDown to start")]
     [SerializeField] private ES_Event_Int m_startCountDown;
-
     [Tooltip("Event to reset States of Gameobjects to string input")]
     [SerializeField] private ES_Event_String m_resetState;
     [Tooltip("Event to set activeness of AIs spawner")]

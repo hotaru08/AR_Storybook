@@ -78,7 +78,8 @@ public class ScrollingObjects : MonoBehaviour
 		}
 
 		// If first in queue has reached the end, move back to start point
-		if (m_movingObjects.Peek().transform.position.z >= m_TravelAlongObject.gameObject.GetComponent<Renderer>().bounds.size.z)
+		if (m_movingObjects.Peek().transform.position.z >= m_TravelAlongObject.gameObject.GetComponent<Renderer>().bounds.size.z
+            && m_movingObjects.Peek() != null)
 		{
 			// Move _go back to starting position
 			m_movingObjects.Peek().transform.position = transform.position;
