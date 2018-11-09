@@ -22,18 +22,17 @@
             if (m_CanStartSpawn == null) return false;
 
             if (!m_check.ContainsKey(controller))
-			{
-                if (m_CanStartSpawn.Value)
-                    controller.StartCoroutine(WaitForTime(controller));
+            {
+                controller.StartCoroutine(WaitForTime(controller));
             }
             else
-			{
-				if (m_check[controller])
-				{
-					m_check.Remove(controller);
+            {
+                if (m_check[controller])
+                {
+                    m_check.Remove(controller);
                     return true;
-				}
-			}
+                }
+            }
             return false;
 		}
 
@@ -43,17 +42,25 @@
 			return time <= 0f;
 		}
 
-		IEnumerator WaitForTime(AI_Controller controller)
-		{
-			m_check.Add(controller, false);
+        IEnumerator WaitForTime(AI_Controller controller)
+        {
+            m_check.Add(controller, false);
 
-			float localtimer = time + Random.Range(-(time * timeRange), time * timeRange);
-            while (localtimer > 0)
-			{
-				localtimer -= Time.deltaTime;
-				yield return new WaitForEndOfFrame();
-			}
-			m_check[controller] = true;
-		}
+            float localTimer = time + Random.Range(-(time * timeRange), time * timeRange);
+            while (localTimer > 0f)
+            {
+                // When paused, wait till not pause then continue reducing
+                yield return new WaitUntil(CanSpawn);
+
+                localTimer -= Time.deltaTime;
+                yield return new WaitForEndOfFrame();
+            }
+            m_check[controller] = true;
+        }
+
+        private bool CanSpawn()
+        {
+            return m_CanStartSpawn.Value;
+        }
 	}
 }

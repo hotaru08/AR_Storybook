@@ -139,6 +139,7 @@ public class PlayerManager : MonoBehaviour
         {
             m_bSpawn = false;
         }
+        if (!m_stateMachine.GetCurrentState().Equals("Idle")) return;
 
         // ---------- Player Win / Lose
         if (m_playerHealth.value <= 0)

@@ -70,16 +70,16 @@ public class GameModes : MonoBehaviour
         switch (m_gameMode)
         {
             case GAME_MODE.TUTORIAL:
-                if (transform.Find("UI ( Battle )/Screen ( Instructions )") == null)
+                if (transform.Find("UI ( Battle )/Canvas/Screen ( Instructions )") == null)
                 {
-                    GameObject temp = Instantiate(m_instructionScreen, transform.Find("UI ( Battle )"));
+                    GameObject temp = Instantiate(m_instructionScreen, transform.Find("UI ( Battle )/Canvas/"));
                 }
                 m_triggerInstructions.RaiseEvent(0);
                 break;
             case GAME_MODE.GAME:
-                if (transform.Find("UI ( Battle )/Screen ( Countdown )") == null)
+                if (transform.Find("UI ( Battle )/Canvas/Screen ( Countdown )") == null)
                 {
-                    GameObject temp = Instantiate(m_countDownScreen, transform.Find("UI ( Battle )"));
+                    GameObject temp = Instantiate(m_countDownScreen, transform.Find("UI ( Battle )/Canvas/"));
                 }
                 m_startCountDown.RaiseEvent(m_countDownTime);
                 break;
