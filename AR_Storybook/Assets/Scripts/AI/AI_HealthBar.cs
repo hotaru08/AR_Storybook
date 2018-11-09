@@ -53,8 +53,12 @@ public class AI_HealthBar : MonoBehaviour
     /// </summary>
     private void Update()
     {
-        // If Player Health / AI Health is 0, stop healthbar
-        if (m_playerHealth.value <= 0 || m_AIHealth.value <= 0.0f) return;
+        // If AI Health is 0, stop healthbar
+        if (m_AIHealth.value <= 0.0f)
+        {
+            m_healthBar.sizeDelta = new Vector2(m_healthBar.sizeDelta.x, 0f);
+            return;
+        }
 
         // Based on mode, reduce health accordingly
         switch (m_mode)

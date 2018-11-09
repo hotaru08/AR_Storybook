@@ -1,8 +1,6 @@
 ﻿using UnityEngine;
-using ATXK.Helper;
 using ATXK.EventSystem;
 using ATXK.CustomVariables;
-using ATXK.ItemSystem;
 
 /// <summary>
 /// Player Manager to handle Player eg. Animation, States etc
@@ -37,11 +35,11 @@ public class PlayerManager : MonoBehaviour
     /// <summary>
     /// To Trigger Jump of Player
     /// </summary>
+    private Rigidbody m_rigidBody;
     private bool m_bTriggerJump;
     public bool TriggerJump { set { m_bTriggerJump = value; } }
-    private float m_verticalVelocity;
-    private float m_gravity;
     [SerializeField] private float m_jumpForce;
+
 
     /// <summary>
     /// Reversing the controls of Player
@@ -95,18 +93,18 @@ public class PlayerManager : MonoBehaviour
         m_gameMode = GameObject.FindGameObjectWithTag("BattleScene").GetComponent<GameModes>();
         m_Animator = GetComponent<Animator>();
         m_swipeComponent = GetComponent<Touch_Swipe>();
+        m_rigidBody = GetComponent<Rigidbody>();
         ParticleParent = GameObject.FindGameObjectWithTag("ParticlesHolder");
 
         // Initialising Variables
         m_bSpawn = false;
 		m_bStunned = false;
-		m_gravity = Physics.gravity.y;
         m_swipeDirection.Value = (int)m_swipeComponent.SwipeDirection;
         m_originalPlayerIndex = m_playerLaneIndex;
 
         // Send Player Obj 
         ES_Event_Object temp = m_cameraPlayer as ES_Event_Object;
-        temp.RaiseEvent(this.gameObject);
+        temp.RaiseEvent(gameObject);
 
         // Initialising Player States
         m_stateMachine = new StateMachine();
@@ -178,25 +176,12 @@ public class PlayerManager : MonoBehaviour
     /// </summary>
     private void FixedUpdate()
     {
-        // Check if player is on ground
-        if (IsGrounded())
+        if (m_bTriggerJump)
         {
-            // Set velocity to be a small force so that player remains close to the ground
-            m_verticalVelocity = m_gravity * Time.deltaTime;
-
-            if (m_bTriggerJump)
-            {
-                m_bTriggerJump = false;
-                // Set the velocity to be jump force ( force that pushes player off ground )
-                m_verticalVelocity = m_jumpForce;
-            }
+            m_rigidBody.AddForce(Vector3.up * m_jumpForce, ForceMode.Impulse);
+            m_bTriggerJump = false;
+            Debug.Log("Help: " + IsGrounded() + " / " + m_bTriggerJump + " / ");
         }
-        else
-        {
-            m_verticalVelocity += m_gravity * Time.deltaTime;
-        }
-        Debug.DrawLine(transform.position, transform.position + new Vector3(0.0f, -0.03f, 0.0f), Color.blue);
-        transform.position += new Vector3(0.0f, m_verticalVelocity * Time.deltaTime, 0.0f);
     }
 
 	/// <summary>
@@ -226,7 +211,9 @@ public class PlayerManager : MonoBehaviour
                             m_gameMode.GetSpawnerEvent.RaiseEvent(true);
                         }
                     }
-                    m_bTriggerJump = true;
+                    
+                    if (IsGrounded())
+                        m_bTriggerJump = true;
                 }
                 break;
             case (int)Touch_Swipe.SWIPE_DIRECTION.DOWN:
