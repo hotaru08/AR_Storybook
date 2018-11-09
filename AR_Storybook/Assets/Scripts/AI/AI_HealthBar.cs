@@ -42,15 +42,10 @@ public class AI_HealthBar : MonoBehaviour
     }
     public DAMAGE_MODE m_mode;
 
-    /// <summary>
-    /// Variables for reducing via time
-    /// </summary>
-    private bool m_bCanStartReducing;
-
     private void Start()
     {
         m_originalHealth = m_healthBar.sizeDelta.y;
-        m_AIHealth.value = m_healthBar.sizeDelta.y;
+        m_AIHealth.value = m_originalHealth;
     }
 
     /// <summary>

@@ -23,7 +23,7 @@ public class VisualizerManager : MonoBehaviour
 
     [Header("Misc. Settings")]
     [Tooltip("Scale to apply to AR_Device (session) to have camera offset")]
-    [Range(1f, 15f)]
+    [Range(1f, 20f)]
     [SerializeField] private float m_scaleFactor = 1f;
 
     float bounceTime = 0f;
@@ -45,14 +45,17 @@ public class VisualizerManager : MonoBehaviour
 		m_Session = ARSessionManager.Instance.GetSession();
         // Multiply it by scaleFactor
         m_Session.transform.localScale *= m_scaleFactor;
+        Debug.LogWarning("Rotation: " + m_Session.transform.rotation);
+        Debug.LogWarning("Scale: " + m_Session.transform.localScale);
+        Debug.LogWarning("Position: " + m_Session.transform.position);
 
-		//Initialize lists
-		m_OldImages = new List<AugmentedImage>();
+        //Initialize lists
+        m_OldImages = new List<AugmentedImage>();
 		m_CurrFrameImages = new List<AugmentedImage>();
 		m_Visualizers = new List<ImageVisualizer>();
 
 		//Set the device screen to never timeout
-		Screen.sleepTimeout = SleepTimeout.NeverSleep;
+		//Screen.sleepTimeout = SleepTimeout.NeverSleep;
 
 		//Initialize object pool of ImageVisualizers
 		for(int i = 0; i < m_PoolStartingSize; i++)
@@ -161,6 +164,8 @@ public class VisualizerManager : MonoBehaviour
 			Anchor anchor = image.CreateAnchor(image.CenterPose);
             anchor.transform.position *= m_scaleFactor;
             Debug.LogWarning("Scaled Anchor Pos: " + anchor.transform.position);
+            Debug.LogWarning("Scaled Anchor Rotation: " + anchor.transform.rotation);
+            Debug.LogWarning("Scaled Anchor Scale: " + anchor.transform.localScale);
 
             if (anchor != null)
 			{

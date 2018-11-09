@@ -132,7 +132,6 @@ public class PlayerManager : MonoBehaviour
         if (m_Animator.GetCurrentAnimatorStateInfo(0).IsName("Damaged"))
         {
             //m_PlayerDamagedEvent.Invoke();
-            Debug.Log("Entered here player");
             SpawnParticles();
             return;
         }
@@ -140,6 +139,7 @@ public class PlayerManager : MonoBehaviour
         {
             m_bSpawn = false;
         }
+        if (!m_stateMachine.GetCurrentState().Equals("Idle")) return;
 
         // ---------- Player Win / Lose
         if (m_playerHealth.value <= 0)
@@ -346,16 +346,5 @@ public class PlayerManager : MonoBehaviour
             mainModule.loop = false;
             m_bSpawn = true;
         }
-    }
-
-    /// <summary>
-    /// Reset Player to defualt settings
-    /// </summary>
-    public void Reset()
-    {
-        // idle state
-        m_stateMachine.SetNextState("Idle");
-        // original position
-        m_playerLaneIndex = m_originalPlayerIndex;
     }
 }
