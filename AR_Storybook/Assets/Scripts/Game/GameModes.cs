@@ -65,6 +65,8 @@ public class GameModes : MonoBehaviour
     private void Start()
     {
         m_setSpawner.Value = false;
+        m_playerHealth.value = 3;
+        m_AIHealth.value = 796f;
 
         // ---------- Initialise Variables
         switch (m_gameMode)
