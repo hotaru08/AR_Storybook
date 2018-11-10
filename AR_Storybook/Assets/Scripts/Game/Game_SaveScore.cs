@@ -9,13 +9,12 @@ public class Game_SaveScore : MonoBehaviour
 {
 	[SerializeField] CV_String playerPref_HighScore;
 
-	public bool SaveScore(int score)
+	public void SaveScore(int score)
 	{
 		if (score > PlayerPrefs.GetInt(playerPref_HighScore.value))
 		{
+			Debug.Log("New Highscore!! Current Highscore = " + PlayerPrefs.GetInt(playerPref_HighScore.value) + " New Highscore = " + score);
 			PlayerPrefs.SetInt(playerPref_HighScore.value, score);
-			return true;
 		}
-		return false;
 	}
 }
