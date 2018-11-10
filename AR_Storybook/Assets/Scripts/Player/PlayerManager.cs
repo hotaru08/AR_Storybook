@@ -79,7 +79,7 @@ public class PlayerManager : MonoBehaviour
     [SerializeField] private ES_Event_Abstract m_spawnLoseScreen;
     [SerializeField] private ES_Event_Int m_nextInstruction;
     //[SerializeField] private ES_Event m_PlayerDamagedEvent;
-    //[SerializeField] private ES_Event m_PlayerDiedEvent;
+    [SerializeField] private ES_Event_Default m_PlayerDiedEvent;
 
     [Tooltip("Player object to send to Camera for detecting reverse movements")]
     [SerializeField] private ES_Event_Object m_cameraPlayer;
@@ -144,7 +144,7 @@ public class PlayerManager : MonoBehaviour
         {
             m_stateMachine.SetNextState("PlayerLose");
             m_spawnLoseScreen.RaiseEvent();
-            //m_PlayerDiedEvent.Invoke();
+            m_PlayerDiedEvent.RaiseEvent();
         }
         else if (m_AIHealth.value <= 0.0f)
         {
