@@ -44,6 +44,22 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &1268954350532066
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4732080486335892}
+  - component: {fileID: 114344231095697970}
+  m_Layer: 0
+  m_Name: SceneChanger
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1282628779184700
 GameObject:
   m_ObjectHideFlags: 0
@@ -134,6 +150,7 @@ Transform:
   - {fileID: 4345953686587578}
   - {fileID: 4904438395340110}
   - {fileID: 4074161029764494}
+  - {fileID: 4732080486335892}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -150,6 +167,19 @@ Transform:
   m_Father: {fileID: 4378660532315876}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 34.797, y: 0, z: 0}
+--- !u!4 &4732080486335892
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1268954350532066}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4378660532315876}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4904438395340110
 Transform:
   m_ObjectHideFlags: 1
@@ -269,6 +299,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerPref_HighScore: {fileID: 11400000, guid: e8c85884806550941925796a582f5659,
     type: 2}
+  newHighscore: {fileID: 11400000, guid: de86eced04ba30147aac675ae687891f, type: 2}
+  oldHighscore: {fileID: 11400000, guid: 68cf48f3ccafab64696b07c13a06c610, type: 2}
 --- !u!114 &114300408837509674
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -342,6 +374,17 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: ATXK.EventSystem.QuaternionEvent, Assembly-CSharp, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
+--- !u!114 &114344231095697970
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1268954350532066}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ea1d84c80e640a640bddb0a1425a164e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114478411207900244
 MonoBehaviour:
   m_ObjectHideFlags: 1
