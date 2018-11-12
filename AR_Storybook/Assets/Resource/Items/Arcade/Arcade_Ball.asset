@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5bc29f896de1af24aa3e8c3767340933, type: 3}
+  m_Name: Arcade_Ball
+  m_EditorClassIdentifier: 
+  itemName: Projectile Ball
+  itemDescription: Flying Ball cuz why not
+  itemWeight: 0
+  itemValue: 1
+  itemType: {fileID: 11400000, guid: d4cbe51cb3c44f049b6ccda82467537f, type: 2}
+  itemModel: {fileID: 1522170460063576, guid: cd8082a4995d78b4ca60cd20307874a5, type: 2}
+  collisionEnterEvent: {fileID: 11400000, guid: fc24dfb03ada3574c9a5da3161ed37a8,
+    type: 2}
+  collisionExitEvent: {fileID: 0}
+  collisionInsideEvent: {fileID: 0}
+  projectileSpeed: 5
+  projectileDamage: 1
+  projectileDuration: 100

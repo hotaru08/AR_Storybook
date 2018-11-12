@@ -115,14 +115,12 @@ public class Touch_Swipe : MonoBehaviour
                         m_direction = SWIPE_DIRECTION.DOWN;
                 }
 
-                DebugLogger.Log<Touch_Swipe>("Swipe Direction: " + m_direction);
-
                 // reset the start and difference in touch pos so as to prevent continuous updating
                 Reset();
             }
             catch (Exception ex)
             {
-                DebugLogger.LogError<Touch_Swipe>("Exception Received: " + ex.ToString());
+                Debug.LogWarning("Exception Received: " + ex.ToString());
             }
         }
         #endregion

@@ -58,6 +58,8 @@ public class GameModes : MonoBehaviour
     public ES_Event_Bool GetSpawnerEvent { get { return m_setSpawner; } }
     [Tooltip("Event to reset Health of both Player and AIs")]
     [SerializeField] private ES_Event_Abstract m_resetHealth;
+    [Tooltip("Pause Event")]
+    [SerializeField] private ES_Event_Bool m_pauseEvent;
 
     /// <summary>
     /// Unity Start Function
@@ -65,8 +67,12 @@ public class GameModes : MonoBehaviour
     private void Start()
     {
         m_setSpawner.Value = false;
+
+        // Setting Variables ( this is hardcoded cuz lazy :( )
         m_playerHealth.value = 3;
         m_AIHealth.value = 796f;
+        m_pauseEvent.Value = false;
+
 
         // ---------- Initialise Variables
         switch (m_gameMode)
@@ -74,14 +80,14 @@ public class GameModes : MonoBehaviour
             case GAME_MODE.TUTORIAL:
                 if (transform.Find("UI ( Battle )/Canvas/Screen ( Instructions )") == null)
                 {
-                    GameObject temp = Instantiate(m_instructionScreen, transform.Find("UI ( Battle )/Canvas/"));
+                    GameObject temp = Instantiate(m_instructionScreen, transform.Find("UI ( Battle )/Canvas"));
                 }
                 m_triggerInstructions.RaiseEvent(0);
                 break;
             case GAME_MODE.GAME:
                 if (transform.Find("UI ( Battle )/Canvas/Screen ( Countdown )") == null)
                 {
-                    GameObject temp = Instantiate(m_countDownScreen, transform.Find("UI ( Battle )/Canvas/"));
+                    GameObject temp = Instantiate(m_countDownScreen, transform.Find("UI ( Battle )/Canvas"));
                 }
                 m_startCountDown.RaiseEvent(m_countDownTime);
                 break;

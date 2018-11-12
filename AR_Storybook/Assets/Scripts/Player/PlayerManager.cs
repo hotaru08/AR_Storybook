@@ -180,7 +180,7 @@ public class PlayerManager : MonoBehaviour
         {
             m_rigidBody.AddForce(Vector3.up * m_jumpForce, ForceMode.Impulse);
             m_bTriggerJump = false;
-            Debug.Log("Help: " + IsGrounded() + " / " + m_bTriggerJump + " / ");
+            //Debug.Log("Help: " + IsGrounded() + " / " + m_bTriggerJump + " / ");
         }
     }
 

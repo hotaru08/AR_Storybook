@@ -82,9 +82,11 @@ public class ScrollingObjects : MonoBehaviour
             && m_movingObjects.Peek() != null)
 		{
 			// Move _go back to starting position
-			m_movingObjects.Peek().transform.position = transform.position;
-			// Set inactive
-			m_movingObjects.Peek().SetActive(false);
+            m_movingObjects.Peek().transform.position= new Vector3(transform.position.x, 
+                                                                   m_movingObjects.Peek().transform.position.y, 
+                                                                   transform.position.z);
+            // Set inactive
+            m_movingObjects.Peek().SetActive(false);
 			// Add back to spawning List / Queue
 			m_spawnedObjectList.Add(m_movingObjects.Peek());
 			//m_spawnedObjects.Enqueue(m_movingObjects.Peek());
