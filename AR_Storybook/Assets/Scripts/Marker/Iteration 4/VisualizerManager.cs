@@ -45,9 +45,9 @@ public class VisualizerManager : MonoBehaviour
 		m_Session = ARSessionManager.Instance.GetSession();
         // Multiply it by scaleFactor
         m_Session.transform.localScale *= m_scaleFactor;
-        Debug.LogWarning("Rotation: " + m_Session.transform.rotation);
-        Debug.LogWarning("Scale: " + m_Session.transform.localScale);
-        Debug.LogWarning("Position: " + m_Session.transform.position);
+        //Debug.LogWarning("Rotation: " + m_Session.transform.rotation);
+        //Debug.LogWarning("Scale: " + m_Session.transform.localScale);
+        //Debug.LogWarning("Position: " + m_Session.transform.position);
 
         //Initialize lists
         m_OldImages = new List<AugmentedImage>();
@@ -75,12 +75,12 @@ public class VisualizerManager : MonoBehaviour
 	/// </summary>
 	private void Update()
 	{
-		if(bounceTime <= Time.time)
-		{
-			UpdateTrackables();
+        if (bounceTime <= Time.time)
+        {
+            UpdateTrackables();
             bounceTime = Time.time + timeBetweenUpdates;
-		}
-	}
+        }
+    }
 
 	/// <summary>
 	/// Gets tracked AugmentImages from ARCore and either resets the session or creates visualizers.
@@ -107,6 +107,7 @@ public class VisualizerManager : MonoBehaviour
 
 			//Check for newly tracked images and create visualizers
 			UpdateNewVisualizers();
+            return;
 		}
 
 		//Update old visualizer objects
@@ -135,9 +136,10 @@ public class VisualizerManager : MonoBehaviour
 		debugText.text += "# Old Tracked: " + m_OldImages.Count + "\n";
 		debugText.text += "# Newly Tracked: " + newImages.Count + "\n";
 		debugText.text += "# Visualizers: " + m_Visualizers.Count + "\n";
+		debugText.text += "Pos Camera: " + Camera.main.transform.position + "\n";
 
-		//Create visualizers for new AugmentedImages
-		CreateVisualizerObjects(newImages);
+        //Create visualizers for new AugmentedImages
+        CreateVisualizerObjects(newImages);
 	}
 
 	/// <summary>
@@ -163,6 +165,8 @@ public class VisualizerManager : MonoBehaviour
             //Create an anchor at the centre of the image
 			Anchor anchor = image.CreateAnchor(image.CenterPose);
             anchor.transform.position *= m_scaleFactor;
+            Debug.LogWarning("Anchor Pos: " + anchor.transform.position);
+            Debug.LogWarning("Parent of Anchor: " + anchor.transform.parent);
             Debug.LogWarning("Scaled Anchor Pos: " + anchor.transform.position);
             Debug.LogWarning("Scaled Anchor Rotation: " + anchor.transform.rotation);
             Debug.LogWarning("Scaled Anchor Scale: " + anchor.transform.localScale);
@@ -177,8 +181,8 @@ public class VisualizerManager : MonoBehaviour
 				//Set the anchor
 				visualizer.Anchor = anchor;
 
-				//Enable the visualizer
-				visualizer.gameObject.SetActive(true);
+                //Enable the visualizer
+                visualizer.gameObject.SetActive(true);
 				//Add visualizer to list
 				m_Visualizers.Add(visualizer);
 

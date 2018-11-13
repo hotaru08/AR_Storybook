@@ -169,24 +169,16 @@
 
             for (int i = 0; i < m_numLanes; ++i)
             {
-                Lane_Mk2 tempLane = Instantiate(m_lanePrefab);
+                Lane_Mk2 tempLane = Instantiate(m_lanePrefab, transform.parent);
                 float m_offsetPos = tempLane.GetComponent<Renderer>().bounds.extents.z;
-                //float m_offsetPos = tempLane.GetComponent<Renderer>().bounds.extents.z;
-                //Debug.Log("Offset Z: " + tempLane.GetComponent<Renderer>().bounds.extents.z);
 
-                // Scale Lane - S
-                //tempLane.transform.localScale = new Vector3(m_widthLane, 1f, 1f);
                 // Rotate Lane according to forward of transform - R
-                //tempLane.transform.localRotation = transform.rotation;
                 tempLane.transform.rotation = transform.rotation;
                 // Set position of lane - T
                 tempLane.transform.position = m_spawnPoint.position;
                 tempLane.transform.position += tempLane.transform.forward * (m_radius + m_offsetPos);
                 // Set Forward
                 tempLane.transform.forward = -tempLane.transform.forward;
-                //tempLane.enemyPrefab = m_enemyPrefab;
-                //tempLane.enemyScale = m_scaleMultiplier;
-                //tempLane.laneID = i;
                 // Rotate transform to face next spawn direction
                 transform.Rotate(Vector3.up, m_angleBetweenLanes);
                 m_laneList.Add(tempLane);
