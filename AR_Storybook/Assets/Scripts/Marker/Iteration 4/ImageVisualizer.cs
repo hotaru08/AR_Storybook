@@ -43,7 +43,7 @@ public class ImageVisualizer : MonoBehaviour
 
 		//Create a gameobject visualizer
 		m_GeneratedObject = Instantiate(visualizerPrefabs[m_Image.DatabaseIndex], transform);
-        m_GeneratedObject.transform.position = transform.position;
+        m_GeneratedObject.transform.position = m_anchor.transform.position;
         m_GeneratedObject.transform.rotation = visualizerPrefabs[m_Image.DatabaseIndex].transform.rotation;
 
         Debug.LogWarning("Pos: " + m_GeneratedObject.transform.position);

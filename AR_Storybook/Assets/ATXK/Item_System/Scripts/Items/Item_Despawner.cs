@@ -3,7 +3,7 @@
 	using UnityEngine;
 	
 	[RequireComponent(typeof(BoxCollider))]
-	[RequireComponent(typeof(Rigidbody))]
+    [RequireComponent(typeof(Rigidbody))]
 	public class Item_Despawner : MonoBehaviour
 	{
 		BoxCollider collider;
