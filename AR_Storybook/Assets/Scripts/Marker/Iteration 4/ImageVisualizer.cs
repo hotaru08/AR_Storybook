@@ -42,11 +42,12 @@ public class ImageVisualizer : MonoBehaviour
 		GetComponent<Renderer>().enabled = false;
 
 		//Create a gameobject visualizer
-		m_GeneratedObject = Instantiate(visualizerPrefabs[m_Image.DatabaseIndex], m_anchor.transform.position, m_anchor.transform.rotation);
-		m_GeneratedObject.transform.parent = transform;
-        //m_GeneratedObject.transform.localScale = new Vector3(m_Image.ExtentX, m_Image.ExtentX, m_Image.ExtentX) * scaleMultiplier;
+		m_GeneratedObject = Instantiate(visualizerPrefabs[m_Image.DatabaseIndex], transform);
+        m_GeneratedObject.transform.position = transform.position;
+        m_GeneratedObject.transform.rotation = visualizerPrefabs[m_Image.DatabaseIndex].transform.rotation;
 
-        //Debug.LogWarning("Pos: " + m_GeneratedObject.transform.position);
+        Debug.LogWarning("Pos: " + m_GeneratedObject.transform.position);
+        Debug.LogWarning("Rotation: " + m_GeneratedObject.transform.rotation);
         //Debug.LogWarning("Local Pos: " + m_GeneratedObject.transform.localPosition);
         //Debug.LogWarning("Visualiser Pos: " + transform.position);
         //Debug.LogWarning("Scale of Created GameObject: " + m_GeneratedObject.transform.lossyScale);

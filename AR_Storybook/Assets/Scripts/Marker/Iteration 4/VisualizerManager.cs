@@ -101,8 +101,8 @@ public class VisualizerManager : MonoBehaviour
 				//Remove all visualizers
 				RemoveAllVisualizers();
 
-				//Reset the ARCore session
-				ARSessionManager.Instance.ResetSession();
+                //Reset the ARCore session
+                ARSessionManager.Instance.ResetSession();
 			}
 
 			//Check for newly tracked images and create visualizers
