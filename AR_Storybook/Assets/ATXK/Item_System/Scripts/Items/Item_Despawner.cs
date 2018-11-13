@@ -17,7 +17,15 @@
 		{
 			if(other.gameObject.GetComponent<Item_Holder>())
 			{
-				Destroy(other.gameObject);
+                if (other.gameObject.GetComponent<Item_Holder>().Item.CollisionExitEvent)
+                {
+                    //Debug.Log("Entered : " + other.gameObject.GetComponent<Item_Holder>().Item.CollisionExitEvent);
+                    other.gameObject.GetComponent<Item_Holder>().Item.CollisionExitEvent.RaiseEvent();
+                    Destroy(other.gameObject, 1f);
+                    return;
+                }
+
+                Destroy(other.gameObject);
 			}
 		}
 	}
