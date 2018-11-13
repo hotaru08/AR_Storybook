@@ -18,6 +18,7 @@ public class PlayerManager : MonoBehaviour
     /// </summary>
     [Header("Player Section")]
     [SerializeField] private CV_Int m_playerHealth;
+	[SerializeField] private CV_Int m_playerMaxHealth;
     [Range(0.0f,1.0f)] public float m_playerSpeed;
     private GameModes m_gameMode;
     public GameModes GetGameMode { get { return m_gameMode; } }
@@ -334,4 +335,34 @@ public class PlayerManager : MonoBehaviour
             m_bSpawn = true;
         }
     }
+
+	/// <summary>
+	/// Reduce the health of player
+	/// </summary>
+	/// <param name="_value">Value to decrease health</param>
+	public void ReducePlayerHealth(int _value)
+	{
+		if (m_playerHealth.value <= 0)
+			return;
+		m_playerHealth.value -= _value;
+	}
+
+	/// <summary>
+	/// Increase the health of Player
+	/// </summary>
+	/// <param name="_value"></param>
+	public void IncreasePlayerHealth(int _value)
+	{
+		if (m_playerHealth.value >= m_playerMaxHealth.value)
+			return;
+		m_playerHealth.value += _value;
+	}
+
+	/// <summary>
+	/// Reset Player Health
+	/// </summary>
+	public void ResetPlayerHealth()
+	{
+		m_playerHealth.value = m_playerMaxHealth.value;
+	}
 }
