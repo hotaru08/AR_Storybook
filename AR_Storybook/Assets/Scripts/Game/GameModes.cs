@@ -28,7 +28,9 @@ public class GameModes : MonoBehaviour
     /// </summary>
     [Header("Health Variables")]
     [SerializeField] private CV_Int m_playerHealth;
+    [SerializeField] private CV_Int m_playerMaxHealth;
     [SerializeField] private CV_Float m_AIHealth;
+    [SerializeField] private CV_Float m_AIMaxHealth;
 
     /// <summary>
     /// Variables for countdown
@@ -66,13 +68,11 @@ public class GameModes : MonoBehaviour
     /// </summary>
     private void Start()
     {
+        // Setting Variables
         m_setSpawner.Value = false;
-
-        // Setting Variables ( this is hardcoded cuz lazy :( )
-        m_playerHealth.value = 3;
-        m_AIHealth.value = 796f;
+        m_playerHealth.value = m_playerMaxHealth.value;
+        m_AIHealth.value = m_AIMaxHealth.value;
         m_pauseEvent.Value = false;
-
 
         // ---------- Initialise Variables
         switch (m_gameMode)

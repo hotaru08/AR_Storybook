@@ -11,13 +11,14 @@ public class AI_HealthBar : MonoBehaviour
     /// </summary>
     [SerializeField]
     private RectTransform m_healthBar;
-    private float m_originalHealth;
 
     /// <summary>
     /// AI Health Custom Variable
     /// </summary>
     [SerializeField]
     private CV_Float m_AIHealth;
+    [SerializeField]
+    private CV_Float m_AIMaxHealth;
 
     /// <summary>
     /// Player Health
@@ -44,8 +45,8 @@ public class AI_HealthBar : MonoBehaviour
 
     private void Start()
     {
-        m_originalHealth = m_healthBar.sizeDelta.y;
-        m_AIHealth.value = m_originalHealth;
+        m_AIMaxHealth.value = m_healthBar.sizeDelta.y;
+        m_AIHealth.value = m_AIMaxHealth.value;
     }
 
     /// <summary>
@@ -87,7 +88,7 @@ public class AI_HealthBar : MonoBehaviour
     }
     public void ResetEnemyHealth()
     {
-        m_AIHealth.value = m_originalHealth;
-        m_healthBar.sizeDelta = new Vector2(m_healthBar.sizeDelta.x, m_originalHealth);
+        m_AIHealth.value = m_AIMaxHealth.value;
+        m_healthBar.sizeDelta = new Vector2(m_healthBar.sizeDelta.x, m_AIMaxHealth.value);
     }
 }
