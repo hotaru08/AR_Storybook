@@ -58,5 +58,8 @@ public class Game_SpawnInstructions : MonoBehaviour
         m_instruction.transform.GetChild(m_instruction.transform.childCount - 1).gameObject.SetActive(false);
         m_instructionIndex.Value = m_instruction.transform.childCount;
         m_setMainHUD.RaiseEvent();
+
+        // Set intructions to be inactive
+        gameObject.SetActive(false);
     }
 }
