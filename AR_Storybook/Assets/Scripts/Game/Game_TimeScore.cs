@@ -51,8 +51,8 @@ public class Game_TimeScore : MonoBehaviour
     {
         GameObject temp = _screen as GameObject;
         m_displayScoreScreen = temp.GetComponent<Text>();
-        m_displayScoreScreen.text = string.Format("<size=90><b>Highscore: </b>{0}</size>\n" + // Highscore
-                                                  "<size=80><b>Score: </b>{1}</size>" // Score
+        m_displayScoreScreen.text = string.Format("<size=90>Highscore: {0}</size>\n" + // Highscore
+                                                  "<size=80>Score: {1}</size>" // Score
                                                   , PlayerPrefs.GetInt(playerPref_HighScore.value), (int)currentScore);
 
     }
