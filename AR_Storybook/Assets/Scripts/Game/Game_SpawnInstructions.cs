@@ -16,19 +16,13 @@ public class Game_SpawnInstructions : MonoBehaviour
     [SerializeField] private GameObject m_instruction;
     [SerializeField] private GameObject m_firstInteractiveScreen;
     [SerializeField] private ES_Event_Int m_instructionIndex;
+    [SerializeField] private ES_Event_Abstract m_setMainHUD;
     private int prevInstructIndex;
 
     private void Start()
     {
         prevInstructIndex = m_instructionIndex.Value = 0;
     }
-
-    //private void Update()
-    //{
-    //    if (prevInstructIndex == m_instructionIndex.Value) return;
-    //    SetInstructions(m_instructionIndex.Value);
-    //    prevInstructIndex = m_instructionIndex.Value;
-    //}
 
     /// <summary>
     /// Set the index of which instruction to show
@@ -62,5 +56,7 @@ public class Game_SpawnInstructions : MonoBehaviour
     {
         if (!_value) return;
         m_instruction.transform.GetChild(m_instruction.transform.childCount - 1).gameObject.SetActive(false);
+        m_instructionIndex.Value = m_instruction.transform.childCount;
+        m_setMainHUD.RaiseEvent();
     }
 }

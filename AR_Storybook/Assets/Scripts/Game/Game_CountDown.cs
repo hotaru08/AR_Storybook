@@ -19,6 +19,7 @@ public class Game_CountDown : MonoBehaviour
 
     [Header("Events to Send")]
     [SerializeField] private ES_Event_Bool m_startGame;
+    [SerializeField] private ES_Event_Abstract m_setMainHUD;
 
     /// <summary>
     /// Set count down values
@@ -38,6 +39,7 @@ public class Game_CountDown : MonoBehaviour
         if (m_countDownValue <= 0)
         {
             m_startGame.RaiseEvent(true);
+            m_setMainHUD.RaiseEvent();
             this.gameObject.SetActive(false);
         }
 
