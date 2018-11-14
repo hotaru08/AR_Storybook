@@ -22,7 +22,7 @@ public class ChangeScene : MonoBehaviour
     /// </summary>
     public void ReloadScene()
     {
-        SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().name);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
     /// <summary>

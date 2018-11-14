@@ -13,12 +13,16 @@ public class ARSessionManager : SingletonBehaviour<ARSessionManager>
 	/// GameObject holding the AR session component
 	/// </summary>
 	private GameObject m_sessionObject;
+	/// <summary>
+	/// Main AR session in the scene
+	/// </summary>
+	private ARCoreSession m_arSession;
 
 	private void Awake()
 	{
 		m_sessionObject = Instantiate(m_arCoreSessionPrefab);
-		Session = m_sessionObject.GetComponent<ARCoreSession>();
-		Session.enabled = true;
+		m_arSession = m_sessionObject.GetComponent<ARCoreSession>();
+		m_arSession.enabled = true;
 	}
 
 	public void ResetSession()
@@ -26,19 +30,30 @@ public class ARSessionManager : SingletonBehaviour<ARSessionManager>
 		StartCoroutine("CreateNewSession");
 	}
 
-	public ARCoreSession Session { get; private set; }
+	public ARCoreSession GetSession()
+	{
+		if (m_arSession != null)
+		{
+			return m_arSession;
+		}
+		else
+		{
+			return null;
+		}
+	}
 
 	IEnumerator CreateNewSession()
 	{
 		//Disable session and destroy the holding gameobject
-		Session.enabled = false;
-		DestroyImmediate(m_sessionObject);
+		m_arSession.enabled = false;
+		if (m_sessionObject != null)
+			Destroy(m_sessionObject);
 
 		yield return new WaitForEndOfFrame();
 
 		//Create new session
 		m_sessionObject = Instantiate(m_arCoreSessionPrefab);
-		Session = m_sessionObject.GetComponent<ARCoreSession>();
-		Session.enabled = true;
+		m_arSession = m_sessionObject.GetComponent<ARCoreSession>();
+		m_arSession.enabled = true;
 	}
 }

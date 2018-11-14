@@ -14,19 +14,20 @@ public class VisualizerManager : MonoBehaviour
 {
 	[Header("Visualizer Setup")]
 	[SerializeField] ImageVisualizer m_ImageVisualizerPrefab;
+	[SerializeField] ARCoreSession m_Session;
 	[SerializeField] int m_PoolStartingSize = 10;
-	ARCoreSession m_Session;
 
 	[Header("Visualizer Settings")]
 	[SerializeField] VisualizerMode m_VisualizerMode = VisualizerMode.VM_ALL;
-	[SerializeField] int m_UpdateFrequency = 30;
+	[SerializeField] int m_UpdateFrequency = 4;
 
     [Header("Misc. Settings")]
     [Tooltip("Scale to apply to AR_Device (session) to have camera offset")]
-	[Range(1f, 20f)] [SerializeField] private float m_scaleFactor = 1f;
+    [Range(1f, 20f)]
+    [SerializeField] private float m_scaleFactor = 1f;
 
-    float m_bounceTime = 0f;
-	float m_timeBetweenUpdates = 0f;
+    float bounceTime = 0f;
+	float timeBetweenUpdates = 0f;
 
 	List<AugmentedImage> m_OldImages;
 	List<AugmentedImage> m_CurrFrameImages;
@@ -41,14 +42,20 @@ public class VisualizerManager : MonoBehaviour
 	private void Start()
 	{
 		//Get the current ARCore session
-		m_Session = ARSessionManager.Instance.Session;
+		m_Session = ARSessionManager.Instance.GetSession();
         // Multiply it by scaleFactor
         m_Session.transform.localScale *= m_scaleFactor;
+        //Debug.LogWarning("Rotation: " + m_Session.transform.rotation);
+        //Debug.LogWarning("Scale: " + m_Session.transform.localScale);
+        //Debug.LogWarning("Position: " + m_Session.transform.position);
 
         //Initialize lists
         m_OldImages = new List<AugmentedImage>();
 		m_CurrFrameImages = new List<AugmentedImage>();
 		m_Visualizers = new List<ImageVisualizer>();
+
+		//Set the device screen to never timeout
+		//Screen.sleepTimeout = SleepTimeout.NeverSleep;
 
 		//Initialize object pool of ImageVisualizers
 		for(int i = 0; i < m_PoolStartingSize; i++)
@@ -61,9 +68,6 @@ public class VisualizerManager : MonoBehaviour
 			//Add instance to object pool
 			ObjectPool.Add(visualizer);
 		}
-
-		//Set the update frequency
-		m_timeBetweenUpdates = 1f / m_UpdateFrequency;
 	}
 
 	/// <summary>
@@ -71,10 +75,10 @@ public class VisualizerManager : MonoBehaviour
 	/// </summary>
 	private void Update()
 	{
-        if (m_bounceTime <= Time.time)
+        if (bounceTime <= Time.time)
         {
             UpdateTrackables();
-			m_bounceTime = Time.time + m_timeBetweenUpdates;
+            bounceTime = Time.time + timeBetweenUpdates;
         }
     }
 
@@ -99,7 +103,6 @@ public class VisualizerManager : MonoBehaviour
 
                 //Reset the ARCore session
                 ARSessionManager.Instance.ResetSession();
-				return;
 			}
 
 			//Check for newly tracked images and create visualizers
@@ -128,6 +131,13 @@ public class VisualizerManager : MonoBehaviour
 			}
 		}
 
+		debugText.text = "Time: " + Time.time + "\n";
+		debugText.text += "# Currently Tracked: " + m_CurrFrameImages.Count + "\n";
+		debugText.text += "# Old Tracked: " + m_OldImages.Count + "\n";
+		debugText.text += "# Newly Tracked: " + newImages.Count + "\n";
+		debugText.text += "# Visualizers: " + m_Visualizers.Count + "\n";
+		debugText.text += "Pos Camera: " + Camera.main.transform.position + "\n";
+
         //Create visualizers for new AugmentedImages
         CreateVisualizerObjects(newImages);
 	}
@@ -155,6 +165,11 @@ public class VisualizerManager : MonoBehaviour
             //Create an anchor at the centre of the image
 			Anchor anchor = image.CreateAnchor(image.CenterPose);
             anchor.transform.position *= m_scaleFactor;
+            Debug.LogWarning("Anchor Pos: " + anchor.transform.position);
+            Debug.LogWarning("Parent of Anchor: " + anchor.transform.parent);
+            Debug.LogWarning("Scaled Anchor Pos: " + anchor.transform.position);
+            Debug.LogWarning("Scaled Anchor Rotation: " + anchor.transform.rotation);
+            Debug.LogWarning("Scaled Anchor Scale: " + anchor.transform.localScale);
 
             if (anchor != null)
 			{

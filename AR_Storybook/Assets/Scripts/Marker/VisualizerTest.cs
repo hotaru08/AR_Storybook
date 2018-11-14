@@ -45,7 +45,7 @@ public class VisualizerTest : MonoBehaviour
     private void Start()
     {
 		//Get current session from session manager
-		m_arSession = ARSessionManager.Instance.Session;
+		m_arSession = ARSessionManager.Instance.GetSession();
 		//Initialise lists
         m_trackedImages = new List<AugmentedImage>();
 		m_listOfVisualizedObjects = new List<ARImageVisualiser>();
