@@ -29,8 +29,8 @@ public class GameModes : MonoBehaviour
     [Header("Health Variables")]
     [SerializeField] private CV_Int m_playerHealth;
     [SerializeField] private CV_Int m_playerMaxHealth;
-    [SerializeField] private CV_Float m_AIHealth;
-    [SerializeField] private CV_Float m_AIMaxHealth;
+    [SerializeField] private CV_Int m_AIHealth;
+    [SerializeField] private CV_Int m_AIMaxHealth;
 
     /// <summary>
     /// Variables for countdown

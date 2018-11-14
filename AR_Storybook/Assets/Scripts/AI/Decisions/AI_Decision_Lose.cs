@@ -6,8 +6,7 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "AI/Decision/ChangeToLose")]
 public class AI_Decision_Lose : AI_Decision
 {
-    [SerializeField]
-    private CV_Float m_AIHealth;
+    [SerializeField] private CV_Int m_AIHealth;
 
     public override bool Decide(AI_Controller _controller)
     {
@@ -16,7 +15,7 @@ public class AI_Decision_Lose : AI_Decision
 
 	private bool ChangeToLose(AI_Controller _controller)
     {
-        if (m_AIHealth.value <= 0.0f)
+        if (m_AIHealth.value <= 0)
         {
             DebugLogger.Log<AI_Decision_Lose>("AI Health in Decision: " + m_AIHealth.value);
             return true;
