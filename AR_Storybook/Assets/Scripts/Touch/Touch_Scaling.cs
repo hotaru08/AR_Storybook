@@ -36,12 +36,6 @@ public class Touch_Scaling : MonoBehaviour
         m_magnitudeDifference = m_currdifference - m_prevDifference;
 
         // Alter the size of the Gameobject according to distance between touches
-        if (_objToChange.transform.localScale.x <= 0.1f &&
-            _objToChange.transform.localScale.x <= 0.1f &&
-            _objToChange.transform.localScale.x <= 0.1f)
-        {
-            _objToChange.transform.localScale = Vector3.zero;
-        }
         _objToChange.transform.localScale += new Vector3(m_magnitudeDifference, m_magnitudeDifference, m_magnitudeDifference) * Time.deltaTime * m_scaleSpeed;
     }
 }
