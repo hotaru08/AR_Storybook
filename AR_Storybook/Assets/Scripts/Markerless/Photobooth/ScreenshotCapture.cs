@@ -11,6 +11,7 @@ public class ScreenshotCapture : MonoBehaviour
 	[SerializeField] ES_Event_Default screenshot_Start_Arcade;
 	[SerializeField] ES_Event_Default screenshot_End_Arcade;
 	[SerializeField] CV_String fileFormat;
+	[SerializeField] float screenshotTime;
 
 	[Header("Highscore")]
 	[SerializeField] ES_Event_String setHighscoreText;
@@ -37,7 +38,7 @@ public class ScreenshotCapture : MonoBehaviour
 		ScreenCapture.CaptureScreenshot(filename + ".png");
 #endif
 
-		yield return new WaitForSeconds(0.2f);
+		yield return new WaitForSeconds(screenshotTime);
 
 		if (isArcade)
 		{
