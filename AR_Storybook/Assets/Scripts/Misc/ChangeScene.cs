@@ -1,20 +1,24 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using ATXK.EventSystem;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 /// <summary>
-/// This script handles Scene Changing ( implementation of loading screen if applicable )
+/// Scene Changing with loading
 /// </summary>
 public class ChangeScene : MonoBehaviour
 {
+    [Header("Events to Send")]
+    [SerializeField] private ES_Event_Default m_triggerLoading;
+
     /// <summary>
     /// Use this function to change scenes 
     /// </summary>
     /// <param name="_sceneName">Name of the Scene to change</param>
     public void ChangingScene(string _sceneName)
     {
-        SceneManager.LoadSceneAsync(_sceneName);
+        //SceneManager.LoadSceneAsync(_sceneName);
+        StartCoroutine(LoadAsynchronously(_sceneName));
     }
 
     /// <summary>
@@ -35,4 +39,24 @@ public class ChangeScene : MonoBehaviour
 #endif
         Application.Quit();
     }
+
+    /// <summary>
+    /// Coroutine to load the application in the background while a loading screen is shown
+    /// </summary>
+    /// <param name="_sceneName">Name of scene to change to</param>
+    private IEnumerator LoadAsynchronously(string _sceneName)
+    {
+        // Run Scene in background
+        AsyncOperation operation = SceneManager.LoadSceneAsync(_sceneName);
+
+        // Raise event to set screen active
+        m_triggerLoading.RaiseEvent();
+
+        while (!operation.isDone)
+        {
+            Debug.Log("Now Loading new scene: " + _sceneName);
+            yield return null;
+        }
+    }
+
 }

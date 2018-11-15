@@ -26,7 +26,6 @@ GameObject:
   - component: {fileID: 114565366157500618}
   - component: {fileID: 114991354652180074}
   - component: {fileID: 114561470101416618}
-  - component: {fileID: 114080478928085456}
   m_Layer: 5
   m_Name: Holder
   m_TagString: Untagged
@@ -112,18 +111,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &114080478928085456
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1149934306537010}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1f37f3e58c54f7c45a710ead641b3120, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_TimeScaleValue: {fileID: 0}
 --- !u!114 &114268853391840982
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -208,6 +195,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea1d84c80e640a640bddb0a1425a164e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_triggerLoading: {fileID: 11400000, guid: 954aa7440bb159548b2e37e38e588f9c, type: 2}
 --- !u!114 &114403450004046416
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -569,7 +557,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f37f3e58c54f7c45a710ead641b3120, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_TimeScaleValue: {fileID: 0}
 --- !u!114 &114704673566864772
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -722,7 +709,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1149934306537010}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 02786fbf5c4d3174f9bb29afcbe573b0, type: 3}
   m_Name: 
