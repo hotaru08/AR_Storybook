@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 
 [System.Serializable]
-public class Screenshot
+public class Screenshot : Object
 {
 	public string fileURL;
 	public Texture2D fileTexture;
