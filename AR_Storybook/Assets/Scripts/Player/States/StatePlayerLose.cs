@@ -34,8 +34,8 @@ public class StatePlayerLose : IStateBase
         //DebugLogger.Log<StatePlayerLose>("Entered " + m_stateName + " state");
 
         // Set inactive skipping rope
-        if (m_object.transform.GetChild(1) == null) return;
-        m_object.transform.GetChild(1).gameObject.SetActive(false);
+        if (m_object.transform.childCount > 2)
+            m_object.transform.GetChild(1).gameObject.SetActive(false);
 
         // Play Lose Animation
         m_animator = m_object.GetComponent<Animator>();

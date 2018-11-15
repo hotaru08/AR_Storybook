@@ -33,15 +33,16 @@ public class StatePlayerVictory : IStateBase
     {
         //DebugLogger.Log<StatePlayerVictory>("Entered " + m_stateName + " state");
 
-        // Set inactive skipping rope
-        m_object.transform.GetChild(1).gameObject.SetActive(false);
-
         // Play Victory Animation
         m_animator = m_object.GetComponent<Animator>();
         m_animator.SetBool("Victory", true);
 
         // Set Event 
         m_object.GetComponent<PlayerManager>().GetGameMode.GetSpawnerEvent.RaiseEvent(false);
+
+        // Set inactive skipping rope
+        if (m_object.transform.childCount > 2)
+            m_object.transform.GetChild(1).gameObject.SetActive(false);
     }
 
     public void ExitState()
