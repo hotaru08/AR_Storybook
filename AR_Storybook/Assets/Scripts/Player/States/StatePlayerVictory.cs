@@ -14,6 +14,7 @@ public class StatePlayerVictory : IStateBase
     /// Reference to gameobject using this state
     /// </summary>
     private readonly GameObject m_object;
+    private PlayerManager m_player;
     private Animator m_animator;
 
     /// <summary>
@@ -38,7 +39,9 @@ public class StatePlayerVictory : IStateBase
         m_animator.SetBool("Victory", true);
 
         // Set Event 
-        m_object.GetComponent<PlayerManager>().GetGameMode.GetSpawnerEvent.RaiseEvent(false);
+        m_player = m_object.GetComponent<PlayerManager>();
+        m_player.GetGameMode.GetSpawnerEvent.RaiseEvent(false);
+        m_player.m_timeScaleEvent.RaiseEvent(0.0f);
 
         // Set inactive skipping rope
         if (m_object.transform.childCount > 2)

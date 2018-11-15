@@ -80,6 +80,7 @@ public class PlayerManager : MonoBehaviour
     [SerializeField] private ES_Event_Int m_nextInstruction;
     //[SerializeField] private ES_Event m_PlayerDamagedEvent;
     [SerializeField] private ES_Event_Default m_PlayerDiedEvent;
+    public ES_Event_Float m_timeScaleEvent;
 
     [Tooltip("Player object to send to Camera for detecting reverse movements")]
     [SerializeField] private ES_Event_Object m_cameraPlayer;

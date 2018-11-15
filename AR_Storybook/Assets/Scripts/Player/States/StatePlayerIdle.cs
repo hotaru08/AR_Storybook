@@ -14,7 +14,6 @@ public class StatePlayerIdle : IStateBase
     /// Reference to gameobject using this state
     /// </summary>
     private readonly GameObject m_object;
-    private PlayerManager m_player;
     private Animator m_animator;
 
     /// <summary>
@@ -34,13 +33,12 @@ public class StatePlayerIdle : IStateBase
     {
         // Get Components
         m_animator = m_object.GetComponent<Animator>();
-        m_player = m_object.GetComponent<PlayerManager>();
 
         // Play Animation
         m_animator.Play("Idle");
 
-        // Set objects
-        if (!m_object.transform.GetChild(1).gameObject.activeSelf && m_object.transform.GetChild(1) != null)
+        // Set objects ( sorry )
+        if (GameObject.FindGameObjectWithTag("SkippingRope"))
             m_object.transform.GetChild(1).gameObject.SetActive(true);
     }
 

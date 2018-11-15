@@ -115,11 +115,11 @@
 			float index = 0f;
 			while(index < 1f)
 			{
-				screen.ScreenImage.rectTransform.localScale += Vector3.Lerp(Vector3.zero, Vector3.one, Time.deltaTime * popSpeed);
-				index += Time.deltaTime * popSpeed;
+				screen.ScreenImage.rectTransform.localScale += Vector3.Lerp(Vector3.zero, Vector3.one, Time.unscaledDeltaTime * popSpeed);
+				index += Time.unscaledDeltaTime * popSpeed;
 
-				yield return new WaitForEndOfFrame();
-			}
+                yield return new WaitForEndOfFrame();
+            }
 
 			screen.ScreenImage.rectTransform.localScale = Vector3.one;
 		}
@@ -134,8 +134,8 @@
 			float index = 1f;
 			while (index > 0f)
 			{
-				screen.ScreenImage.rectTransform.localScale -= Vector3.Lerp(Vector3.zero, Vector3.one, Time.deltaTime * popSpeed);
-				index -= Time.deltaTime * popSpeed;
+				screen.ScreenImage.rectTransform.localScale -= Vector3.Lerp(Vector3.zero, Vector3.one, Time.unscaledDeltaTime * popSpeed);
+				index -= Time.unscaledDeltaTime * popSpeed;
 
 				yield return new WaitForEndOfFrame();
 			}
@@ -178,14 +178,14 @@
 			screen.ScreenImage.material.SetFloat("_Fade", 1f);
 
 			float i = 1f;
-			while (i >= 0f - Time.deltaTime)
+			while (i >= 0f - Time.unscaledDeltaTime)
 			{
 				if (screen.ScreenTransition == UI_Screen_Mk2.Transition.TRANSITION_FADE)
 					screen.ScreenImage.material.SetFloat("_Fade", i);
 				else
 					screen.ScreenImage.material.SetFloat("_Cutoff", i);
 
-				i -= Time.deltaTime * transitSpeed;
+				i -= Time.unscaledDeltaTime * transitSpeed;
 				yield return new WaitForEndOfFrame();
 			}
 
@@ -210,14 +210,14 @@
 			screen.ScreenImage.material.SetFloat("_Fade", 1f);
 
 			float i = 0f;
-			while(i <= 1f + Time.deltaTime)
+			while(i <= 1f + Time.unscaledDeltaTime)
 			{
 				if(screen.ScreenTransition == UI_Screen_Mk2.Transition.TRANSITION_FADE)
 					screen.ScreenImage.material.SetFloat("_Fade", i);
 				else
 					screen.ScreenImage.material.SetFloat("_Cutoff", i);
 
-				i += Time.deltaTime * transitSpeed;
+				i += Time.unscaledDeltaTime * transitSpeed;
 				yield return new WaitForEndOfFrame();
 			}
 
