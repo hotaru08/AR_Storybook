@@ -165,11 +165,10 @@ public class VisualizerManager : MonoBehaviour
             //Create an anchor at the centre of the image
 			Anchor anchor = image.CreateAnchor(image.CenterPose);
             anchor.transform.position *= m_scaleFactor;
+
+            Debug.LogWarning("Pose Pos: " + image.CenterPose.position);
             Debug.LogWarning("Anchor Pos: " + anchor.transform.position);
-            Debug.LogWarning("Parent of Anchor: " + anchor.transform.parent);
             Debug.LogWarning("Scaled Anchor Pos: " + anchor.transform.position);
-            Debug.LogWarning("Scaled Anchor Rotation: " + anchor.transform.rotation);
-            Debug.LogWarning("Scaled Anchor Scale: " + anchor.transform.localScale);
 
             if (anchor != null)
 			{

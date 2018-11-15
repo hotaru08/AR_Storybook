@@ -31,7 +31,7 @@ public class TimelineManager : MonoBehaviour
     {
         m_clipStartTime = m_clipEndTime = 0.0;
 
-        Instantiate(m_playable);
+        //Instantiate(m_playable);
     }
 
     #region Functions
