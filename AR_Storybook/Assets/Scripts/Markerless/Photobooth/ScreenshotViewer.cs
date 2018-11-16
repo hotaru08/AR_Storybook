@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 using UnityEngine.UI;
@@ -20,7 +21,10 @@ public class ScreenshotViewer : MonoBehaviour
 
 	private void Start()
 	{
-		ScanForScreenshots();
+		currentIndex = 0;
+
+		StartCoroutine(ScanForScreenshots());
+		SetImage();
 	}
 
 	private void GetScreenshots()
@@ -49,9 +53,14 @@ public class ScreenshotViewer : MonoBehaviour
 		return texture;
 	}
 
-	public void ScanForScreenshots()
+	public IEnumerator ScanForScreenshots()
 	{
+		// Get file URLs from storage.
 		fileURLs = Directory.GetFiles(Application.persistentDataPath + "/", "*.png");
+		// Wait while array of file urls are being populated.
+		while (fileURLs.Length == 0)
+			yield return new WaitForEndOfFrame();
+		// Converts screenshots once array has been populated.
 		if (fileURLs.Length > 0)
 			GetScreenshots();
 	}
@@ -62,10 +71,7 @@ public class ScreenshotViewer : MonoBehaviour
 		if (currentIndex >= screenshots.Count)
 			currentIndex = 0;
 
-		if (screenshots.Count > 0)
-			image.overrideSprite = screenshots[currentIndex].fileSprite;
-		else
-			image.overrideSprite = null;
+		SetImage();
 	}
 
 	public void PrevImage()
@@ -74,10 +80,22 @@ public class ScreenshotViewer : MonoBehaviour
 		if (currentIndex < 0)
 			currentIndex = screenshots.Count - 1;
 
+		SetImage();
+	}
+
+	public void SetImage()
+	{
 		if (screenshots.Count > 0)
+		{
 			image.overrideSprite = screenshots[currentIndex].fileSprite;
+		}
 		else
+		{
 			image.overrideSprite = null;
+
+			if (screenshots.Count == 0)
+				StartCoroutine(ScanForScreenshots());
+		}
 	}
 
 	public void DeleteCurrentImage()
