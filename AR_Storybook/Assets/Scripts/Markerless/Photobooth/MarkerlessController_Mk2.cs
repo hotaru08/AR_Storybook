@@ -3,6 +3,7 @@ using GoogleARCore;
 using GoogleARCore.Examples.Common;
 using ATXK.EventSystem;
 using System.Collections.Generic;
+using UnityEngine.UI;
 
 [RequireComponent(typeof(ES_EventListener))]
 [RequireComponent(typeof(Touch_Scaling))]
@@ -11,8 +12,11 @@ public class MarkerlessController_Mk2 : MonoBehaviour
 {
 	[Header("AR Variables")]
 	[SerializeField] Camera arCamera;
-	[SerializeField] Touch_Scaling touchScaler;
-	[SerializeField] Touch_Rotating touchRotater;
+	[SerializeField] Slider sliderScale;
+	[SerializeField] Slider sliderRotation;
+
+	Touch_Scaling touchScaler;
+	Touch_Rotating touchRotater;
 
 	[Header("AR Prefabs")]
 	[SerializeField] GameObject detectedPlanePrefab;
@@ -25,6 +29,16 @@ public class MarkerlessController_Mk2 : MonoBehaviour
 	int visualizerCount;
 	GameObject arObject;
 	List<DetectedPlane> detectedPlanes = new List<DetectedPlane>();
+
+	private void Awake()
+	{
+		// Use scaling component if slider isn't set/available
+		if (sliderScale == null)
+			touchScaler = GetComponent<Touch_Scaling>();
+		// Use rotation component if slider isn't set/available
+		if (sliderRotation == null)
+			touchRotater = GetComponent<Touch_Rotating>();
+	}
 
 	void Update()
 	{
@@ -84,54 +98,41 @@ public class MarkerlessController_Mk2 : MonoBehaviour
 
 	void GestureScale()
 	{
-		// Two fingers on screen
-		//if(Input.touchCount == 2)
-		//{
-		//	Touch touchOne = Input.GetTouch(0);
-		//	Touch touchTwo = Input.GetTouch(1);
+		if (arObject == null)
+			return;
 
-		//	Vector2 touchOnePrevPos = touchOne.position - touchOne.deltaPosition;
-		//	Vector2 touchTwoPrevPos = touchTwo.position - touchTwo.deltaPosition;
-
-		//	float prevTouchDeltaMagnitude = (touchOnePrevPos - touchTwoPrevPos).magnitude;
-		//	float currTouchDeltaMagnitude = (touchOne.position - touchTwo.position).magnitude;
-		//	float deltaMagnitudeDiff = prevTouchDeltaMagnitude - currTouchDeltaMagnitude;
-
-		//	float scaleAmount = deltaMagnitudeDiff * scaleSpeed * Time.deltaTime;
-		//	arObject.transform.localScale += new Vector3(scaleAmount, scaleAmount, scaleAmount);
-		//}
-
-		// SWAP OUT TO CALL TOUCH_SCALING SCRIPT FUNCTION INSTEAD
-
-		// Two fingers on screen
-		if(Input.touchCount == 2 && arObject != null)
+		if (touchScaler != null) // Using touch-based scaling
 		{
-			touchScaler.ChangeScaling(arObject, Input.GetTouch(0), Input.GetTouch(1));
+			if (Input.touchCount == 2)
+			{
+				touchScaler.ChangeScaling(arObject, Input.GetTouch(0), Input.GetTouch(1));
+			}
+		}
+		else if (sliderScale != null) // Using slider-based scaling
+		{
+			arObject.transform.localScale = new Vector3(sliderScale.value, sliderScale.value, sliderScale.value);
 		}
 	}
 
 	void GestureRotate()
 	{
-		// One moving finger on screen
-		//if(Input.touchCount == 1)
-		//{
-		//	Touch touch = Input.GetTouch(0);
-		//	if(touch.phase == TouchPhase.Moved)
-		//	{
-		//		arObject.transform.Rotate(Vector3.up * rotateSpeed * Time.deltaTime * touch.deltaPosition);
-		//	}
-		//}
+		if (arObject == null)
+			return;
 
-		// SWAP OUT TO CALL TOUCH_ROTATING SCRIPT FUNCTION INSTEAD
-
-		// One moving finger on screen
-		if(Input.touchCount == 1 && arObject != null)
+		if (touchRotater != null) // Using touch-based rotating
 		{
-			Touch touch = Input.GetTouch(0);
-			if (touch.phase == TouchPhase.Moved)
+			if (Input.touchCount == 1)
 			{
-				touchRotater.ChangeRotate(arObject, Vector3.up, touch);
+				Touch touch = Input.GetTouch(0);
+				if (touch.phase == TouchPhase.Moved)
+				{
+					touchRotater.ChangeRotate(arObject, Vector3.up, touch);
+				}
 			}
+		}
+		else if (sliderRotation != null) // Using slider-based rotating
+		{
+			arObject.transform.Rotate(Vector3.up, sliderScale.value);
 		}
 	}
 
