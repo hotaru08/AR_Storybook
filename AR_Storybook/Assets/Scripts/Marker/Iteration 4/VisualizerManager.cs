@@ -25,6 +25,9 @@ public class VisualizerManager : MonoBehaviour
     [Tooltip("Scale to apply to AR_Device (session) to have camera offset")]
     [Range(1f, 20f)]
     [SerializeField] private float m_scaleFactor = 1f;
+    [Tooltip("UI that displays the FitToScan Overlay")]
+    [SerializeField]
+    private GameObject m_FitToScanOverlay;
 
     float bounceTime = 0f;
 	float timeBetweenUpdates = 0f;
@@ -45,9 +48,6 @@ public class VisualizerManager : MonoBehaviour
 		m_Session = ARSessionManager.Instance.GetSession();
         // Multiply it by scaleFactor
         m_Session.transform.localScale *= m_scaleFactor;
-        //Debug.LogWarning("Rotation: " + m_Session.transform.rotation);
-        //Debug.LogWarning("Scale: " + m_Session.transform.localScale);
-        //Debug.LogWarning("Position: " + m_Session.transform.position);
 
         //Initialize lists
         m_OldImages = new List<AugmentedImage>();
@@ -68,7 +68,10 @@ public class VisualizerManager : MonoBehaviour
 			//Add instance to object pool
 			ObjectPool.Add(visualizer);
 		}
-	}
+
+        // Set Overlay Screen active
+        m_FitToScanOverlay.SetActive(true);
+    }
 
 	/// <summary>
 	/// Unity Update function.
@@ -79,6 +82,11 @@ public class VisualizerManager : MonoBehaviour
         {
             UpdateTrackables();
             bounceTime = Time.time + timeBetweenUpdates;
+        }
+
+        if (VisualiserIsTracking())
+        {
+            m_FitToScanOverlay.SetActive(false);
         }
     }
 
@@ -207,4 +215,17 @@ public class VisualizerManager : MonoBehaviour
 		//Clear the list
 		m_Visualizers.Clear();
 	}
+
+    /// <summary>
+    /// Returns true when visualisers are tracking images
+    /// </summary>
+    private bool VisualiserIsTracking()
+    {
+        foreach (ImageVisualizer _visualiser in m_Visualizers)
+        {
+            if (_visualiser.Image.TrackingState.Equals(TrackingState.Tracking))
+                return true;
+        }
+        return false;
+    }
 }
