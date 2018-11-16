@@ -16,8 +16,9 @@
 		[SerializeField] Text text;
         [SerializeField] private float m_typeSpeed;
 		[SerializeField] private bool m_typeComplete;
+        [SerializeField] private Button m_tapToContinue;
+        private string m_currText;
 
-		private string m_currText;
 
 		#region Unity Methods
 		private void Start()
@@ -27,14 +28,17 @@
 			dialogueTree = DS_Manager.Instance.DialogueTree;
 			UpdateText();
 
-			GetComponent<Button>().onClick.AddListener(CheckNode);
-		}
+            //GetComponent<Button>().onClick.AddListener(CheckNode);
+            m_tapToContinue.onClick.AddListener(CheckNode);
+        }
 		#endregion
 
 		#region Class Methods
 		private void CheckNode()
 		{
-			if(m_typeComplete)
+            //m_tapToContinue.gameObject.SetActive(false);
+
+            if (m_typeComplete)
 			{
 				if (dialogueTree.CurrentNode.IsQuestion && dialogueTree.CurrentNode != dialogueTree.PreviousNode)
 				{
@@ -52,13 +56,14 @@
 				{
 					DS_Manager.Instance.TraverseTree(index);
 				}
-			}
+            }
 			else
 			{
 				StopCoroutine("TypeText");
 				text.text = m_currText;
 				m_typeComplete = true;
-			}
+                //m_tapToContinue.gameObject.SetActive(true);
+            }
 		}
 
 		public void UpdateText()
@@ -87,7 +92,7 @@
         private IEnumerator TypeText(string _textToType)
         {
 			m_typeComplete = false;
-			m_currText = _textToType;
+            m_currText = _textToType;
 			text.text = "";
 
 			for (int i = 0; i < _textToType.Length; ++i)
@@ -96,7 +101,8 @@
                 yield return new WaitForSeconds(m_typeSpeed);
             }
 			m_typeComplete = true;
-		}
+            //m_tapToContinue.gameObject.SetActive(true);
+        }
 		#endregion
 	}
 }

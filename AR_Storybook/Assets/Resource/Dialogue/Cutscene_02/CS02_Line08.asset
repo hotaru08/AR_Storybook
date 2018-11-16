@@ -15,12 +15,14 @@ MonoBehaviour:
   charName: Guardian
   sentence: You have to defeat the villians that are making her weak.
   nextNodes:
-  - {fileID: 11400000, guid: ee6b5a81973cb0243a6de13b0721cfdb, type: 2}
+  - {fileID: 11400000, guid: b9cc07cc9aa041d44ac118f81eb5b004, type: 2}
   animStartTime: 33.8
   startTimeNull: 0
-  animEndTime: 37.5
+  animEndTime: 44
   endTimeNull: 0
   setAnimTime: {fileID: 11400000, guid: 047e2a88c536f3146a502665c638e46c, type: 2}
   nodeEvents:
   - nodeEvent: {fileID: 11400000, guid: 58265e2f2d6c0e043b4ba45dcf355a6e, type: 2}
     nodeInvoke: 0
+  - nodeEvent: {fileID: 11400000, guid: e1e33649b39cdf9488fba42adfa00115, type: 2}
+    nodeInvoke: 1
