@@ -86,9 +86,16 @@ public class ScreenshotViewer : MonoBehaviour
 	public void SetImage()
 	{
 		if (screenshots.Count > 0)
+		{
 			image.overrideSprite = screenshots[currentIndex].fileSprite;
+		}
 		else
+		{
 			image.overrideSprite = null;
+
+			if (screenshots.Count == 0)
+				StartCoroutine(ScanForScreenshots());
+		}
 	}
 
 	public void DeleteCurrentImage()
