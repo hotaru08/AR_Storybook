@@ -13,14 +13,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   charAvatar: {fileID: 21300000, guid: 5c0e9a1652231954ab713e79c898b7a8, type: 3}
   charName: Guardian
-  sentence: I am the Guardian of health spirits.
+  sentence: 'I am the Guardian of health spirits.
+
+    Your health spirit, Sol, is losing her glow.
+
+    If she loses her glow, she cannot protect you.'
   nextNodes:
-  - {fileID: 11400000, guid: 3da9831eed8764e45abdb668dab9178d, type: 2}
-  animStartTime: 26.7
+  - {fileID: 11400000, guid: 101198b60d6190144a95065bbeb877d8, type: 2}
+  animStartTime: 29
   startTimeNull: 0
-  animEndTime: 27.45
+  animEndTime: 35.667
   endTimeNull: 0
+  animationState: 
   setAnimTime: {fileID: 11400000, guid: 047e2a88c536f3146a502665c638e46c, type: 2}
+  setAnimToPlay: {fileID: 0}
   nodeEvents:
   - nodeEvent: {fileID: 11400000, guid: 58265e2f2d6c0e043b4ba45dcf355a6e, type: 2}
     nodeInvoke: 0
