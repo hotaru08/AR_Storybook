@@ -1,20 +1,33 @@
 fileFormatVersion: 2
-guid: 8f3855e353c947b42a7254af4c869c0f
+guid: 1809781442452ae4b9302a52b7804311
 ModelImporter:
   serializedVersion: 22
   fileIDToRecycleName:
     100000: //RootNode
+    100002: land
+    100004: sky
     400000: //RootNode
-    2100000: shit2
-    2300000: //RootNode
-    3300000: //RootNode
-    4300000: shit_2
+    400002: land
+    400004: sky
+    2100000: sky1
+    2100002: ground
+    2300000: land
+    2300002: sky
+    3300000: land
+    3300002: sky
+    4300000: sky
+    4300002: land
   externalObjects:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: shit2
-    second: {fileID: 2100000, guid: 7845268ad2aeac64c8470417639f607b, type: 2}
+      name: ground
+    second: {fileID: 2100000, guid: c86a58a0192e2c945a45cbf18704a9cf, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: sky1
+    second: {fileID: 2100000, guid: e1821a71580212547b66f9a40c69413c, type: 2}
   materials:
     importMaterials: 1
     materialName: 0
