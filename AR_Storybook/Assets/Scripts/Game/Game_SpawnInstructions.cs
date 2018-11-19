@@ -13,10 +13,16 @@ public class Game_SpawnInstructions : MonoBehaviour
     /// <summary>
     /// Screens
     /// </summary>
+    [Header("Variables")]
     [Tooltip("Instruction Screens to be showm")]
     [SerializeField] private GameObject m_instruction;
     [Tooltip("If any, the first interaction screen ( eg. swipe, tap etc )")]
     [SerializeField] private GameObject m_firstInteractiveScreen;
+    [Tooltip("To Spawn only once")]
+    [SerializeField] private bool m_triggerSpawnOnce;
+    [SerializeField] private CV_Bool m_SpawnOnce;
+
+    [Header("Events")]
     [Tooltip("The current index/ number for the instructions")]
     [SerializeField] private ES_Event_Int m_instructionIndex;
     [Tooltip("If any, the next UI that is going to be showm")]
@@ -25,6 +31,13 @@ public class Game_SpawnInstructions : MonoBehaviour
 
     private void Start()
     {
+        // To spawn the first time they use
+        if (!m_SpawnOnce.value && m_triggerSpawnOnce)
+        {
+            m_instructionIndex.RaiseEvent(0);
+            m_SpawnOnce.value = true;
+        }
+
         prevInstructIndex = m_instructionIndex.Value = 0;
     }
 
