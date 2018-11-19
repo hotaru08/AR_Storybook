@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using ATXK.EventSystem;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.UI;
@@ -40,9 +41,6 @@ public class AudioManager : ATXK.Helper.SingletonBehaviour<AudioManager>
     /// </summary>
     private void Start()
     {
-        // Play BGM
-        PlaySound("BGM", false);
-
         // Load at the volume that is saved
         //m_settings.SetVolume(PlayerPrefs.GetFloat("BGM_Volume"));
         //m_settings.SetSFXVolume(PlayerPrefs.GetFloat("sfx_Volume"));
@@ -52,16 +50,17 @@ public class AudioManager : ATXK.Helper.SingletonBehaviour<AudioManager>
     /// <summary>
     /// Function to play Sound according to the name in param
     /// </summary>
-    public void PlaySound(string _soundName, bool _stop)
+    public void PlaySound(string _soundName)
     {
         foreach (Sound _sound in m_soundList)
         {
             if (_sound.m_name != _soundName) continue; // skip if not sound name that we finding
 
-            if (!_stop)
-                _sound.m_audioSource.Play(); // play if not true and found same name
-            else
-                _sound.m_audioSource.Stop(); // stop if true and same name
+            //if (!_stop)
+            //    _sound.m_audioSource.Play(); // play if not true and found same name
+            //else
+            //    _sound.m_audioSource.Stop(); // stop if true and same name
+            _sound.m_audioSource.Play();
         }
     }
 }

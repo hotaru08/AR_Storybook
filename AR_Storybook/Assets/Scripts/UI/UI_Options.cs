@@ -17,8 +17,12 @@ public class UI_Options : MonoBehaviour
     [Tooltip("Toggle Component to trigger Button Mode")]
     [SerializeField] private Toggle m_toggle;
 
-	// Use this for initialization
-	void OnEnable()
+    // Test 
+    [SerializeField] private CV_Float m_bgmVolume;
+    [SerializeField] private CV_Float m_sfxVolume;
+
+    // Use this for initialization
+    void OnEnable()
     {
         m_isButtonMode.Value = m_buttonMode.value;
 
