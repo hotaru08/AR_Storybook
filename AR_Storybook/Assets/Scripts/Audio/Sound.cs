@@ -1,9 +1,10 @@
-﻿using UnityEngine;
+﻿using ATXK.EventSystem;
+using UnityEngine;
 using UnityEngine.Audio;
 
 /* The custom object class for Sounds */
-[System.Serializable] // -> so can appear in inspector
-public class Sound
+[CreateAssetMenu(menuName = "Audio/Sounds", order = 2)]
+public class Sound : ScriptableObject
 {
     // name of sound
     public string m_name;

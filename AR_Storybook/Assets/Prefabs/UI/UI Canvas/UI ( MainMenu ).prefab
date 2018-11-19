@@ -1752,6 +1752,7 @@ GameObject:
   - component: {fileID: 95058705640937830}
   - component: {fileID: 114709933350635822}
   - component: {fileID: 114436582030572436}
+  - component: {fileID: 114725378310061690}
   m_Layer: 0
   m_Name: Screen (Main)
   m_TagString: Untagged
@@ -4960,6 +4961,8 @@ MonoBehaviour:
   m_buttonMode: {fileID: 11400000, guid: 1d7fb3b4aaafaf942b05030612924400, type: 2}
   m_isButtonMode: {fileID: 11400000, guid: 034668e557c286746bbcca483ae4aabf, type: 2}
   m_toggle: {fileID: 114174270741915536}
+  m_bgmVolume: {fileID: 0}
+  m_sfxVolume: {fileID: 0}
 --- !u!114 &114636970747353182
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -5364,6 +5367,19 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &114725378310061690
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1860867468666070}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 408779438e60bd94bb3b1381a652161d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  autoEvent: {fileID: 11400000, guid: d3060eed8a5418840a333aff45af65cd, type: 2}
+  autoEventValue: MainMenuBGM
 --- !u!114 &114729746083894362
 MonoBehaviour:
   m_ObjectHideFlags: 1

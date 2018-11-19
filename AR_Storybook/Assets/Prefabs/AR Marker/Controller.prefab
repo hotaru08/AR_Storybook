@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: 4348346812845010}
   - component: {fileID: 114005501046649482}
   - component: {fileID: 114937407031964604}
+  - component: {fileID: 114346113593693228}
   m_Layer: 0
   m_Name: Controller
   m_TagString: Untagged
@@ -54,6 +55,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_arCoreSessionPrefab: {fileID: 1742802077263018, guid: 463b2865613f34d44b424d9e7095486e,
     type: 2}
+--- !u!114 &114346113593693228
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1989853822990330}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 408779438e60bd94bb3b1381a652161d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  autoEvent: {fileID: 11400000, guid: d3060eed8a5418840a333aff45af65cd, type: 2}
+  autoEventValue: StorybookBGM
 --- !u!114 &114937407031964604
 MonoBehaviour:
   m_ObjectHideFlags: 1
