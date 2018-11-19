@@ -13,9 +13,13 @@ public class Game_SpawnInstructions : MonoBehaviour
     /// <summary>
     /// Screens
     /// </summary>
+    [Tooltip("Instruction Screens to be showm")]
     [SerializeField] private GameObject m_instruction;
+    [Tooltip("If any, the first interaction screen ( eg. swipe, tap etc )")]
     [SerializeField] private GameObject m_firstInteractiveScreen;
+    [Tooltip("The current index/ number for the instructions")]
     [SerializeField] private ES_Event_Int m_instructionIndex;
+    [Tooltip("If any, the next UI that is going to be showm")]
     [SerializeField] private ES_Event_Abstract m_setMainHUD;
     private int prevInstructIndex;
 
@@ -55,9 +59,17 @@ public class Game_SpawnInstructions : MonoBehaviour
     public void SetLastInstruction(bool _value)
     {
         if (!_value) return;
-        m_instruction.transform.GetChild(m_instruction.transform.childCount - 1).gameObject.SetActive(false);
+
+        // Remove the last instruction
+        if (m_instruction.transform.GetChild(m_instruction.transform.childCount - 1) != null)
+            m_instruction.transform.GetChild(m_instruction.transform.childCount - 1).gameObject.SetActive(false);
+
+        // Set index to be child count
         m_instructionIndex.Value = m_instruction.transform.childCount;
-        m_setMainHUD.RaiseEvent();
+
+        // Spawn any next UI
+        if (m_setMainHUD != null)
+            m_setMainHUD.RaiseEvent();
 
         // Set intructions to be inactive
         gameObject.SetActive(false);

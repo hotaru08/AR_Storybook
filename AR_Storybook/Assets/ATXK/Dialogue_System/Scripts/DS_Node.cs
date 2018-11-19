@@ -34,9 +34,17 @@
 		[SerializeField] bool endTimeNull;
 		float? animStartTimeNullable, animEndTimeNullable;
 
-		[Header("Event Settings")]
+        [Header("Animation")]
+        //[SerializeField] RuntimeAnimatorController AyeAnimator;
+        //[SerializeField] RuntimeAnimatorController SolAnimator;
+        [SerializeField] RuntimeAnimatorController[] AnimatorsToPlay;
+
+        [Header("Event Settings")]
 		[SerializeField] ES_Event_String setAnimTime;
-		[SerializeField] NodeEvent[] nodeEvents;
+        //[SerializeField] ES_Event_Object setAnimatorToPlayAye;
+        //[SerializeField] ES_Event_Object setAnimatorToPlaySol;
+        [SerializeField] ES_Event_Object[] SetAnimatorsToPlay;
+        [SerializeField] NodeEvent[] nodeEvents;
 
 		#region Properties
 		/// <summary>
@@ -78,8 +86,25 @@
 				setAnimTime.RaiseEvent(animStartTime.ToString() + "," + animEndTime.ToString());
 			}
 
-			// Send off any node "enter" events
-			for(int i = 0; i < nodeEvents.Length; i++)
+            // Send off event containing any relevant Animation
+            //if (setAnimatorToPlayAye != null)
+            //{
+            //    setAnimatorToPlayAye.RaiseEvent(AyeAnimator);
+            //}
+            //if (setAnimatorToPlaySol != null)
+            //{
+            //    setAnimatorToPlaySol.RaiseEvent(SolAnimator);
+            //}
+            if (SetAnimatorsToPlay.Length > 0)
+            {
+                for (int i = 0; i < SetAnimatorsToPlay.Length; ++i)
+                {
+                    SetAnimatorsToPlay[i].RaiseEvent(AnimatorsToPlay[i]);
+                }
+            }
+
+            // Send off any node "enter" events
+            for (int i = 0; i < nodeEvents.Length; i++)
 			{
 				if(nodeEvents[i].nodeInvoke == NodeEventSettings.ON_ENTER)
 				{

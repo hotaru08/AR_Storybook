@@ -132,7 +132,8 @@ public class MarkerlessController_Mk2 : MonoBehaviour
 		}
 		else if (sliderRotation != null) // Using slider-based rotating
 		{
-			arObject.transform.Rotate(Vector3.up, sliderScale.value);
+			//arObject.transform.Rotate(Vector3.up, sliderScale.value);
+			arObject.transform.rotation = Quaternion.Euler(0f, sliderRotation.value, 0f);
 		}
 	}
 
