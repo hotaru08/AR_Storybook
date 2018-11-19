@@ -17,16 +17,6 @@
 			return cv;
 		}
 
-		public static bool operator ==(CV_String a, CV_String b)
-		{
-			return a.value == b.value;
-		}
-
-		public static bool operator !=(CV_String a, CV_String b)
-		{
-			return a.value != b.value;
-		}
-
 		public override int GetHashCode()
 		{
 			return base.GetHashCode();
