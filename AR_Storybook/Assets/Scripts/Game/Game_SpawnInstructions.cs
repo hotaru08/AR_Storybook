@@ -1,7 +1,5 @@
 ﻿using ATXK.CustomVariables;
 using ATXK.EventSystem;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -14,7 +12,7 @@ public class Game_SpawnInstructions : MonoBehaviour
     /// Screens
     /// </summary>
     [Header("Variables")]
-    [Tooltip("Instruction Screens to be showm")]
+    [Tooltip("Instruction Screens to be shown")]
     [SerializeField] private GameObject m_instruction;
     [Tooltip("If any, the first interaction screen ( eg. swipe, tap etc )")]
     [SerializeField] private GameObject m_firstInteractiveScreen;
@@ -25,20 +23,34 @@ public class Game_SpawnInstructions : MonoBehaviour
     [Header("Events")]
     [Tooltip("The current index/ number for the instructions")]
     [SerializeField] private ES_Event_Int m_instructionIndex;
-    [Tooltip("If any, the next UI that is going to be showm")]
+    [Tooltip("Event to trigger next UI to be shown")]
     [SerializeField] private ES_Event_Abstract m_setMainHUD;
+    [Tooltip("Event to trigger something that only works when instructions are done")]
+    [SerializeField] private ES_Event_Bool m_start;
+
     private int prevInstructIndex;
 
-    private void Start()
+    private void Awake()
     {
+        prevInstructIndex = m_instructionIndex.Value = 0;
+        if (!m_triggerSpawnOnce || m_SpawnOnce == null || m_start == null) return;
+
+        Debug.LogWarning("Value of SpawnOnce: " + m_SpawnOnce.value);
+
         // To spawn the first time they use
-        if (!m_SpawnOnce.value && m_triggerSpawnOnce)
+        if (!m_SpawnOnce.value)
         {
+            Debug.LogWarning("Entered which Spawn once is false");
             m_instructionIndex.RaiseEvent(0);
             m_SpawnOnce.value = true;
+            m_start.RaiseEvent(false);
         }
-
-        prevInstructIndex = m_instructionIndex.Value = 0;
+        else if (m_SpawnOnce.value)
+        {
+            Debug.LogWarning("Entered which Spawn once is true");
+            gameObject.SetActive(false);
+        }
+        Debug.LogWarning("Value of SpawnOnce after: " + m_SpawnOnce.value);
     }
 
     /// <summary>
