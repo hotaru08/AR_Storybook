@@ -3,35 +3,45 @@ using System.Collections.Generic;
 using UnityEngine;
 using ATXK.EventSystem;
 using ATXK.UI.Mk2;
+using ATXK.CustomVariables;
 using System.Linq;
 
 [RequireComponent(typeof(AudioSource))]
 public class Lock : MonoBehaviour
 {
 	[Header("Combination Lock")]
-	[SerializeField] List<string> codeLock = new List<string>();
+	[SerializeField] List<CV_String> codeLock = new List<CV_String>();
+
+	[Header("Screen")]
+	[SerializeField] UI_Screen_Mk2 scrumScreen;
 
 	[Header("Events")]
-	[SerializeField] UI_Screen_Mk2 scrumScreen;
 	[SerializeField] ES_Event_Object changeScreenEvent;
 
 	[Header("Audio Clips")]
 	[SerializeField] AudioClip correctButton;
 	[SerializeField] AudioClip correctCombo;
-	[SerializeField] AudioClip wrongCombo;
 
 	List<string> runtimeCombination = new List<string>();
+	List<string> runtimeLock = new List<string>();
+
 	int index;
 	AudioSource audioSource;
 
 	private void Start()
 	{
+		index = 0;
 		audioSource = GetComponent<AudioSource>();
+
+		foreach(CV_String cvString in codeLock)
+		{
+			runtimeLock.Add(cvString.value);
+		}
 	}
 
 	public void AddCharacter(string input)
 	{
-		if (input == codeLock[index])
+		if (input == codeLock[index].value)
 		{
 			if (index < codeLock.Count)
 			{
@@ -51,17 +61,20 @@ public class Lock : MonoBehaviour
 		}
 	}
 
+	public void AddCharacter(Object input)
+	{
+		CV_String cvString = input as CV_String;
+		if(cvString != null)
+		{
+			AddCharacter(cvString.value);
+		}
+	}
+
 	public void EnterCombination()
 	{
-		if (runtimeCombination.SequenceEqual(codeLock))
+		if (runtimeCombination.SequenceEqual(runtimeLock))
 		{
-			audioSource.PlayOneShot(correctCombo);
-
 			StartCoroutine("WaitForAudio");
-		}
-		else
-		{
-			audioSource.PlayOneShot(wrongCombo);
 		}
 
 		runtimeCombination.Clear();
@@ -70,7 +83,11 @@ public class Lock : MonoBehaviour
 
 	IEnumerator WaitForAudio()
 	{
-		while(audioSource.isPlaying)
+		if (audioSource.isPlaying)
+			yield return null;
+
+		audioSource.PlayOneShot(correctCombo);
+		while (audioSource.isPlaying)
 		{
 			yield return new WaitForEndOfFrame();
 		}

@@ -1,7 +1,5 @@
 ﻿using ATXK.CustomVariables;
 using ATXK.EventSystem;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -13,15 +11,46 @@ public class Game_SpawnInstructions : MonoBehaviour
     /// <summary>
     /// Screens
     /// </summary>
+    [Header("Variables")]
+    [Tooltip("Instruction Screens to be shown")]
     [SerializeField] private GameObject m_instruction;
+    [Tooltip("If any, the first interaction screen ( eg. swipe, tap etc )")]
     [SerializeField] private GameObject m_firstInteractiveScreen;
+    [Tooltip("To Spawn only once")]
+    [SerializeField] private bool m_triggerSpawnOnce;
+    [SerializeField] private CV_Bool m_SpawnOnce;
+
+    [Header("Events")]
+    [Tooltip("The current index/ number for the instructions")]
     [SerializeField] private ES_Event_Int m_instructionIndex;
+    [Tooltip("Event to trigger next UI to be shown")]
     [SerializeField] private ES_Event_Abstract m_setMainHUD;
+    [Tooltip("Event to trigger something that only works when instructions are done")]
+    [SerializeField] private ES_Event_Bool m_start;
+
     private int prevInstructIndex;
 
-    private void Start()
+    private void Awake()
     {
         prevInstructIndex = m_instructionIndex.Value = 0;
+        if (!m_triggerSpawnOnce || m_SpawnOnce == null || m_start == null) return;
+
+        Debug.LogWarning("Value of SpawnOnce: " + m_SpawnOnce.value);
+
+        // To spawn the first time they use
+        if (!m_SpawnOnce.value)
+        {
+            Debug.LogWarning("Entered which Spawn once is false");
+            m_instructionIndex.RaiseEvent(0);
+            m_SpawnOnce.value = true;
+            m_start.RaiseEvent(false);
+        }
+        else if (m_SpawnOnce.value)
+        {
+            Debug.LogWarning("Entered which Spawn once is true");
+            gameObject.SetActive(false);
+        }
+        Debug.LogWarning("Value of SpawnOnce after: " + m_SpawnOnce.value);
     }
 
     /// <summary>
@@ -55,9 +84,17 @@ public class Game_SpawnInstructions : MonoBehaviour
     public void SetLastInstruction(bool _value)
     {
         if (!_value) return;
-        m_instruction.transform.GetChild(m_instruction.transform.childCount - 1).gameObject.SetActive(false);
+
+        // Remove the last instruction
+        if (m_instruction.transform.GetChild(m_instruction.transform.childCount - 1) != null)
+            m_instruction.transform.GetChild(m_instruction.transform.childCount - 1).gameObject.SetActive(false);
+
+        // Set index to be child count
         m_instructionIndex.Value = m_instruction.transform.childCount;
-        m_setMainHUD.RaiseEvent();
+
+        // Spawn any next UI
+        if (m_setMainHUD != null)
+            m_setMainHUD.RaiseEvent();
 
         // Set intructions to be inactive
         gameObject.SetActive(false);

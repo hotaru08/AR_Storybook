@@ -101,7 +101,7 @@ public class MarkerlessController_Mk2 : MonoBehaviour
 		if (arObject == null)
 			return;
 
-		if (touchScaler != null) // Using touch-based scaling
+		if (sliderScale == null) // Using touch-based scaling
 		{
 			if (Input.touchCount == 2)
 			{
@@ -119,7 +119,7 @@ public class MarkerlessController_Mk2 : MonoBehaviour
 		if (arObject == null)
 			return;
 
-		if (touchRotater != null) // Using touch-based rotating
+		if (sliderRotation == null) // Using touch-based rotating
 		{
 			if (Input.touchCount == 1)
 			{
