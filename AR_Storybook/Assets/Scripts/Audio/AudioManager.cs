@@ -5,7 +5,7 @@ using UnityEngine.Audio;
 using UnityEngine.UI;
 
 /* Handles the Audio of the Game ( using Sounds Object class ) */
-public class AudioManager : ATXK.Helper.SingletonBehaviour<AudioManager>
+public class AudioManager : MonoBehaviour
 {
     /// <summary>
     /// Add in settings file to load and adjust volume
@@ -48,18 +48,36 @@ public class AudioManager : ATXK.Helper.SingletonBehaviour<AudioManager>
     }
 
     /// <summary>
-    /// Function to play Sound according to the name in param
+    /// Function to play Sound according to param
     /// </summary>
-    public void PlaySound(string _soundName)
+    //public void PlaySound(string _soundName)
+    //{
+    //    foreach (Sound _sound in m_soundList)
+    //    {
+    //        // if there is already another sound being played, stop that sound
+    //        if (_sound.m_bIsBGM)
+    //            _sound.m_audioSource.Stop();
+
+    //        // skip if not sound name that we finding
+    //        if (_sound.m_name != _soundName) continue;
+            
+    //        // Play Audio
+    //        _sound.m_audioSource.Play();
+    //    }
+    //}
+    public void PlaySound(Object _soundObj)
     {
+        Sound temp = _soundObj as Sound;
         foreach (Sound _sound in m_soundList)
         {
-            if (_sound.m_name != _soundName) continue; // skip if not sound name that we finding
+            // if there is already another sound being played, stop that sound
+            if (_sound.m_bIsBGM && temp.m_bIsBGM)
+                _sound.m_audioSource.Stop();
 
-            //if (!_stop)
-            //    _sound.m_audioSource.Play(); // play if not true and found same name
-            //else
-            //    _sound.m_audioSource.Stop(); // stop if true and same name
+            // skip if not sound name that we finding
+            if (_sound.m_name != temp.m_name) continue; 
+
+            // Play Audio
             _sound.m_audioSource.Play();
         }
     }

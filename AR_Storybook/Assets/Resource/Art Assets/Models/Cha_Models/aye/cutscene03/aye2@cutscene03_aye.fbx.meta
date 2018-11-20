@@ -133,12 +133,14 @@ ModelImporter:
     4300004: ear_l
     4300006: ear_r
     4300008: beard
-    7400000: cutscene03_1
-    7400002: cutscene03_2
+    7400000: aye_cutscene03_1
+    7400002: aye_cutscene03_2
     7400004: cutscene03_3
     7400006: cutscene03_4
-    7400008: cutscene03_5
-    7400010: cutscene03_6
+    7400008: aye_cutscene03_5
+    7400010: aye_cutscene03_6
+    7400012: aye_cutscene03_6(loop)
+    7400014: aye_cutscene03_5(loop)
     9500000: //RootNode
     13700000: beard
     13700002: body
@@ -180,7 +182,7 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: cutscene03_1
+      name: aye_cutscene03_1
       takeName: Take 001
       firstFrame: 2
       lastFrame: 200
@@ -208,7 +210,7 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: cutscene03_2
+      name: aye_cutscene03_2
       takeName: Take 001
       firstFrame: 200
       lastFrame: 270
@@ -292,7 +294,7 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: cutscene03_5
+      name: aye_cutscene03_5
       takeName: Take 001
       firstFrame: 411
       lastFrame: 480
@@ -320,9 +322,65 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: cutscene03_6
+      name: aye_cutscene03_6
       takeName: Take 001
       firstFrame: 481
+      lastFrame: 550
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: aye_cutscene03_6(loop)
+      takeName: Take 001
+      firstFrame: 2
+      lastFrame: 550
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: aye_cutscene03_5(loop)
+      takeName: Take 001
+      firstFrame: 2
       lastFrame: 550
       wrapMode: 0
       orientationOffsetY: 0

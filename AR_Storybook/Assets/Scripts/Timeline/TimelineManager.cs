@@ -92,8 +92,6 @@ public class TimelineManager : MonoBehaviour
 
         // Set current director's time to be start of that dialogue node's
         m_currDirector.time = m_clipStartTime;
-
-        Debug.Log("ClipStartTime: " + m_clipStartTime + " / ClipEndTime: " + m_clipEndTime);
     }
 
     /// <summary>
