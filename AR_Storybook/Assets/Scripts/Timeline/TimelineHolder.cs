@@ -25,6 +25,11 @@ public class TimelineHolder : MonoBehaviour
         // Set the current time of director to be at start
         GetComponent<PlayableDirector>().time = 0.0;
 
+        // If any of the events are null, dont send events
+        if (m_directorObject == null || m_spawnDialogue == null 
+            || m_firstClipTiming == null)
+            return;
+
         // Raise events
         m_directorObject.RaiseEvent(GetComponent<PlayableDirector>());
         m_spawnDialogue.RaiseEvent(false);

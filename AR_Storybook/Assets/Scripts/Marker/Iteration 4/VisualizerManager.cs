@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using GoogleARCore;
 using UnityEngine.UI;
+using ATXK.EventSystem;
 
 public enum VisualizerMode
 {
@@ -26,8 +27,7 @@ public class VisualizerManager : MonoBehaviour
     [Range(1f, 20f)]
     [SerializeField] private float m_scaleFactor = 1f;
     [Tooltip("UI that displays the FitToScan Overlay")]
-    [SerializeField]
-    private GameObject m_FitToScanOverlay;
+    [SerializeField] private GameObject m_FitToScanOverlay;
 
     float bounceTime = 0f;
 	float timeBetweenUpdates = 0f;
@@ -110,6 +110,7 @@ public class VisualizerManager : MonoBehaviour
 				RemoveAllVisualizers();
 
                 //Reset the ARCore session
+                GetComponent<ES_AwakeInvokerObject>().OnEnable(); // damn hack im sorry ;-;
                 ARSessionManager.Instance.ResetSession();
 			}
 
