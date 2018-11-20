@@ -17,9 +17,8 @@
 		{
 			if(other.gameObject.GetComponent<Item_Holder>())
 			{
-                if (other.gameObject.GetComponent<Item_Holder>().Item.CollisionExitEvent)
+                if (other.gameObject.GetComponent<Item_Holder>().Item.CollisionExitEvent != null)
                 {
-                    //Debug.Log("Entered : " + other.gameObject.GetComponent<Item_Holder>().Item.CollisionExitEvent);
                     other.gameObject.GetComponent<Item_Holder>().Item.CollisionExitEvent.RaiseEvent();
                     Destroy(other.gameObject, 1f);
                     return;
