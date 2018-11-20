@@ -78,7 +78,7 @@ public class PlayerManager : MonoBehaviour
     [SerializeField] private ES_Event_Abstract m_spawnWinScreen;
     [SerializeField] private ES_Event_Abstract m_spawnLoseScreen;
     [SerializeField] private ES_Event_Int m_nextInstruction;
-    //[SerializeField] private ES_Event m_PlayerDamagedEvent;
+    [SerializeField] private ES_Event_String m_PlayerSoundEvent;
     [SerializeField] private ES_Event_Default m_PlayerDiedEvent;
     public ES_Event_Float m_timeScaleEvent;
 
@@ -130,7 +130,6 @@ public class PlayerManager : MonoBehaviour
         // ---------- Player Damaged 
         if (m_Animator.GetCurrentAnimatorStateInfo(0).IsName("Damaged"))
         {
-            //m_PlayerDamagedEvent.Invoke();
             SpawnParticles();
             return;
         }
@@ -214,7 +213,10 @@ public class PlayerManager : MonoBehaviour
                     }
                     
                     if (IsGrounded())
+                    {
                         m_bTriggerJump = true;
+                        m_PlayerSoundEvent.RaiseEvent("AyeJump");
+                    }
                 }
                 break;
             case (int)Touch_Swipe.SWIPE_DIRECTION.DOWN:
@@ -333,6 +335,8 @@ public class PlayerManager : MonoBehaviour
             mainModule.playOnAwake = false;
             mainModule.loop = false;
             m_bSpawn = true;
+
+            m_PlayerSoundEvent.RaiseEvent("AyeDamaged");
         }
     }
 }

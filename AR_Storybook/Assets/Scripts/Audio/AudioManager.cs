@@ -50,21 +50,17 @@ public class AudioManager : MonoBehaviour
     /// <summary>
     /// Function to play Sound according to param
     /// </summary>
-    //public void PlaySound(string _soundName)
-    //{
-    //    foreach (Sound _sound in m_soundList)
-    //    {
-    //        // if there is already another sound being played, stop that sound
-    //        if (_sound.m_bIsBGM)
-    //            _sound.m_audioSource.Stop();
+    public void PlaySound(string _soundName)
+    {
+        foreach (Sound _sound in m_soundList)
+        {
+            // skip if not sound name that we finding
+            if (_sound.m_name != _soundName) continue;
 
-    //        // skip if not sound name that we finding
-    //        if (_sound.m_name != _soundName) continue;
-            
-    //        // Play Audio
-    //        _sound.m_audioSource.Play();
-    //    }
-    //}
+            // Play Audio
+            _sound.m_audioSource.Play();
+        }
+    }
     public void PlaySound(Object _soundObj)
     {
         Sound temp = _soundObj as Sound;

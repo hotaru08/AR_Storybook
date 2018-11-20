@@ -1907,6 +1907,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4788220590848780}
   - component: {fileID: 114239231762112114}
+  - component: {fileID: 114452302062696490}
   - component: {fileID: 114566951560424060}
   m_Layer: 0
   m_Name: UI ( MainMenu )
@@ -4051,6 +4052,35 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   autoEvent: {fileID: 11400000, guid: ae9fe172792943a42b45248215168505, type: 2}
+--- !u!114 &114452302062696490
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1956774965110892}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a34280b49e2e88b4a9636d1e1cfb8938, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_buttonList:
+  - {fileID: 114637959114863260}
+  - {fileID: 114334166886266654}
+  - {fileID: 114038005774550460}
+  - {fileID: 114987104567293240}
+  - {fileID: 114506001257309606}
+  - {fileID: 114479972296975730}
+  - {fileID: 114313936817285376}
+  - {fileID: 114064217043270146}
+  - {fileID: 114169789572056700}
+  - {fileID: 114870330417716102}
+  - {fileID: 114958360504111056}
+  - {fileID: 114998032699011608}
+  - {fileID: 114867651480020912}
+  - {fileID: 114922428333158460}
+  - {fileID: 114650441451395774}
+  m_soundEvent: {fileID: 11400000, guid: 1dcb736bb7bfef3439efc966b7a96b4e, type: 2}
+  m_sound: {fileID: 11400000, guid: 966493965adc51e4a9324c2452b30cbc, type: 2}
 --- !u!114 &114470781967950824
 MonoBehaviour:
   m_ObjectHideFlags: 1
