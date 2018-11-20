@@ -12,6 +12,7 @@ public class Game_TimeScore : MonoBehaviour
 	[SerializeField] ES_Event_Int saveScore;
 	[SerializeField] bool playerDied;
     [SerializeField] CV_String playerPref_HighScore;
+	[SerializeField] int scoreMultiplier;
 
     [Header("Scores")]
     [Tooltip("Text to display score on HUD")]
@@ -32,7 +33,7 @@ public class Game_TimeScore : MonoBehaviour
 	private void Update()
 	{
 		if(!playerDied && m_startGame.Value)
-			currentScore += Time.deltaTime;
+			currentScore += Time.deltaTime * scoreMultiplier;
 
         // Display score on HUD
         m_displayScoreHUD.text = "Score\n" + (int)currentScore;
@@ -56,4 +57,9 @@ public class Game_TimeScore : MonoBehaviour
                                                   , PlayerPrefs.GetInt(playerPref_HighScore.value), (int)currentScore);
 
     }
+
+	public void AddScore(int value)
+	{
+		currentScore += value;
+	}
 }

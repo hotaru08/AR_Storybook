@@ -25,6 +25,10 @@ public class UI_DisplayPlayerHealth : MonoBehaviour
     private GameObject m_healthIcon;
     private Stack<GameObject> m_healthIconStack;
 
+    [Tooltip("Icon shown at the top of health")]
+    [SerializeField] private GameObject m_headerIcon;
+    private GameObject m_headerIconObject;
+
     /// <summary>
     /// Variables to position UI
     /// </summary>
@@ -50,6 +54,11 @@ public class UI_DisplayPlayerHealth : MonoBehaviour
             // Add to Stack
             m_healthIconStack.Push(temp);
         }
+
+        // Render Header Icon once all Health Icon is rendered
+        m_headerIconObject = Instantiate(m_headerIcon, transform);
+        m_headerIconObject.GetComponent<RectTransform>().anchoredPosition = new Vector2(m_startingPos.x, 
+            m_healthIconStack.Peek().GetComponent<RectTransform>().anchoredPosition.y + m_paddingTop + 100);
     }
 
     /// <summary>

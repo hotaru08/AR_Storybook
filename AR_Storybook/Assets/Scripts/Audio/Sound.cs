@@ -23,7 +23,7 @@ public class Sound : ScriptableObject
     [Range(0.1f, 3.0f)]
     public float m_pitch;
 
-    // the audio source of the object ( public to access it in another script )
+    // the audio source of the object
     [HideInInspector]
     public AudioSource m_audioSource;
 
@@ -32,4 +32,7 @@ public class Sound : ScriptableObject
 
     // play on awake
     public bool m_bPlayOnAwake;
+
+    // If this is a BGM or not
+    public bool m_bIsBGM;
 }
