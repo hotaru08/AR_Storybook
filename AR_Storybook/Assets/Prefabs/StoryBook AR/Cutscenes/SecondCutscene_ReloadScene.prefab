@@ -1443,6 +1443,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4023757131538752}
   - component: {fileID: 114230518870526916}
+  - component: {fileID: 114509686179807982}
   m_Layer: 0
   m_Name: UI ( Cutscene )
   m_TagString: Untagged
@@ -3219,6 +3220,7 @@ GameObject:
   - component: {fileID: 320786916908517938}
   - component: {fileID: 95533652711210374}
   - component: {fileID: 114348949159082668}
+  - component: {fileID: 114697242345386462}
   m_Layer: 0
   m_Name: SecondCutscene_ReloadScene
   m_TagString: Untagged
@@ -11002,7 +11004,7 @@ Animator:
   m_GameObject: {fileID: 1571214085974392}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: a01ce46e8ce7f42439c7532b051df17f, type: 3}
-  m_Controller: {fileID: 9100000, guid: f14b8ad2a55cec5478bf9814ebe838b6, type: 2}
+  m_Controller: {fileID: 0}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -11672,6 +11674,22 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: Character Name
+--- !u!114 &114509686179807982
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1406597492807004}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a34280b49e2e88b4a9636d1e1cfb8938, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_buttonList:
+  - {fileID: 114943226842370670}
+  - {fileID: 114049870191847372}
+  m_soundEvent: {fileID: 11400000, guid: 1dcb736bb7bfef3439efc966b7a96b4e, type: 2}
+  m_sound: {fileID: 11400000, guid: 966493965adc51e4a9324c2452b30cbc, type: 2}
 --- !u!114 &114525984442897162
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -11864,6 +11882,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e3b63e620477624ab930a38211d26cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &114697242345386462
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1839280579889016}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 88798921773751e4d99a3194ebf77c9e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  autoEvent: {fileID: 11400000, guid: 1dcb736bb7bfef3439efc966b7a96b4e, type: 2}
+  autoEventValue: {fileID: 11400000, guid: a840f27af3b11684697c9b6da11c8f29, type: 2}
 --- !u!114 &114806959616736038
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -26730,5 +26761,7 @@ PlayableDirector:
     value: {fileID: 1571214085974392}
   - key: {fileID: 114834937857177012, guid: a3fcc3625b518704f862a457a8257821, type: 2}
     value: {fileID: 1571214085974392}
+  - key: {fileID: 114408032795176290, guid: a3fcc3625b518704f862a457a8257821, type: 2}
+    value: {fileID: 0}
   m_ExposedReferences:
     m_References: []

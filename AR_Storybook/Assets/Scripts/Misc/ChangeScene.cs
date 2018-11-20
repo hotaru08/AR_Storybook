@@ -54,7 +54,6 @@ public class ChangeScene : MonoBehaviour
 
         while (!operation.isDone)
         {
-            Debug.Log("Now Loading new scene: " + _sceneName);
             yield return null;
         }
     }
