@@ -1,6 +1,7 @@
 ﻿namespace ATXK.DialogueSystem
 {
-	using System.Collections;
+    using ATXK.EventSystem;
+    using System.Collections;
 	using System.Collections.Generic;
 	using UnityEngine;
 	using UnityEngine.UI;
@@ -14,16 +15,18 @@
         /// Typewriter Variables
         /// </summary>
 		[SerializeField] Text text;
-        [SerializeField] private float m_typeSpeed;
-		[SerializeField] private bool m_typeComplete;
-        [SerializeField] private Button m_tapToContinue;
+        [SerializeField] float m_typeSpeed;
+		[SerializeField] bool m_typeComplete;
+        [SerializeField] Button m_tapToContinue;
         private string m_currText;
+        private AudioSource m_soundToPlay;
+        [SerializeField] AudioClip m_soundClip;
 
-
-		#region Unity Methods
-		private void Start()
+        #region Unity Methods
+        private void Start()
 		{
 			m_typeComplete = true;
+            m_soundToPlay = GetComponent<AudioSource>();
 
 			dialogueTree = DS_Manager.Instance.DialogueTree;
 			UpdateText();
@@ -98,6 +101,7 @@
 			for (int i = 0; i < _textToType.Length; ++i)
             {
                 text.text += _textToType[i];
+                m_soundToPlay.PlayOneShot(m_soundClip);
                 yield return new WaitForSeconds(m_typeSpeed);
             }
 			m_typeComplete = true;

@@ -1256,13 +1256,24 @@ MonoBehaviour:
   m_FillRect: {fileID: 224060268863242222}
   m_HandleRect: {fileID: 224687767264701934}
   m_Direction: 0
-  m_MinValue: 0
-  m_MaxValue: 1
+  m_MinValue: -80
+  m_MaxValue: 0
   m_WholeNumbers: 0
-  m_Value: 0
+  m_Value: -80
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 114617631802140132}
+        m_MethodName: set_SFXVolume
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Slider+SliderEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &114202821643302804
@@ -1331,13 +1342,24 @@ MonoBehaviour:
   m_FillRect: {fileID: 224655338117913204}
   m_HandleRect: {fileID: 224199593715206174}
   m_Direction: 0
-  m_MinValue: 0
-  m_MaxValue: 1
+  m_MinValue: -80
+  m_MaxValue: 0
   m_WholeNumbers: 0
-  m_Value: 0
+  m_Value: -80
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 114617631802140132}
+        m_MethodName: set_BGMVolume
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Slider+SliderEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &114211358925051246
@@ -2185,11 +2207,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d37cfcf7d0e57c74f83b1e667f23f3d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_bgmMixer: {fileID: 24100000, guid: 52484fe269c3f79478681e5f50fb022e, type: 2}
+  m_sfxMixer: {fileID: 24100000, guid: b7ef38a661ac70748ae8c0a8e832f102, type: 2}
   m_buttonMode: {fileID: 11400000, guid: 1d7fb3b4aaafaf942b05030612924400, type: 2}
-  m_isButtonMode: {fileID: 11400000, guid: 034668e557c286746bbcca483ae4aabf, type: 2}
+  m_bgmVolume: {fileID: 11400000, guid: 629345e6fffb9404caef32cc7f75f695, type: 2}
+  m_sfxVolume: {fileID: 11400000, guid: d6840dbac9107b14eb34ff1f3e9f7f20, type: 2}
   m_toggle: {fileID: 114363383486960168}
-  m_bgmVolume: {fileID: 0}
-  m_sfxVolume: {fileID: 0}
+  m_bgmSlider: {fileID: 114205748506854660}
+  m_sfxSlider: {fileID: 114201935927655956}
+  m_isButtonMode: {fileID: 11400000, guid: 034668e557c286746bbcca483ae4aabf, type: 2}
 --- !u!114 &114625814747662526
 MonoBehaviour:
   m_ObjectHideFlags: 1
