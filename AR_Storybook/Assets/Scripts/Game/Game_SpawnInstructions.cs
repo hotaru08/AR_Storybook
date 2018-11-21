@@ -38,14 +38,12 @@ public class Game_SpawnInstructions : MonoBehaviour
         if (!m_triggerSpawnOnce) return;
         if (PlayerPrefs.GetInt("SpawnOnce").Equals(0))
         {
-            Debug.LogWarning("Please work false");
             m_instructionIndex.RaiseEvent(0);
             m_start.RaiseEvent(false);
             PlayerPrefs.SetInt("SpawnOnce", 1);
         }
         else if (PlayerPrefs.GetInt("SpawnOnce").Equals(1))
         {
-            Debug.LogWarning("Please work true");
             m_start.RaiseEvent(true);
             gameObject.SetActive(false);
         }
@@ -60,7 +58,7 @@ public class Game_SpawnInstructions : MonoBehaviour
         //else if (m_SpawnOnce.value)
         //{
         //    Debug.LogWarning("Entered which Spawn once is true");
-        //    m_start.RaiseEvent(true);
+        //    m_start.RaiseEvent(true); 
         //    gameObject.SetActive(false);
         //}
     }

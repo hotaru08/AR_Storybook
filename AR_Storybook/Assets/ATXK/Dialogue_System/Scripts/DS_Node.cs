@@ -40,8 +40,12 @@
         [Header("Animation")]
         [SerializeField] RuntimeAnimatorController[] AnimatorsToPlay;
 
+        [Header("Sounds")]
+        [SerializeField] Sound bgm;
+
         [Header("Event Settings")]
 		[SerializeField] ES_Event_String setAnimTime;
+        [SerializeField] ES_Event_Object setBGM;
         [SerializeField] ES_Event_Object[] SetAnimatorsToPlay;
         [SerializeField] NodeEvent[] nodeEvents;
 
@@ -94,6 +98,14 @@
 			{
 				setAnimTime.RaiseEvent(animStartTime.ToString() + "," + animEndTime.ToString());
 			}
+
+            // Send off any Sound events
+            if (setBGM != null && bgm != null)
+            {
+                setBGM.RaiseEvent(bgm);
+            }
+
+            // Send off any animator events
             if (SetAnimatorsToPlay.Length > 0)
             {
                 for (int i = 0; i < SetAnimatorsToPlay.Length; ++i)
