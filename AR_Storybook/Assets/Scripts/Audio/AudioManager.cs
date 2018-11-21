@@ -1,9 +1,6 @@
 ﻿using ATXK.CustomVariables;
-using ATXK.EventSystem;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
-using UnityEngine.UI;
 
 /// <summary>
 /// Handles the audio that is going to be played

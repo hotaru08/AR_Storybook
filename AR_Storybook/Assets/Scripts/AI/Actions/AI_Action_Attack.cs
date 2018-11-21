@@ -18,6 +18,7 @@ public class AI_Action_Attack : AI_Action
         _controller.gameObject.GetComponent<Animator>().SetTrigger("Attack");
 
         // Send Sound event to play
+        if (m_sound != null)
         m_triggerSoundEvent.RaiseEvent(m_sound);
     }
 }

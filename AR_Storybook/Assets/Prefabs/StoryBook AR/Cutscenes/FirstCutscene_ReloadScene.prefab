@@ -2143,6 +2143,7 @@ GameObject:
   - component: {fileID: 114242825077914244}
   - component: {fileID: 114709011504184356}
   - component: {fileID: 114742968986153698}
+  - component: {fileID: 114311241507262506}
   m_Layer: 5
   m_Name: Screen (InGame)
   m_TagString: Untagged
@@ -7564,6 +7565,19 @@ MonoBehaviour:
   transitionStyle: 1
   transitionTexture: {fileID: 2800000, guid: f129d62c432492a4ab06ead3a2ba1e13, type: 3}
   startOnAwake: 0
+--- !u!114 &114311241507262506
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1854397375671046}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 88798921773751e4d99a3194ebf77c9e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  autoEvent: {fileID: 11400000, guid: 1dcb736bb7bfef3439efc966b7a96b4e, type: 2}
+  autoEventValue: {fileID: 11400000, guid: 452919c006040d2459bdf65f35c0b06e, type: 2}
 --- !u!114 &114376397128420236
 MonoBehaviour:
   m_ObjectHideFlags: 1

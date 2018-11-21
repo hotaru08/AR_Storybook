@@ -106,7 +106,7 @@
             }
 
             // Send off any animator events
-            if (SetAnimatorsToPlay.Length > 0)
+            if (SetAnimatorsToPlay != null && AnimatorsToPlay != null)
             {
                 for (int i = 0; i < SetAnimatorsToPlay.Length; ++i)
                 {
