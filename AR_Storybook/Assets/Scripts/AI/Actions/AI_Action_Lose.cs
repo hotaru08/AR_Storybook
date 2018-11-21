@@ -19,6 +19,7 @@ public class AI_Action_Lose : AI_Action
         _controller.gameObject.GetComponent<Animator>().SetBool("Lose", true);
 
         // Send Sound event to play
-        m_triggerSoundEvent.RaiseEvent(m_sound);
+        if (m_sound != null)
+            m_triggerSoundEvent.RaiseEvent(m_sound);
     }
 }
