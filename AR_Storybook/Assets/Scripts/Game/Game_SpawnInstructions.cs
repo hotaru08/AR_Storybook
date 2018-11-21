@@ -18,7 +18,7 @@ public class Game_SpawnInstructions : MonoBehaviour
     [SerializeField] private GameObject m_firstInteractiveScreen;
     [Tooltip("To Spawn only once")]
     [SerializeField] private bool m_triggerSpawnOnce;
-    [SerializeField] private CV_Bool m_SpawnOnce;
+    //[SerializeField] private CV_Bool m_SpawnOnce;
 
     [Header("Events")]
     [Tooltip("The current index/ number for the instructions")]
@@ -30,25 +30,39 @@ public class Game_SpawnInstructions : MonoBehaviour
 
     private int prevInstructIndex;
 
-    private void Awake()
+    private void Start()
     {
         prevInstructIndex = m_instructionIndex.Value = 0;
 
         // To spawn the first time they use
-        if (!m_triggerSpawnOnce || m_SpawnOnce == null) return;
-        if (!m_SpawnOnce.value)
+        if (!m_triggerSpawnOnce) return;
+        if (PlayerPrefs.GetInt("SpawnOnce").Equals(0))
         {
-            Debug.LogWarning("Entered which Spawn once is false");
+            Debug.LogWarning("Please work false");
             m_instructionIndex.RaiseEvent(0);
-            m_SpawnOnce.value = true;
             m_start.RaiseEvent(false);
+            PlayerPrefs.SetInt("SpawnOnce", 1);
         }
-        else if (m_SpawnOnce.value)
+        else if (PlayerPrefs.GetInt("SpawnOnce").Equals(1))
         {
-            Debug.LogWarning("Entered which Spawn once is true");
+            Debug.LogWarning("Please work true");
             m_start.RaiseEvent(true);
             gameObject.SetActive(false);
         }
+        
+        //if (!m_SpawnOnce.value)
+        //{
+        //    Debug.LogWarning("Entered which Spawn once is false");
+        //    m_instructionIndex.RaiseEvent(0);
+        //    m_SpawnOnce.value = true;
+        //    m_start.RaiseEvent(false);
+        //}
+        //else if (m_SpawnOnce.value)
+        //{
+        //    Debug.LogWarning("Entered which Spawn once is true");
+        //    m_start.RaiseEvent(true);
+        //    gameObject.SetActive(false);
+        //}
     }
 
     /// <summary>

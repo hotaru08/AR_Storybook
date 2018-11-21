@@ -6,7 +6,7 @@ using UnityEngine.Audio;
 using UnityEngine.UI;
 
 /* Handles the Audio of the Game ( using Sounds Object class ) */
-public class AudioManager : MonoBehaviour
+public class AudioManager : ATXK.Helper.SingletonBehaviour<AudioManager>
 { 
     [Header("Mixers")]
     [SerializeField] private AudioMixer m_bgmMixer;
@@ -77,9 +77,8 @@ public class AudioManager : MonoBehaviour
             if (_sound.m_name != temp.m_name) continue; 
 
             // Play Audio
-            _sound.m_audioSource.Play();
+            if (_sound.m_audioSource.isPlaying)
+                _sound.m_audioSource.Play();
         }
     }
-
-
 }
