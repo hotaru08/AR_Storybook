@@ -2,29 +2,39 @@
 {
 	using UnityEngine;
 	
+	/// <summary>
+	/// Component that removes an Item from the scene.
+	/// </summary>
 	[RequireComponent(typeof(BoxCollider))]
     [RequireComponent(typeof(Rigidbody))]
 	public class Item_Despawner : MonoBehaviour
 	{
 		BoxCollider collider;
 
+		/// <summary>
+		/// Called once when this object is serialized.
+		/// </summary>
 		private void Awake()
 		{
 			collider = GetComponent<BoxCollider>();
 		}
 
-		private void OnTriggerEnter(Collider other)
+		/// <summary>
+		/// Called when a collider (with isTrigger set to true) enters this collider.
+		/// </summary>
+		/// <param name="collidingObject">Colliding object.</param>
+		private void OnTriggerEnter(Collider collidingObject)
 		{
-			if(other.gameObject.GetComponent<Item_Holder>())
+			if(collidingObject.gameObject.GetComponent<Item_Holder>())
 			{
-                if (other.gameObject.GetComponent<Item_Holder>().Item.CollisionExitEvent != null)
+                if (collidingObject.gameObject.GetComponent<Item_Holder>().Item.CollisionExitEvent != null)
                 {
-                    other.gameObject.GetComponent<Item_Holder>().Item.CollisionExitEvent.RaiseEvent();
-                    Destroy(other.gameObject, 1f);
+					collidingObject.gameObject.GetComponent<Item_Holder>().Item.CollisionExitEvent.RaiseEvent();
+                    Destroy(collidingObject.gameObject, 1f);
                     return;
                 }
 
-                Destroy(other.gameObject);
+                Destroy(collidingObject.gameObject);
 			}
 		}
 	}

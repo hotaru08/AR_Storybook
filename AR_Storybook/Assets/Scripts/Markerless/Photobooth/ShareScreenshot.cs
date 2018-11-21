@@ -8,6 +8,9 @@ public class ShareScreenshot : MonoBehaviour
 	Screenshot currScreenshot;
 	bool isFocus;
 
+	/// <summary>
+	/// Grabs the current image allows sharing of the image to any other app that supports the file format.
+	/// </summary>
 	public void Share()
 	{
 #if UNITY_EDITOR
@@ -17,6 +20,9 @@ public class ShareScreenshot : MonoBehaviour
 #endif
 	}
 
+	/// <summary>
+	/// Coroutine that opens a selection page using native Android code to share the current image.
+	/// </summary>
 	private IEnumerator AndroidShare()
 	{
 		// Get current screenshot

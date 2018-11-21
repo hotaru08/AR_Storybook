@@ -2,86 +2,12 @@
 {
 	using UnityEngine;
 
+	/// <summary>
+	/// Scene-independant variable asset that holds a double value.
+	/// </summary>
 	[CreateAssetMenu(menuName = "Custom Variable/Double", order = 4)]
 	public class CV_Double : CV_Base<double>
 	{
-		#region Operator Overloads
-		public static CV_Double operator *(CV_Double a, CV_Double b)
-		{
-			CV_Double cv = new CV_Double
-			{
-				value = a.value * b.value
-			};
 
-			return cv;
-		}
-
-		public static CV_Double operator /(CV_Double a, CV_Double b)
-		{
-			CV_Double cv = new CV_Double
-			{
-				value = a.value / b.value
-			};
-
-			return cv;
-		}
-
-		public static CV_Double operator +(CV_Double a, CV_Double b)
-		{
-
-			CV_Double cv = new CV_Double
-			{
-				value = a.value + b.value
-			};
-
-			return cv;
-		}
-
-		public static CV_Double operator -(CV_Double a, CV_Double b)
-		{
-
-			CV_Double cv = new CV_Double
-			{
-				value = a.value - b.value
-			};
-
-			return cv;
-		}
-
-		public static bool operator >(CV_Double a, CV_Double b)
-		{
-			return a.value > b.value;
-		}
-
-		public static bool operator <(CV_Double a, CV_Double b)
-		{
-			return a.value < b.value;
-		}
-
-		public static bool operator ==(CV_Double a, CV_Double b)
-		{
-			return a.value == b.value;
-		}
-
-		public static bool operator !=(CV_Double a, CV_Double b)
-		{
-			return a.value != b.value;
-		}
-
-		public override int GetHashCode()
-		{
-			return base.GetHashCode();
-		}
-
-		public override bool Equals(object other)
-		{
-			return base.Equals(other);
-		}
-
-		public override string ToString()
-		{
-			return base.ToString();
-		}
-		#endregion
 	}
 }

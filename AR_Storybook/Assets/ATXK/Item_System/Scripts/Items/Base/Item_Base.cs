@@ -5,6 +5,9 @@
 	using EventSystem;
 	using System.Collections.Generic;
 
+	/// <summary>
+	/// Base class for all Items that holds basic information about itself.
+	/// </summary>
 	public abstract class Item_Base : ScriptableObject
 	{
 		[Header("Statistics")]
@@ -36,6 +39,10 @@
 		public ES_Event_Abstract CollisionInsideEvent { get { return collisionInsideEvent; } }
 		#endregion
 
+		/// <summary>
+		/// Called when a collider (with isTrigger set to true) enters this collider.
+		/// </summary>
+		/// <param name="collidingObject">Colliding object.</param>
 		public virtual bool OnTriggerEnter(Collider collidingObject)
 		{
 			if (tagsToIgnore.Contains(collidingObject.gameObject.tag) && tagsToIgnore.Count > 0)
@@ -54,6 +61,10 @@
 			return false;
 		}
 
+		/// <summary>
+		/// Called when a collider (with isTrigger set to true) exits this collider.
+		/// </summary>
+		/// <param name="collidingObject">Colliding object.</param>
 		public virtual bool OnTriggerExit(Collider collidingObject)
 		{
 			if (tagsToIgnore.Contains(collidingObject.gameObject.tag))
@@ -68,6 +79,10 @@
 			return true;
 		}
 
+		/// <summary>
+		/// Called when a collider (with isTrigger set to true) is within this collider.
+		/// </summary>
+		/// <param name="collidingObject">Colliding object.</param>
 		public virtual bool OnTriggerStay(Collider collidingObject)
 		{
 			if (tagsToIgnore.Contains(collidingObject.gameObject.tag))
@@ -86,8 +101,14 @@
 			return false;
 		}
 
+		/// <summary>
+		/// Called when the object becomes enabled.
+		/// </summary>
 		public abstract void Enabled();
 
+		/// <summary>
+		/// Called when the object becomes disabled.
+		/// </summary>
 		public abstract void Disabled();
 	}
 }

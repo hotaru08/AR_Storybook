@@ -19,6 +19,10 @@ public class Slideshow : MonoBehaviour
 		StartCoroutine("SlideShow", 0);
 	}
 
+	/// <summary>
+	/// Displays all the images.
+	/// </summary>
+	/// <param name="startIndex">Zero-based index to start from.</param>
 	private IEnumerator SlideShow(int startIndex)
 	{
 		int index = startIndex;

@@ -4,6 +4,9 @@
 	using UnityEngine;
 	using UnityEngine.UI;
 
+	/// <summary>
+	/// Manager that manages all UI Screens on a canvas.
+	/// </summary>
 	public class UI_Manager_Mk2 : MonoBehaviour
 	{
 		[Header("Splash Screen")]
@@ -28,6 +31,9 @@
 		[Tooltip("Speed of which the shader animation will play for Full screens.")]
 		[Range(0.1f, 2f)] [SerializeField] float transitSpeed = 1f;
 
+		/// <summary>
+		/// Called when this object first becomes enabled.
+		/// </summary>
 		private void Start()
 		{
 			if(PlayerPrefs.GetInt("FirstLaunch") == 0 && splashScreen != null)
@@ -44,23 +50,36 @@
 				StartCoroutine("TransitionIn", currScreen);
 		}
 
+		/// <summary>
+		/// Called when this object becomes enabled.
+		/// </summary>
 		private void OnEnable()
 		{
 			transitionMaterial.SetFloat("_Cutoff", 0f);
 			transitionMaterial.SetFloat("_Fade", 1f);
 		}
 
+		/// <summary>
+		/// Called when this object becomes disabled.
+		/// </summary>
 		private void OnDisable()
 		{
 			transitionMaterial.SetFloat("_Cutoff", 0f);
 			transitionMaterial.SetFloat("_Fade", 1f);
 		}
 
+		/// <summary>
+		/// Called before the application ends.
+		/// </summary>
 		private void OnApplicationQuit()
 		{
 			PlayerPrefs.SetInt("FirstLaunch", 0);
 		}
 
+		/// <summary>
+		/// Changes the current screen to the one provided, if the Object provided is of type UI_Screen_Mk2.
+		/// </summary>
+		/// <param name="screenObject">Screen to change to.</param>
 		public void ChangeScreen(Object screenObject)
 		{
 			UI_Screen_Mk2 screen = screenObject as UI_Screen_Mk2;
@@ -68,6 +87,10 @@
 				ChangeScreen(screen);
 		}
 
+		/// <summary>
+		/// Changes the current screen to the provided.
+		/// </summary>
+		/// <param name="screen">Screen to change to.</param>
 		public void ChangeScreen(UI_Screen_Mk2 screen)
 		{
 			prevScreen = currScreen;
@@ -102,6 +125,10 @@
 			}
 		}
 
+		/// <summary>
+		/// Coroutine to scale-animate the provided Overlay screen.
+		/// </summary>
+		/// <param name="screen">Screen to animate.</param>
 		private IEnumerator PopIn(UI_Screen_Mk2 screen)
 		{
 			if (screen == null)
@@ -124,6 +151,10 @@
 			screen.ScreenImage.rectTransform.localScale = Vector3.one;
 		}
 
+		/// <summary>
+		/// Coroutine to scale-animate the provided Overlay screen.
+		/// </summary>
+		/// <param name="screen">Screen to animate.</param>
 		private IEnumerator PopOut(UI_Screen_Mk2 screen)
 		{
 			if (screen == null)
@@ -146,6 +177,10 @@
 			screen.ScreenElements.SetActive(false);
 		}
 
+		/// <summary>
+		/// Coroutine to shader-animate the provided Full screen.
+		/// </summary>
+		/// <param name="screen">Screen to animate.</param>
 		private IEnumerator TransitionIn(UI_Screen_Mk2 screen)
 		{
 			if (screen == null)
@@ -195,6 +230,10 @@
 			screen.ScreenElements.SetActive(true);
 		}
 
+		/// <summary>
+		/// Coroutine to shader-animate the provided Full screen.
+		/// </summary>
+		/// <param name="screen">Screen to animate.</param>
 		private IEnumerator TransitionOut(UI_Screen_Mk2 screen)
 		{
 			if (screen == null)

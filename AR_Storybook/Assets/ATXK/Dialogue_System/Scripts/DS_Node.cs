@@ -3,6 +3,9 @@
 	using UnityEngine;
 	using ATXK.EventSystem;
 
+	/// <summary>
+	/// Scene-independent asset that data about a line of dialogue.
+	/// </summary>
 	[CreateAssetMenu(menuName = "Dialogue/Node")]
 	public class DS_Node : ScriptableObject
 	{
@@ -66,18 +69,28 @@
 		#endregion
 
 		#region Class Methods
+		/// <summary>
+		/// Called on the frame when this object becomes enabled.
+		/// </summary>
 		private void OnEnable()
 		{
-			if(!startTimeNull)
+			if (!startTimeNull)
 				animStartTimeNullable = animStartTime;
-			if(!endTimeNull)
+			else
+				animStartTimeNullable = null;
+			if (!endTimeNull)
 				animEndTimeNullable = animEndTime;
+			else
+				animEndTimeNullable = null;
         }
 
+		/// <summary>
+		/// Called when a tree enters this node.
+		/// </summary>
 		public void Enter()
 		{
 			// Send off event containing any relevant cutscene timing data
-			if(setAnimTime != null && animStartTime != null && animEndTime != null)
+			if(setAnimTime != null && animStartTimeNullable != null && animEndTimeNullable != null)
 			{
 				setAnimTime.RaiseEvent(animStartTime.ToString() + "," + animEndTime.ToString());
 			}
@@ -99,6 +112,9 @@
 			}
 		}
 
+		/// <summary>
+		/// Called when a tree exits this node.
+		/// </summary>
 		public void Exit()
 		{
 			// Send off any node "exit" events

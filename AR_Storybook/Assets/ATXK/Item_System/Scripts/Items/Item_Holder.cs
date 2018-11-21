@@ -2,6 +2,9 @@
 {
 	using UnityEngine;
 
+	/// <summary>
+	/// Component that holds a reference to an Item asset.
+	/// </summary>
 	public class Item_Holder : MonoBehaviour
 	{
 		[SerializeField] Item_Base item;
@@ -11,41 +14,65 @@
 
 		public Item_Base Item { get { return item; } }
 
+		/// <summary>
+		/// Called once when this object is serialized.
+		/// </summary>
 		private void Awake()
 		{
 			runtimeItem = Instantiate(item);
 			updateable = runtimeItem as IUpdateable;
 		}
 
+		/// <summary>
+		/// Called every frame.
+		/// </summary>
 		private void Update()
 		{
 			if (updateable != null)
 				updateable.UpdateItem(gameObject);
 		}
 
-		private void OnTriggerEnter(Collider other)
+		/// <summary>
+		/// Called when a collider (with isTrigger set to true) enters this collider.
+		/// </summary>
+		/// <param name="collidingObject">Colliding object.</param>
+		private void OnTriggerEnter(Collider collidingObject)
 		{
-			if (runtimeItem.OnTriggerEnter(other))
+			if (runtimeItem.OnTriggerEnter(collidingObject))
 				Destroy(gameObject);
 		}
 
-		private void OnTriggerExit(Collider other)
+		/// <summary>
+		/// Called when a collider (with isTrigger set to true) exits this collider.
+		/// </summary>
+		/// <param name="collidingObject">Colliding object.</param>
+		private void OnTriggerExit(Collider collidingObject)
 		{
-			if (runtimeItem.OnTriggerExit(other))
+			if (runtimeItem.OnTriggerExit(collidingObject))
 				Destroy(gameObject);
 		}
 
-		private void OnTriggerStay(Collider other)
+		/// <summary>
+		/// Called when a collider (with isTrigger set to true) is within this collider.
+		/// </summary>
+		/// <param name="collidingObject">Colliding object.</param>
+		private void OnTriggerStay(Collider collidingObject)
 		{
-			if (runtimeItem.OnTriggerStay(other))
+			if (runtimeItem.OnTriggerStay(collidingObject))
 				Destroy(gameObject);
 		}
 
+		/// <summary>
+		/// Called when this object becomes enabled.
+		/// </summary>
 		private void OnEnable()
 		{
 			runtimeItem.Enabled();
 		}
 
+		/// <summary>
+		/// Called before this object becomes disabled.
+		/// </summary>
 		private void OnDisable()
 		{
 			runtimeItem.Disabled();

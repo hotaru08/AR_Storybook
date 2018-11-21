@@ -2,6 +2,9 @@
 {
 	using UnityEngine;
 
+	/// <summary>
+	/// Extended version of the UnityEngine.Debug class.
+	/// </summary>
 	public static class DebugLogger
 	{
 		/// <summary>
