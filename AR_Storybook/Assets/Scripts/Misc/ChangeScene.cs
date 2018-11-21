@@ -50,7 +50,8 @@ public class ChangeScene : MonoBehaviour
         AsyncOperation operation = SceneManager.LoadSceneAsync(_sceneName);
 
         // Raise event to set screen active
-        m_triggerLoading.RaiseEvent();
+        if (m_triggerLoading != null)
+            m_triggerLoading.RaiseEvent();
 
         while (!operation.isDone)
         {

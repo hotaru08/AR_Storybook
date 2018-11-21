@@ -38,7 +38,7 @@ public class StatePlayerIdle : IStateBase
         m_animator.Play("Idle");
 
         // Set objects ( sorry )
-        if (GameObject.FindGameObjectWithTag("SkippingRope"))
+        
             m_object.transform.GetChild(1).gameObject.SetActive(true);
     }
 

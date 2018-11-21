@@ -2,86 +2,12 @@
 {
 	using UnityEngine;
 
+	/// <summary>
+	/// Scene-independant variable asset that holds a floating-point value.
+	/// </summary>
 	[CreateAssetMenu(menuName = "Custom Variable/Float", order = 3)]
 	public class CV_Float : CV_Base<float>
 	{
-		#region Operator Overloads
-		public static CV_Float operator *(CV_Float a, CV_Float b)
-		{
-			CV_Float cv = new CV_Float
-			{
-				value = a.value * b.value
-			};
-
-			return cv;
-		}
-
-		public static CV_Float operator /(CV_Float a, CV_Float b)
-		{
-			CV_Float cv = new CV_Float
-			{
-				value = a.value / b.value
-			};
-
-			return cv;
-		}
-
-		public static CV_Float operator +(CV_Float a, CV_Float b)
-		{
-
-			CV_Float cv = new CV_Float
-			{
-				value = a.value + b.value
-			};
-
-			return cv;
-		}
-
-		public static CV_Float operator -(CV_Float a, CV_Float b)
-		{
-
-			CV_Float cv = new CV_Float
-			{
-				value = a.value - b.value
-			};
-
-			return cv;
-		}
-
-		public static bool operator >(CV_Float a, CV_Float b)
-		{
-			return a.value > b.value;
-		}
-
-		public static bool operator <(CV_Float a, CV_Float b)
-		{
-			return a.value < b.value;
-		}
-
-		public static bool operator ==(CV_Float a, CV_Float b)
-		{
-			return a.value == b.value;
-		}
-
-		public static bool operator !=(CV_Float a, CV_Float b)
-		{
-			return a.value != b.value;
-		}
-
-		public override int GetHashCode()
-		{
-			return base.GetHashCode();
-		}
-
-		public override bool Equals(object other)
-		{
-			return base.Equals(other);
-		}
-
-		public override string ToString()
-		{
-			return base.ToString();
-		}
-		#endregion
+		
 	}
 }

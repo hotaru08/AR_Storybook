@@ -1,5 +1,8 @@
 ﻿using UnityEngine;
 
+/// <summary>
+/// Holds data regarding screenshots.
+/// </summary>
 [System.Serializable]
 public class Screenshot : Object
 {

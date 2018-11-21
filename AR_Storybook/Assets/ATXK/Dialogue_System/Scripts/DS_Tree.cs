@@ -1,11 +1,11 @@
 ﻿namespace ATXK.DialogueSystem
 {
-
-	using System.Collections;
-	using System.Collections.Generic;
 	using UnityEngine;
 	using EventSystem;
 
+	/// <summary>
+	/// Scene-independent asset that holds a tree of Dialogue Nodes.
+	/// </summary>
 	[CreateAssetMenu(menuName = "Dialogue/Tree")]
 	public class DS_Tree : ScriptableObject
 	{
@@ -24,17 +24,27 @@
 		public DS_Node PreviousNode { get { return previousNode; } set { previousNode = value; } }
 		#endregion
 
+		/// <summary>
+		/// Called on the frame when this object becomes enabled.
+		/// </summary>
 		private void OnEnable()
 		{
 			if (startingNode != null)
 				Reset();
 		}
 
+		/// <summary>
+		///	Resets the current node of this tree to the starting node.
+		/// </summary>
 		public void Reset()
 		{
 			currentNode = startingNode;
 		}
 
+		/// <summary>
+		/// Changes the current node to the one at the provided index.
+		/// </summary>
+		/// <param name="index">Zero-based index of the node.</param>
 		public void TraverseTree(int index = 0)
 		{
 			if (index >= 0 && index < currentNode.NextNodes.Length)

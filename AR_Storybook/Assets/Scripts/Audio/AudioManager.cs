@@ -5,7 +5,9 @@ using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.UI;
 
-/* Handles the Audio of the Game ( using Sounds Object class ) */
+/// <summary>
+/// Handles the audio that is going to be played
+/// </summary>
 public class AudioManager : ATXK.Helper.SingletonBehaviour<AudioManager>
 { 
     [Header("Mixers")]
@@ -26,7 +28,7 @@ public class AudioManager : ATXK.Helper.SingletonBehaviour<AudioManager>
     /// </summary>
 	void Awake ()
     {
-		foreach(Sound _sound in m_soundList)
+        foreach (Sound _sound in m_soundList)
         {
             _sound.m_audioSource = gameObject.AddComponent<AudioSource>(); // add new audio source to this sound
             _sound.m_audioSource.clip = _sound.m_audio; // set audio source slip to be obj's clip
@@ -36,17 +38,10 @@ public class AudioManager : ATXK.Helper.SingletonBehaviour<AudioManager>
             _sound.m_audioSource.loop = _sound.m_bLoop; // setting loop
             _sound.m_audioSource.playOnAwake = _sound.m_bPlayOnAwake; // setting play on awake
         }
-	}
 
-    /// <summary>
-    /// Play BGM here
-    /// </summary>
-    private void Start()
-    {
         // Load at the volume that is saved
         m_bgmMixer.SetFloat("BGM_Volume", m_bgmVolume.value);
         m_sfxMixer.SetFloat("SFX_Volume", m_sfxVolume.value);
-
         DontDestroyOnLoad(this);
     }
 
@@ -61,7 +56,7 @@ public class AudioManager : ATXK.Helper.SingletonBehaviour<AudioManager>
             if (_sound.m_name != _soundName) continue;
 
             // Play Audio
-            _sound.m_audioSource.Play();
+            _sound.m_audioSource.PlayOneShot(_sound.m_audio);
         }
     }
     public void PlaySound(Object _soundObj)
@@ -74,11 +69,10 @@ public class AudioManager : ATXK.Helper.SingletonBehaviour<AudioManager>
                 _sound.m_audioSource.Stop();
 
             // skip if not sound name that we finding
-            if (_sound.m_name != temp.m_name) continue; 
+            if (_sound.m_name != temp.m_name) continue;
 
             // Play Audio
-            if (_sound.m_audioSource.isPlaying)
-                _sound.m_audioSource.Play();
+            _sound.m_audioSource.PlayOneShot(_sound.m_audio);
         }
     }
 }

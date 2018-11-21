@@ -3695,6 +3695,7 @@ GameObject:
   - component: {fileID: 114880681845792168}
   - component: {fileID: 114107990474741756}
   - component: {fileID: 114559238579799128}
+  - component: {fileID: 114996268859772210}
   m_Layer: 5
   m_Name: Screen (InGame)
   m_TagString: Untagged
@@ -11226,6 +11227,19 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &114996268859772210
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1784450210020846}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 88798921773751e4d99a3194ebf77c9e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  autoEvent: {fileID: 11400000, guid: 1dcb736bb7bfef3439efc966b7a96b4e, type: 2}
+  autoEventValue: {fileID: 11400000, guid: 452919c006040d2459bdf65f35c0b06e, type: 2}
 --- !u!137 &137076381532247434
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1
@@ -45258,7 +45272,7 @@ PlayableDirector:
     value: {fileID: 1982140030124804}
   - key: {fileID: 114030961630265056, guid: ab00718e8798b1641a2eae7c4339596a, type: 2}
     value: {fileID: 1146068807880002}
-  - key: {fileID: 114711110038814392, guid: ab00718e8798b1641a2eae7c4339596a, type: 2}
+  - key: {fileID: 0}
     value: {fileID: 1139707164259776}
   - key: {fileID: 114209677788617424, guid: ab00718e8798b1641a2eae7c4339596a, type: 2}
     value: {fileID: 1063670144987584}
@@ -45270,5 +45284,7 @@ PlayableDirector:
     value: {fileID: 1926942180899490}
   - key: {fileID: 0}
     value: {fileID: 1926942180899490}
+  - key: {fileID: 114722736060608346, guid: ab00718e8798b1641a2eae7c4339596a, type: 2}
+    value: {fileID: 0}
   m_ExposedReferences:
     m_References: []

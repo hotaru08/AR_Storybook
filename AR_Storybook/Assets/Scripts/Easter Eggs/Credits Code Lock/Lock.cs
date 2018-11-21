@@ -6,6 +6,9 @@ using ATXK.UI.Mk2;
 using ATXK.CustomVariables;
 using System.Linq;
 
+/// <summary>
+/// Combination lock using scene-independent strings as the lock values.
+/// </summary>
 [RequireComponent(typeof(AudioSource))]
 public class Lock : MonoBehaviour
 {
@@ -39,6 +42,10 @@ public class Lock : MonoBehaviour
 		}
 	}
 
+	/// <summary>
+	/// Adds a new string value to the current list of input values.
+	/// </summary>
+	/// <param name="input">String to add to input values.</param>
 	public void AddCharacter(string input)
 	{
 		if (input == codeLock[index].value)
@@ -61,6 +68,10 @@ public class Lock : MonoBehaviour
 		}
 	}
 
+	/// <summary>
+	/// Adds a new string value to the current list of input values, if the Object provided is type of CV_String.
+	/// </summary>
+	/// <param name="input">String to add to input values.</param>
 	public void AddCharacter(Object input)
 	{
 		CV_String cvString = input as CV_String;
@@ -70,6 +81,9 @@ public class Lock : MonoBehaviour
 		}
 	}
 
+	/// <summary>
+	/// Checks if the current input combination is correct, if so then change scene.
+	/// </summary>
 	public void EnterCombination()
 	{
 		if (runtimeCombination.SequenceEqual(runtimeLock))

@@ -2,6 +2,9 @@
 {
 	using UnityEngine;
 
+	/// <summary>
+	/// Holds a decision module and the states corresponding to the decision.
+	/// </summary>
 	[System.Serializable]
 	public class AI_Transition
 	{
@@ -12,6 +15,10 @@
 		public AI_State TrueState { get { return trueState; } }
 		public AI_State FalseState { get { return falseState; } }
 
+		/// <summary>
+		/// Invokes the referenced decision.
+		/// </summary>
+		/// <param name="controller">Controller that is calling this function.</param>
 		public bool Decide(AI_Controller controller)
 		{
 			return decision.Decide(controller);

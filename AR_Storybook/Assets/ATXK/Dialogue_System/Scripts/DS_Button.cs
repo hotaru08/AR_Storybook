@@ -6,6 +6,9 @@
 	using UnityEngine;
 	using UnityEngine.UI;
 
+	/// <summary>
+	/// Dialogue specific Button.
+	/// </summary>
 	public class DS_Button : MonoBehaviour
 	{
 		DS_Tree dialogueTree;
@@ -23,6 +26,9 @@
         [SerializeField] AudioClip m_soundClip;
 
         #region Unity Methods
+		/// <summary>
+		/// Unity Start function. Is called when the behaviour becomes enabled.
+		/// </summary>
         private void Start()
 		{
 			m_typeComplete = true;
@@ -37,10 +43,11 @@
 		#endregion
 
 		#region Class Methods
+		/// <summary>
+		/// Checks if the tree can continue to the next node.
+		/// </summary>
 		private void CheckNode()
 		{
-            //m_tapToContinue.gameObject.SetActive(false);
-
             if (m_typeComplete)
 			{
 				if (dialogueTree.CurrentNode.IsQuestion && dialogueTree.CurrentNode != dialogueTree.PreviousNode)
@@ -65,10 +72,12 @@
 				StopCoroutine("TypeText");
 				text.text = m_currText;
 				m_typeComplete = true;
-                //m_tapToContinue.gameObject.SetActive(true);
             }
 		}
 
+		/// <summary>
+		/// Updates the text of the button.
+		/// </summary>
 		public void UpdateText()
 		{
 			if (dialogueTree != null)
@@ -90,8 +99,9 @@
 		}
 
         /// <summary>
-        /// Coroutine to produce typewriter effect
+        /// Coroutine to produce typewriter effect.
         /// </summary>
+		/// <param name="_textToType">String of text that will be displayed.</param>
         private IEnumerator TypeText(string _textToType)
         {
 			m_typeComplete = false;
@@ -105,7 +115,6 @@
                 yield return new WaitForSeconds(m_typeSpeed);
             }
 			m_typeComplete = true;
-            //m_tapToContinue.gameObject.SetActive(true);
         }
 		#endregion
 	}

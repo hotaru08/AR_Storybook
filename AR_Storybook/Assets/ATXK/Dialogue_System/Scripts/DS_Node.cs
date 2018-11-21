@@ -3,6 +3,9 @@
 	using UnityEngine;
 	using ATXK.EventSystem;
 
+	/// <summary>
+	/// Scene-independent asset that data about a line of dialogue.
+	/// </summary>
 	[CreateAssetMenu(menuName = "Dialogue/Node")]
 	public class DS_Node : ScriptableObject
 	{
@@ -37,8 +40,12 @@
         [Header("Animation")]
         [SerializeField] RuntimeAnimatorController[] AnimatorsToPlay;
 
+        [Header("Sounds")]
+        [SerializeField] Sound bgm;
+
         [Header("Event Settings")]
 		[SerializeField] ES_Event_String setAnimTime;
+        [SerializeField] ES_Event_Object setBGM;
         [SerializeField] ES_Event_Object[] SetAnimatorsToPlay;
         [SerializeField] NodeEvent[] nodeEvents;
 
@@ -66,21 +73,39 @@
 		#endregion
 
 		#region Class Methods
+		/// <summary>
+		/// Called on the frame when this object becomes enabled.
+		/// </summary>
 		private void OnEnable()
 		{
-			if(!startTimeNull)
+			if (!startTimeNull)
 				animStartTimeNullable = animStartTime;
-			if(!endTimeNull)
+			else
+				animStartTimeNullable = null;
+			if (!endTimeNull)
 				animEndTimeNullable = animEndTime;
+			else
+				animEndTimeNullable = null;
         }
 
+		/// <summary>
+		/// Called when a tree enters this node.
+		/// </summary>
 		public void Enter()
 		{
 			// Send off event containing any relevant cutscene timing data
-			if(setAnimTime != null && animStartTime != null && animEndTime != null)
+			if(setAnimTime != null && animStartTimeNullable != null && animEndTimeNullable != null)
 			{
 				setAnimTime.RaiseEvent(animStartTime.ToString() + "," + animEndTime.ToString());
 			}
+
+            // Send off any Sound events
+            if (setBGM != null && bgm != null)
+            {
+                setBGM.RaiseEvent(bgm);
+            }
+
+            // Send off any animator events
             if (SetAnimatorsToPlay.Length > 0)
             {
                 for (int i = 0; i < SetAnimatorsToPlay.Length; ++i)
@@ -99,6 +124,9 @@
 			}
 		}
 
+		/// <summary>
+		/// Called when a tree exits this node.
+		/// </summary>
 		public void Exit()
 		{
 			// Send off any node "exit" events
