@@ -35,14 +35,10 @@
 		float? animStartTimeNullable, animEndTimeNullable;
 
         [Header("Animation")]
-        //[SerializeField] RuntimeAnimatorController AyeAnimator;
-        //[SerializeField] RuntimeAnimatorController SolAnimator;
         [SerializeField] RuntimeAnimatorController[] AnimatorsToPlay;
 
         [Header("Event Settings")]
 		[SerializeField] ES_Event_String setAnimTime;
-        //[SerializeField] ES_Event_Object setAnimatorToPlayAye;
-        //[SerializeField] ES_Event_Object setAnimatorToPlaySol;
         [SerializeField] ES_Event_Object[] SetAnimatorsToPlay;
         [SerializeField] NodeEvent[] nodeEvents;
 
@@ -85,16 +81,6 @@
 			{
 				setAnimTime.RaiseEvent(animStartTime.ToString() + "," + animEndTime.ToString());
 			}
-
-            // Send off event containing any relevant Animation
-            //if (setAnimatorToPlayAye != null)
-            //{
-            //    setAnimatorToPlayAye.RaiseEvent(AyeAnimator);
-            //}
-            //if (setAnimatorToPlaySol != null)
-            //{
-            //    setAnimatorToPlaySol.RaiseEvent(SolAnimator);
-            //}
             if (SetAnimatorsToPlay.Length > 0)
             {
                 for (int i = 0; i < SetAnimatorsToPlay.Length; ++i)

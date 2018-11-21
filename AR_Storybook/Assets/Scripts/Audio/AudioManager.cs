@@ -1,4 +1,5 @@
-﻿using ATXK.EventSystem;
+﻿using ATXK.CustomVariables;
+using ATXK.EventSystem;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
@@ -6,18 +7,19 @@ using UnityEngine.UI;
 
 /* Handles the Audio of the Game ( using Sounds Object class ) */
 public class AudioManager : MonoBehaviour
-{
-    /// <summary>
-    /// Add in settings file to load and adjust volume
-    /// </summary>
-    //[SerializeField]
-    //private Settings m_settings;
+{ 
+    [Header("Mixers")]
+    [SerializeField] private AudioMixer m_bgmMixer;
+    [SerializeField] private AudioMixer m_sfxMixer;
 
-    /// <summary>
-    /// Have Array of Sound where can add/remove easily
-    /// Have different settings for each Audio
-    /// </summary>
-    public Sound[] m_soundList;
+    [Header("Custom Variables")]
+    [Tooltip("Float Custom Variable that contains the value of BGM Volume")]
+    [SerializeField] private CV_Float m_bgmVolume;
+    [Tooltip("Float Custom Variable that contains the value of SFX Volume")]
+    [SerializeField] private CV_Float m_sfxVolume;
+
+    [Header("List of Sounds to play")]
+    [SerializeField] private Sound[] m_soundList;
 
 	/// <summary>
     /// Loop thru all the Sound in list and add sound component
@@ -42,9 +44,10 @@ public class AudioManager : MonoBehaviour
     private void Start()
     {
         // Load at the volume that is saved
-        //m_settings.SetVolume(PlayerPrefs.GetFloat("BGM_Volume"));
-        //m_settings.SetSFXVolume(PlayerPrefs.GetFloat("sfx_Volume"));
-        //Debug.Log("Audio : " + PlayerPrefs.GetFloat("BGM_Volume") + " SFX : " + PlayerPrefs.GetFloat("sfx_Volume"));
+        m_bgmMixer.SetFloat("BGM_Volume", m_bgmVolume.value);
+        m_sfxMixer.SetFloat("SFX_Volume", m_sfxVolume.value);
+
+        DontDestroyOnLoad(this);
     }
 
     /// <summary>
@@ -77,4 +80,6 @@ public class AudioManager : MonoBehaviour
             _sound.m_audioSource.Play();
         }
     }
+
+
 }

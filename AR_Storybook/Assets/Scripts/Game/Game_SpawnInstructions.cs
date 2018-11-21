@@ -33,11 +33,9 @@ public class Game_SpawnInstructions : MonoBehaviour
     private void Awake()
     {
         prevInstructIndex = m_instructionIndex.Value = 0;
-        if (!m_triggerSpawnOnce || m_SpawnOnce == null || m_start == null) return;
-
-        Debug.LogWarning("Value of SpawnOnce: " + m_SpawnOnce.value);
 
         // To spawn the first time they use
+        if (!m_triggerSpawnOnce || m_SpawnOnce == null) return;
         if (!m_SpawnOnce.value)
         {
             Debug.LogWarning("Entered which Spawn once is false");
@@ -48,9 +46,9 @@ public class Game_SpawnInstructions : MonoBehaviour
         else if (m_SpawnOnce.value)
         {
             Debug.LogWarning("Entered which Spawn once is true");
+            m_start.RaiseEvent(true);
             gameObject.SetActive(false);
         }
-        Debug.LogWarning("Value of SpawnOnce after: " + m_SpawnOnce.value);
     }
 
     /// <summary>

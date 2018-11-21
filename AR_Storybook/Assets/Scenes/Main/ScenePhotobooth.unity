@@ -279,6 +279,7 @@ GameObject:
   m_Component:
   - component: {fileID: 84250238}
   - component: {fileID: 84250239}
+  - component: {fileID: 84250240}
   m_Layer: 0
   m_Name: AR Objects
   m_TagString: Untagged
@@ -374,6 +375,19 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: ATXK.EventSystem.QuaternionEvent, Assembly-CSharp, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
+--- !u!114 &84250240
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 84250237}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 88798921773751e4d99a3194ebf77c9e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  autoEvent: {fileID: 11400000, guid: 1dcb736bb7bfef3439efc966b7a96b4e, type: 2}
+  autoEventValue: {fileID: 11400000, guid: 7472579d145c55e4aa58aaf8e12b2d9e, type: 2}
 --- !u!1 &163100346
 GameObject:
   m_ObjectHideFlags: 0
@@ -548,9 +562,9 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 199624929}
-  - component: {fileID: 199624930}
   - component: {fileID: 199624932}
   - component: {fileID: 199624931}
+  - component: {fileID: 199624930}
   m_Layer: 0
   m_Name: UI
   m_TagString: Untagged
@@ -568,9 +582,9 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 1049891043}
-  - {fileID: 1812985487}
   - {fileID: 1117963607}
+  - {fileID: 1812985487}
+  - {fileID: 1049891043}
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -582,71 +596,22 @@ MonoBehaviour:
   m_GameObject: {fileID: 199624928}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 54524ec982c618241a699f3049012464, type: 3}
+  m_Script: {fileID: 11500000, guid: a34280b49e2e88b4a9636d1e1cfb8938, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  listeningToEvent: {fileID: 11400000, guid: 954aa7440bb159548b2e37e38e588f9c, type: 2}
-  defaultResponse:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 0}
-        m_MethodName: SetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
-        m_CallState: 2
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
-  boolResponse:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: ATXK.EventSystem.BoolEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-      PublicKeyToken=null
-  intResponse:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: ATXK.EventSystem.IntEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-      PublicKeyToken=null
-  floatResponse:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: ATXK.EventSystem.FloatEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-      PublicKeyToken=null
-  stringResponse:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: ATXK.EventSystem.StringEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-      PublicKeyToken=null
-  objectResponse:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: ATXK.EventSystem.ObjectEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-      PublicKeyToken=null
-  vector2Response:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: ATXK.EventSystem.Vector2Event, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-      PublicKeyToken=null
-  vector3Response:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: ATXK.EventSystem.Vector3Event, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-      PublicKeyToken=null
-  vector4Response:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: ATXK.EventSystem.Vector4Event, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-      PublicKeyToken=null
-  quaternionResponse:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: ATXK.EventSystem.QuaternionEvent, Assembly-CSharp, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
+  m_buttonList:
+  - {fileID: 2052631331}
+  - {fileID: 1560127110}
+  - {fileID: 272418505}
+  - {fileID: 2105733522}
+  - {fileID: 673903991}
+  - {fileID: 2080745177}
+  - {fileID: 1525223390}
+  - {fileID: 1525223389}
+  - {fileID: 1525223388}
+  - {fileID: 1525223387}
+  m_soundEvent: {fileID: 11400000, guid: 1dcb736bb7bfef3439efc966b7a96b4e, type: 2}
+  m_sound: {fileID: 11400000, guid: 966493965adc51e4a9324c2452b30cbc, type: 2}
 --- !u!114 &199624931
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1945,7 +1910,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 199624929}
-  m_RootOrder: 0
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1117963606
 GameObject:
@@ -1982,7 +1947,7 @@ RectTransform:
   - {fileID: 173334665}
   - {fileID: 1525223385}
   m_Father: {fileID: 199624929}
-  m_RootOrder: 2
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -2155,6 +2120,7 @@ GameObject:
   - component: {fileID: 321017111}
   - component: {fileID: 1218211223}
   - component: {fileID: 1218211222}
+  - component: {fileID: 1218211220}
   m_Layer: 0
   m_Name: AR_ Camera
   m_TagString: MainCamera
@@ -2176,6 +2142,13 @@ Transform:
   m_Father: {fileID: 989943870}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!81 &1218211220
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1218211218}
+  m_Enabled: 1
 --- !u!114 &1218211222
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2580,6 +2553,30 @@ GameObject:
   m_PrefabParentObject: {fileID: 1884918123124628, guid: 51f07d22b49e1fe4f9bbd7f9ae6991d9,
     type: 2}
   m_PrefabInternal: {fileID: 1525223384}
+--- !u!114 &1525223387 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114592978742884802, guid: 51f07d22b49e1fe4f9bbd7f9ae6991d9,
+    type: 2}
+  m_PrefabInternal: {fileID: 1525223384}
+  m_Script: {fileID: 1392445389, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+--- !u!114 &1525223388 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114004705149584154, guid: 51f07d22b49e1fe4f9bbd7f9ae6991d9,
+    type: 2}
+  m_PrefabInternal: {fileID: 1525223384}
+  m_Script: {fileID: 1392445389, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+--- !u!114 &1525223389 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114254302406287684, guid: 51f07d22b49e1fe4f9bbd7f9ae6991d9,
+    type: 2}
+  m_PrefabInternal: {fileID: 1525223384}
+  m_Script: {fileID: 1392445389, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+--- !u!114 &1525223390 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114652213441293396, guid: 51f07d22b49e1fe4f9bbd7f9ae6991d9,
+    type: 2}
+  m_PrefabInternal: {fileID: 1525223384}
+  m_Script: {fileID: 1392445389, guid: f70555f144d8491a825f0804e09c671c, type: 3}
 --- !u!1 &1560127108
 GameObject:
   m_ObjectHideFlags: 0
@@ -2890,22 +2887,22 @@ Prefab:
     - target: {fileID: 224257646354203818, guid: e16d212c7ea6ce24685d3e819bfdd222,
         type: 2}
       propertyPath: m_AnchorMax.x
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 224257646354203818, guid: e16d212c7ea6ce24685d3e819bfdd222,
         type: 2}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 224257646354203818, guid: e16d212c7ea6ce24685d3e819bfdd222,
         type: 2}
       propertyPath: m_Pivot.x
-      value: 0.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 224257646354203818, guid: e16d212c7ea6ce24685d3e819bfdd222,
         type: 2}
       propertyPath: m_Pivot.y
-      value: 0.5
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: e16d212c7ea6ce24685d3e819bfdd222, type: 2}
@@ -3094,18 +3091,18 @@ RectTransform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2080745175}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.6, y: 0.6, z: 1}
   m_Children: []
   m_Father: {fileID: 432082428}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 0, y: -98}
+  m_AnchoredPosition: {x: 0, y: 10}
   m_SizeDelta: {x: 292, y: 196}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &2080745177
 MonoBehaviour:
   m_ObjectHideFlags: 0

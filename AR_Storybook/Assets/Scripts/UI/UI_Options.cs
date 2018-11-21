@@ -1,8 +1,7 @@
 ﻿using ATXK.CustomVariables;
 using ATXK.EventSystem;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
 using UnityEngine.UI;
 
 /// <summary>
@@ -10,21 +9,37 @@ using UnityEngine.UI;
 /// </summary>
 public class UI_Options : MonoBehaviour
 {
+    [Header("Mixers")]
+    [SerializeField] private AudioMixer m_bgmMixer;
+    [SerializeField] private AudioMixer m_sfxMixer;
+
+    [Header("Custom Variables")]
     [Tooltip("Bool Custom Variable to trigger Button Mode")]
     [SerializeField] private CV_Bool m_buttonMode;
-    [Tooltip("Bool event to trigger the appearance of buttons if button mode is toggled")]
-    [SerializeField] private ES_Event_Bool m_isButtonMode;
+    [Tooltip("Float Custom Variable that contains the value of BGM Volume")]
+    [SerializeField] private CV_Float m_bgmVolume;
+    [Tooltip("Float Custom Variable that contains the value of SFX Volume")]
+    [SerializeField] private CV_Float m_sfxVolume;
+
+    [Header("GameObjects")]
     [Tooltip("Toggle Component to trigger Button Mode")]
     [SerializeField] private Toggle m_toggle;
+    [Tooltip("Slider Component for controlling BGM")]
+    [SerializeField] private Slider m_bgmSlider;
+    [Tooltip("Slider Component for controlling SFX")]
+    [SerializeField] private Slider m_sfxSlider;
 
-    // Test 
-    [SerializeField] private CV_Float m_bgmVolume;
-    [SerializeField] private CV_Float m_sfxVolume;
+    [Header("Events to trigger")]
+    [Tooltip("Bool event to trigger the appearance of buttons if button mode is toggled")]
+    [SerializeField] private ES_Event_Bool m_isButtonMode;
 
     // Use this for initialization
     void OnEnable()
     {
+        // Set Display to be values that are stored
         m_isButtonMode.Value = m_buttonMode.value;
+        m_bgmSlider.value = m_bgmVolume.value;
+        m_sfxSlider.value = m_sfxVolume.value;
 
         // Set the toggle to display according to Custom Variable settings
         if (m_buttonMode.value)
@@ -42,11 +57,31 @@ public class UI_Options : MonoBehaviour
         {
             m_buttonMode.value = value;
             m_isButtonMode.RaiseEvent(m_buttonMode.value);
-            Debug.LogWarning("Mode: " + m_buttonMode.value);
         }
-        get
+        get { return m_buttonMode.value; }
+    }
+
+    /// <summary>
+    /// Setting BGM volume and storing into a Custom Variable
+    /// </summary>
+    public float BGMVolume
+    {
+        set
         {
-            return m_buttonMode.value;
+            m_bgmVolume.value = m_bgmSlider.value;
+            m_bgmMixer.SetFloat("BGM_Volume", m_bgmVolume.value);
+        }
+    }
+
+    /// <summary>
+    /// Setting SFX volume and storing into a Custom Variable
+    /// </summary>
+    public float SFXVolume
+    {
+        set
+        {
+            m_sfxVolume.value = m_sfxSlider.value;
+            m_sfxMixer.SetFloat("SFX_Volume", m_sfxVolume.value);
         }
     }
 }
