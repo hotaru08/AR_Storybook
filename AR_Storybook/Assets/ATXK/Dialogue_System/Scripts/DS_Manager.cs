@@ -5,6 +5,9 @@
 	using UnityEngine.UI;
 	using Helper;
 
+	/// <summary>
+	/// Holds information regarding the current dialogue speaker and the dialogue tree.
+	/// </summary>
 	public class DS_Manager : SingletonBehaviour<DS_Manager>
 	{
 		[Header("Dialogue Tree")]
@@ -27,11 +30,17 @@
 		#endregion
 
 		#region Unity Methods
+		/// <summary>
+		/// Called on the frame when this behaviour becomes enabled.
+		/// </summary>
 		private void OnEnable()
 		{
 			ResetTree();
 		}
 
+		/// <summary>
+		/// Called right before this behaviour becomes disabled.
+		/// </summary>
 		private void Update()
 		{
 			if (dialogueTree != null)
@@ -56,6 +65,10 @@
 		#endregion
 
 		#region Class Methods
+		/// <summary>
+		/// Traverses the referenced tree to the provided index.
+		/// </summary>
+		/// <param name="index">Zero-based index of the node.</param>
 		public void TraverseTree(int index = 0)
 		{
 			if (dialogueTree != null)
@@ -64,6 +77,9 @@
 			}
 		}
 
+		/// <summary>
+		/// Destroys and re-instantiates a new set of dialogue buttons.
+		/// </summary>
 		public void RedrawButtons()
 		{
 			//Remove old buttons
@@ -83,6 +99,9 @@
 			}
 		}
 
+		/// <summary>
+		/// Resets the referenced tree to the first node and redraws all dialogue buttons.
+		/// </summary>
 		public void ResetTree()
 		{
 			dialogueTree.Reset();

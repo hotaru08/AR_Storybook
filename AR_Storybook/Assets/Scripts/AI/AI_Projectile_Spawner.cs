@@ -1,8 +1,15 @@
 ﻿using UnityEngine;
 using ATXK.ItemSystem;
 
+/// <summary>
+/// Spawns projectile items.
+/// </summary>
 public class AI_Projectile_Spawner : MonoBehaviour
 {
+	/// <summary>
+	/// Spawns an instance of the given projectile.
+	/// </summary>
+	/// <param name="projectilePrefab">Projectile to create a copy of.</param>
 	public void Fire(Item_Holder projectilePrefab)
 	{
 		Item_Projectile projectile = projectilePrefab.Item as Item_Projectile;
@@ -16,6 +23,10 @@ public class AI_Projectile_Spawner : MonoBehaviour
 		}
 	}
 
+	/// <summary>
+	/// Spawns an instance of the given projectile, if the Object given is type of GameObject and has the Item_Holder component.
+	/// </summary>
+	/// <param name="projectilePrefab">Projectile to create a copy of.</param>
 	public void Fire(Object projectileObject)
 	{
 		GameObject projectile = projectileObject as GameObject;

@@ -5,6 +5,9 @@ using System.IO;
 using UnityEngine;
 using UnityEngine.UI;
 
+/// <summary>
+/// Loads and displays all screenshots.
+/// </summary>
 [RequireComponent(typeof(Image))]
 public class ScreenshotViewer : MonoBehaviour
 {
@@ -26,16 +29,25 @@ public class ScreenshotViewer : MonoBehaviour
 		StartCoroutine(SetImage());
 	}
 
+	/// <summary>
+	/// Scans for PNG images and converts them into texture2D and sprites.
+	/// </summary>
 	public void StartScan()
 	{
 		StartCoroutine(ScanForScreenshots());
 	}
 
+	/// <summary>
+	/// Scans for PNG images and converts them into texture2D and sprites, then sets the view image to the first screenshot in the list.
+	/// </summary>
 	public void ScanAndSetImage()
 	{
 		StartCoroutine(SetImage());
 	}
 
+	/// <summary>
+	/// Converts all image files into Screenshots, with a Texture2D and Sprite.
+	/// </summary>
 	private void GetScreenshots()
 	{
 		foreach (string url in fileURLs)
@@ -48,6 +60,10 @@ public class ScreenshotViewer : MonoBehaviour
 		}
 	}
 
+	/// <summary>
+	/// Creates a Texture2D from the file at the given URL.
+	/// </summary>
+	/// <param name="url">URL of the file.</param>
 	private Texture2D GetTexture(string url)
 	{
 		Texture2D texture = null;
@@ -62,6 +78,9 @@ public class ScreenshotViewer : MonoBehaviour
 		return texture;
 	}
 
+	/// <summary>
+	/// Scans for PNG images and converts them into texture2D and sprites.
+	/// </summary>
 	private IEnumerator ScanForScreenshots()
 	{
 		try
@@ -83,6 +102,9 @@ public class ScreenshotViewer : MonoBehaviour
 			GetScreenshots();
 	}
 
+	/// <summary>
+	/// Changes the viewing image to the next one in the list, with wraparound to the first image.
+	/// </summary>
 	public void NextImage()
 	{
 		currentIndex++;
@@ -92,6 +114,9 @@ public class ScreenshotViewer : MonoBehaviour
 		SetImage();
 	}
 
+	/// <summary>
+	/// Changes the viewing image to the previous one in the list, with wraparound to the last image.
+	/// </summary>
 	public void PrevImage()
 	{
 		currentIndex--;
@@ -101,6 +126,9 @@ public class ScreenshotViewer : MonoBehaviour
 		SetImage();
 	}
 
+	/// <summary>
+	/// Scans for images and sets the viewing image to the one at the current index.
+	/// </summary>
 	private IEnumerator SetImage()
 	{
 		StartCoroutine(ScanForScreenshots());
@@ -111,6 +139,9 @@ public class ScreenshotViewer : MonoBehaviour
 		image.overrideSprite = screenshots[currentIndex].fileSprite;
 	}
 
+	/// <summary>
+	/// Removes the Screenshot from the list and deletes the image from disk.
+	/// </summary>
 	public void DeleteCurrentImage()
 	{
 		if(screenshots.Count > 0)

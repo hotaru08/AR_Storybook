@@ -15,12 +15,20 @@
 
 		public List<AI_Transition> Transitions { get { return transitions; } }
                 
+		/// <summary>
+		/// Update call to this state.
+		/// </summary>
+		/// <param name="controller">Controller that is calling this update.</param>
 		public void UpdateState(AI_Controller controller)
 		{
 			DoActions(controller);
 			CheckTransitions(controller);
 		}
 
+		/// <summary>
+		/// Runs through and invokes every action registered to this state.
+		/// </summary>
+		/// <param name="controller">Controller that will be affected.</param>
 		private void DoActions(AI_Controller controller)
 		{
 			for(int i = actions.Count - 1; i >= 0; i--)
@@ -29,6 +37,10 @@
 			}
 		}
 
+		/// <summary>
+		/// Runs through all transitions registered and changes the calling AI's current state.
+		/// </summary>
+		/// <param name="controller">Controller that will be affected.</param>
 		private void CheckTransitions(AI_Controller controller)
 		{
 			for (int i = transitions.Count - 1; i >= 0; i--)

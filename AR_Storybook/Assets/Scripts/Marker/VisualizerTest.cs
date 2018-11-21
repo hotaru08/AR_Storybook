@@ -78,6 +78,9 @@ public class VisualizerTest : MonoBehaviour
 		m_debuggingText.text += "# ARAnchor: " + FindObjectsOfType(typeof(Anchor)).Length + "\n";
 	}
 
+	/// <summary>
+	/// Gets all tracked images from the current session and creates visualizers for new images.
+	/// </summary>
 	void CheckForImages()
 	{
 		//Only get new tracked images

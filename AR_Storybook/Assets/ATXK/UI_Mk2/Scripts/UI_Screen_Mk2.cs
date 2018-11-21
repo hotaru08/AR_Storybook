@@ -3,7 +3,9 @@
 	using UnityEngine;
 	using UnityEngine.UI;
 
-	[RequireComponent(typeof(CanvasGroup))]
+	/// <summary>
+	/// Holds information about a UI Screen: image, transition style, etc.
+	/// </summary>
 	public class UI_Screen_Mk2 : MonoBehaviour
 	{
 		public enum Screen

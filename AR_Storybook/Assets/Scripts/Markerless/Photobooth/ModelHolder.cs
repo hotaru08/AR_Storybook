@@ -17,6 +17,9 @@ public class ModelHolder : MonoBehaviour
 		changedModel.RaiseEvent(models[currIndex]);
 	}
 
+	/// <summary>
+	/// Changes to the next model in the list, with wraparound to the first model in the list.
+	/// </summary>
 	public void NextModel()
 	{
 		currIndex++;
@@ -28,6 +31,9 @@ public class ModelHolder : MonoBehaviour
 		changedModel.RaiseEvent(models[currIndex]);
 	}
 
+	/// <summary>
+	/// Changes to the previous model in the list, with wraparound to the last model in the list.
+	/// </summary>
 	public void PrevModel()
 	{
 		currIndex--;

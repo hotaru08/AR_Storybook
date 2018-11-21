@@ -46,6 +46,9 @@ public class MarkerlessController_Mk2 : MonoBehaviour
 		UpdateInstantiateOnTouch();
 	}
 
+	/// <summary>
+	/// Updates the application and checks for error status.
+	/// </summary>
 	void UpdateApplicationLifecycle()
 	{
 		if(Session.Status != SessionStatus.Tracking)
@@ -70,6 +73,9 @@ public class MarkerlessController_Mk2 : MonoBehaviour
 		}
 	}
 
+	/// <summary>
+	/// Checks for screen touches and updates accordingly.
+	/// </summary>
 	void UpdateInstantiateOnTouch()
 	{
 		if(Input.touchCount > 0)
@@ -80,6 +86,10 @@ public class MarkerlessController_Mk2 : MonoBehaviour
 		}
 	}
 
+	/// <summary>
+	/// Shows a popup message with the given string.
+	/// </summary>
+	/// <param name="message">Message to display.</param>
 	void ShowAndroidToastMessage(string message)
 	{
 		AndroidJavaClass unityPlayer = new AndroidJavaClass("com.unity3d.player.UnityPlayer");
@@ -96,6 +106,9 @@ public class MarkerlessController_Mk2 : MonoBehaviour
 		}
 	}
 
+	/// <summary>
+	/// Updates the scale of the visualizer.
+	/// </summary>
 	void GestureScale()
 	{
 		if (arObject == null)
@@ -114,6 +127,9 @@ public class MarkerlessController_Mk2 : MonoBehaviour
 		}
 	}
 
+	/// <summary>
+	/// Updates the rotation of the visualizer.
+	/// </summary>
 	void GestureRotate()
 	{
 		if (arObject == null)
@@ -137,6 +153,9 @@ public class MarkerlessController_Mk2 : MonoBehaviour
 		}
 	}
 
+	/// <summary>
+	/// Instantiates a visualizer.
+	/// </summary>
 	void InstantiateARVisualizer()
 	{
 		Touch touch;
@@ -176,6 +195,10 @@ public class MarkerlessController_Mk2 : MonoBehaviour
 		}
 	}
 
+	/// <summary>
+	/// Changes the visualizer object, if the Object provided is a GameObject.
+	/// </summary>
+	/// <param name="_arObject"></param>
 	public void SetObject(Object _arObject)
 	{
 		GameObject arObj = _arObject as GameObject;
@@ -197,6 +220,9 @@ public class MarkerlessController_Mk2 : MonoBehaviour
 		}
 	}
 
+	/// <summary>
+	/// Quits the application.
+	/// </summary>
 	public void DoQuit()
 	{
 		Application.Quit();

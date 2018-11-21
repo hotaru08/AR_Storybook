@@ -25,6 +25,9 @@ public class ARSessionManager : SingletonBehaviour<ARSessionManager>
 		m_arSession.enabled = true;
 	}
 
+	/// <summary>
+	/// Destroys the current session and re-instantiates a new instance of the session.
+	/// </summary>
 	public void ResetSession()
 	{
 		StartCoroutine("CreateNewSession");
@@ -42,6 +45,9 @@ public class ARSessionManager : SingletonBehaviour<ARSessionManager>
 		}
 	}
 
+	/// <summary>
+	/// Destroys the current session and re-instantiates a new instance of the session.
+	/// </summary>
 	IEnumerator CreateNewSession()
 	{
 		//Disable session and destroy the holding gameobject

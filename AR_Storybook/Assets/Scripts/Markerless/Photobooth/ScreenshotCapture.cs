@@ -3,6 +3,9 @@ using ATXK.EventSystem;
 using ATXK.CustomVariables;
 using System.Collections;
 
+/// <summary>
+/// Captures a screenshot and saves it.
+/// </summary>
 public class ScreenshotCapture : MonoBehaviour
 {
 	[Header("Screenshot")]
@@ -11,12 +14,12 @@ public class ScreenshotCapture : MonoBehaviour
 	[SerializeField] CV_String fileFormat;
 	[SerializeField] float screenshotTime;
 
-	public void StartCapture(bool isArcade)
+	public void StartCapture()
 	{
-		StartCoroutine("CaptureScreenshot", isArcade);
+		StartCoroutine("CaptureScreenshot");
 	}
 
-	private IEnumerator CaptureScreenshot(bool isArcade)
+	private IEnumerator CaptureScreenshot()
 	{
 		screenshot_Start.RaiseEvent();
 		string filename = System.DateTime.Now.ToString(fileFormat.value);

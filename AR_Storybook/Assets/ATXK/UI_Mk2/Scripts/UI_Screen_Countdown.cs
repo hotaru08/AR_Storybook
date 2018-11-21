@@ -3,6 +3,9 @@
 	using UnityEngine;
 	using EventSystem;
 
+	/// <summary>
+	/// Timed screens.
+	/// </summary>
 	public class UI_Screen_Countdown : MonoBehaviour
 	{
 		[Tooltip("Time in seconds before this screen pings for a screen change.")]
