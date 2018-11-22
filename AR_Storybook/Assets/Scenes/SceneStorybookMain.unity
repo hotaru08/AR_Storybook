@@ -729,6 +729,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 11400000, guid: 4ed287d7353475340824ab735d8caa58, type: 2}
+        m_MethodName: RaiseEvent
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 11400000, guid: 966493965adc51e4a9324c2452b30cbc,
+            type: 2}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &781609352
@@ -764,24 +776,6 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 781609349}
---- !u!114 &827963688 stripped
-MonoBehaviour:
-  m_PrefabParentObject: {fileID: 114211358925051246, guid: 27fc180c9342c0042b13521104b746c8,
-    type: 2}
-  m_PrefabInternal: {fileID: 424677867}
-  m_Script: {fileID: 1392445389, guid: f70555f144d8491a825f0804e09c671c, type: 3}
---- !u!114 &862908833 stripped
-MonoBehaviour:
-  m_PrefabParentObject: {fileID: 114598421543553222, guid: 27fc180c9342c0042b13521104b746c8,
-    type: 2}
-  m_PrefabInternal: {fileID: 424677867}
-  m_Script: {fileID: 1392445389, guid: f70555f144d8491a825f0804e09c671c, type: 3}
---- !u!114 &881312325 stripped
-MonoBehaviour:
-  m_PrefabParentObject: {fileID: 114747595968693726, guid: 27fc180c9342c0042b13521104b746c8,
-    type: 2}
-  m_PrefabInternal: {fileID: 424677867}
-  m_Script: {fileID: 1392445389, guid: f70555f144d8491a825f0804e09c671c, type: 3}
 --- !u!1 &952632395
 GameObject:
   m_ObjectHideFlags: 0
@@ -906,7 +900,6 @@ GameObject:
   - component: {fileID: 989933879}
   - component: {fileID: 989933878}
   - component: {fileID: 989933877}
-  - component: {fileID: 989933881}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -995,28 +988,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
---- !u!114 &989933881
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 989933876}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a34280b49e2e88b4a9636d1e1cfb8938, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_buttonList:
-  - {fileID: 781609351}
-  - {fileID: 1021715733}
-  - {fileID: 827963688}
-  - {fileID: 1957248072}
-  - {fileID: 881312325}
-  - {fileID: 862908833}
-  - {fileID: 1800497989}
-  - {fileID: 1500614441}
-  m_soundEvent: {fileID: 11400000, guid: 4ed287d7353475340824ab735d8caa58, type: 2}
-  m_sound: {fileID: 11400000, guid: 966493965adc51e4a9324c2452b30cbc, type: 2}
 --- !u!1 &991308931
 GameObject:
   m_ObjectHideFlags: 0
@@ -1084,12 +1055,6 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 991308931}
---- !u!114 &1021715733 stripped
-MonoBehaviour:
-  m_PrefabParentObject: {fileID: 114062924585860934, guid: 27fc180c9342c0042b13521104b746c8,
-    type: 2}
-  m_PrefabInternal: {fileID: 424677867}
-  m_Script: {fileID: 1392445389, guid: f70555f144d8491a825f0804e09c671c, type: 3}
 --- !u!1001 &1075348004
 Prefab:
   m_ObjectHideFlags: 0
@@ -1616,12 +1581,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1500614441 stripped
-MonoBehaviour:
-  m_PrefabParentObject: {fileID: 114072182469763766, guid: 27fc180c9342c0042b13521104b746c8,
-    type: 2}
-  m_PrefabInternal: {fileID: 424677867}
-  m_Script: {fileID: 1392445389, guid: f70555f144d8491a825f0804e09c671c, type: 3}
 --- !u!1 &1589497386
 GameObject:
   m_ObjectHideFlags: 0
@@ -1844,12 +1803,6 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 4553c4da06bee544ba0f835060acf099, type: 2}
   m_IsPrefabParent: 0
---- !u!114 &1800497989 stripped
-MonoBehaviour:
-  m_PrefabParentObject: {fileID: 114464776336526116, guid: 27fc180c9342c0042b13521104b746c8,
-    type: 2}
-  m_PrefabInternal: {fileID: 424677867}
-  m_Script: {fileID: 1392445389, guid: f70555f144d8491a825f0804e09c671c, type: 3}
 --- !u!1001 &1877574606
 Prefab:
   m_ObjectHideFlags: 0
@@ -2072,12 +2025,6 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: ATXK.EventSystem.QuaternionEvent, Assembly-CSharp, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
---- !u!114 &1957248072 stripped
-MonoBehaviour:
-  m_PrefabParentObject: {fileID: 114442560799572592, guid: 27fc180c9342c0042b13521104b746c8,
-    type: 2}
-  m_PrefabInternal: {fileID: 424677867}
-  m_Script: {fileID: 1392445389, guid: f70555f144d8491a825f0804e09c671c, type: 3}
 --- !u!1001 &1964602097
 Prefab:
   m_ObjectHideFlags: 0
