@@ -11,6 +11,8 @@ public class ChangeScene : MonoBehaviour
     [Header("Events to Send")]
     [SerializeField] private ES_Event_Default m_triggerLoading;
 
+
+
     /// <summary>
     /// Use this function to change scenes 
     /// </summary>
