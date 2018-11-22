@@ -38,13 +38,13 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657826, g: 0.49641263, b: 0.57481676, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641222, b: 0.57481694, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 11
-  m_GIWorkflowMode: 1
+  m_GIWorkflowMode: 0
   m_GISettings:
     serializedVersion: 2
     m_BounceScale: 1
@@ -89,7 +89,7 @@ LightmapSettings:
     m_PVRFilteringAtrousPositionSigmaIndirect: 2
     m_PVRFilteringAtrousPositionSigmaAO: 1
     m_ShowResolutionOverlay: 1
-  m_LightingDataAsset: {fileID: 112000002, guid: cba0627f02cba624d931aa683d922165,
+  m_LightingDataAsset: {fileID: 112000002, guid: a088d3e75ab3396439c13d042e579323,
     type: 2}
   m_UseShadowmask: 1
 --- !u!196 &4
@@ -1054,6 +1054,7 @@ MonoBehaviour:
   m_playerHealth: {fileID: 11400000, guid: 2a52433757afdda4c8793faaffe8ec2b, type: 2}
   m_healthIcon: {fileID: 1106067811416044, guid: f6076245f5af50040b616ec8f259ec69,
     type: 2}
+  m_headerIcon: {fileID: 0}
   m_startingPos: {x: -150, y: 0}
   m_paddingTop: 200
 --- !u!1 &435962647
@@ -1327,6 +1328,34 @@ Prefab:
       propertyPath: m_displayScoreHUD
       value: 
       objectReference: {fileID: 1635458471}
+    - target: {fileID: 114171615897111072, guid: bec77a22fc6a42d4d9d9b13955df26df,
+        type: 2}
+      propertyPath: m_bgmMixer
+      value: 
+      objectReference: {fileID: 24100000, guid: 52484fe269c3f79478681e5f50fb022e,
+        type: 2}
+    - target: {fileID: 114171615897111072, guid: bec77a22fc6a42d4d9d9b13955df26df,
+        type: 2}
+      propertyPath: m_sfxMixer
+      value: 
+      objectReference: {fileID: 24100000, guid: b7ef38a661ac70748ae8c0a8e832f102,
+        type: 2}
+    - target: {fileID: 114171615897111072, guid: bec77a22fc6a42d4d9d9b13955df26df,
+        type: 2}
+      propertyPath: m_bgmVolume
+      value: 
+      objectReference: {fileID: 11400000, guid: 629345e6fffb9404caef32cc7f75f695,
+        type: 2}
+    - target: {fileID: 114171615897111072, guid: bec77a22fc6a42d4d9d9b13955df26df,
+        type: 2}
+      propertyPath: m_sfxVolume
+      value: 
+      objectReference: {fileID: 11400000, guid: d6840dbac9107b14eb34ff1f3e9f7f20,
+        type: 2}
+    - target: {fileID: 1525752234601630, guid: bec77a22fc6a42d4d9d9b13955df26df, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: bec77a22fc6a42d4d9d9b13955df26df, type: 2}
   m_IsPrefabParent: 0
@@ -3666,6 +3695,7 @@ MonoBehaviour:
   m_playerHealth: {fileID: 11400000, guid: 36b136379e18f754fac19fe2d7cdb38a, type: 2}
   m_healthIcon: {fileID: 1106067811416044, guid: 59918c2eb308f4740b6793129e41ede8,
     type: 2}
+  m_headerIcon: {fileID: 0}
   m_startingPos: {x: 150, y: 0}
   m_paddingTop: 200
 --- !u!1001 &1449818335
@@ -5279,7 +5309,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 88798921773751e4d99a3194ebf77c9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  autoEvent: {fileID: 11400000, guid: 1dcb736bb7bfef3439efc966b7a96b4e, type: 2}
+  autoEvent: {fileID: 0}
   autoEventValue: {fileID: 11400000, guid: ad2e94ff51dc7e148b4b4d5b705f16a8, type: 2}
 --- !u!1 &2067414760
 GameObject:
