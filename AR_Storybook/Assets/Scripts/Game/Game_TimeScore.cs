@@ -17,6 +17,7 @@ public class Game_TimeScore : MonoBehaviour
     [Header("Scores")]
     [Tooltip("Text to display score on HUD")]
     [SerializeField] private Text m_displayScoreHUD;
+    [SerializeField] private Text m_displayScoreHUD2;
     [Tooltip("Text to display scores on Screens")]
     [SerializeField] private Text m_displayScoreScreen;
 
@@ -36,8 +37,9 @@ public class Game_TimeScore : MonoBehaviour
 			currentScore += Time.deltaTime * scoreMultiplier;
 
         // Display score on HUD
-        m_displayScoreHUD.text = "Score\n" + (int)currentScore;
-	}
+        m_displayScoreHUD.text = ((int)currentScore).ToString();
+        m_displayScoreHUD2.text = ((int)currentScore).ToString();
+    }
 
 	public void SaveScore()
 	{

@@ -27,7 +27,7 @@ public class MarkerlessController_Mk2 : MonoBehaviour
 
 	bool isQuitting;
 	int visualizerCount;
-	GameObject arObject;
+	[SerializeField] GameObject arObject;
 	List<DetectedPlane> detectedPlanes = new List<DetectedPlane>();
 
 	private void Awake()
@@ -201,6 +201,8 @@ public class MarkerlessController_Mk2 : MonoBehaviour
 	/// <param name="_arObject"></param>
 	public void SetObject(Object _arObject)
 	{
+		Debug.Log("SET OBJECT");
+
 		GameObject arObj = _arObject as GameObject;
 		if(arObj != null)
 		{
