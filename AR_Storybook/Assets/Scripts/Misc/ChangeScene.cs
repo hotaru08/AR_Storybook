@@ -2,6 +2,7 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 /// <summary>
 /// Scene Changing with loading
@@ -11,7 +12,8 @@ public class ChangeScene : MonoBehaviour
     [Header("Events to Send")]
     [SerializeField] private ES_Event_Default m_triggerLoading;
 
-
+    [Header("Loading assets")]
+    [SerializeField] private Slider m_sliderProgessBar;
 
     /// <summary>
     /// Use this function to change scenes 
@@ -57,6 +59,14 @@ public class ChangeScene : MonoBehaviour
 
         while (!operation.isDone)
         {
+            // Do some math to make progress ( loading ) go from 0 - 1
+            float progress = Mathf.Clamp01(operation.progress / 0.9f);
+            Debug.Log("Progress : " + progress);
+
+            // Set the slider value to be progress of loading
+            if (m_sliderProgessBar != null)
+                m_sliderProgessBar.value = progress;
+
             yield return null;
         }
     }

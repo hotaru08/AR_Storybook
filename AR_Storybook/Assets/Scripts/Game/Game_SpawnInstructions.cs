@@ -55,6 +55,9 @@ public class Game_SpawnInstructions : MonoBehaviour
     /// <param name="_index">Index of instruction</param>
     public void SetInstructions(int _index)
     {
+        if (_index < prevInstructIndex)
+            return;
+
         // Check if screen is interactive screen, then set overlay gone
         if (m_instruction.transform.GetChild(_index).GetSiblingIndex().Equals(m_firstInteractiveScreen.transform.GetSiblingIndex()))
         {
@@ -71,6 +74,7 @@ public class Game_SpawnInstructions : MonoBehaviour
         m_instruction.transform.GetChild(_index - 1).gameObject.SetActive(false);
 
         // set value of screen
+        prevInstructIndex = m_instructionIndex.Value;
         m_instructionIndex.Value = _index;
     }
 

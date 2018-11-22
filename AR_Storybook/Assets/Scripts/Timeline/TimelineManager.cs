@@ -20,6 +20,8 @@ public class TimelineManager : MonoBehaviour
     [Header("Events")]
     [Tooltip("Bool Event to trigger the dialogue to spawn")]
     [SerializeField] private ES_Event_Bool m_SpawnDialogueEvent;
+    [Tooltip("Bool Event to trigger the End overlay to spawn")]
+    [SerializeField] private ES_Event_Abstract m_SpawnEndOverlayEvent;
 
     /// <summary>
     /// Start and End Times for Timeline clips
@@ -136,6 +138,13 @@ public class TimelineManager : MonoBehaviour
         {
             //Debug.Log("Its time to stop!" + m_currDirector.time + " Stop Time: " + m_clipEndTime);
             m_currDirector.Pause();
+        }
+
+        // If timeline reached the end, raise event to spawn end overlay
+        if (m_currDirector.time >= m_currDirector.playableAsset.duration)
+        {
+            m_SpawnEndOverlayEvent.RaiseEvent();
+            Debug.Log("Entered here");
         }
     }
 }
