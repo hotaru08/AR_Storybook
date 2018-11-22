@@ -8,6 +8,9 @@ using UnityEngine.Audio;
 [CreateAssetMenu(menuName = "Audio/Sounds")]
 public class Sound : ScriptableObject
 {
+	// name of this audio object
+	public string m_audioName;
+
     // audio clip to play for this sound
     public AudioClip m_audio;
 
@@ -19,11 +22,11 @@ public class Sound : ScriptableObject
     public float m_volume;
 
     // pitch of the sound
-    [Range(-3f, 3f)]
+    [Range(0.1f, 3f)]
     public float m_pitch;
 
     // the audio source of the object
-    [HideInInspector]
+    //[HideInInspector]
     public AudioSource m_audioSource;
 
     // loop audio

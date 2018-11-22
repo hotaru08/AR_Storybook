@@ -201,7 +201,8 @@ public class MarkerlessController_Mk2 : MonoBehaviour
 	/// <param name="_arObject"></param>
 	public void SetObject(Object _arObject)
 	{
-		Debug.Log("SET OBJECT");
+		if (arObject == null)
+			return;
 
 		GameObject arObj = _arObject as GameObject;
 		if(arObj != null)
@@ -216,7 +217,6 @@ public class MarkerlessController_Mk2 : MonoBehaviour
 
 				DestroyImmediate(arObject);
 			}
-
 
 			arObject = Instantiate(arObj, oldPos, oldRot);
 		}

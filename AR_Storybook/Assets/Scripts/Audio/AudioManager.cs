@@ -49,7 +49,7 @@ public class AudioManager : MonoBehaviour
         foreach (Sound _sound in m_soundList)
         {
             // skip if not sound name that we finding
-            if (_sound.name != _soundName) continue;
+            if (_sound.m_audioName != _soundName) continue;
 
             // Play Audio
             _sound.m_audioSource.PlayOneShot(_sound.m_audio);
@@ -61,30 +61,44 @@ public class AudioManager : MonoBehaviour
         foreach (Sound _sound in m_soundList)
         {
             // skip if not sound name that we finding
-            if (_sound.name != temp.name) continue;
+            if (_sound.m_audioName != temp.m_audioName) continue;
 
             // Play Audio
             _sound.m_audioSource.PlayOneShot(_sound.m_audio);
         }
     }
 
-    /// <summary>
-    /// Play Music ( Looping )
-    /// </summary>
-    public void PlayBGM(Object _soundObj)
-    {
+	/// <summary>
+	/// Play Music ( Looping )
+	/// </summary>
+	public void PlayBGM(Object _soundObj)
+	{
         Sound temp = _soundObj as Sound;
+		if (temp == null)
+		{
+			Debug.Log("PlayBGM(). Sound Object is not of type Sound.");
+			return;
+		}
+
         foreach (Sound _sound in m_soundList)
         {
             // if there is already another sound being played, stop that sound
             if (_sound.m_bIsBGM && temp.m_bIsBGM)
-                _sound.m_audioSource.Stop();
+			{
+				Debug.Log("PlayBGM(). Stopping current BGM.");
+				_sound.m_audioSource.Stop();
+			}
 
-            // skip if not sound name that we finding
-            if (_sound.name != temp.name) continue;
+			if (_sound.m_audioName == temp.m_audioName)
+			{
+				// Play Audio
+				temp.m_audioSource.Play();
 
-            // Play Audio
-            _sound.m_audioSource.Play();
-        }
-    }
+				Debug.Log("PlayBGM(). Playing new BGM.");
+				return;
+			}
+		}
+
+		Debug.Log("PlayBGM(). Sound provided does not match any known sounds.");
+	}
 }

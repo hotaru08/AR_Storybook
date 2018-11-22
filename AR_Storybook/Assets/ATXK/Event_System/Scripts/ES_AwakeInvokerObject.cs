@@ -7,7 +7,7 @@
         [SerializeField] ES_Event_Object autoEvent;
         [SerializeField] Object autoEventValue;
 
-        public void OnEnable()
+        public void Start()
         {
             autoEvent.RaiseEvent(autoEventValue);
         }

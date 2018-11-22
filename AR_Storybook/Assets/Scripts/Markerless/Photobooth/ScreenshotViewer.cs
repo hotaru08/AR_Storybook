@@ -11,6 +11,8 @@ using UnityEngine.UI;
 [RequireComponent(typeof(Image))]
 public class ScreenshotViewer : MonoBehaviour
 {
+	[SerializeField] Sprite noImagesSprite;
+
 	private string[] fileURLs;
 	private int currentIndex;
 	private Image image;
@@ -25,8 +27,10 @@ public class ScreenshotViewer : MonoBehaviour
 
 	private void Start()
 	{
+		image.sprite = noImagesSprite;
+
 		currentIndex = 0;
-		StartCoroutine(SetImage());
+		ScanAndSetImage();
 	}
 
 	/// <summary>
@@ -95,8 +99,11 @@ public class ScreenshotViewer : MonoBehaviour
 		}
 
 		// Wait while array of file urls are being populated.
-		while (fileURLs.Length == 0)
+		while (fileURLs.Length <= 0)
+		{
+			Debug.Log("ScanForScreenshots() Is Waiting...");
 			yield return new WaitForEndOfFrame();
+		}
 		// Converts screenshots once array has been populated.
 		if (fileURLs.Length > 0)
 			GetScreenshots();
@@ -111,7 +118,7 @@ public class ScreenshotViewer : MonoBehaviour
 		if (currentIndex >= screenshots.Count)
 			currentIndex = 0;
 
-		SetImage();
+		image.overrideSprite = screenshots[currentIndex].fileSprite;
 	}
 
 	/// <summary>
@@ -123,7 +130,7 @@ public class ScreenshotViewer : MonoBehaviour
 		if (currentIndex < 0)
 			currentIndex = screenshots.Count - 1;
 
-		SetImage();
+		image.overrideSprite = screenshots[currentIndex].fileSprite;
 	}
 
 	/// <summary>
@@ -131,10 +138,15 @@ public class ScreenshotViewer : MonoBehaviour
 	/// </summary>
 	private IEnumerator SetImage()
 	{
-		StartCoroutine(ScanForScreenshots());
+		if (screenshots.Count <= 0)
+		{
+			StartCoroutine(ScanForScreenshots());
 
-		while (screenshots.Count == 0)
-			yield return new WaitForEndOfFrame();
+			while (screenshots.Count <= 0)
+			{
+				yield return new WaitForEndOfFrame();
+			}
+		}
 
 		image.overrideSprite = screenshots[currentIndex].fileSprite;
 	}
@@ -148,6 +160,11 @@ public class ScreenshotViewer : MonoBehaviour
 		{
 			File.Delete(screenshots[currentIndex].fileURL);
 			screenshots.Remove(screenshots[currentIndex]);
+
+			image.overrideSprite = null;
+			//image.sprite = null;
+			currentIndex = 0;
+
 			PrevImage();
 		}
 	}

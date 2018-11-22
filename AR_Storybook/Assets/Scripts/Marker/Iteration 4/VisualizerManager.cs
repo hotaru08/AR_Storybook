@@ -110,7 +110,7 @@ public class VisualizerManager : MonoBehaviour
 				RemoveAllVisualizers();
 
                 //Reset the ARCore session
-                GetComponent<ES_AwakeInvokerObject>().OnEnable();
+                GetComponent<ES_AwakeInvokerObject>().Start();
                 ARSessionManager.Instance.ResetSession();
 			}
 
