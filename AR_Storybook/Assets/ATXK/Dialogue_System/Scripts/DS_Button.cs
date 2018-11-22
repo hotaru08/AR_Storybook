@@ -14,16 +14,19 @@
 		DS_Tree dialogueTree;
 		public int index;
 
-        /// <summary>
-        /// Typewriter Variables
-        /// </summary>
+        [Header("TypeWriter")]
 		[SerializeField] Text text;
         [SerializeField] float m_typeSpeed;
 		[SerializeField] bool m_typeComplete;
         [SerializeField] Button m_tapToContinue;
         private string m_currText;
-        private AudioSource m_soundToPlay;
-        [SerializeField] AudioClip m_soundClip;
+
+        [Header("Audio")]
+        [Tooltip("This is the event that will be sent to Audio Manager")]
+        [SerializeField] ES_Event_Object m_audio;
+        [Tooltip("This is the event containing the audio asset that is sent from node")]
+        [SerializeField] ES_Event_Object m_audioEvent;
+        private AudioAsset m_audioAsset;
 
         #region Unity Methods
 		/// <summary>
@@ -32,7 +35,7 @@
         private void Start()
 		{
 			m_typeComplete = true;
-            m_soundToPlay = GetComponent<AudioSource>();
+            m_audioAsset = m_audioEvent.Value as AudioAsset;
 
 			dialogueTree = DS_Manager.Instance.DialogueTree;
 			UpdateText();
@@ -111,7 +114,10 @@
 			for (int i = 0; i < _textToType.Length; ++i)
             {
                 text.text += _textToType[i];
-                m_soundToPlay.PlayOneShot(m_soundClip);
+
+                if (m_audio != null && m_audioAsset != null)
+                    m_audio.RaiseEvent(m_audioAsset.Sounds[Random.Range(0, m_audioAsset.Sounds.Length)]);
+
                 yield return new WaitForSeconds(m_typeSpeed);
             }
 			m_typeComplete = true;

@@ -488,7 +488,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4765300859900162}
   - component: {fileID: 114169518913511982}
-  - component: {fileID: 114825061738403692}
   m_Layer: 5
   m_Name: UI ( Cutscene )
   m_TagString: Untagged
@@ -7576,7 +7575,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 88798921773751e4d99a3194ebf77c9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  autoEvent: {fileID: 11400000, guid: 1dcb736bb7bfef3439efc966b7a96b4e, type: 2}
+  autoEvent: {fileID: 11400000, guid: 107fbc69f89406c4682c3e85d935d487, type: 2}
   autoEventValue: {fileID: 11400000, guid: 452919c006040d2459bdf65f35c0b06e, type: 2}
 --- !u!114 &114376397128420236
 MonoBehaviour:
@@ -7810,6 +7809,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
+      - m_Target: {fileID: 11400000, guid: 4ed287d7353475340824ab735d8caa58, type: 2}
+        m_MethodName: RaiseEvent
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 11400000, guid: 966493965adc51e4a9324c2452b30cbc,
+            type: 2}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &114742968986153698
@@ -7900,21 +7911,6 @@ MonoBehaviour:
   m_spawnDialogue: {fileID: 11400000, guid: 5bbb7c106fe73df4abf04e63781a8b9e, type: 2}
   m_firstClipTiming: {fileID: 11400000, guid: 047e2a88c536f3146a502665c638e46c, type: 2}
   m_timing: 0.0,3.625
---- !u!114 &114825061738403692
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1243324414249216}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a34280b49e2e88b4a9636d1e1cfb8938, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_buttonList:
-  - {fileID: 114715792873063728}
-  m_soundEvent: {fileID: 11400000, guid: 1dcb736bb7bfef3439efc966b7a96b4e, type: 2}
-  m_sound: {fileID: 11400000, guid: 966493965adc51e4a9324c2452b30cbc, type: 2}
 --- !u!114 &114858242509152788
 MonoBehaviour:
   m_ObjectHideFlags: 1

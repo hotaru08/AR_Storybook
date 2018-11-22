@@ -38,13 +38,13 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657826, g: 0.49641263, b: 0.57481676, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641222, b: 0.57481694, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 11
-  m_GIWorkflowMode: 1
+  m_GIWorkflowMode: 0
   m_GISettings:
     serializedVersion: 2
     m_BounceScale: 1
@@ -89,7 +89,7 @@ LightmapSettings:
     m_PVRFilteringAtrousPositionSigmaIndirect: 2
     m_PVRFilteringAtrousPositionSigmaAO: 1
     m_ShowResolutionOverlay: 1
-  m_LightingDataAsset: {fileID: 112000002, guid: cba0627f02cba624d931aa683d922165,
+  m_LightingDataAsset: {fileID: 112000002, guid: 9da355669f4bf43429348257941438dc,
     type: 2}
   m_UseShadowmask: 1
 --- !u!196 &4
@@ -1630,6 +1630,7 @@ MonoBehaviour:
   m_playerHealth: {fileID: 11400000, guid: 2a52433757afdda4c8793faaffe8ec2b, type: 2}
   m_healthIcon: {fileID: 1106067811416044, guid: f6076245f5af50040b616ec8f259ec69,
     type: 2}
+  m_headerIcon: {fileID: 0}
   m_startingPos: {x: -150, y: 0}
   m_paddingTop: 200
 --- !u!4 &634458836 stripped
@@ -4082,7 +4083,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 88798921773751e4d99a3194ebf77c9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  autoEvent: {fileID: 11400000, guid: 1dcb736bb7bfef3439efc966b7a96b4e, type: 2}
+  autoEvent: {fileID: 0}
   autoEventValue: {fileID: 11400000, guid: 2d118ae6c2232574e88fceccb62024f7, type: 2}
 --- !u!1 &1531165325
 GameObject:
@@ -4213,6 +4214,7 @@ MonoBehaviour:
   m_playerHealth: {fileID: 11400000, guid: 36b136379e18f754fac19fe2d7cdb38a, type: 2}
   m_healthIcon: {fileID: 1106067811416044, guid: 59918c2eb308f4740b6793129e41ede8,
     type: 2}
+  m_headerIcon: {fileID: 0}
   m_startingPos: {x: 150, y: 0}
   m_paddingTop: 200
 --- !u!1 &1613358020

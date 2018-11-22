@@ -5,7 +5,7 @@ using UnityEngine.Audio;
 /// <summary>
 /// Handles the audio that is going to be played
 /// </summary>
-public class AudioManager : ATXK.Helper.SingletonBehaviour<AudioManager>
+public class AudioManager : MonoBehaviour
 { 
     [Header("Mixers")]
     [SerializeField] private AudioMixer m_bgmMixer;
@@ -39,18 +39,17 @@ public class AudioManager : ATXK.Helper.SingletonBehaviour<AudioManager>
         // Load at the volume that is saved
         m_bgmMixer.SetFloat("BGM_Volume", m_bgmVolume.value);
         m_sfxMixer.SetFloat("SFX_Volume", m_sfxVolume.value);
-        DontDestroyOnLoad(this);
     }
 
     /// <summary>
-    /// Function to play Sound according to param
+    /// Play Sounds ( one time )
     /// </summary>
     public void PlaySound(string _soundName)
     {
         foreach (Sound _sound in m_soundList)
         {
             // skip if not sound name that we finding
-            if (_sound.m_name != _soundName) continue;
+            if (_sound.name != _soundName) continue;
 
             // Play Audio
             _sound.m_audioSource.PlayOneShot(_sound.m_audio);
@@ -61,15 +60,31 @@ public class AudioManager : ATXK.Helper.SingletonBehaviour<AudioManager>
         Sound temp = _soundObj as Sound;
         foreach (Sound _sound in m_soundList)
         {
+            // skip if not sound name that we finding
+            if (_sound.name != temp.name) continue;
+
+            // Play Audio
+            _sound.m_audioSource.PlayOneShot(_sound.m_audio);
+        }
+    }
+
+    /// <summary>
+    /// Play Music ( Looping )
+    /// </summary>
+    public void PlayBGM(Object _soundObj)
+    {
+        Sound temp = _soundObj as Sound;
+        foreach (Sound _sound in m_soundList)
+        {
             // if there is already another sound being played, stop that sound
             if (_sound.m_bIsBGM && temp.m_bIsBGM)
                 _sound.m_audioSource.Stop();
 
             // skip if not sound name that we finding
-            if (_sound.m_name != temp.m_name) continue;
+            if (_sound.name != temp.name) continue;
 
             // Play Audio
-            _sound.m_audioSource.PlayOneShot(_sound.m_audio);
+            _sound.m_audioSource.Play();
         }
     }
 }

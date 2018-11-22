@@ -4,6 +4,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// AI Health Bar
+/// </summary>
 public class AI_HealthBar : MonoBehaviour
 {
     /// <summary>

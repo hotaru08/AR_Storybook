@@ -41,10 +41,12 @@
         [SerializeField] RuntimeAnimatorController[] AnimatorsToPlay;
 
         [Header("Sounds")]
-        [SerializeField] Sound bgm;
+        [SerializeField] AudioAsset sfxSounds;
+        [SerializeField] Sound bgmSound;
 
         [Header("Event Settings")]
 		[SerializeField] ES_Event_String setAnimTime;
+        [SerializeField] ES_Event_Object setSFX;
         [SerializeField] ES_Event_Object setBGM;
         [SerializeField] ES_Event_Object[] SetAnimatorsToPlay;
         [SerializeField] NodeEvent[] nodeEvents;
@@ -100,9 +102,13 @@
 			}
 
             // Send off any Sound events
-            if (setBGM != null && bgm != null)
+            if (sfxSounds != null && setSFX != null)
             {
-                setBGM.RaiseEvent(bgm);
+                setSFX.RaiseEvent(sfxSounds);
+            }
+            if (bgmSound != null && setBGM != null)
+            {
+                setBGM.RaiseEvent(bgmSound);
             }
 
             // Send off any animator events

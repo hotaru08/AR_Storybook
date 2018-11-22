@@ -5,7 +5,6 @@ using UnityEngine;
 
 /// <summary>
 /// Script to change attack animation of germ
-/// *** THIS IS VERY HARDCODED 
 /// </summary>
 public class Germ_AttackAnimation : MonoBehaviour
 {

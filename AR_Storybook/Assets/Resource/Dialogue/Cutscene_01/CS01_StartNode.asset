@@ -11,9 +11,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 345e88b0eaabfe94b951cf9e532aa618, type: 3}
   m_Name: CS01_StartNode
   m_EditorClassIdentifier: 
-  charAvatar: {fileID: 21300000, guid: 787a4469311b44643b991be3fe78a9b5, type: 3}
-  charName: '...'
-  sentence: Starting Node
+  charAvatar: {fileID: 0}
+  charName: 
+  sentence: 
   nextNodes:
   - {fileID: 11400000, guid: c06300f621ba4c8478e6d1c4bb8e3ee1, type: 2}
   animStartTime: 0
@@ -21,8 +21,10 @@ MonoBehaviour:
   animEndTime: 0
   endTimeNull: 0
   AnimatorsToPlay: []
-  bgm: {fileID: 0}
+  sfxSounds: {fileID: 0}
+  bgmSound: {fileID: 0}
   setAnimTime: {fileID: 0}
+  setSFX: {fileID: 0}
   setBGM: {fileID: 0}
   SetAnimatorsToPlay: []
   nodeEvents: []
