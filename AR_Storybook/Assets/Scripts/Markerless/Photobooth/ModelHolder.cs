@@ -14,7 +14,6 @@ public class ModelHolder : MonoBehaviour
 	private void Start()
 	{
 		currIndex = 0;
-		changedModel.RaiseEvent(models[currIndex]);
 	}
 
 	/// <summary>
