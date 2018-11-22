@@ -19,6 +19,6 @@ public class AI_Action_Attack : AI_Action
 
         // Send Sound event to play
         if (m_sound != null)
-        m_triggerSoundEvent.RaiseEvent(m_sound);
+            m_triggerSoundEvent.RaiseEvent(m_sound);
     }
 }

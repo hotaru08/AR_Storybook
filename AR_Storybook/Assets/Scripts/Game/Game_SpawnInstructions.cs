@@ -47,20 +47,6 @@ public class Game_SpawnInstructions : MonoBehaviour
             m_start.RaiseEvent(true);
             gameObject.SetActive(false);
         }
-        
-        //if (!m_SpawnOnce.value)
-        //{
-        //    Debug.LogWarning("Entered which Spawn once is false");
-        //    m_instructionIndex.RaiseEvent(0);
-        //    m_SpawnOnce.value = true;
-        //    m_start.RaiseEvent(false);
-        //}
-        //else if (m_SpawnOnce.value)
-        //{
-        //    Debug.LogWarning("Entered which Spawn once is true");
-        //    m_start.RaiseEvent(true); 
-        //    gameObject.SetActive(false);
-        //}
     }
 
     /// <summary>

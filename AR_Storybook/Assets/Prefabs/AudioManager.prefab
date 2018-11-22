@@ -22,6 +22,8 @@ GameObject:
   - component: {fileID: 114626642246712872}
   - component: {fileID: 114473153792951760}
   - component: {fileID: 114685050390681660}
+  - component: {fileID: 114321300906618368}
+  - component: {fileID: 114884175746712618}
   m_Layer: 5
   m_Name: AudioManager
   m_TagString: Untagged
@@ -42,6 +44,79 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &114321300906618368
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1315005761826836}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 54524ec982c618241a699f3049012464, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  listeningToEvent: {fileID: 11400000, guid: 107fbc69f89406c4682c3e85d935d487, type: 2}
+  defaultResponse:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  boolResponse:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: ATXK.EventSystem.BoolEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  intResponse:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: ATXK.EventSystem.IntEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  floatResponse:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: ATXK.EventSystem.FloatEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  stringResponse:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: ATXK.EventSystem.StringEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  objectResponse:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 114626642246712872}
+        m_MethodName: PlayBGM
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_TypeName: ATXK.EventSystem.ObjectEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  vector2Response:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: ATXK.EventSystem.Vector2Event, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  vector3Response:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: ATXK.EventSystem.Vector3Event, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  vector4Response:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: ATXK.EventSystem.Vector4Event, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  quaternionResponse:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: ATXK.EventSystem.QuaternionEvent, Assembly-CSharp, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
 --- !u!114 &114473153792951760
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -53,7 +128,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 54524ec982c618241a699f3049012464, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  listeningToEvent: {fileID: 11400000, guid: 1dcb736bb7bfef3439efc966b7a96b4e, type: 2}
+  listeningToEvent: {fileID: 11400000, guid: 4ed287d7353475340824ab735d8caa58, type: 2}
   defaultResponse:
     m_PersistentCalls:
       m_Calls: []
@@ -131,7 +206,6 @@ MonoBehaviour:
   m_bgmVolume: {fileID: 11400000, guid: 629345e6fffb9404caef32cc7f75f695, type: 2}
   m_sfxVolume: {fileID: 11400000, guid: d6840dbac9107b14eb34ff1f3e9f7f20, type: 2}
   m_soundList:
-  - {fileID: 11400000, guid: 08f426b336457a94e846f8389c997fc0, type: 2}
   - {fileID: 11400000, guid: 7472579d145c55e4aa58aaf8e12b2d9e, type: 2}
   - {fileID: 11400000, guid: 111f4b80ea96ca946bc6fcc5e41dd8ee, type: 2}
   - {fileID: 11400000, guid: a840f27af3b11684697c9b6da11c8f29, type: 2}
@@ -139,14 +213,16 @@ MonoBehaviour:
   - {fileID: 11400000, guid: ad2e94ff51dc7e148b4b4d5b705f16a8, type: 2}
   - {fileID: 11400000, guid: 4ffefe7b174bdea47b7a5f2d6e442127, type: 2}
   - {fileID: 11400000, guid: 2d118ae6c2232574e88fceccb62024f7, type: 2}
-  - {fileID: 11400000, guid: 966493965adc51e4a9324c2452b30cbc, type: 2}
+  - {fileID: 11400000, guid: 452919c006040d2459bdf65f35c0b06e, type: 2}
   - {fileID: 11400000, guid: 1e80454ffcfe8724cb7310b3334fdc91, type: 2}
   - {fileID: 11400000, guid: c0b590e3551201345bb428bb1b3baa29, type: 2}
-  - {fileID: 11400000, guid: 452919c006040d2459bdf65f35c0b06e, type: 2}
+  - {fileID: 11400000, guid: 966493965adc51e4a9324c2452b30cbc, type: 2}
   - {fileID: 11400000, guid: 5870afc58b2f38b40ac3e6df1e3bbdff, type: 2}
-  - {fileID: 11400000, guid: 589e3f4a23f0773489a7455f62bf4e35, type: 2}
   - {fileID: 11400000, guid: b8a4f317026eebd47ad56118b6f5a9d0, type: 2}
-  - {fileID: 11400000, guid: 29e9434661878b742a4fb437748c5202, type: 2}
+  - {fileID: 11400000, guid: 589e3f4a23f0773489a7455f62bf4e35, type: 2}
+  - {fileID: 11400000, guid: 630c0dc98b6b46848a3ad07988abf328, type: 2}
+  - {fileID: 11400000, guid: 0efc5f7b208c03547acfd983659de203, type: 2}
+  - {fileID: 11400000, guid: 910e16057b45b034d8dc126cd3bbe87e, type: 2}
 --- !u!114 &114685050390681660
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -158,7 +234,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 54524ec982c618241a699f3049012464, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  listeningToEvent: {fileID: 11400000, guid: d3060eed8a5418840a333aff45af65cd, type: 2}
+  listeningToEvent: {fileID: 11400000, guid: 48c068355c9985f4d9ef9ed9c8d809b8, type: 2}
   defaultResponse:
     m_PersistentCalls:
       m_Calls: []
@@ -198,6 +274,79 @@ MonoBehaviour:
   objectResponse:
     m_PersistentCalls:
       m_Calls: []
+    m_TypeName: ATXK.EventSystem.ObjectEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  vector2Response:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: ATXK.EventSystem.Vector2Event, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  vector3Response:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: ATXK.EventSystem.Vector3Event, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  vector4Response:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: ATXK.EventSystem.Vector4Event, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  quaternionResponse:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: ATXK.EventSystem.QuaternionEvent, Assembly-CSharp, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+--- !u!114 &114884175746712618
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1315005761826836}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 54524ec982c618241a699f3049012464, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  listeningToEvent: {fileID: 11400000, guid: e84e6a27592732a4eb564dec898671ae, type: 2}
+  defaultResponse:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  boolResponse:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: ATXK.EventSystem.BoolEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  intResponse:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: ATXK.EventSystem.IntEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  floatResponse:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: ATXK.EventSystem.FloatEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  stringResponse:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: ATXK.EventSystem.StringEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  objectResponse:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 114626642246712872}
+        m_MethodName: PlaySound
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: ATXK.EventSystem.ObjectEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
   vector2Response:

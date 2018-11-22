@@ -2,13 +2,12 @@
 using UnityEngine;
 using UnityEngine.Audio;
 
-/* The custom object class for Sounds */
-[CreateAssetMenu(menuName = "Audio/Sounds", order = 2)]
+/// <summary>
+/// Class for General Sounds ScriptableObject
+/// </summary>
+[CreateAssetMenu(menuName = "Audio/Sounds")]
 public class Sound : ScriptableObject
 {
-    // name of sound
-    public string m_name;
-
     // audio clip to play for this sound
     public AudioClip m_audio;
 
@@ -20,7 +19,7 @@ public class Sound : ScriptableObject
     public float m_volume;
 
     // pitch of the sound
-    [Range(0.1f, 3.0f)]
+    [Range(-3f, 3f)]
     public float m_pitch;
 
     // the audio source of the object

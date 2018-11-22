@@ -39,6 +39,7 @@ GameObject:
   - component: {fileID: 114492971107804894}
   - component: {fileID: 225237187189899818}
   - component: {fileID: 114443143236224984}
+  - component: {fileID: 114728145185997686}
   m_Layer: 5
   m_Name: Screen (Win)
   m_TagString: Untagged
@@ -1115,8 +1116,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1534448474406852}
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.05, y: -0.15, z: 0.23}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_LocalPosition: {x: 0, y: -0.15, z: 0}
+  m_LocalScale: {x: 0.65, y: 0.65, z: 0.65}
   m_Children:
   - {fileID: 4472198158981470}
   - {fileID: 4799012176663058}
@@ -3355,7 +3356,7 @@ MonoBehaviour:
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 1
-    m_MaxSize: 150
+    m_MaxSize: 175
     m_Alignment: 4
     m_AlignByGeometry: 0
     m_RichText: 1
@@ -3410,7 +3411,7 @@ MonoBehaviour:
   m_buttonList:
   - {fileID: 114588986031304262}
   - {fileID: 114111444129813116}
-  m_soundEvent: {fileID: 11400000, guid: 1dcb736bb7bfef3439efc966b7a96b4e, type: 2}
+  m_soundEvent: {fileID: 11400000, guid: 4ed287d7353475340824ab735d8caa58, type: 2}
   m_sound: {fileID: 11400000, guid: 966493965adc51e4a9324c2452b30cbc, type: 2}
 --- !u!114 &114651049701159194
 MonoBehaviour:
@@ -3462,6 +3463,22 @@ MonoBehaviour:
   transitionStyle: 1
   transitionTexture: {fileID: 2800000, guid: f129d62c432492a4ab06ead3a2ba1e13, type: 3}
   startOnAwake: 0
+--- !u!114 &114728145185997686
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1037549308096650}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8cd799c7f49cd53458c748025ba71406, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_messages:
+  - Test 1
+  - Test 2
+  - Test 3
+  m_textToShowOn: {fileID: 114192141768306278}
 --- !u!114 &114731463193323790
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3484,7 +3501,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 88798921773751e4d99a3194ebf77c9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  autoEvent: {fileID: 11400000, guid: 1dcb736bb7bfef3439efc966b7a96b4e, type: 2}
+  autoEvent: {fileID: 11400000, guid: 107fbc69f89406c4682c3e85d935d487, type: 2}
   autoEventValue: {fileID: 11400000, guid: ad2e94ff51dc7e148b4b4d5b705f16a8, type: 2}
 --- !u!114 &114815835752064390
 MonoBehaviour:
@@ -4228,7 +4245,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 0, y: 400}
+  m_AnchoredPosition: {x: 0, y: 300}
   m_SizeDelta: {x: 714, y: 343}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224644994612083648
@@ -4362,7 +4379,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 950, y: 1200}
+  m_SizeDelta: {x: 965, y: 1257}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224847372884106682
 RectTransform:
