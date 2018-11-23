@@ -79,6 +79,7 @@ public class PlayerManager : MonoBehaviour
     [SerializeField] private ES_Event_Abstract m_spawnLoseScreen;
     [SerializeField] private ES_Event_Int m_nextInstruction;
     [SerializeField] private ES_Event_String m_PlayerSoundEvent;
+    [SerializeField] private ES_Event_String m_PlayerGoodEvent;
     [SerializeField] private ES_Event_Default m_PlayerDiedEvent;
     public ES_Event_Float m_timeScaleEvent;
 
@@ -337,5 +338,15 @@ public class PlayerManager : MonoBehaviour
 
             m_PlayerSoundEvent.RaiseEvent("AyeDamaged");
         }
+    }
+
+    /// <summary>
+    /// Trigger events when object collides with Player
+    /// </summary>
+    /// <param name="other">The collided object</param>
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.tag.Equals("GoodProjectiles"))
+            m_PlayerGoodEvent.RaiseEvent("AyeGood");
     }
 }

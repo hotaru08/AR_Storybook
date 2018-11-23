@@ -141,10 +141,11 @@ public class TimelineManager : MonoBehaviour
         }
 
         // If timeline reached the end, raise event to spawn end overlay
-        if (m_currDirector.time >= m_currDirector.playableAsset.duration)
+        if (m_currDirector.time >= m_currDirector.duration - 0.05f)
         {
-            m_SpawnEndOverlayEvent.RaiseEvent();
-            Debug.Log("Entered here");
+            Debug.Log("Entered here " + m_currDirector.duration);
+            if (m_SpawnEndOverlayEvent != null)
+                m_SpawnEndOverlayEvent.RaiseEvent();
         }
     }
 }
