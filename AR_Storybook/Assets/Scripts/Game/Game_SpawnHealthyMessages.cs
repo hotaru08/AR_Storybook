@@ -25,7 +25,6 @@ public class Game_SpawnHealthyMessages : MonoBehaviour
     {
         if (m_textToShowOn == null) return;
         
-        m_textToShowOn.text = m_messages[Random.Range(0, m_messages.Length - 1)];
-        Debug.Log(m_textToShowOn.text);
+        m_textToShowOn.text = m_messages[Random.Range(0, m_messages.Length)];
     }
 }
